@@ -8,11 +8,7 @@ import lombok.Data;
 @Data
 public class AreaServicioDto {
     @NotNull
-    @Size(min = 4, max = 10)
-    private String codigo;
-
-    @NotNull
-    @Size(min = 6, max = 100)
+    @Size(min = 5, max = 50)
     private String nombre;
 
 }

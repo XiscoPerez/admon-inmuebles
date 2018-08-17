@@ -18,8 +18,8 @@ public class ZonaServiceImpl implements ZonaService {
     private ModelMapper modelMapper;
 
     @Override
-    public Zona save(final ZonaDto userDto) {
-        return zonaRepository.save(modelMapper.map(userDto, Zona.class));
+    public Zona save(final ZonaDto zonaDto) {
+        return zonaRepository.save(modelMapper.map(zonaDto, Zona.class));
     }
 
 }

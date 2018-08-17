@@ -10,14 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.service.UsuarioService;
 
 @Controller
-public class SignUpController {
+public class UsuarioController {
 
     @Autowired
     private MessageSource messages;
@@ -25,13 +25,13 @@ public class SignUpController {
     @Autowired
     private UsuarioService userService;
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
+    @GetMapping(value = "/crearUsuario")
     public String showForm(final UsuarioDto userDto) {
-        return "signUp";
+        return "crearUsuario";
     }
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public String signUp(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    @PostMapping(value = "/crearUsuario")
+    public String crearUsuario(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
         FieldError error;
 
         if (!usuarioDto.getPassword().equals(usuarioDto.getConfirmPassword())) {
@@ -44,10 +44,10 @@ public class SignUpController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "signUp";
+            return "crearUsuario";
         }
 
-        model.addAttribute("message", messages.getMessage("message.success.signUp", null, locale));
+        model.addAttribute("message", messages.getMessage("message.success.crearUsuario", null, locale));
         return "redirect:/login";
     }
 
