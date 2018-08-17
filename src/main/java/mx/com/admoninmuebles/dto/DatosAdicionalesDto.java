@@ -8,10 +8,6 @@ import lombok.Data;
 @Data
 public class DatosAdicionalesDto {
     @NotNull
-    @Size(min = 4, max = 10)
-    private String codigo;
-
-    @NotNull
     @Size(min = 6, max = 100)
     private String nombre;
 

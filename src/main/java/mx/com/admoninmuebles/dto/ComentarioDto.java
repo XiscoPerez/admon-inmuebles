@@ -7,9 +7,6 @@ import lombok.Data;
 
 @Data
 public class ComentarioDto {
-    @NotNull
-    @Size(min = 4, max = 10)
-    private String codigo;
 
     @NotNull
     @Size(min = 6, max = 100)

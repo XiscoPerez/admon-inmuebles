@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import mx.com.admoninmuebles.dto.ZonaDto;
 import mx.com.admoninmuebles.service.ZonaService;
@@ -20,13 +20,13 @@ public class ZonaController {
     @Autowired
     private ZonaService zonaService;
 
-    @RequestMapping(value = "/crearZona", method = RequestMethod.GET)
+    @GetMapping(value = "/crearZona")
     public String showForm(final ZonaDto zonaDto) {
         return "crearZona";
     }
 
-    @RequestMapping(value = "/crearZona", method = RequestMethod.POST)
-    public String signUp(final Locale locale, final Model model, @Valid final ZonaDto zonaDto, final BindingResult bindingResult) {
+    @PostMapping(value = "/crearZona")
+    public String crearZona(final Locale locale, final Model model, @Valid final ZonaDto zonaDto, final BindingResult bindingResult) {
         zonaService.save(zonaDto);
         return "redirect:/crearZona";
     }
