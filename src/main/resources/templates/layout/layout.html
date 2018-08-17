@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE" th:text="#{brand.title}">brand</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}" />
+<!-- Font Icons -->
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}" />
+<!-- Bootsnav -->
+<link rel="stylesheet" th:href="@{/css/bootsnav.css}" />
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	$(document).ready(function() {
+	});
+	/*]]>*/
+</script>
+</head>
+<body>
+  <!--/* Standard layout can be mixed with Layout Dialect */-->
+  <div th:replace="fragments/header :: header"></div>
+  <div layout:fragment="content"></div>
+  <footer class="footer">
+    <div class="container">
+      <div class="col-xs-12">
+        <p class="text-footer">&copy; 2016 Xisco, LLC</p>
+      </div>
+    </div>
+  </footer>
+  <!-- JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script th:src="@{/js/control-state.js}"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <!-- Bootsnavs -->
+  <script th:src="@{/js/bootsnav.js}"></script>
+</body>
+</html>
