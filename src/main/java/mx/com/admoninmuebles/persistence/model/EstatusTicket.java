@@ -22,27 +22,12 @@ public class EstatusTicket extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_estatus_ticket")
-    private Long id;
+    private Long idEstatusTicket;
 
     @NotNull
     @Size(min = 1, max = 50)
     @Column(length = 50, unique = true, nullable = false)
     private String nombre;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(final String nombre) {
-        this.nombre = nombre;
-    }
 
 }

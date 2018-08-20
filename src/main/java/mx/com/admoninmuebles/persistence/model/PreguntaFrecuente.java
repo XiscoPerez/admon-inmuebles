@@ -23,7 +23,7 @@ public class PreguntaFrecuente extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pregunta_frecuente")
-    private Long id;
+    private Long idPreguntaFrecuente;
 
     @NotNull
     @Size(min = 1, max = 500)

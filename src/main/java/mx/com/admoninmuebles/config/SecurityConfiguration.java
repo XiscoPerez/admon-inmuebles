@@ -45,9 +45,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().and()
             .authorizeRequests().antMatchers("/webjars/**").permitAll().and()
+            .authorizeRequests().antMatchers("/assets/**").permitAll().and()
             .authorizeRequests()
-                .antMatchers("/login*","/signUp*","/index*").permitAll()
+            .antMatchers("/login*","/signUp*","/index*", "/contacto*", "/servicios*").permitAll()
                 .antMatchers("/invalidSession*").anonymous()
+                .antMatchers("/catalogos/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

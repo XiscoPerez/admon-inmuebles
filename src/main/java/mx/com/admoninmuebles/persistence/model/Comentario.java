@@ -25,7 +25,7 @@ public class Comentario extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comentario")
-    private Long id;
+    private Long idComentario;
 
     @NotNull
     @Size(min = 1, max = 2000)
@@ -36,12 +36,12 @@ public class Comentario extends EntidadBase {
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    public Long getId() {
-        return id;
+    public Long getIdComentario() {
+        return idComentario;
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public void setIdComentario(final Long idComentario) {
+        this.idComentario = idComentario;
     }
 
     public String getComentario() {

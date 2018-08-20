@@ -25,7 +25,7 @@ public class Sucursal extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sucursal")
-    private Long id;
+    private Long idSucursal;
 
     @NotNull
     @Size(min = 1, max = 100)

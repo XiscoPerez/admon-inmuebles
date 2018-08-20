@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.persistence.model;
 
 import java.time.Instant;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class Notificacion extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_notificacion")
-    private Long id;
+    private Long idNotificacion;
 
     @NotNull
     @Size(min = 1, max = 100)
@@ -42,11 +43,11 @@ public class Notificacion extends EntidadBase {
 
     @NotNull
     @Column(nullable = false)
-    private Instant fechaExposicionInicial;
+    private Date fechaExposicionInicial;
 
     @NotNull
     @Column(nullable = false)
-    private Instant fechaExposicionFinal;
+    private Date fechaExposicionFinal;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_bien_inmueble", referencedColumnName = "id_bien_inmueble", nullable = false)

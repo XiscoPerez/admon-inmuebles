@@ -27,7 +27,7 @@ public class Telefono extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_telefono")
-    private Long id;
+    private Long idTelefono;
 
     @NotNull
     @Size(min = 1, max = 50)

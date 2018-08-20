@@ -23,7 +23,7 @@ public class Servicio extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_servicio")
-    private Long id;
+    private Long idServicio;
 
     @NotNull
     @Size(min = 1, max = 100)
