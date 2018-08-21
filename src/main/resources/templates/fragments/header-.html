@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top bootsnav" th:fragment="header">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+					<i class="fa fa-bars"></i>
+				</button>
+				<a class="navbar-brand" th:href="@{/}" th:text="#{titulo.aplicacion}"></a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-menu">
+				<ul class="nav navbar-nav" data-in="" data-out="">
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" th:text="#{titulo.menu}"></a>
+						<ul class="dropdown-menu">
+							<li><a th:href="@{/crearZona}" th:text="#{titulo.crearzona}"></a></li>
+							<li><a th:href="@{/crearAreaServicio}" th:text="#{titulo.crearareaservicio}"></a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" data-in="" data-out="">
+					<th:block th:switch="__${#locale}__">
+						<li><a th:case="es_ES" th:href="@{?lang=en}" th:text="#{idioma.ingles}"></a><a th:case="en" th:href="@{?lang=es_ES}" th:text="#{idioma.español}"></a></li>
+					</th:block>
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/signUp}"><span class="glyphicon glyphicon-user"></span> <span th:text="#{etiqueta.registrarse}"></span></a></li>
+					<li class="dropdown" sec:authorize="isAuthenticated()"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><th:block sec:authentication="name"></th:block></a>
+						<ul class="dropdown-menu">
+							<li><a th:href="@{/logout}" th:text="#{etiqueta.cerrarsesion}"></a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</body>
+</html>

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import mx.com.admoninmuebles.persistence.model.TipoTicket;
 
 @Repository
-public interface TipoTicketRepository extends CrudRepository<TipoTicket, String> {
+public interface TipoTicketRepository extends CrudRepository<TipoTicket, Long> {
 
 }

@@ -22,7 +22,7 @@ public class MensajeContacto extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mensaje_contacto")
-    private Long id;
+    private Long idMensajeContacto;
 
     @NotNull
     @Size(min = 1, max = 100)

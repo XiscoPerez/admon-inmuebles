@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import mx.com.admoninmuebles.persistence.model.Sucursal;
 
 @Repository
-public interface SucursalRepository extends CrudRepository<Sucursal, String> {
+public interface SucursalRepository extends CrudRepository<Sucursal, Long> {
 
 }

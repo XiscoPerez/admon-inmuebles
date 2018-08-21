@@ -22,7 +22,7 @@ public class AvisoOportuno extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aviso_oportuno")
-    private Long id;
+    private Long idAvisoOportuno;
 
     @NotNull
     @Size(min = 1, max = 100)

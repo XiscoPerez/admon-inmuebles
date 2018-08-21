@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import mx.com.admoninmuebles.persistence.model.Zona;
 
 @Repository
-public interface ZonaRepository  extends CrudRepository<Zona, String>{
+public interface ZonaRepository  extends CrudRepository<Zona, Long>{
 
 }

@@ -1,5 +1,10 @@
 package mx.com.admoninmuebles.service;
 
+import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +17,33 @@ import mx.com.admoninmuebles.persistence.repository.AreaServicioRepository;
 public class AreaServicioServiceImpl implements AreaServicioService {
 
     @Autowired
-    private AreaServicioRepository AreaServicioRepository;
+    private AreaServicioRepository areaServicioRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Override
     public AreaServicio save(final AreaServicioDto userDto) {
-        return AreaServicioRepository.save(modelMapper.map(userDto, AreaServicio.class));
+        return areaServicioRepository.save(modelMapper.map(userDto, AreaServicio.class));
     }
+
+	@Override
+	public Collection<AreaServicioDto> findAll() {
+		return StreamSupport.stream(areaServicioRepository.findAll().spliterator(), false)
+		.map(areaServicio -> modelMapper.map(areaServicio, AreaServicioDto.class))
+		.collect(Collectors.toList());
+	}
+
+	@Override
+	public AreaServicioDto findAreaServicioById(Long idAreaServicio) {
+		Optional<AreaServicio> areaServicio = areaServicioRepository.findById(idAreaServicio);
+		return modelMapper.map(areaServicio.get(), AreaServicioDto.class);
+	}
+
+	@Override
+	public void deleteAreaServicio(Long idAreaServicio) {
+		areaServicioRepository.deleteById(idAreaServicio);
+		
+	}
 
 }

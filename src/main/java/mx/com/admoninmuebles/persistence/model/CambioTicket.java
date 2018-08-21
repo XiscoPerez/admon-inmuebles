@@ -30,7 +30,7 @@ public class CambioTicket extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cambio_ticket")
-    private Long id;
+    private Long idCambioTicket;
 
     @NotNull
     @Size(min = 1, max = 4000)

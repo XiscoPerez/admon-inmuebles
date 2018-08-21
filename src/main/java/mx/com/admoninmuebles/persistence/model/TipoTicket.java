@@ -22,7 +22,7 @@ public class TipoTicket extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_ticket")
-    private Long id;
+    private Long idTipoTicket;
 
     @NotNull
     @Size(min = 1, max = 50)

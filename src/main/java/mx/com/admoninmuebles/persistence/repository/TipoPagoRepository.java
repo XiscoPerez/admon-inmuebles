@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import mx.com.admoninmuebles.persistence.model.TipoPago;
 
 @Repository
-public interface TipoPagoRepository extends CrudRepository<TipoPago, String>  {
+public interface TipoPagoRepository extends CrudRepository<TipoPago, Long>  {
 
 }

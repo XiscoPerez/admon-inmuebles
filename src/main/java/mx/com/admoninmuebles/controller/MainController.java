@@ -26,5 +26,30 @@ public class MainController {
     public String login() {
         return "login";
     }
+    
+    @RequestMapping("/contacto")
+    public String contacto() {
+        return "contacto";
+    }
+    
+    @RequestMapping("/nuestros-clientes")
+    public String nuestrosClientes() {
+        return "nuestros-clientes";
+    }
+    
+    @RequestMapping("/quienes-somos")
+    public String quienesSomos() {
+        return "quienes-somos";
+    }
+    
+    @RequestMapping("/servicios")
+    public String servicios() {
+        return "servicios";
+    }
+    
+    @RequestMapping("/ventajas-competitivas")
+    public String ventajasCompetitivas() {
+        return "ventajas-competitivas";
+    }
 
 }

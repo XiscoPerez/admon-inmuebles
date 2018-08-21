@@ -26,7 +26,7 @@ public class TipoAsentamiento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_asentamiento")
-    private Long id;
+    private Long idTipoAsentamiento;
 
     @NotNull
     @Size(min = 1, max = 50)

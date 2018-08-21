@@ -25,7 +25,7 @@ public class DatosAdicionales extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_datos_adicionales")
-    private Long id;
+    private Long idDatosAdicionales;
 
     @NotNull
     @Size(min = 1, max = 200)

@@ -28,7 +28,7 @@ public class Municipio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_municipio")
-    private Long id;
+    private Long idMunicipio;
 
     @NotNull
     @Size(min = 1, max = 50)

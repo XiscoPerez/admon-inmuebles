@@ -6,9 +6,16 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class TipoPagoDto {
+public class TipoPagoDto extends BaseDto{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+    private Long idTipoPago;
+
     @NotNull
-    @Size(min = 6, max = 100)
+    @Size(min = 1, max = 50)
     private String nombre;
 
 }

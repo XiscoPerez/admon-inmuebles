@@ -33,7 +33,7 @@ public class BienInmueble extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bien_inmueble")
-    private Long id;
+    private Long idBienInmueble;
 
     @NotNull
     @Size(min = 1, max = 200)
@@ -69,12 +69,12 @@ public class BienInmueble extends EntidadBase {
     @JoinColumn(name = "id_datos_adicionales", referencedColumnName = "id_datos_adicionales")
     private DatosAdicionales datosAdicionales;
 
-    public Long getId() {
-        return id;
+    public Long getIdBienInmueble() {
+        return idBienInmueble;
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public void setIdBienInmueble(final Long idBienInmueble) {
+        this.idBienInmueble = idBienInmueble;
     }
 
     public String getNombre() {

@@ -1,0 +1,106 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- User profile -->
+        <div class="user-profile">
+            <!-- User profile image -->
+            <div class="profile-img"> <img src="../assets/images/users/1.jpg" alt="user" /> </div>
+            <!-- User profile text-->
+<!--             <div class="profile-text"> <a href="#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Markarn Doe <span class="caret"></span></a> -->
+<!--                 <div class="dropdown-menu animated flipInY"> -->
+<!--                     <a href="#" class="dropdown-item"><i class="ti-user"></i> My Profile</a> -->
+<!--                     <a href="#" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a> -->
+<!--                     <a href="#" class="dropdown-item"><i class="ti-email"></i> Inbox</a> -->
+<!--                     <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a> -->
+<!--                     <div class="dropdown-divider"></div> <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a> -->
+<!--                 </div> -->
+<!--             </div> -->
+        </div>
+        <!-- End User profile text-->
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+            	<li class="nav-small-cap">Bienes Inmuebles</li>
+                <li>
+                    <a href="/index" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">Inicio</span></a>
+                </li>
+                <li>
+                    <a  href="/quienes-somos" aria-expanded="false"><i class="mdi mdi-help-circle-outline"></i><span class="hide-menu">¿Quienes Somos?</span></a>
+                </li>
+                <li>
+                    <a  href="/ventajas-competitivas" aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Ventajas Competitivas</span></a>
+                </li>
+                <li>
+                    <a  href="/nuestros-clientes" aria-expanded="false"><i class="mdi mdi-human"></i><span class="hide-menu">Nuestros Clientes</span></a>
+                </li>
+                <li>
+                    <a  href="/servicios" aria-expanded="false"><i class="mdi mdi-grid"></i><span class="hide-menu">Servicios</span></a>
+                </li>
+                <li>
+                    <a href="/contacto" aria-expanded="false"><i class="mdi mdi-contact-mail"></i><span class="hide-menu">Contacto</span></a>
+                </li>
+               <li class="nav-devider"></li>
+                <li class="nav-small-cap">Administración</li>
+                <li>
+                    <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Tickets</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="form-basic.html">Mis Tickets</a></li>
+                        <li><a href="form-layout.html">Reportes de Tickets</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow " href="table-basic.html" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Bien Inmueble</span></a>
+                </li>
+                <li>
+                    <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Pagos</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="index.html">Notificacion De Pagos</a></li>
+                        <li><a href="index2.html">Historial Pagos</a></li>
+                        <li><a href="index2.html">Morosos</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Usuarios</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="index.html">Usuarios</a></li>
+                        <li><a href="index2.html">Bienes Inmuebles</a></li>
+                        <li><a href="index3.html">Tickets</a></li>
+                        <li><a href="index4.html">Pagos</a></li>
+                        <li><a href="index5.html">Proveedores</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Catalogos</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="/catalogos/zona">Zonas</a></li>
+                        <li><a href="/catalogos/servicios">Servicios</a></li>
+                        <li><a href="/catalogos/areas-servicio">Areas Servicios</a></li>
+                        <li><a href="/catalogos/aviso-oportuno">Aviso Oportuno</a></li>
+                        <li><a href="/catalogos/estatus-ticket">Estatus de Tickets</a></li>
+                        <li><a href="/catalogos/sucursales">Sucursales</a></li>
+                        <li><a href="/catalogos/notificacion">Notificaciones</a></li>
+                        <li><a href="/catalogos/preguntas-frecuentes">Preguntas Frecuentes</a></li>
+                        <li><a href="/catalogos/tipo-pago">Tipos de Pago</a></li>
+                        <li><a href="/catalogos/tipo-pago-bancario">Tipos Pago Bancario</a></li>
+                        <li><a href="/catalogos/tipo-ticket">Tipos de Ticket</a></li>
+                    </ul>
+                </li>
+                
+                
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+    <!-- Bottom points-->
+    <div class="sidebar-footer">
+        <a th:href="@{/logout}" class="link" data-toggle="tooltip" title="Salir"><i class="mdi mdi-power"></i></a>
+    </div>
+    <!-- End Bottom points-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
