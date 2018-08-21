@@ -1,6 +1,8 @@
 package mx.com.admoninmuebles.persistence.model;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,23 +12,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import mx.com.admoninmuebles.utils.Utils;
 
 @Entity
 @Table(name = "zonas")
 @NamedQuery(name = "Zona.findAll", query = "SELECT z FROM Zona z")
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class Zona extends EntidadBase {
-    private static final long serialVersionUID = 1L;
+public class Zona {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,5 +54,37 @@ public class Zona extends EntidadBase {
     @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = true)
     private Usuario usuario;
+
+    @ManyToOne
+    private Usuario creadoPor;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaCreacion;
+
+    @ManyToOne
+    private Usuario modificadoPor;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+
+    @PrePersist
+    public void prePersist() {
+        Optional<Usuario> optUsuario = Utils.getCurrentAuditor();
+        if (optUsuario.isPresent()) {
+            creadoPor = optUsuario.get();
+        }
+        fechaCreacion = new Date();
+
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        Optional<Usuario> optUsuario = Utils.getCurrentAuditor();
+        if (optUsuario.isPresent()) {
+            modificadoPor = optUsuario.get();
+        }
+        fechaModificacion = new Date();
+
+    }
 
 }

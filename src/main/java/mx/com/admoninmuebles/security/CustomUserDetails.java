@@ -30,8 +30,8 @@ public class CustomUserDetails implements UserDetails {
         return authorities;
     }
 
-    public Long getId() {
-        return usuario.getId();
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     @Override
