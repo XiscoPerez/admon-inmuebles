@@ -37,9 +37,9 @@
 							<a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-file"></i> <span class="hide-menu" th:text="#{menu.tickets}">Tickets</span></a>
 							<ul aria-expanded="false" class="collapse">
 								<li>
-									<a href="form-basic.html" th:text="#{menu.mistickets}">Mis Tickets</a>
+									<a sec:authorize="hasAuthority('ACTUALIZAR_TICKET')" href="form-basic.html" th:text="#{menu.mistickets}">Mis Tickets</a>
 								</li>
-								<li>
+								<li >
 									<a href="form-layout.html" th:text="#{menu.tickets}">Reportes de Tickets</a>
 								</li>
 							</ul>
