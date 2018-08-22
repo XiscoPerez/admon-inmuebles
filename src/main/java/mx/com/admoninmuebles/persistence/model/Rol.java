@@ -13,9 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -46,8 +43,10 @@ public class Rol extends EntidadBase {
     private Collection<Usuario> usuarios;
 
     @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name = "roles_privilegios", joinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id_rol"), inverseJoinColumns = @JoinColumn(name = "id_privilegio", referencedColumnName = "id_privilegio"))
+    @JoinTable(
+            name = "roles_privilegios",
+            joinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id_rol"),
+            inverseJoinColumns = @JoinColumn(name = "id_privilegio", referencedColumnName = "id_privilegio"))
     private Collection<Privilegio> privilegios;
 
 }

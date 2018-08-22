@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import mx.com.admoninmuebles.dto.AvisoOportunoDto;
-import mx.com.admoninmuebles.dto.EstatusTicketDto;
 import mx.com.admoninmuebles.service.AvisoOportunoService;
 
 @Controller

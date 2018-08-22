@@ -17,9 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -66,7 +63,6 @@ public class Usuario extends EntidadBase {
     private String contrasenia;
 
     @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
             name = "usuarios_roles",
             joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario"),

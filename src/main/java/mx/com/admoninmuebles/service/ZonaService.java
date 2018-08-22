@@ -2,7 +2,6 @@ package mx.com.admoninmuebles.service;
 
 import java.util.Collection;
 
-import mx.com.admoninmuebles.dto.EstatusTicketDto;
 import mx.com.admoninmuebles.dto.ZonaDto;
 import mx.com.admoninmuebles.persistence.model.Zona;
 

@@ -5,18 +5,12 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 import lombok.Data;
 
 @Data
-public class NotificacionDto extends BaseDto{
+public class NotificacionDto {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	private Long idNotificacion;
+    private Long idNotificacion;
 
     @NotNull
     @Size(min = 1, max = 100)

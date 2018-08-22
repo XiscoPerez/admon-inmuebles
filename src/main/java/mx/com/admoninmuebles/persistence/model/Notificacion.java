@@ -1,6 +1,5 @@
 package mx.com.admoninmuebles.persistence.model;
 
-import java.time.Instant;
 import java.util.Date;
 
 import javax.persistence.Column;
