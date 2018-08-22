@@ -6,10 +6,8 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class TipoTicketDto extends BaseDto{
-	
-	private static final long serialVersionUID = 1L;
-	
+public class TipoTicketDto {
+
     private Long idTipoTicket;
 
     @NotNull

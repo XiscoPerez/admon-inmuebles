@@ -31,7 +31,7 @@ public class Zona extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_zona")
-    private Long idZona;
+    private Long id;
 
     @NotNull
     @Size(min = 4, max = 100)

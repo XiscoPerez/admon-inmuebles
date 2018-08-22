@@ -6,11 +6,9 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ServicioDto extends BaseDto{
+public class ServicioDto {
 
-	private static final long serialVersionUID = 1L;
-
-	private Long idServicio;
+    private Long idServicio;
 
     @NotNull
     @Size(min = 1, max = 100)

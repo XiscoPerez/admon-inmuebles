@@ -68,7 +68,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
-                .permitAll();
+                .permitAll()
+            .and()
+            .rememberMe().key("uniqueAndSecret");
     // @formatter:on
     }
 

@@ -6,12 +6,10 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class EstatusTicketDto  extends BaseDto{
-	
-	private static final long serialVersionUID = 1L;
+public class EstatusTicketDto {
 
-	private Long idEstatusTicket;
-	
+    private Long idEstatusTicket;
+
     @NotNull
     @Size(min = 6, max = 100)
     private String nombre;

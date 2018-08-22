@@ -6,12 +6,10 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ZonaDto extends BaseDto{
-	
-	private static final long serialVersionUID = 1369319540497747789L;
+public class ZonaDto {
 
-	private Long idZona;
-	
+    private Long idZona;
+
     @NotNull
     @Size(min = 4, max = 10)
     private String codigo;
