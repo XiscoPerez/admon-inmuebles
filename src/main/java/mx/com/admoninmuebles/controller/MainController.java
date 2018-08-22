@@ -9,7 +9,7 @@ public class MainController {
 
     @RequestMapping("/")
     public String root() {
-        return "redirect:/index";
+        return "redirect:/inicio";
     }
 
     @RequestMapping("/index")
@@ -51,5 +51,11 @@ public class MainController {
     public String ventajasCompetitivas() {
         return "ventajas-competitivas";
     }
+    
+    @RequestMapping("/inicio")
+    public String inicio() {
+        return "inicio";
+    }
+
 
 }
