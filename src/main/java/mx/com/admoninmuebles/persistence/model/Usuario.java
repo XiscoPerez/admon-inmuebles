@@ -41,7 +41,7 @@ public class Usuario extends EntidadBase {
 
     private String nombre;
 
-    private String apellidoPatarno;
+    private String apellidoPaterno;
 
     private String apellidoMaterno;
 
