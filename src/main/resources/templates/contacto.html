@@ -11,17 +11,90 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="row">
+	
+	
+          <div class="row">
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-						<div>
-							<span>Contacto</span>
+						
+						<div class="text-center m-t-40">
+                                <h2 class="title text-megna">Contactanos</h2>
+                                <h6 class="subtitle text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpa</h6>
+                         </div>
+						<div class="row m-t-40 d-flex justify-content-center">
+                          	<div class="col-md-4" >
+                                      <img class="img-responsive" src="../assets/images/gallery/landscape11.jpg" alt="First slide">
+							</div>
+                               <div class="col-md-4">
+                                   <form>
+                                       <div class="form-group">
+                                           <input type="text" class="form-control" id="exampleInputname1" placeholder="Nombre"> </div>
+                                       <div class="form-group">
+                                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Correo Electrónico"> </div>
+                                       <div class="form-group">
+                                           <input type="text" class="form-control" id="exampleInputPhone" placeholder="Telefono"> </div>
+                                       <div class="form-group">
+                                           <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Dejanos tu mensaje"></textarea>
+                                       </div>
+                                       <button type="submit" class="btn btn-info">Enviar</button>
+                                   </form>
+                               
+                                </div>
+							</div>
+							
+							<div class="row  d-flex justify-content-center  m-t-40">
+                                 <div class="col-lg-4 col-md-4 text-center">
+                                         <div class="m-b-20 align-self-center">
+                                             <img src="../assets/images/icon/assets.png">
+                                         </div>
+                                         <div class="">
+                                             <h6 class="font-medium">Dirección</h6>
+                                             <p class="">601 Sherwood Ave.
+                                             <br> San Bernandino</p>
+                                         </div>
+                                 </div>
+                                 <div class="col-lg-4 col-md-4 text-center">
+                                         <div class="m-b-20 align-self-center">
+                                             <img src="../assets/images/icon/staff.png">
+                                         </div>
+                                         <div class="">
+                                             <h6 class="font-medium">Telefono</h6>
+                                             <p class="">251 546 9442
+                                             <br> 630 446 8851</p>
+                                         </div>
+                                 </div>
+                                 <div class="col-lg-4 col-md-4 text-center">
+                                         <div class="m-b-20 align-self-center">
+                                             <img src="../assets/images/icon/expense.png">
+                                         </div>
+                                         <div class="">
+                                             <h6 class="font-medium">Correo Electrónico</h6>
+                                             <p class="">info@gmail.com
+                                             <br> 123@gmail.com</p>
+                                         </div>
+                                 </div>
+                             </div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		
+		
+				<div class="container-fluid"> 
+  				 <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Nuestra Dirección</h4>
+                                <div id="overlayermap" class="gmaps"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+		
+		
 	</div>
 </body>
 </html>
