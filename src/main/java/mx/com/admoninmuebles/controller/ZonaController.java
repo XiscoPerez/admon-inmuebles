@@ -21,45 +21,41 @@ public class ZonaController {
     @Autowired
     private ZonaService zonaService;
 
-    @GetMapping(value = "/crearZona")
-    public String showForm(final ZonaDto zonaDto) {
-        return "crearZona";
+    @GetMapping(value = "/catalogos/zona")
+    public String init(final ZonaDto zonaDto, final Model model) {
+        model.addAttribute("zonas", zonaService.findAll());
+        return "catalogos/zona";
     }
 
-    @PostMapping(value = "/crearZona")
-    public String crearZona(final Locale locale, final Model model, @Valid final ZonaDto zonaDto, final BindingResult bindingResult) {
-        zonaService.save(zonaDto);
-        return "redirect:/crearZona";
+    @GetMapping(value = "/catalogos/crear-zona")
+    public String crearZona(final ZonaDto zonaDto, final Model model) {
+        return "catalogos/crear-zona";
     }
-    
-    @GetMapping(value = "/catalogos/zona")
-    public String init(final ZonaDto zonaDto, Model model) {
-    	
-    	model.addAttribute("zonas", zonaService.findAll());
-    	return "catalogos/zona";
-    }
-    
+
     @PostMapping(value = "/catalogos/zona")
     public String guardarZona(final Locale locale, final Model model, @Valid final ZonaDto zonaDto, final BindingResult bindingResult) {
-    	zonaService.save(zonaDto);
+        if (bindingResult.hasErrors()) {
+            return "/catalogos/crear-zona";
+        }
+        zonaService.save(zonaDto);
         return "redirect:/catalogos/zona";
     }
-    
+
     @GetMapping(value = "/catalogos/zona-editar/{idZona}")
-    public String buscarZonaPorId(final @PathVariable long idZona, Model model) {
-    	model.addAttribute("zonaDto", zonaService.findById(idZona));
+    public String buscarZonaPorId(final @PathVariable long idZona, final Model model) {
+        model.addAttribute("zonaDto", zonaService.findById(idZona));
         return "catalogos/zona-edicion";
     }
-    
+
     @PostMapping(value = "/catalogos/zona-editar")
     public String editarZona(final Locale locale, final Model model, @Valid final ZonaDto zonaDto, final BindingResult bindingResult) {
-    	zonaService.save(zonaDto);
+        zonaService.save(zonaDto);
         return "redirect:/catalogos/zona";
     }
-    
+
     @GetMapping(value = "/catalogos/zona-eliminar/{idZona}")
     public String eliminarZona(final @PathVariable long idZona) {
-    	zonaService.deleteById(idZona);
+        zonaService.deleteById(idZona);
         return "redirect:/catalogos/zona";
     }
 

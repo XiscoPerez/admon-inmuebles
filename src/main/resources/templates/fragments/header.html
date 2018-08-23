@@ -6,18 +6,13 @@
 		<!-- Logo -->
 		<!-- ============================================================== -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.html">
-				<!-- Logo icon -->
-				<b>
+			<a class="navbar-brand" href="index.html"> <!-- Logo icon --> <b>
 					<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 					<!-- Dark Logo icon -->
 					<img th:src="@{/images/logo-icon.png}" alt="homepage" class="dark-logo" />
 					<!-- Light Logo icon -->
 					<img src="../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-				</b>
-				<!--End Logo icon -->
-				<!-- Logo text -->
-				<span>
+				</b> <!--End Logo icon --> <!-- Logo text --> <span>
 					<!-- dark Logo text -->
 					<img th:src="@{/images/LOGOTIPO_GESCO_72dpi.png}" alt="homepage" class="dark-logo" />
 					<!-- Light Logo text -->
@@ -34,12 +29,10 @@
 			<!-- ============================================================== -->
 			<ul class="navbar-nav mr-auto mt-md-0 ">
 				<!-- This is  -->
-				<li class="nav-item"><a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
-						<i class="ti-menu"></i>
-					</a></li>
-				<li class="nav-item"><a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)">
-						<i class="icon-arrow-left-circle"></i>
-					</a></li>
+				<li class="nav-item"><a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"> <i class="ti-menu"></i>
+				</a></li>
+				<li class="nav-item"><a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"> <i class="icon-arrow-left-circle"></i>
+				</a></li>
 				<!-- ============================================================== -->
 				<!-- Comment -->
 				<!-- ============================================================== -->
@@ -49,7 +42,7 @@
 							<span class="heartbit"></span>
 							<span class="point"></span>
 						</div>
-					</a>
+				</a>
 					<div class="dropdown-menu mailbox animated bounceInDown">
 						<ul>
 							<li>
@@ -103,9 +96,8 @@
 									</a>
 								</div>
 							</li>
-							<li><a class="nav-link text-center" href="javascript:void(0);">
-									<strong>Check all notifications</strong> <i class="fa fa-angle-right"></i>
-								</a></li>
+							<li><a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i>
+							</a></li>
 						</ul>
 					</div></li>
 				<!-- ============================================================== -->
@@ -121,15 +113,13 @@
 				<li class="nav-item hidden-sm-down">
 					<form class="app-search">
 						<input type="text" class="form-control" placeholder="Buscar...">
-						<a class="srh-btn">
-							<i class="ti-search"></i>
+						<a class="srh-btn"> <i class="ti-search"></i>
 						</a>
 					</form>
 				</li>
 				<li sec:authorize="isAuthenticated()" class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
-						<img th:src="@{/assets/images/users/1.jpg}" alt="user" class="profile-pic" />
-					</a>
+					aria-expanded="false"> <img th:src="@{/assets/images/users/1.jpg}" alt="user" class="profile-pic" />
+				</a>
 					<div class="dropdown-menu dropdown-menu-right animated flipInY">
 						<ul class="dropdown-user">
 							<li>
@@ -139,24 +129,21 @@
 									</div>
 									<div class="u-text">
 										<h4 sec:authentication="name"></h4>
-										<p class="text-muted" >varun@gmail.com</p>
+										<p class="text-muted">varun@gmail.com</p>
 										<a th:href="@{/user/perfil}" class="btn btn-rounded btn-danger btn-sm">Mi Perfil</a>
 									</div>
 								</div>
 							</li>
-							<li><a th:href="@{/logout}">
-									<i class="fa fa-power-off"></i> Salir
-								</a></li>
+							<li><a th:href="@{/logout}"> <i class="fa fa-power-off"></i> Salir
+							</a></li>
 						</ul>
 					</div></li>
-				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="flag-icon flag-icon-us"></i>
-					</a>
-					<div class="dropdown-menu  dropdown-menu-right animated bounceInDown">
-						<a class="dropdown-item" href="#">
-							<i class="flag-icon flag-icon-mx"></i> Español
-						</a>
-					</div></li>
+				<li class="nav-item hidden-sm-down"><th:block th:switch="__${#locale}__">
+						<a class="nav-link text-muted " aria-expanded="false" th:case="es_ES" th:href="@{?lang=en}"><i class="flag-icon flag-icon-mx"></i></a>
+						<a class="nav-link text-muted" aria-expanded="false" th:case="en" th:href="@{?lang=es_ES}"><i class="flag-icon flag-icon-us"></i></a>
+					</th:block></li>
+
+
 			</ul>
 		</div>
 	</nav>
