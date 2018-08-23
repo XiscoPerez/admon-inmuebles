@@ -59,6 +59,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Privilegio estadoFinancieroColonia = createPrivilegioIfNotFound("ESTADO FINANCIERO_COLONIA");
         Privilegio estadoFinancieroZona = createPrivilegioIfNotFound("ESTADO_FINANCIERO_ZONA");
         Privilegio gestionarColonia = createPrivilegioIfNotFound("GESTIONAR_COLONIA");
+        Privilegio gestionarZona = createPrivilegioIfNotFound("GESTIONAR_ZONA");
         Privilegio gestionarBienesInmubeles = createPrivilegioIfNotFound("GESTIONAR_BIENES_INMUEBLES");
         Privilegio gestionarServicios = createPrivilegioIfNotFound("GESTIONAR_SERVICIOS");
         Privilegio gestionarPreguntas = createPrivilegioIfNotFound("GESTIONAR_PREGUNTAS");
@@ -74,7 +75,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         List<Privilegio> privilegiosProveedor = new ArrayList<>();
         privilegiosProveedor.add(actualizarTicket);
         privilegiosProveedor.add(evidenciaServicio);
-        Rol proveedor = createRolIfNotFound("PROVEEDOR", privilegiosProveedor);
+        Rol proveedor = createRolIfNotFound("ROLE_PROVEEDOR", privilegiosProveedor);
 
         List<Privilegio> privilegiosSocioBi = new ArrayList<>();
         privilegiosSocioBi.add(tablero);
@@ -82,7 +83,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosSocioBi.add(historialPagos);
         privilegiosSocioBi.add(iniciarTicket);
         privilegiosSocioBi.add(actualizarTicket);
-        Rol socioBi = createRolIfNotFound("SOCIO_BI", privilegiosSocioBi);
+        Rol socioBi = createRolIfNotFound("ROLE_SOCIO_BI", privilegiosSocioBi);
 
         List<Privilegio> privilegiosRepBi = new ArrayList<>();
         privilegiosRepBi.add(historialPagoInmuble);
@@ -90,7 +91,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosRepBi.add(listaSocios);
         privilegiosRepBi.add(reporteMorosos);
         privilegiosSocioBi.addAll(privilegiosRepBi);
-        Rol repBi = createRolIfNotFound("REP_BI", privilegiosSocioBi);
+        Rol repBi = createRolIfNotFound("ROLE_REP_BI", privilegiosSocioBi);
 
         List<Privilegio> privilegiosAdminBi = new ArrayList<>();
         privilegiosAdminBi.addAll(privilegiosRepBi);
@@ -109,19 +110,20 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosAdminBi.add(gestionarAdminBi);
         privilegiosAdminBi.add(gestionarProveedor);
         privilegiosAdminBi.add(estadoFinancieroColonia);
-        Rol adminBi = createRolIfNotFound("ADMIN_BI", privilegiosAdminBi);
+        Rol adminBi = createRolIfNotFound("ROLE_ADMIN_BI", privilegiosAdminBi);
 
         List<Privilegio> privilegiosAdminZona = new ArrayList<>();
         privilegiosAdminZona.addAll(privilegiosAdminBi);
-        privilegiosRepBi.add(estadoFinancieroZona);
-        Rol adminZona = createRolIfNotFound("ADMIN_ZONA", privilegiosAdminZona);
+        privilegiosAdminZona.add(gestionarZona);
+        privilegiosAdminZona.add(estadoFinancieroZona);
+        Rol adminZona = createRolIfNotFound("ROLE_ADMIN_ZONA", privilegiosAdminZona);
 
         List<Privilegio> privilegiosAdminCorp = new ArrayList<>();
         privilegiosAdminCorp.addAll(privilegiosAdminZona);
         privilegiosAdminCorp.add(gestionarAdminZona);
         privilegiosAdminCorp.add(gestionarAdminCorp);
         privilegiosAdminCorp.add(reportes);
-        Rol adminCorp = createRolIfNotFound("ADMIN_CORP", privilegiosAdminCorp);
+        Rol adminCorp = createRolIfNotFound("ROLE_ADMIN_CORP", privilegiosAdminCorp);
 
         createUsuarioIfNotFound("proveedor", "Proveedor", "", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
         createUsuarioIfNotFound("socio_bi", "SocioBi", "", "", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)));

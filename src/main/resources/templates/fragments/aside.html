@@ -12,110 +12,113 @@
 					<a href="/inicio" aria-expanded="false"><i class="mdi mdi-home"></i> <span class="hide-menu" th:text="#{menu.inicio}"></span></a>
 				</li>
 				<li>
-					<a href="/quienes-somos" aria-expanded="false"><i class="mdi mdi-help-circle-outline"></i> <span class="hide-menu" th:text="#{menu.quienessomos}"> ¿Quienes Somos?</span></a>
+					<a href="/quienes-somos" aria-expanded="false"><i class="mdi mdi-help-circle-outline"></i> <span class="hide-menu" th:text="#{menu.quienessomos}"></span></a>
 				</li>
 				<li>
-					<a href="/ventajas-competitivas" aria-expanded="false"><i class="mdi mdi-widgets"></i> <span class="hide-menu"  th:text="#{menu.ventajas}">Ventajas Competitivas</span></a>
+					<a href="/ventajas-competitivas" aria-expanded="false"><i class="mdi mdi-widgets"></i> <span class="hide-menu"  th:text="#{menu.ventajas}"></span></a>
 				</li>
 				<li>
-					<a href="/nuestros-clientes" aria-expanded="false"><i class="mdi mdi-human"></i> <span class="hide-menu" th:text="#{menu.clientes}">Nuestros Clientes</span></a>
+					<a href="/nuestros-clientes" aria-expanded="false"><i class="mdi mdi-human"></i> <span class="hide-menu" th:text="#{menu.clientes}"></span></a>
 				</li>
 				<li>
-					<a href="/servicios" aria-expanded="false"><i class="mdi mdi-grid"></i> <span class="hide-menu" th:text="#{menu.servicios}">Servicios</span></a>
+					<a href="/servicios" aria-expanded="false"><i class="mdi mdi-grid"></i> <span class="hide-menu" th:text="#{menu.servicios}"></span></a>
 				</li>
 				<li>
-					<a href="/contacto" aria-expanded="false"><i class="mdi mdi-contact-mail"></i> <span class="hide-menu" th:text="#{menu.contactanos}">Contacto</span></a>
+					<a href="/contacto" aria-expanded="false"><i class="mdi mdi-contact-mail"></i> <span class="hide-menu" th:text="#{menu.contactanos}"></span></a>
 				</li>
 				<li class="nav-devider"></li>
 				<li sec:authorize="!isAuthenticated()">
-					<a class="has-arrow " href="/login" aria-expanded="false"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.administracion}">Administracion</span></a>
+					<a class="has-arrow " href="/login" aria-expanded="false"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.administracion}"></span></a>
 				</li>
 				<li sec:authorize="isAuthenticated()">
-					<a class="has-arrow" href="#" aria-expanded="true"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.administracion}">Administracion</span></a>
+					<a class="has-arrow" href="#" aria-expanded="true"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.administracion}"></span></a>
 					<ul aria-expanded="true" class="collapse in">
 						<li>
-							<a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-file"></i> <span class="hide-menu" th:text="#{menu.tickets}">Tickets</span></a>
+							<a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-file"></i> <span class="hide-menu" th:text="#{menu.tickets}"></span></a>
 							<ul aria-expanded="false" class="collapse">
-								<li>
-									<a sec:authorize="hasAuthority('ACTUALIZAR_TICKET')" href="form-basic.html" th:text="#{menu.mistickets}">Mis Tickets</a>
+								<li sec:authorize="hasAuthority('ACTUALIZAR_TICKET')">
+									<a  href="form-basic.html" th:text="#{menu.mistickets}"></a>
 								</li>
 								<li >
-									<a href="form-layout.html" th:text="#{menu.tickets}">Reportes de Tickets</a>
+									<a href="form-layout.html" th:text="#{menu.tickets}"></a>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a class="has-arrow " href="table-basic.html" aria-expanded="false"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.bieninmueble}">Bien Inmueble</span></a>
+							<a class="has-arrow " href="table-basic.html" aria-expanded="false"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.bieninmueble}"></span></a>
 						</li>
 						<li>
-							<a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-widgets"></i> <span class="hide-menu" th:text="#{menu.pagos}">Pagos</span></a>
+							<a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-widgets"></i> <span class="hide-menu" th:text="#{menu.pagos}"></span></a>
 							<ul aria-expanded="false" class="collapse">
 								<li>
-									<a href="index.html" th:text="#{menu.notificacionpago}">Notificacion De Pagos</a>
+									<a href="index.html" th:text="#{menu.notificacionpago}"></a>
 								</li>
 								<li>
-									<a href="index2.html" th:text="#{menu.historialpago}">Historial Pagos</a>
+									<a href="index2.html" th:text="#{menu.historialpago}"></a>
 								</li>
 								<li>
-									<a href="index2.html" th:text="#{menu.morosos}">Morosos</a>
+									<a href="index2.html" th:text="#{menu.morosos}"></a>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i> <span class="hide-menu" th:text="#{menu.usuarios}">Usuarios</span></a>
+							<a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i> <span class="hide-menu" th:text="#{menu.usuarios}"></span></a>
 							<ul aria-expanded="false" class="collapse">
 								<li>
-									<a href="index.html" th:text="#{menu.usuarios}">Usuarios</a>
+									<a href="index.html" th:text="#{menu.usuarios}"></a>
 								</li>
 								<li>
-									<a href="index2.html" th:text="#{menu.bieninmueble}">Bienes Inmuebles</a>
+									<a href="index2.html" th:text="#{menu.bieninmueble}"></a>
 								</li>
 								<li>
-									<a href="index3.html" th:text="#{menu.tickets}">Tickets</a>
+									<a href="index3.html" th:text="#{menu.tickets}"></a>
 								</li>
 								<li>
-									<a href="index4.html" th:text="#{menu.pagos}">Pagos</a>
+									<a href="index4.html" th:text="#{menu.pagos}"></a>
 								</li>
 								<li>
-									<a href="index5.html" th:text="#{menu.proveedores}">Proveedores</a>
+									<a href="index5.html" th:text="#{menu.proveedores}"></a>
 								</li>
 							</ul>
 						</li>
-						<li sec:authorize="hasRole('ROLE_ADMIN')">
-							<a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i> <span class="hide-menu" th:text="#{menu.catalogos}">Catalogos</span></a>
+						<li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')">
+							<a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i> <span class="hide-menu" th:text="#{menu.catalogos}"></span></a>
 							<ul aria-expanded="false" class="collapse">
-								<li>
-									<a href="/catalogos/zona" th:text="#{menu.zonas}">Zonas</a>
+								<li sec:authorize="hasAuthority('GESTIONAR_ZONA')">
+									<a href="/catalogos/zona" th:text="#{menu.zonas}"></a>
+								</li>
+								<li sec:authorize="hasAuthority('GESTIONAR_ZONA')">
+									<a href="/catalogos/crear-zona" th:text="#{menu.crearzonas}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/servicios" th:text="#{menu.servicios}">Servicios</a>
+									<a href="/catalogos/servicios" th:text="#{menu.servicios}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/areas-servicio" th:text="#{menu.areasservicio}">Areas Servicios</a>
+									<a href="/catalogos/areas-servicio" th:text="#{menu.areasservicio}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/aviso-oportuno" th:text="#{menu.avisooportuno}">Aviso Oportuno</a>
+									<a href="/catalogos/aviso-oportuno" th:text="#{menu.avisooportuno}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/estatus-ticket" th:text="#{menu.estatustickets}">Estatus de Tickets</a>
+									<a href="/catalogos/estatus-ticket" th:text="#{menu.estatustickets}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/sucursales" th:text="#{menu.sucursale}">Sucursales</a>
+									<a href="/catalogos/sucursales" th:text="#{menu.sucursale}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/notificacion" th:text="#{menu.notificaciones}">Notificaciones</a>
+									<a href="/catalogos/notificacion" th:text="#{menu.notificaciones}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/preguntas-frecuentes" th:text="#{menu.preguntasfrecuentes}">Preguntas Frecuentes</a>
+									<a href="/catalogos/preguntas-frecuentes" th:text="#{menu.preguntasfrecuentes}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/tipo-pago" th:text="#{menu.tipospago}">Tipos de Pago</a>
+									<a href="/catalogos/tipo-pago" th:text="#{menu.tipospago}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/tipo-pago-bancario" th:text="#{menu.tipopagobancario}">Tipos Pago Bancario</a>
+									<a href="/catalogos/tipo-pago-bancario" th:text="#{menu.tipopagobancario}"></a>
 								</li>
 								<li>
-									<a href="/catalogos/tipo-ticket" th:text="#{menu.tiposticket}">Tipos de Ticket</a>
+									<a href="/catalogos/tipo-ticket" th:text="#{menu.tiposticket}"></a>
 								</li>
 							</ul>
 						</li>
