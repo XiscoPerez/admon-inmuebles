@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title th:text="#{zona.titulo}"></title>
+<script th:inline="javascript">
+	
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-6 col-8 align-self-center">
+					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{zona.titulo}"></h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
+						<li class="breadcrumb-item active" th:text="#{zona.titulo}"></li>
+					</ol>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- Start Page Content -->
+			<!-- ============================================================== -->
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title" th:text="#{zona.titulo}"></h4>
+							<h6 class="card-subtitle" th:text="#{zona.subtitulo}"></h6>
+							<div class="table-responsive">
+								<table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+									<thead>
+										<tr>
+											<th th:text="#{zona.codigo}"></th>
+											<th th:text="#{zona.nombre}"></th>
+											<th th:text="#{zona.administrador}"></th>
+											<th th:text="#{zona.accion}"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:each="zona : ${zonas}">
+											<tr>
+												<td th:text="${zona.codigo}"></td>
+												<td th:text="${zona.nombre}"></td>
+												<td th:text="#{${zona.adminZonaNombre}+' '+${zona.adminZonaApellidoPaterno}+' '+${zona.adminZonaApellidoMaterno}}"></td>
+												<td><a th:href="${'/catalogos/zona-editar/'  + zona.codigo}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a> <a
+													th:href="${'/catalogos/zona-eliminar/'  + zona.codigo}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a></td>
+											</tr>
+										</th:block>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="2"><a th:href="@{/catalogos/zona-crear}" class="btn btn-info btn-rounded" th:text="#{zona.nueva}">View Profile</a></td>
+											<td colspan="6">
+												<div class="text-right">
+													<ul class="pagination">
+													</ul>
+												</div>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+
+								<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+									<div class="modal-dialog modal-sm">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="mySmallModalLabel">¿Eliminar Zona?</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger waves-effect waves-light">Si</button>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- End PAge Content -->
+			<!-- ============================================================== -->
+		</div>
+	</div>
+</body>
+</html>

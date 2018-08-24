@@ -51,7 +51,6 @@ public class Asentamiento implements Serializable {
     private Municipio municipio;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_zona")
     public Zona zona;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "asentamiento")

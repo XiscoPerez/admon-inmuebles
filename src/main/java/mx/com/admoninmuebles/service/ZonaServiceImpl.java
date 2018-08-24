@@ -27,23 +27,26 @@ public class ZonaServiceImpl implements ZonaService {
         return zonaRepository.save(modelMapper.map(zonaDto, Zona.class));
     }
 
-	@Override
-	public Collection<ZonaDto> findAll() {
-		return StreamSupport.stream(zonaRepository.findAll().spliterator(), false)
-				.map(zona -> modelMapper.map(zona, ZonaDto.class))
-				.collect(Collectors.toList());
-	}
+    @Override
+    public Collection<ZonaDto> findAll() {
+        return StreamSupport.stream(zonaRepository.findAll().spliterator(), false).map(zona -> modelMapper.map(zona, ZonaDto.class)).collect(Collectors.toList());
+    }
 
-	@Override
-	public ZonaDto findById(Long idZona) {
-		Optional<Zona> zona = zonaRepository.findById(idZona);
-		return modelMapper.map(zona.get(), ZonaDto.class);
-	}
+    @Override
+    public ZonaDto findById(final String codigo) {
+        Optional<Zona> zona = zonaRepository.findById(codigo);
+        return modelMapper.map(zona.get(), ZonaDto.class);
+    }
 
-	@Override
-	public void deleteById(Long idZona) {
-		zonaRepository.deleteById(idZona);
-		
-	}
+    @Override
+    public void deleteById(final String codigo) {
+        zonaRepository.deleteById(codigo);
+
+    }
+
+    @Override
+    public boolean exist(final String codigo) {
+        return zonaRepository.existsById(codigo);
+    }
 
 }

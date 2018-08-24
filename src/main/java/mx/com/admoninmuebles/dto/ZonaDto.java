@@ -7,9 +7,6 @@ import lombok.Data;
 
 @Data
 public class ZonaDto {
-
-    private Long idZona;
-
     @NotNull
     @Size(min = 4, max = 10)
     private String codigo;
@@ -19,5 +16,11 @@ public class ZonaDto {
     private String nombre;
 
     private Long adminZonaId;
+
+    private String adminZonaNombre;
+
+    private String adminZonaApellidoPaterno;
+
+    private String adminZonaApellidoMaterno;
 
 }

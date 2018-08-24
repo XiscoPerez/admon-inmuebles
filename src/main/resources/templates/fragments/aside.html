@@ -12,19 +12,19 @@
 					<a href="/inicio" aria-expanded="false"><i class="mdi mdi-home"></i> <span class="hide-menu" th:text="#{menu.inicio}"></span></a>
 				</li>
 				<li>
-					<a href="/quienes-somos" aria-expanded="false"><i class="mdi mdi-help-circle-outline"></i> <span class="hide-menu" th:text="#{menu.quienessomos}"></span></a>
+					<a href="quienes-somos" aria-expanded="false"><i class="mdi mdi-help-circle-outline"></i> <span class="hide-menu" th:text="#{menu.quienessomos}"></span></a>
 				</li>
 				<li>
-					<a href="/ventajas-competitivas" aria-expanded="false"><i class="mdi mdi-widgets"></i> <span class="hide-menu"  th:text="#{menu.ventajas}"></span></a>
+					<a href="ventajas-competitivas" aria-expanded="false"><i class="mdi mdi-widgets"></i> <span class="hide-menu"  th:text="#{menu.ventajas}"></span></a>
 				</li>
 				<li>
-					<a href="/nuestros-clientes" aria-expanded="false"><i class="mdi mdi-human"></i> <span class="hide-menu" th:text="#{menu.clientes}"></span></a>
+					<a href="nuestros-clientes" aria-expanded="false"><i class="mdi mdi-human"></i> <span class="hide-menu" th:text="#{menu.clientes}"></span></a>
 				</li>
 				<li>
-					<a href="/servicios" aria-expanded="false"><i class="mdi mdi-grid"></i> <span class="hide-menu" th:text="#{menu.servicios}"></span></a>
+					<a href="servicios" aria-expanded="false"><i class="mdi mdi-grid"></i> <span class="hide-menu" th:text="#{menu.servicios}"></span></a>
 				</li>
 				<li>
-					<a href="/contacto" aria-expanded="false"><i class="mdi mdi-contact-mail"></i> <span class="hide-menu" th:text="#{menu.contactanos}"></span></a>
+					<a href="contacto" aria-expanded="false"><i class="mdi mdi-contact-mail"></i> <span class="hide-menu" th:text="#{menu.contactanos}"></span></a>
 				</li>
 				<li class="nav-devider"></li>
 				<li sec:authorize="!isAuthenticated()">
@@ -84,11 +84,8 @@
 						<li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')">
 							<a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i> <span class="hide-menu" th:text="#{menu.catalogos}"></span></a>
 							<ul aria-expanded="false" class="collapse">
-								<li sec:authorize="hasAuthority('GESTIONAR_ZONA')">
-									<a href="/catalogos/zona" th:text="#{menu.zonas}"></a>
-								</li>
-								<li sec:authorize="hasAuthority('GESTIONAR_ZONA')">
-									<a href="/catalogos/crear-zona" th:text="#{menu.crearzonas}"></a>
+								<li sec:authorize="hasRole('ADMIN_CORP')">
+									<a href="/catalogos/zonas" th:text="#{menu.zonas}"></a>
 								</li>
 								<li>
 									<a href="/catalogos/servicios" th:text="#{menu.servicios}"></a>

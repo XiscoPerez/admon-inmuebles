@@ -126,11 +126,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Rol adminCorp = createRolIfNotFound("ROLE_ADMIN_CORP", privilegiosAdminCorp);
 
         createUsuarioIfNotFound("proveedor", "Proveedor", "", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
-        createUsuarioIfNotFound("socio_bi", "SocioBi", "", "", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)));
-        createUsuarioIfNotFound("rep_bi", "RepBi", "", "", "rep_bi", new ArrayList<>(Arrays.asList(repBi)));
-        createUsuarioIfNotFound("admin_bi", "AdminBi", "", "", "admin_bi", new ArrayList<>(Arrays.asList(adminBi)));
-        createUsuarioIfNotFound("admin_zona", "AdminZona", "", "", "admin_zona", new ArrayList<>(Arrays.asList(adminZona)));
-        createUsuarioIfNotFound("admin_corp", "AdminCorp", "", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)));
+        createUsuarioIfNotFound("socio_bi", "Socio", "Bi", "Inmueble", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)));
+        createUsuarioIfNotFound("rep_bi", "Representante", "Bien", "Inmubele", "rep_bi", new ArrayList<>(Arrays.asList(repBi)));
+        createUsuarioIfNotFound("admin_bi", "Administrador", "Bien", "Inmueble", "admin_bi", new ArrayList<>(Arrays.asList(adminBi)));
+        createUsuarioIfNotFound("admin_zona", "Administrador", "Zona", "", "admin_zona", new ArrayList<>(Arrays.asList(adminZona)));
+        createUsuarioIfNotFound("admin_corp", "Administrador", "Corporativo", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)));
 
         alreadySetup = true;
     }
