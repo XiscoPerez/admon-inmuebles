@@ -29,35 +29,35 @@ $(document).ready(function() {
 				<div class="card-body">
 					<h3 class="card-title" th:text="#{zona.titulo}"></h3>
 					<h6 class="card-subtitle" th:text="#{zona.subtitulo}"></h6>
-					<form name="crearZonaForm" action="#" th:action="@{/catalogos/zona}" th:object="${zonaDto}" method="post">
+					<form name="crearZonaForm" action="#" th:action="@{/catalogos/zona-crear}" th:object="${zonaDto}" method="post">
 						<div id="divCodigo" th:class="${#fields.hasErrors('codigo')}? 'form-group has-danger':'form-group'">
 							<label class="form-control-label" th:text="#{etiqueta.codigo}"></label>
 							<input name="codigo" class="form-control" th:field="*{codigo}" required pattern="^\w{4,10}$" th:title="#{mensaje.codigo.validacion}" />
 							<span class="form-control-feedback">
-								<span th:if="${#fields.hasErrors('codigo')}" th:errors="codigo"></span>
+								<span th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></span>
 							</span>
 						</div>
 						<div id="divNombre" th:class="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
 							<label class="form-control-label" th:text="#{etiqueta.nombre}"></label>
 							<input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\w\s]{6,100}$" th:title="#{mensaje.nombre.validacion}" />
 							<span class="form-control-feedback">
-								<span th:if="${#fields.hasErrors('nombre')}" th:errors="nombre"></span>
+								<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
 							</span>
 						</div>
 						<div id="divAdminZona" th:class="${#fields.hasErrors('adminZonaId')}? 'form-group has-danger':'form-group'">
 							<label class="form-control-label" th:text="#{etiqueta.administradorZona}"></label>
 							<select name="adminZonaId" class="form-control" th:field="*{adminZonaId}" required>
 								<option selected="selected" value="">opcion</option>
-								<option th:each="adminZona : ${usuariosAdminZona}" th:value="${adminZona.id}" th:text="#{${adminZona.username}}"></option>
+								<option th:each="adminZona : ${session.usuariosAdminZona}" th:value="${adminZona.id}" th:text="#{${adminZona.nombre} + ' '+ ${adminZona.apellidoPaterno}+ ' '+ ${adminZona.apellidoMaterno}}"></option>
 							</select>
 							<span class="form-control-feedback">
-								<span th:if="${#fields.hasErrors('nombre')}" th:errors="nombre"></span>
+								<span th:if="${#fields.hasErrors('adminZonaId')}" th:errors="*{adminZonaId}"></span>
 							</span>
 						</div>
 
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-info waves-effect">Guardar</button>
-							<button type="button" class="btn btn-default waves-effect">Cancelar</button>
+							<button type="submit" class="btn btn-success btn-rounded"  th:text="#{etiqueta.guardar}"></button>
+							<a th:href="@{/catalogos/zonas}" class="btn btn-danger btn-rounded" th:text="#{etiqueta.cancelar}"></a>
 						</div>
 					</form>
 				</div>

@@ -6,11 +6,14 @@ import mx.com.admoninmuebles.dto.ZonaDto;
 import mx.com.admoninmuebles.persistence.model.Zona;
 
 public interface ZonaService {
+
     Zona save(ZonaDto zonaDto);
 
     Collection<ZonaDto> findAll();
 
-    ZonaDto findById(Long idZona);
+    ZonaDto findById(String codigo);
 
-    void deleteById(Long idZona);
+    void deleteById(String codigo);
+
+    boolean exist(String codigo);
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,6 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -44,17 +46,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         // @formatter:off
         http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().and()
-            .authorizeRequests().antMatchers("/webjars/**").permitAll().and()
             .authorizeRequests().antMatchers("/assets/**").permitAll().and()
             .authorizeRequests()
-            .antMatchers("/login*","/signUp*","/index*", "/contacto*", "/servicios*").permitAll()
+            .antMatchers("/inicio*", "/login*", "/paginas/estaticas/*").permitAll()
                 .antMatchers("/invalidSession*").anonymous()
                 .antMatchers("/catalogos/**").authenticated()
                 .anyRequest().authenticated()
+                .and().exceptionHandling().accessDeniedPage("/acceso-denegado")
                 .and()
             .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/user/index")
+//                .defaultSuccessUrl("/user/index")
                 .failureUrl("/login?error=true")
                 .failureHandler(authenticationFailureHandler)
             .permitAll()
@@ -70,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .permitAll()
             .and()
-            .rememberMe().key("uniqueAndSecret");
+                .rememberMe().key("uniqueAndSecret");
     // @formatter:on
     }
 
