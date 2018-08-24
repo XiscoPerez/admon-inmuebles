@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import mx.com.admoninmuebles.dto.ZonaDto;
+import mx.com.admoninmuebles.service.RolService;
 import mx.com.admoninmuebles.service.ZonaService;
 
 @Controller
@@ -20,6 +21,9 @@ public class ZonaController {
 
     @Autowired
     private ZonaService zonaService;
+
+    @Autowired
+    private RolService rolService;
 
     @GetMapping(value = "/catalogos/zona")
     public String init(final ZonaDto zonaDto, final Model model) {
@@ -29,6 +33,7 @@ public class ZonaController {
 
     @GetMapping(value = "/catalogos/crear-zona")
     public String crearZona(final ZonaDto zonaDto, final Model model) {
+        model.addAttribute("usuariosAdminZona", rolService.findUsuariosByNombreRol("ROLE_ADMIN_ZONA"));
         return "catalogos/crear-zona";
     }
 

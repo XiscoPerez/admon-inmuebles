@@ -18,4 +18,6 @@ public class ZonaDto {
     @Size(min = 6, max = 100)
     private String nombre;
 
+    private Long adminZonaId;
+
 }

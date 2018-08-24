@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,7 +34,7 @@ public class BienInmueble extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bien_inmueble")
-    private Long idBienInmueble;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 200)
@@ -58,9 +59,9 @@ public class BienInmueble extends EntidadBase {
     @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion", nullable = false)
     private Direccion direccion;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
-    private Usuario administrador;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    public Usuario adminBi;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bienInmueble")
     private Collection<Notificacion> notificaciones;
@@ -68,77 +69,5 @@ public class BienInmueble extends EntidadBase {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_datos_adicionales", referencedColumnName = "id_datos_adicionales")
     private DatosAdicionales datosAdicionales;
-
-    public Long getIdBienInmueble() {
-        return idBienInmueble;
-    }
-
-    public void setIdBienInmueble(final Long idBienInmueble) {
-        this.idBienInmueble = idBienInmueble;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(final String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Integer getDiaCuotaOrdinaria() {
-        return diaCuotaOrdinaria;
-    }
-
-    public void setDiaCuotaOrdinaria(final Integer diaCuotaOrdinaria) {
-        this.diaCuotaOrdinaria = diaCuotaOrdinaria;
-    }
-
-    public BigDecimal getMontoCuotaOrdinaria() {
-        return montoCuotaOrdinaria;
-    }
-
-    public void setMontoCuotaOrdinaria(final BigDecimal montoCuotaOrdinaria) {
-        this.montoCuotaOrdinaria = montoCuotaOrdinaria;
-    }
-
-    public String getImagenUrl() {
-        return imagenUrl;
-    }
-
-    public void setImagenUrl(final String imagenUrl) {
-        this.imagenUrl = imagenUrl;
-    }
-
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(final Direccion direccion) {
-        this.direccion = direccion;
-    }
-
-    public Usuario getAdministrador() {
-        return administrador;
-    }
-
-    public void setAdministrador(final Usuario administrador) {
-        this.administrador = administrador;
-    }
-
-    public Collection<Notificacion> getNotificaciones() {
-        return notificaciones;
-    }
-
-    public void setNotificaciones(final Collection<Notificacion> notificaciones) {
-        this.notificaciones = notificaciones;
-    }
-
-    public DatosAdicionales getDatosAdicionales() {
-        return datosAdicionales;
-    }
-
-    public void setDatosAdicionales(final DatosAdicionales datosAdicionales) {
-        this.datosAdicionales = datosAdicionales;
-    }
 
 }

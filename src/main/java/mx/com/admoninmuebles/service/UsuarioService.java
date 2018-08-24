@@ -6,4 +6,5 @@ import mx.com.admoninmuebles.persistence.model.Usuario;
 public interface UsuarioService {
 
     Usuario save(UsuarioDto userDto);
+
 }
