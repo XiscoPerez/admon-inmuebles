@@ -114,11 +114,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
         List<Privilegio> privilegiosAdminZona = new ArrayList<>();
         privilegiosAdminZona.addAll(privilegiosAdminBi);
-        privilegiosAdminZona.add(gestionarZona);
         privilegiosAdminZona.add(estadoFinancieroZona);
         Rol adminZona = createRolIfNotFound("ROLE_ADMIN_ZONA", privilegiosAdminZona);
 
         List<Privilegio> privilegiosAdminCorp = new ArrayList<>();
+        privilegiosAdminCorp.add(gestionarZona);
         privilegiosAdminCorp.addAll(privilegiosAdminZona);
         privilegiosAdminCorp.add(gestionarAdminZona);
         privilegiosAdminCorp.add(gestionarAdminCorp);

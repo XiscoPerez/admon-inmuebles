@@ -35,7 +35,7 @@ public class Usuario extends EntidadBase {
     @Id
     @Column(name = "id_usuario", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idUsuario;
+    private Long id;
 
     private String username;
 
@@ -62,15 +62,14 @@ public class Usuario extends EntidadBase {
 
     private String contrasenia;
 
-    @ManyToMany
-    @JoinTable(
-            name = "usuarios_roles",
-            joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id_rol"))
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Collection<Rol> roles;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Zona zona;
+    @OneToMany(mappedBy = "adminZona")
+    public Collection<Zona> zonas;
+
+    @OneToMany(mappedBy = "adminBi")
+    private Collection<BienInmueble> bienInmueble;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuarioAsignado")
     private Collection<Ticket> tickets;
@@ -96,10 +95,6 @@ public class Usuario extends EntidadBase {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
     private Collection<Comentario> comentarios;
-
-    // administrador
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "administrador")
-    private BienInmueble bienInmueble;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
     private Collection<Pago> pagos;

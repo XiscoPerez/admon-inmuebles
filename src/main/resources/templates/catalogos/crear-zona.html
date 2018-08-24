@@ -6,8 +6,9 @@
 <script th:inline="javascript">
 /*<![CDATA[*/
 $(document).ready(function() {
-	addControlState(document.getElementById('codigoDiv'),/*[[#{mensaje.codigo.requerido}]]*/);
-	addControlState(document.getElementById('nombreDiv'),/*[[#{mensaje.nombre.requerido}]]*/);
+	addControlState(document.getElementById('divCodigo'),/*[[#{mensaje.codigo.requerido}]]*/);
+	addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
+	addControlState(document.getElementById('divAdminZona'),/*[[#{mensaje.adminzona.requerido}]]*/);
 });
 /*]]>*/
 </script>
@@ -24,51 +25,43 @@ $(document).ready(function() {
 					</ol>
 				</div>
 			</div>
-			<!-- ============================================================== -->
-			<!-- Start Page Content -->
-			<!-- ============================================================== -->
-			<div class="row">
-				<div class="col-12">
-					<div class="card">
-						<div class="card-body">
-							<h4 class="card-title" th:text="#{zona.titulo}"></h4>
-							<h6 class="card-subtitle" th:text="#{zona.subtitulo}"></h6>
-							<div class="table-responsive">
-
-								<form name="crearZonaForm" action="#" th:action="@{/catalogos/zona}" th:object="${zonaDto}" method="post">
-									<div class="form-group">
-										<div id="codigoDiv" th:class="${#fields.hasErrors('codigo')}? 'form-group has-error has-feedback':'form-group has-feedback'">
-											<label class="control-label" th:text="#{etiqueta.codigo}"></label>
-											<input name="codigo" class="form-control" th:field="*{codigo}" required="required" th:title="#{mensaje.requerido.codigo}" />
-											<span th:class="${#fields.hasErrors('codigo')}? 'glyphicon form-control-feedback glyphicon-remove':'glyphicon form-control-feedback'"></span>
-											<span class="help-block">
-												<span th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}" class="help-block"></span>
-											</span>
-										</div>
-
-										<div id="nombreDiv" th:class="${#fields.hasErrors('nombre')}? 'form-group has-error has-feedback':'form-group has-feedback'">
-											<label class="control-label" th:text="#{etiqueta.nombre}"></label>
-											<input name="nombre" class="form-control" th:field="*{nombre}" required="required" th:title="#{mensaje.requerido.nombre}" />
-											<span th:class="${#fields.hasErrors('nombre')}? 'glyphicon form-control-feedback glyphicon-remove':'glyphicon form-control-feedback'"></span>
-											<span class="help-block">
-												<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="help-block"></span>
-											</span>
-										</div>
-									</div>
-
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-info waves-effect">Guardar</button>
-										<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button>
-									</div>
-								</form>
-							</div>
+			<div class="card w-50">
+				<div class="card-body">
+					<h3 class="card-title" th:text="#{zona.titulo}"></h3>
+					<h6 class="card-subtitle" th:text="#{zona.subtitulo}"></h6>
+					<form name="crearZonaForm" action="#" th:action="@{/catalogos/zona}" th:object="${zonaDto}" method="post">
+						<div id="divCodigo" th:class="${#fields.hasErrors('codigo')}? 'form-group has-danger':'form-group'">
+							<label class="form-control-label" th:text="#{etiqueta.codigo}"></label>
+							<input name="codigo" class="form-control" th:field="*{codigo}" required pattern="^\w{4,10}$" th:title="#{mensaje.codigo.validacion}" />
+							<span class="form-control-feedback">
+								<span th:if="${#fields.hasErrors('codigo')}" th:errors="codigo"></span>
+							</span>
 						</div>
-					</div>
+						<div id="divNombre" th:class="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
+							<label class="form-control-label" th:text="#{etiqueta.nombre}"></label>
+							<input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\w\s]{6,100}$" th:title="#{mensaje.nombre.validacion}" />
+							<span class="form-control-feedback">
+								<span th:if="${#fields.hasErrors('nombre')}" th:errors="nombre"></span>
+							</span>
+						</div>
+						<div id="divAdminZona" th:class="${#fields.hasErrors('adminZonaId')}? 'form-group has-danger':'form-group'">
+							<label class="form-control-label" th:text="#{etiqueta.administradorZona}"></label>
+							<select name="adminZonaId" class="form-control" th:field="*{adminZonaId}" required>
+								<option selected="selected" value="">opcion</option>
+								<option th:each="adminZona : ${usuariosAdminZona}" th:value="${adminZona.id}" th:text="#{${adminZona.username}}"></option>
+							</select>
+							<span class="form-control-feedback">
+								<span th:if="${#fields.hasErrors('nombre')}" th:errors="nombre"></span>
+							</span>
+						</div>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-info waves-effect">Guardar</button>
+							<button type="button" class="btn btn-default waves-effect">Cancelar</button>
+						</div>
+					</form>
 				</div>
 			</div>
-			<!-- ============================================================== -->
-			<!-- End PAge Content -->
-			<!-- ============================================================== -->
 		</div>
 	</div>
 </body>

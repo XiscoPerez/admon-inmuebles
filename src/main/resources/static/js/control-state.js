@@ -1,13 +1,23 @@
 function addControlState(div, emptyMessage) {
 	var input = div.getElementsByClassName("form-control")[0];
 	input.addEventListener('blur', function() {
-		input.checkValidity();
-		if (input.validity.valid) {
+		this.checkValidity();
+		if (this.validity.valid) {
 			addStateClass(div, '', false)
 		}
 	}, false);
 
 	input.addEventListener('change', function() {
+		if (this.value.trim() === '') {
+			this.value = '';
+		}
+		this.checkValidity();
+		if (this.validity.valid) {
+			addStateClass(div, '', false)
+		}
+	}, false);
+	
+	input.addEventListener('keyup', function() {
 		if (this.value.trim() === '') {
 			this.value = '';
 		}
@@ -30,16 +40,15 @@ function addControlState(div, emptyMessage) {
 
 function addStateClass(div, message, error) {
 	var input = div.getElementsByClassName("form-control")[0];
-	var glyphicon = div.getElementsByTagName('span')[0];
-	var helpBlock = div.getElementsByTagName('span')[1];
+	var helpBlock = div.getElementsByTagName('span')[0];
 	$(helpBlock).text(message);
 	if (error) {
-		$(div).removeClass('has-success').addClass('has-error');
-		$(glyphicon).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+		$(div).removeClass('has-success').addClass('has-danger');
+		$(input).removeClass('form-control-success').addClass('form-control-danger');
 		input.setCustomValidity(' ');
 	} else {
-		$(div).removeClass('has-error').addClass('has-success');
-		$(glyphicon).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+		$(div).removeClass('has-danger').addClass('has-success');
+		$(input).removeClass('form-control-danger').addClass('form-control-success');
 		input.setCustomValidity('');
 	}
 }

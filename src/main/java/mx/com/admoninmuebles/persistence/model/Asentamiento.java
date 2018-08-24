@@ -43,16 +43,16 @@ public class Asentamiento implements Serializable {
     private String codigoPostal;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tipo_asentamiento", referencedColumnName = "id_tipo_asentamiento")
+    @JoinColumn(name = "id_tipo_asentamiento")
     private TipoAsentamiento tipoAsentamiento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_municipio", referencedColumnName = "id_municipio")
+    @JoinColumn(name = "id_municipio")
     private Municipio municipio;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_zona", referencedColumnName = "id_zona")
-    private Zona zona;
+    @JoinColumn(name = "id_zona")
+    public Zona zona;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "asentamiento")
     private Collection<Direccion> direcciones;
