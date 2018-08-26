@@ -3,12 +3,15 @@ package mx.com.admoninmuebles.service;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.dto.RolDto;
+import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
@@ -36,5 +39,12 @@ public class RolServiceImpl implements RolService {
         }
         return usuarios;
     }
+
+	@Override
+	public Collection<RolDto> findAll() {
+		return StreamSupport.stream(rolRepository.findAll().spliterator(), false)
+				.map(rol -> modelMapper.map(rol, RolDto.class))
+				.collect(Collectors.toList());
+	}
 
 }

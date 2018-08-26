@@ -7,6 +7,9 @@ import lombok.Data;
 
 @Data
 public class TicketDto {
+	
+	private Long idTicket;
+	
     @NotNull
     @Size(min = 6, max = 100)
     private String nombre;

@@ -1,24 +1,57 @@
 package mx.com.admoninmuebles.dto;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.Collection;
+
 
 import lombok.Data;
 
 @Data
 public class UsuarioDto {
-    @NotNull
-    @Size(min = 6, max = 45)
+
+    private Long idUsuario;
+
     private String username;
 
-    @NotNull
-    @Size(min = 8, max = 60)
-    private String password;
+    private String nombre;
 
-    private String confirmPassword;
+    private String apellidoPaterno;
 
-    @NotNull
-    @Size(min = 6, max = 45)
-    private String email;
+    private String apellidoMaterno;
+
+    private String correo;
+
+    private boolean cuentaExpirada;
+
+    private boolean cuentaBloqueada;
+
+    private boolean credencialesExpiradas;
+
+    private boolean activo = true;
+
+    private String identificador;
+
+    private String contrasenia;
+
+    private Collection<RolDto> roles;
+    
+    private Collection<Long> rolesSeleccionados;
+//
+//    public Collection<String> zonas;
+//
+//    private Collection<Long> bienInmueble;
+//
+//    private Collection<Long> tickets;
+//
+//    private Long idDatosAdicionales;
+//
+//    private Long idDireccion;
+//
+//    private Collection<Long> telefonos;
+//
+//    private Collection<Long> areasServicios;
+//
+//    private Collection<Long> comentarios;
+//
+//    private Collection<Long> pagos;
 
 }

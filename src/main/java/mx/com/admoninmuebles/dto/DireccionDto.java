@@ -7,6 +7,9 @@ import lombok.Data;
 
 @Data
 public class DireccionDto {
+	
+	private Long idDireccion;
+	
     @NotNull
     @Size(min = 6, max = 100)
     private String nombre;

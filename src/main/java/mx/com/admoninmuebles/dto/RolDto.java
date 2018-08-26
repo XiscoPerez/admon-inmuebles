@@ -7,6 +7,9 @@ import lombok.Data;
 
 @Data
 public class RolDto {
+	
+	private Long idRol;
+	
     @NotNull
     @Size(min = 6, max = 100)
     private String nombre;
