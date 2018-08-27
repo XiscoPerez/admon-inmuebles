@@ -7,6 +7,8 @@ import lombok.Data;
 
 @Data
 public class BienInmuebleDto {
+	
+	private Long idBienInmueble;
 
     @NotNull
     @Size(min = 6, max = 100)

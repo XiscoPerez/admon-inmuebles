@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import mx.com.admoninmuebles.persistence.model.Rol;
 
 @Repository
-public interface RolRepository extends CrudRepository<Rol, String> {
+public interface RolRepository extends CrudRepository<Rol, Long> {
     Optional<Rol> findByNombre(String nombre);
 }

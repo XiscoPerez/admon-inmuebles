@@ -8,6 +8,8 @@ import mx.com.admoninmuebles.persistence.model.Usuario;
 
 public interface RolService {
     Rol save(RolDto rolDto);
-
+    
+    Collection<RolDto> findAll();
+    
     Collection<Usuario> findUsuariosByNombreRol(String nombre);
 }

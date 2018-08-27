@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title th:text="#{home.title}"></title>
+<script th:inline="javascript">
+	
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-6 col-8 align-self-center">
+					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{usuario.titulo}"></h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{usuario.titulo}"></a></li>
+						<li class="breadcrumb-item active" th:text="#{usuario.titulo.crear}"></li>
+					</ol>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							
+                               <h4 class="card-title"><span th:text="#{usuario.titulo}"></span></h4>
+                               <h6 class="card-subtitle"><span th:text="#{usuario.titulo.crear}"></span></h6>
+    							<form name="crearUsuarioForm" action="#" th:action="@{/usuarios}" th:object="${usuarioDto}" method="post" class="form-horizontal form-material">
+                                       <div class="form-group">
+                                           <div class="col-md-12 m-b-20">
+                                               <input type="text" class="form-control" th:field="*{username}" placeholder="label.usuario.username"> 
+                                           </div>
+                                           <div class="col-md-12 m-b-20">
+                                               <input type="text" class="form-control" th:field="*{correo}" placeholder="label.usuario.correo"> 
+                                           </div>
+                                           <div class="col-md-12 m-b-20">
+                                               <input type="text" class="form-control" th:field="*{nombre}" placeholder="label.usuario.nombre"> 
+                                           </div>
+                                           <div class="col-md-12 m-b-20">
+                                               <input type="text" class="form-control" th:field="*{apellidoPaterno}" placeholder="label.usuario.apellidopaterno"> 
+                                           </div>
+                                           <div class="col-md-12 m-b-20">
+                                               <input type="text" class="form-control" th:field="*{apellidoMaterno}" placeholder="label.usuario.apellidomaterno"> 
+                                           </div>
+                                           <div class="col-md-12 m-b-20">
+<!-- 		                                        <label>ROL</label> -->
+		                                        <select  name="rolId" class="form-control" th:field="*{rolesSeleccionados}" required multiple="multiple">	
+													<option th:each="rol : ${rolesDto}" th:value="${{rol.idRol}}" th:text="${rol.nombre}"></option>
+		                                        </select>
+		                                   </div>
+                                           <div class="col-md-12 m-b-20">
+			                                    <button type="submit" class="btn btn-info waves-effect" >Guardar</button>
+			                                    <a th:href="@{/usuarios}" class="btn btn-secondary waves-effect">Regresar</a>
+                                           </div>
+                                       </div>
+                              </form>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
