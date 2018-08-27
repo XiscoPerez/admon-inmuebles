@@ -1829,6 +1829,7 @@ File: scss
  Topbar
 *******************/
 .topbar {
+  background: #008688;
   position: relative;
   z-index: 50; }
   .topbar .top-navbar {
@@ -1837,6 +1838,7 @@ File: scss
     .topbar .top-navbar .dropdown-toggle::after {
       display: none; }
     .topbar .top-navbar .navbar-header {
+      background: #ffffff;
       line-height: 65px;
       text-align: center; }
       .topbar .top-navbar .navbar-header .navbar-brand {
@@ -2210,7 +2212,7 @@ ul#themecolors {
   position: absolute;
   right: 0;
   border-top: 1px solid rgba(120, 130, 140, 0.13);
-  background: #ffffff; }
+  background: #008688; }
 
 /*******************
  Card title
@@ -5381,7 +5383,7 @@ sidebar navigation
 ******************/
 .scroll-sidebar {
   padding-bottom: 60px;
-  padding-top: 30px; }
+  padding-top: 0px; }
 
 .collapse.in {
   display: block; }
@@ -5399,7 +5401,7 @@ sidebar navigation
         display: block;
         font-size: 15px; }
         .sidebar-nav ul li a.active, .sidebar-nav ul li a:hover {
-          color: #009efb; }
+          color: #008688; }
         .sidebar-nav ul li a.active {
           font-weight: 400;
           color: #263238; }
@@ -5420,16 +5422,16 @@ sidebar navigation
         display: block;
         margin: 20px 0; }
   .sidebar-nav > ul > li.active > a {
-    border-left: 3px solid #009efb;
-    color: #009efb; }
+    border-left: 3px solid #008688;
+    color: #008688; }
     .sidebar-nav > ul > li.active > a i {
-      color: #009efb; }
+      color: #008688; }
   .sidebar-nav > ul > li > a {
     border-left: 3px solid #fff; }
     .sidebar-nav > ul > li > a.active, .sidebar-nav > ul > li > a:hover {
-      border-left: 3px solid #009efb; }
+      border-left: 3px solid  #008688; }
       .sidebar-nav > ul > li > a.active i, .sidebar-nav > ul > li > a:hover i {
-        color: #009efb; }
+        color:  #008688; }
     .sidebar-nav > ul > li > a i {
       width: 27px;
       font-size: 21px;
@@ -5442,7 +5444,7 @@ sidebar navigation
     .sidebar-nav > ul > li > a.active {
       font-weight: 400;
       background: #242933;
-      color: #009efb; }
+      color: #008688; }
 
 .sidebar-nav .has-arrow {
   position: relative; }
@@ -5521,9 +5523,9 @@ When click on sidebar toggler and also for tablet
     width: 60px; }
   .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a {
     width: 260px;
-    background: #009efb;
+    background: #008688;
     color: #ffffff;
-    border-color: #009efb; }
+    border-color: #008688; }
     .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a i {
       color: #ffffff; }
     .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a .hide-menu {
@@ -5531,7 +5533,7 @@ When click on sidebar toggler and also for tablet
   .mini-sidebar .sidebar-nav #sidebarnav > li.active > a {
     border-color: transparent; }
     .mini-sidebar .sidebar-nav #sidebarnav > li.active > a.active {
-      border-color: #009efb; } }
+      border-color: #008688; } }
 
 @media (max-width: 767px) {
   .mini-sidebar .left-sidebar {
