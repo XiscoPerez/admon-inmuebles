@@ -40,7 +40,7 @@ function addControlState(div, emptyMessage) {
 
 function addStateClass(div, message, error) {
 	var input = div.getElementsByClassName("form-control")[0];
-	var helpBlock = div.getElementsByTagName('span')[0];
+	var helpBlock = div.getElementsByClassName('form-control-feedback')[0];
 	$(helpBlock).text(message);
 	if (error) {
 		$(div).removeClass('has-success').addClass('has-danger');

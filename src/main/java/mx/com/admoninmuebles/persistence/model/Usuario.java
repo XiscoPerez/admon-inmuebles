@@ -35,7 +35,7 @@ public class Usuario extends EntidadBase {
     @Id
     @Column(name = "id_usuario", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idUsuario;
+    private Long id;
 
     private String username;
 

@@ -7,13 +7,13 @@ import lombok.Data;
 
 @Data
 public class SucursalDto {
-    private Long idSucursal;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 100)
     private String nombre;
 
-    private Long idDireccion;
+    private Long direccionId;
 
     @NotNull
     @Size(min = 1, max = 1000)

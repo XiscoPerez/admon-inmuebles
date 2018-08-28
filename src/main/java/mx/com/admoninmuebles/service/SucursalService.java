@@ -7,7 +7,10 @@ import mx.com.admoninmuebles.persistence.model.Sucursal;
 
 public interface SucursalService {
     Sucursal save(SucursalDto sucursalDto);
+
     Collection<SucursalDto> findAll();
+
     SucursalDto findById(Long idSucursal);
+
     void deleteById(Long idSucursal);
 }

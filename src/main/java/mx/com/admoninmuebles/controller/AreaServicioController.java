@@ -31,39 +31,40 @@ public class AreaServicioController {
         areaServicioService.save(areaServicioDto);
         return "redirect:/crearAreaServicio";
     }
-    
+
     @PostMapping(value = "/catalogos/areas-servicio")
     public String guardarAreaServicio(final Locale locale, final Model model, @Valid final AreaServicioDto areaServicioDto, final BindingResult bindingResult) {
-    	System.out.println("Guardando Area de Servicio " + areaServicioDto.getNombre());
+        System.out.println("Guardando Area de Servicio " + areaServicioDto.getNombre());
         areaServicioService.save(areaServicioDto);
         return "redirect:/catalogos/areas-servicio";
     }
-    
+
     @GetMapping(value = "/catalogos/areas-servicio")
-    public String init(final AreaServicioDto areaServicioDto, Model model) {
-    	
-    	model.addAttribute("areasServicio", areaServicioService.findAll());
+    public String init(final AreaServicioDto areaServicioDto, final Model model) {
+
+        model.addAttribute("areasServicio", areaServicioService.findAll());
         return "catalogos/areas-servicio";
     }
-    
+
     @GetMapping(value = "/catalogos/areas-servicio-edicion/{idAreaServicio}")
-    public String buscarAreaServicioPorId(final @PathVariable long idAreaServicio, Model model) {
-    	
-    	model.addAttribute("areaServicioDto", areaServicioService.findAreaServicioById(idAreaServicio));
+    public String buscarAreaServicioPorId(final @PathVariable long idAreaServicio, final Model model) {
+
+        model.addAttribute("areaServicioDto", areaServicioService.findAreaServicioById(idAreaServicio));
         return "catalogos/areas-servicio-edicion";
     }
-    
+
     @PostMapping(value = "/catalogos/editar-areas-servicio")
     public String editarAreaServicio(final Locale locale, final Model model, @Valid final AreaServicioDto areaServicioDto, final BindingResult bindingResult) {
-    	System.out.println("Editando Area de Servicio " + areaServicioDto.getNombre());
-    	System.out.println("Editando Area de Servicio " + areaServicioDto.getIdAreaServicio());
+        System.out.println("Editando Area de Servicio " + areaServicioDto.getNombre());
+        System.out.println("Editando Area de Servicio " + areaServicioDto.getId());
         areaServicioService.save(areaServicioDto);
         return "redirect:/catalogos/areas-servicio";
     }
-    
+
     @GetMapping(value = "/catalogos/eliminar-areas-servicio/{idAreaServicio}")
     public String eliminarAreaServicio(final @PathVariable long idAreaServicio) {
-        areaServicioService.deleteAreaServicio(idAreaServicio);;
+        areaServicioService.deleteAreaServicio(idAreaServicio);
+        ;
         return "redirect:/catalogos/areas-servicio";
     }
 

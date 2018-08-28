@@ -26,7 +26,7 @@ public class Direccion extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_direccion")
-    private Long idDireccion;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 5)

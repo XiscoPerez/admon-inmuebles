@@ -25,7 +25,7 @@ public class Comentario extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comentario")
-    private Long idComentario;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 2000)
@@ -35,29 +35,5 @@ public class Comentario extends EntidadBase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
     private Usuario usuario;
-
-    public Long getIdComentario() {
-        return idComentario;
-    }
-
-    public void setIdComentario(final Long idComentario) {
-        this.idComentario = idComentario;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(final String comentario) {
-        this.comentario = comentario;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(final Usuario usuario) {
-        this.usuario = usuario;
-    }
 
 }

@@ -23,20 +23,20 @@ public class Servicio extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_servicio")
-    private Long idServicio;
+    private Long id;
 
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 5, max = 100)
     @Column(length = 100, nullable = false)
     private String titulo;
 
     @NotNull
-    @Size(min = 1, max = 2000)
+    @Size(min = 10, max = 2000)
     @Column(length = 2000, columnDefinition = "text", nullable = false)
     private String descripcion;
 
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(length = 100, nullable = false)
     private String imagenUrl;
 }

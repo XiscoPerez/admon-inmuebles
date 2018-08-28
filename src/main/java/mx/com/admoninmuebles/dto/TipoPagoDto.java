@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class TipoPagoDto {
-    private Long idTipoPago;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 50)
