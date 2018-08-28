@@ -22,7 +22,7 @@ public class AreaServicio extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_area_servicio")
-    private Long idAreaServicio;
+    private Long id;
 
     @NotNull
     @Size(min = 5, max = 50)

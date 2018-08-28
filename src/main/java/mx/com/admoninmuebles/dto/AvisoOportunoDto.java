@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class AvisoOportunoDto {
 
-    private Long idAvisoOportuno;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 100)

@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class PreguntaFrecuenteDto {
-    private Long idPreguntaFrecuente;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 500)

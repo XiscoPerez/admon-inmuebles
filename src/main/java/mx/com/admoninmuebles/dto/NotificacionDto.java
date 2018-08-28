@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class NotificacionDto {
 
-    private Long idNotificacion;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 100)

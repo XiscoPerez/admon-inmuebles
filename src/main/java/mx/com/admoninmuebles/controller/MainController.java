@@ -23,39 +23,39 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping("/contacto")
+    @RequestMapping("/informacion/contacto")
     public String contacto() {
-        return "/paginas/estaticas/contacto";
+        return "/informacion/contacto";
     }
 
-    @RequestMapping("/nuestros-clientes")
+    @RequestMapping("/informacion/nuestros-clientes")
     public String nuestrosClientes() {
-        return "/paginas/estaticas/nuestros-clientes";
+        return "/informacion/nuestros-clientes";
     }
 
-    @RequestMapping("/quienes-somos")
+    @RequestMapping("/informacion/quienes-somos")
     public String quienesSomos() {
-        return "/paginas/estaticas/quienes-somos";
+        return "/informacion/quienes-somos";
     }
 
-    @RequestMapping("/servicios")
+    @RequestMapping("/informacion/servicios")
     public String servicios() {
-        return "/paginas/estaticas/servicios";
+        return "/informacion/servicios";
     }
 
-    @RequestMapping("/ventajas-competitivas")
+    @RequestMapping("/informacion/ventajas-competitivas")
     public String ventajasCompetitivas() {
-        return "/paginas/estaticas/ventajas-competitivas";
+        return "/informacion/ventajas-competitivas";
     }
 
     @RequestMapping(value = "/acceso-denegado")
     public String accesoDenegado(final ModelMap model) {
         return "acceso-denegado";
     }
-    
-    @RequestMapping("/sucursales")
+
+    @RequestMapping("/informacion/sucursales")
     public String sucursales() {
-        return "/paginas/estaticas/sucursales";
+        return "/informacion/sucursales";
     }
 
 }

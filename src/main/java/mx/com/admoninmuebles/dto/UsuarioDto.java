@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class UsuarioDto {
 
-    private Long idUsuario;
+    private Long id;
 
     private String username;
 
@@ -42,9 +42,9 @@ public class UsuarioDto {
 //
 //    private Collection<Long> tickets;
 //
-//    private Long idDatosAdicionales;
+//    private Long id;
 //
-//    private Long idDireccion;
+//    private Long id;
 //
 //    private Collection<Long> telefonos;
 //

@@ -34,7 +34,7 @@ public class BienInmueble extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bien_inmueble")
-    private Long idBienInmueble;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 200)

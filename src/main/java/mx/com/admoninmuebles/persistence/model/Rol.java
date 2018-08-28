@@ -31,7 +31,7 @@ public class Rol extends EntidadBase {
     @Id
     @Column(name = "id_rol", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idRol;
+    private Long id;
 
     private String nombre;
 

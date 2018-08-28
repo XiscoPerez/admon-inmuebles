@@ -29,7 +29,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.ENGLISH);
+        slr.setDefaultLocale(new Locale("es", "MX"));
         return slr;
     }
 
@@ -49,7 +49,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-    
+
     @Bean
     public Java8TimeDialect java8TimeDialect() {
         return new Java8TimeDialect();

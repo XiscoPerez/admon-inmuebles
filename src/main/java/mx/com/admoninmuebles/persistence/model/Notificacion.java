@@ -28,7 +28,7 @@ public class Notificacion extends EntidadBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_notificacion")
-    private Long idNotificacion;
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 100)

@@ -1,92 +1,107 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <title th:text="#{zona.titulo}"></title>
 <script th:inline="javascript">
-	
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $('.modal-show').click(function(event) {
+      event.preventDefault();
+      var id = $(this).data('id')
+      var nombre = $(this).data('nombre')
+
+      var modal = $("#modalEliminar")
+      var mensaje = /*[[#{mensaje.eliminar.zona}]]*/
+      modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+      modal.find('.modal-body p').text(mensaje.format(nombre))
+      modal.find('.modal-footer a').attr('href', '/catalogos/zona-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.modal("show");
+    });
+  });
+  /*]]>*/
 </script>
 </head>
 <body>
-	<div layout:fragment="content">
-		<div class="container-fluid">
-			<div class="row page-titles">
-				<div class="col-md-6 col-8 align-self-center">
-					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{zona.titulo}"></h3>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-						<li class="breadcrumb-item active" th:text="#{zona.titulo}"></li>
-					</ol>
-				</div>
-			</div>
-			<!-- ============================================================== -->
-			<!-- Start Page Content -->
-			<!-- ============================================================== -->
-			<div class="row">
-				<div class="col-12">
-					<div class="card">
-						<div class="card-body">
-							<h4 class="card-title" th:text="#{zona.titulo}"></h4>
-							<h6 class="card-subtitle" th:text="#{zona.subtitulo}"></h6>
-							<div class="table-responsive">
-								<table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
-									<thead>
-										<tr>
-											<th th:text="#{zona.codigo}"></th>
-											<th th:text="#{zona.nombre}"></th>
-											<th th:text="#{zona.administrador}"></th>
-											<th th:text="#{zona.accion}"></th>
-										</tr>
-									</thead>
-									<tbody>
-										<th:block th:each="zona : ${zonas}">
-											<tr>
-												<td th:text="${zona.codigo}"></td>
-												<td th:text="${zona.nombre}"></td>
-												<td th:text="#{${zona.adminZonaNombre}+' '+${zona.adminZonaApellidoPaterno}+' '+${zona.adminZonaApellidoMaterno}}"></td>
-												<td><a th:href="${'/catalogos/zona-editar/'  + zona.codigo}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a> <a
-													th:href="${'/catalogos/zona-eliminar/'  + zona.codigo}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a></td>
-											</tr>
-										</th:block>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"><a th:href="@{/catalogos/zona-crear}" class="btn btn-info btn-rounded" th:text="#{zona.nueva}">View Profile</a></td>
-											<td colspan="6">
-												<div class="text-right">
-													<ul class="pagination">
-													</ul>
-												</div>
-											</td>
-										</tr>
-									</tfoot>
-								</table>
-
-								<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
-									<div class="modal-dialog modal-sm">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title" id="mySmallModalLabel">¿Eliminar Zona?</h4>
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-danger waves-effect waves-light">Si</button>
-											</div>
-										</div>
-										<!-- /.modal-content -->
-									</div>
-									<!-- /.modal-dialog -->
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- ============================================================== -->
-			<!-- End PAge Content -->
-			<!-- ============================================================== -->
-		</div>
-	</div>
+  <div layout:fragment="content">
+    <div class="container-fluid">
+      <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+          <h3 class="text-themecolor m-b-0 m-t-0" th:text="#{zona.titulo}"></h3>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
+            <li class="breadcrumb-item active" th:text="#{zona.titulo}"></li>
+          </ol>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" th:text="#{zona.titulo}"></h4>
+              <h6 class="card-subtitle" th:text="#{zona.subtitulo}"></h6>
+              <a th:href="@{/catalogos/zona-crear}" class="btn btn-info btn-rounded waves-effect" th:text="#{zona.nueva}"></a>
+              <div class="table-responsive">
+                <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                  <thead>
+                    <tr>
+                      <th th:text="#{zona.codigo}"></th>
+                      <th th:text="#{zona.nombre}"></th>
+                      <th th:text="#{zona.administrador}"></th>
+                      <th th:text="#{zona.accion}"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <th:block th:each="zona : ${zonas}">
+                      <tr>
+                        <td th:text="${zona.codigo}"></td>
+                        <td th:text="${zona.nombre}"></td>
+                        <td th:text="|${zona.adminZonaNombre} ${zona.adminZonaApellidoPaterno} ${zona.adminZonaApellidoMaterno}|"></td>
+                        <td><a th:href="${'/catalogos/zona-editar/'  + zona.codigo}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a>
+                          <a th:attr="data-id=''+${zona.codigo}+'', data-nombre=''+${zona.nombre}+''" class="btn btn-sm btn-icon btn-pure btn-outline modal-show"><i class="fa fa-close text-danger"
+                            aria-hidden="true"></i></a></td>
+                      </tr>
+                    </th:block>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="6">
+                        <div class="text-right">
+                          <ul class="pagination">
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div class="col-md-4">
+                  <div class="card card-body">
+                    <div id="modalEliminar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p></p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+                            <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

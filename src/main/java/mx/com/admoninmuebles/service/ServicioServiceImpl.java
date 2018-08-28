@@ -27,23 +27,25 @@ public class ServicioServiceImpl implements ServicioService {
         return servicioRepository.save(modelMapper.map(servicioDto, Servicio.class));
     }
 
-	@Override
-	public Collection<ServicioDto> findAll() {
-		return StreamSupport.stream(servicioRepository.findAll().spliterator(), false)
-				.map(servicio -> modelMapper.map(servicio, ServicioDto.class))
-				.collect(Collectors.toList());
-	}
+    @Override
+    public Collection<ServicioDto> findAll() {
+        return StreamSupport.stream(servicioRepository.findAll().spliterator(), false).map(servicio -> modelMapper.map(servicio, ServicioDto.class)).collect(Collectors.toList());
+    }
 
-	@Override
-	public ServicioDto findById(Long idServicio) {
-		Optional<Servicio> servicio = servicioRepository.findById(idServicio);
-		return modelMapper.map(servicio.get(), ServicioDto.class);
-	}
+    @Override
+    public ServicioDto findById(final Long id) {
+        Optional<Servicio> servicio = servicioRepository.findById(id);
+        return modelMapper.map(servicio.get(), ServicioDto.class);
+    }
 
-	@Override
-	public void deleteById(Long idServicio) {
-		servicioRepository.deleteById(idServicio);
-		
-	}
+    @Override
+    public void deleteById(final Long id) {
+        servicioRepository.deleteById(id);
 
+    }
+
+    @Override
+    public boolean exist(final Long id) {
+        return servicioRepository.existsById(id);
+    }
 }

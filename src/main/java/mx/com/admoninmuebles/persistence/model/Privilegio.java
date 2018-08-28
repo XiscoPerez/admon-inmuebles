@@ -29,7 +29,7 @@ public class Privilegio extends EntidadBase {
     @Id
     @Column(name = "id_privilegio", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idPrivilegio;
+    private Long id;
 
     private String nombre;
 
