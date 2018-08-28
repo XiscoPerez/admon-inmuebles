@@ -10,12 +10,14 @@
 <meta name="author" content="">
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/IMAGOTIPO_GESCO_ICON.png}">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<link th:href="@{/css/style.css}" rel="stylesheet">
 <!-- Bootstrap Core CSS -->
 <link th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 <!-- Custom CSS -->
 <link th:href="@{/assets/css/style.css}" rel="stylesheet">
 <!-- You can change the theme colors from here -->
-<link th:href="@{/assets/css/colors/blue.css}" id="theme" rel="stylesheet">
+<!-- <link th:href="@{/assets/css/colors/blue.css}" id="theme" rel="stylesheet"> -->
 <!-- Popup CSS -->
 <link href="../assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 <!-- Footable CSS -->
@@ -75,5 +77,10 @@
     <script src="../assets/plugins/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
     <!--FooTable init-->
     <script src="/assets/js/footable-init.js"></script>
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+	  <script>
+	    AOS.init();
+	  </script>
 </body>
 </html>

@@ -52,5 +52,10 @@ public class MainController {
     public String accesoDenegado(final ModelMap model) {
         return "acceso-denegado";
     }
+    
+    @RequestMapping("/sucursales")
+    public String sucursales() {
+        return "/paginas/estaticas/sucursales";
+    }
 
 }
