@@ -30,7 +30,7 @@
                                <h4 class="card-title"><span th:text="#{usuario.titulo}"></span></h4>
                                <h6 class="card-subtitle"><span th:text="#{usuario.titulo.editar}"></span></h6>
     							<form name="editarUsuarioForm" action="#" th:action="@{/usuarios/editar}" th:object="${usuarioDto}" method="post" class="form-horizontal form-material">
-    									<input type="hidden" class="form-control" th:field="*{idUsuario}"/>
+    									<input type="hidden" class="form-control" th:field="*{id}"/>
                                        <div class="form-group">
                                            <div class="col-md-12 m-b-20">
                                                <input type="text" class="form-control" th:field="*{username}" placeholder="label.usuario.username"> 
@@ -48,9 +48,12 @@
                                                <input type="text" class="form-control" th:field="*{apellidoMaterno}" placeholder="label.usuario.apellidomaterno"> 
                                            </div>
                                            <div class="col-md-12 m-b-20">
-<!-- 		                                        <label>ROL</label> -->
 		                                        <select  name="rolId" class="form-control" th:field="*{rolesSeleccionados}" required multiple="multiple">	
-													<option th:each="rol : ${rolesDto}" th:value="${{rol.idRol}}" th:text="${rol.nombre}"></option>
+													<option th:each="rol : ${rolesDto}" 
+															th:selected="${usuarioDto.rolesSeleccionados.contains(rol.id)}"
+															th:value="${{rol.id}}" 
+															th:text="${rol.nombre}">
+													</option>
 		                                        </select>
 		                                   </div>
 		                                   <div class="col-md-12 m-b-20">
@@ -60,8 +63,8 @@
 	                                            </label>
                                             </div>
                                            <div class="col-md-12 m-b-20">
-			                                    <button type="submit" class="btn btn-info waves-effect" >Guardar</button>
-			                                    <a th:href="@{/usuarios}" class="btn btn-secondary waves-effect">Regresar</a>
+			                                    <button type="submit" class="btn btn-info-gesco waves-effect" th:text="#{etiqueta.guardar}"></button>
+			                                    <a th:href="@{/usuarios}" class="btn btn-secondary waves-effect" th:text="#{etiqueta.cancelar}"></a>
                                            </div>
                                        </div>
                               </form>

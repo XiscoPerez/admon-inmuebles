@@ -19,6 +19,18 @@ public class UsuarioDto {
     private String apellidoMaterno;
 
     private String correo;
+    
+    private String telefono;
+    
+    private String facebook;
+    
+    private String twiter;
+    
+    private String youtube;
+    
+    private String googleMapsDir;
+    
+    private String fotoUrl;
 
     private boolean cuentaExpirada;
 

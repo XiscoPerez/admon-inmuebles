@@ -46,6 +46,19 @@ public class Usuario extends EntidadBase {
     private String apellidoMaterno;
 
     private String correo;
+    
+    private String telefono;
+    
+    private String facebook;
+    
+    private String twiter;
+    
+    private String youtube;
+    
+    @Column(length = 1000, columnDefinition = "text", nullable = true)
+    private String googleMapsDir;
+    
+    private String fotoUrl;
 
     @Column(name = "cuenta_expirada")
     private boolean cuentaExpirada;

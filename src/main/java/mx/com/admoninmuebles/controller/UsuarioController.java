@@ -1,6 +1,8 @@
 package mx.com.admoninmuebles.controller;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import mx.com.admoninmuebles.dto.CambioContraseniaDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.dto.ZonaDto;
 import mx.com.admoninmuebles.service.RolService;
@@ -87,7 +90,10 @@ public class UsuarioController {
     @PreAuthorize("hasRole('ADMIN_CORP')")
     @GetMapping(value = "/usuarios/editar/{idUsuario}")
     public String edicionInit(final @PathVariable Long idUsuario, final Model model) {
-    	model.addAttribute("usuarioDto", userService.findById(idUsuario));
+    	UsuarioDto usuarioDto = userService.findById(idUsuario);
+    	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
+    	usuarioDto.setRolesSeleccionados( rolesUsuario );
+    	model.addAttribute("usuarioDto", usuarioDto);
     	model.addAttribute("rolesDto", rolService.findAll());
         return "usuarios/usuario-editar";
     }
@@ -107,57 +113,43 @@ public class UsuarioController {
     	userService.deleteById(idUsuario);
         return "redirect:/usuarios";
     }
+//    
+    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @GetMapping(value = "/usuarios/perfil/{idUsuario}")
+    public String verPerfil(final @PathVariable Long idUsuario, final Model model) {
+    	UsuarioDto usuarioDto = userService.findById(idUsuario);
+    	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
+    	usuarioDto.setRolesSeleccionados( rolesUsuario );
+    	model.addAttribute("usuarioDto", usuarioDto);
+    	model.addAttribute("cambioContraseniaDto", new CambioContraseniaDto());
+    	model.addAttribute("rolesDto", rolService.findAll());
+        return "usuarios/usuario-perfil";
+    }
     
-
-
-//    @PreAuthorize("hasRole('ADMIN_CORP')")
-//    @GetMapping(value = "/catalogos/zona-crear")
-//    public String crearZona(final ZonaDto zonaDto, final HttpSession session) {
-//        session.setAttribute("usuariosAdminZona", rolService.findUsuariosByNombreRol("ROLE_ADMIN_ZONA"));
-//        return "catalogos/zona-crear";
-//    }
-//
-//    @PreAuthorize("hasRole('ADMIN_CORP')")
-//    @PostMapping(value = "/catalogos/zona-crear")
-//    public String guardarZona(final Locale locale, final Model model, @Valid final ZonaDto zonaDto, final BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "/catalogos/zona-crear";
-//        }
-//        if (zonaService.exist(zonaDto.getCodigo())) {
-//            FieldError error;
-//            error = new FieldError("zonaDto", "codigo", zonaDto.getCodigo(), false, null, null, messages.getMessage("mensage.zona.codigoexiste", null, locale));
-//            bindingResult.addError(error);
-//            return "/catalogos/zona-crear";
-//        } else {
-//            zonaService.save(zonaDto);
-//        }
-//
-//        return "redirect:/catalogos/zonas";
-//    }
-//
-//    @PreAuthorize("hasRole('ADMIN_CORP')")
-//    @GetMapping(value = "/catalogos/zona-editar/{codigo}")
-//    public String buscarZonaPorId(final @PathVariable String codigo, final Model model, final HttpSession session) {
-//        session.setAttribute("usuariosAdminZona", rolService.findUsuariosByNombreRol("ROLE_ADMIN_ZONA"));
-//        model.addAttribute("zonaDto", zonaService.findById(codigo));
-//        return "catalogos/zona-editar";
-//    }
-//
-//    @PreAuthorize("hasRole('ADMIN_CORP')")
-//    @PostMapping(value = "/catalogos/zona-editar")
-//    public String editarZona(final Locale locale, final Model model, @Valid final ZonaDto zonaDto, final BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "/catalogos/zona-editar";
-//        }
-//        zonaService.save(zonaDto);
-//        return "redirect:/catalogos/zonas";
-//    }
-//
-//    @PreAuthorize("hasRole('ADMIN_CORP')")
-//    @GetMapping(value = "/catalogos/zona-eliminar/{codigo}")
-//    public String eliminarZona(final @PathVariable String codigo) {
-//        zonaService.deleteById(codigo);
-//        return "redirect:/catalogos/zonas";
-//    }
+    @GetMapping(value = "/usuarios/perfil")
+    public String verMiPerfil(final Model model) {
+    	UsuarioDto usuarioDto = userService.findUserLogin();
+    	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
+    	usuarioDto.setRolesSeleccionados( rolesUsuario );
+    	model.addAttribute("usuarioDto", usuarioDto);
+    	model.addAttribute("cambioContraseniaDto", new CambioContraseniaDto());
+    	model.addAttribute("rolesDto", rolService.findAll());
+        return "usuarios/usuario-perfil";
+    }
+    
+    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @PostMapping(value = "/usuarios/perfil/editar")
+    public String editarPerfil(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    	userService.crearCuenta(usuarioDto);
+    	return "redirect:/usuarios/perfil/" + usuarioDto.getId();
+    }
+    
+    @PostMapping(value = "/usuarios/perfil/cambioContrasenia")
+    public String cambiarContrasenia(final Locale locale, final Model model, @Valid final CambioContraseniaDto cambioContraseniaDto, final BindingResult bindingResult) {
+    	UsuarioDto usuarioDto = userService.cambiarContrasenia(cambioContraseniaDto);
+    	return "redirect:/usuarios/perfil/" + usuarioDto.getId();
+    }
+    
+    
 
 }

@@ -4,6 +4,11 @@ iframe {
 }
 
 
+.spacer {
+    padding: 90px 0px;
+}
+
+
 .footer-fixed {
 	position: fixed;
 }
@@ -49,8 +54,8 @@ iframe {
   bottom: 0;
   color: #54667a;
   left: 0px;
-  padding: 17px 15px;
-  position: fixed;
+  padding: 7px 15px;
+  position: absolute;
   right: 0;
   border-top: 1px solid rgba(120, 130, 140, 0.13);
   background: #008688; }

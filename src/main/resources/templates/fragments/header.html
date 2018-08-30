@@ -24,6 +24,7 @@
 		<!-- End Logo -->
 		<!-- ============================================================== -->
 		<div class="navbar-collapse">
+
 			<!-- ============================================================== -->
 			<!-- toggle and nav items -->
 			<!-- ============================================================== -->
@@ -46,7 +47,7 @@
 					<div class="dropdown-menu mailbox animated bounceInDown">
 						<ul>
 							<li>
-								<div class="drop-title">Notifications</div>
+								<div class="drop-title" th:text="#{etiqueta.notificaciones}"></div>
 							</li>
 							<li>
 								<div class="message-center">
@@ -96,16 +97,35 @@
 									</a>
 								</div>
 							</li>
-							<li><a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i>
+							<li><a class="nav-link text-center" href="javascript:void(0);"> <strong th:text="#{etiqueta.notifiaciones.todas}"></strong> <i class="fa fa-angle-right"></i>
 							</a></li>
 						</ul>
 					</div></li>
 				<!-- ============================================================== -->
 				<!-- End Comment -->
 				<!-- ============================================================== -->
-
+				
 
 			</ul>
+			<ul class="navbar-nav w-100 justify-content-center">
+	            <li class="nav-item">
+	            	<span class="text-white font-weight-bold" th:text="#{header.frase.publicitaria}"></span>
+	            </li>
+	        </ul>
+<!-- 			<div class="mx-auto order-0"> -->
+<!-- 		        <a class="navbar-brand mx-auto" href="#">Navbar 2</a> -->
+<!-- 		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2"> -->
+<!-- 		            <span class="navbar-toggler-icon"></span> -->
+<!-- 		        </button> -->
+<!-- 		    </div> -->
+			
+<!-- 			<div class="navbar-collapse collapse"> -->
+<!-- 		        <ul class="navbar-nav abs-center-x"> -->
+<!-- 		            <li class="nav-item"> -->
+<!-- 		                <a class="nav-link" href="#">Center</a> -->
+<!-- 		            </li> -->
+<!-- 		        </ul> -->
+<!-- 		    </div> -->
 			<!-- ============================================================== -->
 			<!-- User profile and search -->
 			<!-- ============================================================== -->
@@ -121,20 +141,20 @@
 										<img th:src="@{/assets/images/users/1.jpg}" alt="user">
 									</div>
 									<div class="u-text">
-										<h4 sec:authentication="name"></h4>
-										<p class="text-muted">varun@gmail.com</p>
-										<a th:href="@{/user/perfil}" class="btn btn-rounded btn-danger btn-sm">Mi Perfil</a>
+										<h4 sec:authentication="name"></h4><br/>
+<!-- 										<p class="text-muted" sec:authentication="principal"></p> -->
+										<a th:href="@{/usuarios/perfil}" class="btn btn-rounded btn-danger btn-sm" th:text="#{header.etiqueta.miperfil}"></a>
 									</div>
 								</div>
 							</li>
-							<li><a th:href="@{/logout}"> <i class="fa fa-power-off"></i> Salir
-							</a></li>
+							<li><a th:href="@{/logout}"> <i class="fa fa-power-off"></i> <span th:text="#{etiqueta.salir}"></span></a></li>
 						</ul>
 					</div></li>
 				<li class="nav-item hidden-sm-down"><th:block th:switch="__${#locale}__">
 						<a class="nav-link text-muted " aria-expanded="false" th:case="es_MX" th:href="@{?lang=en}"><i class="flag-icon flag-icon-mx"></i></a>
 						<a class="nav-link text-muted" aria-expanded="false" th:case="en" th:href="@{?lang=es_MX}"><i class="flag-icon flag-icon-us"></i></a>
-					</th:block></li>
+					</th:block>
+				</li>
 
 
 			</ul>

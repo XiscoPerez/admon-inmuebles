@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import mx.com.admoninmuebles.dto.CambioContraseniaDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
 import mx.com.admoninmuebles.persistence.repository.UsuarioRepository;
+import mx.com.admoninmuebles.security.SecurityUtils;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -61,14 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Collection<UsuarioDto> findAll() {
         return StreamSupport.stream(userRepository.findAll().spliterator(), false).map(usuario -> modelMapper.map(usuario, UsuarioDto.class)).collect(Collectors.toList());
     }
-
-    public static void main(final String[] args) {
-        String generatedString = RandomStringUtils.randomAlphanumeric(10);
-        System.out.println(generatedString);
-
-        String generatedString2 = RandomStringUtils.random(10, true, true);
-        System.out.println(generatedString2);
-    }
+    
 
     @Override
     public UsuarioDto update(final UsuarioDto userDto) {
@@ -104,6 +99,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         return modelMapper.map(usuarioOptional.get(), UsuarioDto.class);
     }
+    
+    @Override
+    public UsuarioDto findUserLogin() {
+    	String usuarioAutenticado = SecurityUtils.getCurrentUserLogin().get();
+        Optional<Usuario> usuarioOptional = userRepository.findByUsername(usuarioAutenticado);
+
+        return modelMapper.map(usuarioOptional.get(), UsuarioDto.class);
+    }
 
     @Override
     public void deleteById(final Long idUsuario) {
@@ -114,6 +117,32 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         userRepository.deleteById(idUsuario);
+
+    }
+    
+    @Override
+    public UsuarioDto cambiarContrasenia(final CambioContraseniaDto cambioContraseniaDto) {
+    	String usuarioAutenticado = SecurityUtils.getCurrentUserLogin().get();
+        Optional<Usuario> usuarioOptional = userRepository.findByUsername(usuarioAutenticado);
+
+        if (!usuarioOptional.isPresent()) {
+
+        }
+        Usuario usuarioLogin = usuarioOptional.get();
+        
+        if(!passwordEncoder.matches(cambioContraseniaDto.getContraseniaAnterior(), usuarioLogin.getContrasenia())){
+        	
+        }
+        
+        if(!cambioContraseniaDto.getContraseniaNueva().equals(cambioContraseniaDto.getContraseniaConfirmacion())) {
+        	
+        }
+        
+        usuarioLogin.setContrasenia(passwordEncoder.encode(cambioContraseniaDto.getContraseniaNueva()));
+
+        userRepository.save(usuarioLogin);
+        
+        return modelMapper.map(usuarioLogin, UsuarioDto.class);
 
     }
 
