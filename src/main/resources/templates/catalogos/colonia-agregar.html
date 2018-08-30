@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title th:text="#{colonia.titulo}"></title>
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function() {
+  addControlState(document.getElementById('divZona'),/*[[#{mensaje.colonia.requerido}]]*/);
+  addControlState(document.getElementById('divColonia'),/*[[#{mensaje.colonia.requerido}]]*/);
+  addControlState(document.getElementById('divCodigoPostal'),/*[[#{mensaje.codigopostal.requerido}]]*/);
+});
+/*]]>*/
+</script>
+</head>
+<body>
+  <div layout:fragment="content">
+    <div class="container-fluid">
+      <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+          <h3 class="text-themecolor m-b-0 m-t-0" th:text="#{colonia.titulo}"></h3>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
+            <li class="breadcrumb-item active" th:text="#{colonia.titulo}"></li>
+          </ol>
+        </div>
+      </div>
+      <div class="card w-50">
+        <div class="card-body">
+          <h3 class="card-title" th:text="#{colonia.titulo}"></h3>
+          <h6 class="card-subtitle" th:text="#{colonia.subtitulo}"></h6>
+          <form name="crearColoniaForm" action="#" th:action="@{/catalogos/colonia-agregar}" th:object="${coloniaDto}" method="post">
+            <div id="divZona" th:class="${#fields.hasErrors('zonaCodigo')}? 'form-group has-danger':'form-group'">
+              <label class="form-control-label" th:text="#{etiqueta.zona}"></label>
+              <select name="zonaCodigo" class="form-control" th:field="*{zonaCodigo}" required>
+                <option selected="selected" value="" th:text="#{etiqueta.seleccione}"></option>
+                <option th:each="zona : ${session.zonas}" th:value="${zona.codigo}" th:text="|${zona.codigo} -${zona.nombre}|"></option>
+              </select>
+              <span class="form-control-feedback">
+                <span th:if="${#fields.hasErrors('zonaCodigo')}" th:errors="*{zonaCodigo}"></span>
+              </span>
+            </div>
+            <div id="divCodigoPostal" th:class="${#fields.hasErrors('codigoPostal')}? 'form-group has-danger':'form-group'">
+              <label class="form-control-label" th:text="#{etiqueta.codigoPostal}"></label>
+              <div class="input-group">
+                <input name="codigoPostal" class="form-control" th:field="*{codigoPostal}" required pattern="^\d{5}$" th:title="#{mensaje.codigoPostal.validacion}" />
+                <div class="input-group-append">
+                  <button type="submit" name="buscar" class="btn btn-info" th:text="#{text.boton.buscar}"></button>
+                </div>
+              </div>
+              <span class="form-control-feedback">
+                <span th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></span>
+              </span>
+            </div>
+            <div id="divColonia" th:class="${#fields.hasErrors('id')}? 'form-group has-danger':'form-group'" th:unless="${#lists.isEmpty(session.colonias)}">
+              <label class="form-control-label" th:text="#{etiqueta.colonia}"></label>
+              <select name="id" class="form-control" th:field="*{id}" required>
+                <option selected="selected" value="" th:text="#{etiqueta.seleccione}"></option>
+                <option th:each="colonia : ${session.colonias}" th:value="${colonia.id}" th:text="${colonia.nombre}"></option>
+              </select>
+              <span class="form-control-feedback">
+                <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></span>
+              </span>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success btn-rounded" th:text="#{etiqueta.guardar}"></button>
+              <a th:href="@{/catalogos/colonias}" class="btn btn-danger btn-rounded" th:text="#{etiqueta.cancelar}"></a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

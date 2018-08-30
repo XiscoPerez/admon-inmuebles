@@ -23,7 +23,6 @@ public class ServicioDto {
     @NotNull
     private MultipartFile imagen;
 
-    @Size(min = 1, max = 100)
     private String imagenUrl;
 
 }
