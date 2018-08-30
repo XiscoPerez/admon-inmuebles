@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import mx.com.admoninmuebles.dto.ServicioDto;
 import mx.com.admoninmuebles.service.ServicioService;
@@ -21,13 +21,9 @@ import mx.com.admoninmuebles.storage.StorageService;
 
 @Controller
 public class ServicioController {
-    private final StorageService storageService;
 
     @Autowired
-    public ServicioController(final StorageService storageService) {
-        this.storageService = storageService;
-    }
-
+    private StorageService storageService;
     @Autowired
     private ServicioService servicioService;
 
@@ -50,9 +46,7 @@ public class ServicioController {
         if (bindingResult.hasErrors()) {
             return "/catalogos/servicio-crear";
         }
-        storageService.store(servicioDto.getImagen());
-        String path = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class, "getFile", servicioDto.getImagen().getOriginalFilename()).build().getPath();
-        servicioDto.setImagenUrl(path);
+        servicioDto.setImagenUrl("/" + storageService.store(servicioDto.getImagen()));
         servicioService.save(servicioDto);
 
         return "redirect:/catalogos/servicios";
@@ -70,6 +64,10 @@ public class ServicioController {
     public String editarServicio(final Locale locale, final Model model, @Valid final ServicioDto servicioDto, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/catalogos/servicio-editar";
+        }
+
+        if (StringUtils.isAllEmpty(servicioDto.getImagenUrl())) {
+            servicioDto.setImagenUrl("/" + storageService.store(servicioDto.getImagen()));
         }
         servicioService.save(servicioDto);
         return "redirect:/catalogos/servicios";
