@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -23,7 +24,7 @@ public abstract class EntidadBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @LastModifiedBy
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario modificadoPor;
 
     @LastModifiedDate
