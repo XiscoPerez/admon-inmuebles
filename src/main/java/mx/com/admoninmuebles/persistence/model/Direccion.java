@@ -33,23 +33,23 @@ public class Direccion extends EntidadBase {
 
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(length = 50, nullable = false)
+    @Column(name = "numero_exterior", length = 50, nullable = false)
     private String numeroExterior;
 
     @Size(min = 1, max = 50)
     @Column(length = 50)
     private String numeroInterior;
 
-    @Size(min = 0, max = 200)
+    @Size(min = 0, max = 50)
     @Column(length = 50)
     private String entreCalles;
 
-    @Size(min = 0, max = 500)
-    @Column(length = 500, columnDefinition = "text")
+    @Size(min = 0, max = 100)
+    @Column(length = 100)
     private String referencias;
 
     @ManyToOne
-    @JoinColumn(name = "id_asentamiento", referencedColumnName = "id_asentamiento", nullable = false)
+    @JoinColumn(name = "id_asentamiento_fk", nullable = false)
     private Asentamiento asentamiento;
 
 }

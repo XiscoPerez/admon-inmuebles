@@ -37,37 +37,39 @@ public class BienInmueble extends EntidadBase {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 200)
-    @Column(length = 200, unique = true, nullable = false)
+    @Size(min = 1, max = 100)
+    @Column(length = 100, nullable = false)
     private String nombre;
 
+    @NotNull
     @Min(value = 1)
     @Max(value = 31)
-    @Column(nullable = false)
+    @Column(name = "dia_cuota_ordinaria", nullable = false)
     private Integer diaCuotaOrdinaria;
 
+    @NotNull
     @Digits(integer = 5, fraction = 2)
-    @Column(nullable = false, precision = 5, scale = 2)
+    @Column(name = "monto_cuota_ordinaria", nullable = false, precision = 5, scale = 2)
     private BigDecimal montoCuotaOrdinaria;
 
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(length = 100, nullable = false)
+    @Column(name = "imagen_url", length = 100, nullable = false)
     private String imagenUrl;
 
     @OneToOne
-    @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion", nullable = false)
+    @JoinColumn(name = "id_direccion_fk", nullable = false)
     private Direccion direccion;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "id_admin_bi_fk", nullable = false)
     public Usuario adminBi;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bienInmueble")
     private Collection<Notificacion> notificaciones;
 
     @OneToOne
-    @JoinColumn(name = "id_datos_adicionales", referencedColumnName = "id_datos_adicionales", nullable = false)
+    @JoinColumn(name = "id_datos_adicionales_fk", nullable = false)
     private DatosAdicionales datosAdicionales;
 
 }

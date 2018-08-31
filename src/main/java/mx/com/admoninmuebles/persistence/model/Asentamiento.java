@@ -42,14 +42,15 @@ public class Asentamiento implements Serializable {
     private String codigoPostal;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tipo_asentamiento")
+    @JoinColumn(name = "id_tipo_asentamiento_fk")
     private TipoAsentamiento tipoAsentamiento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_municipio")
+    @JoinColumn(name = "id_municipio_fk")
     private Municipio municipio;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_zona_fk")
     public Zona zona;
 
     @OneToMany(mappedBy = "asentamiento")

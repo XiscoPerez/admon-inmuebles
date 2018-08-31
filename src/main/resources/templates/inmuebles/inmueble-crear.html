@@ -44,7 +44,7 @@ $(document).ready(function() {
               <div class="row">
                 <div id="divNombre" class="col-md-6 form-group" th:classappend="${#fields.hasErrors('nombre')}? ' has-danger':''">
                   <label class="form-control-label" th:text="#{etiqueta.nombre}"></label>
-                  <input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\w\s]{6,100}$" th:title="#{mensaje.nombre.validacion}" />
+                  <input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\w\s]{1,100}$" th:title="#{mensaje.nombre.validacion}" />
                   <span class="form-control-feedback">
                     <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
                   </span>
@@ -56,9 +56,9 @@ $(document).ready(function() {
                     <span th:if="${#fields.hasErrors('diaCuotaOrdinaria')}" th:errors="*{diaCuotaOrdinaria}"></span>
                   </span>
                 </div>
-                <div id="divMontoCuotaOrdinaria" class="col-md-3" th:classappend="${#fields.hasErrors('montoCuotaOrdinaria')}? 'form-group has-danger':'form-group'">
+                <div id="divMontoCuotaOrdinaria" class="col-md-3 form-group" th:classappend="${#fields.hasErrors('montoCuotaOrdinaria')}? 'has-danger'">
                   <label class="form-control-label" th:text="#{etiqueta.montoCuotaOrdinaria}"></label>
-                  <input name="montoCuotaOrdinaria" class="form-control" th:field="*{montoCuotaOrdinaria}" required pattern="^\d{1,6}(\.\d{1,2})?$" th:title="#{mensaje.montoCuotaOrdinaria.validacion}" />
+                  <input name="montoCuotaOrdinaria" class="form-control" th:field="*{montoCuotaOrdinaria}" required pattern="^\d{1,5}(\.\d{1,2})?$" th:title="#{mensaje.montoCuotaOrdinaria.validacion}" />
                   <span class="form-control-feedback">
                     <span th:if="${#fields.hasErrors('montoCuotaOrdinaria')}" th:errors="*{montoCuotaOrdinaria}"></span>
                   </span>
@@ -69,21 +69,21 @@ $(document).ready(function() {
                   <label class="form-control-label" th:text="#{etiqueta.administradorInmueble}"></label>
                   <select name="adminBiId" class="form-control" th:field="*{adminBiId}" required>
                     <option selected="selected" value="" th:text="#{etiqueta.seleccione}"></option>
-                    <option th:each="adminBi : ${session.usuariosAdminBi}" th:value="${adminBi.id}" th:text="#{${adminBi.nombre} + ' '+ ${adminBi.apellidoPaterno}+ ' '+ ${adminBi.apellidoMaterno}}"></option>
+                    <option th:each="adminBi : ${session.usuariosAdminBi}" th:value="${adminBi.id}" th:text="|${adminBi.nombre} ${adminBi.apellidoPaterno} ${adminBi.apellidoMaterno}|"></option>
                   </select>
                   <span class="form-control-feedback">
                     <span th:if="${#fields.hasErrors('adminBiId')}" th:errors="*{adminBiId}"></span>
                   </span>
                 </div>
-                <div id="divDatosAdicionalesNombreRepresentante" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('datosAdicionalesNombreRepresentante')}? 'has-danger':''">
-                  <label class="form-control-label" th:text="#{etiqueta.datosAdicionalesNombreRepresentante}"></label>
+                <div id="divDatosAdicionalesNombreRepresentante" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('datosAdicionalesNombreRepresentante')}? 'has-danger'">
+                  <label class="form-control-label" th:text="#{etiqueta.nombreRepresentante}"></label>
                   <input name="datosAdicionalesNombreRepresentante" class="form-control" th:field="*{datosAdicionalesNombreRepresentante}" required pattern="^[\w\s]{6,100}$"
-                    th:title="#{mensaje.datosAdicionalesNombreRepresentante.validacion}" />
+                    th:title="#{mensaje.nombreRepresentante.validacion}" />
                   <span class="form-control-feedback">
                     <span th:if="${#fields.hasErrors('datosAdicionalesNombreRepresentante')}" th:errors="*{datosAdicionalesNombreRepresentante}"></span>
                   </span>
                 </div>
-                <div id="divDatosAdicionalesRazonSocial" class="col-md-4" th:classappend="${#fields.hasErrors('datosAdicionalesRazonSocial')}? 'form-group has-danger':'form-group'">
+                <div id="divDatosAdicionalesRazonSocial" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('datosAdicionalesRazonSocial')}? 'has-danger'">
                   <label class="form-control-label" th:text="#{etiqueta.datosAdicionalesRazonSocial}"></label>
                   <input name="datosAdicionalesRazonSocial" class="form-control" th:field="*{datosAdicionalesRazonSocial}" required pattern="^[\w\s]{6,100}$"
                     th:title="#{mensaje.datosAdicionalesRazonSocial.validacion}" />
