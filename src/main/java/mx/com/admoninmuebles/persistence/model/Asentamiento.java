@@ -3,7 +3,6 @@ package mx.com.admoninmuebles.persistence.model;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,7 +52,7 @@ public class Asentamiento implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     public Zona zona;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "asentamiento")
+    @OneToMany(mappedBy = "asentamiento")
     private Collection<Direccion> direcciones;
 
 }

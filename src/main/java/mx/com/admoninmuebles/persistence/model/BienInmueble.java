@@ -55,19 +55,19 @@ public class BienInmueble extends EntidadBase {
     @Column(length = 100, nullable = false)
     private String imagenUrl;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne
     @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion", nullable = false)
     private Direccion direccion;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_usuario", nullable = false)
     public Usuario adminBi;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bienInmueble")
     private Collection<Notificacion> notificaciones;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_datos_adicionales", referencedColumnName = "id_datos_adicionales")
+    @OneToOne
+    @JoinColumn(name = "id_datos_adicionales", referencedColumnName = "id_datos_adicionales", nullable = false)
     private DatosAdicionales datosAdicionales;
 
 }
