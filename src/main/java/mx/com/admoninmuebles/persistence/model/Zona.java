@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +35,7 @@ public class Zona extends EntidadBase {
     private String nombre;
 
     @ManyToOne
+    @JoinColumn(name = "id_admin_zona_fk")
     public Usuario adminZona;
 
     @OneToMany(mappedBy = "zona")

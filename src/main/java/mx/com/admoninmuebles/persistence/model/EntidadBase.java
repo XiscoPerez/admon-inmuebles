@@ -4,8 +4,10 @@ package mx.com.admoninmuebles.persistence.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -25,10 +27,12 @@ public abstract class EntidadBase implements Serializable {
 
     @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Id_modificado_por_fk")
     private Usuario modificadoPor;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_modificacion")
     private Date fechaModificacion;
 
 }

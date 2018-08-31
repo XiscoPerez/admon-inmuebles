@@ -13,12 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import mx.com.admoninmuebles.persistence.model.Asentamiento;
 import mx.com.admoninmuebles.persistence.model.Privilegio;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
+import mx.com.admoninmuebles.persistence.model.Zona;
+import mx.com.admoninmuebles.persistence.repository.AsentamientoRepository;
 import mx.com.admoninmuebles.persistence.repository.PrivilegioRepository;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
 import mx.com.admoninmuebles.persistence.repository.UsuarioRepository;
+import mx.com.admoninmuebles.persistence.repository.ZonaRepository;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -33,6 +37,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     private PrivilegioRepository privilegioRepository;
+
+    @Autowired
+    private ZonaRepository zonaRepository;
+
+    @Autowired
+    private AsentamientoRepository asentamientoRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -125,12 +135,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosAdminCorp.add(reportes);
         Rol adminCorp = createRolIfNotFound("ROLE_ADMIN_CORP", privilegiosAdminCorp);
 
-        createUsuarioIfNotFound("proveedor", "Proveedor", "", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
-        createUsuarioIfNotFound("socio_bi", "Socio", "Bi", "Inmueble", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)));
-        createUsuarioIfNotFound("rep_bi", "Representante", "Bien", "Inmubele", "rep_bi", new ArrayList<>(Arrays.asList(repBi)));
-        createUsuarioIfNotFound("admin_bi", "Administrador", "Bien", "Inmueble", "admin_bi", new ArrayList<>(Arrays.asList(adminBi)));
-        createUsuarioIfNotFound("admin_zona", "Administrador", "Zona", "", "admin_zona", new ArrayList<>(Arrays.asList(adminZona)));
-        createUsuarioIfNotFound("admin_corp", "Administrador", "Corporativo", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)));
+        Usuario usuarioProveedor = createUsuarioIfNotFound("proveedor", "Proveedor", "", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
+        Usuario usuarioSocioBi = createUsuarioIfNotFound("socio_bi", "Socio", "Bi", "Inmueble", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)));
+        Usuario usuarioRepBi = createUsuarioIfNotFound("rep_bi", "Representante", "Bien", "Inmubele", "rep_bi", new ArrayList<>(Arrays.asList(repBi)));
+        Usuario usuarioAdminBi = createUsuarioIfNotFound("admin_bi", "Administrador", "Bien", "Inmueble", "admin_bi", new ArrayList<>(Arrays.asList(adminBi)));
+        Usuario usuarioAdminZona = createUsuarioIfNotFound("admin_zona", "Administrador", "Zona", "", "admin_zona", new ArrayList<>(Arrays.asList(adminZona)));
+        Usuario usuarioAdminCorp = createUsuarioIfNotFound("admin_corp", "Administrador", "Corporativo", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)));
+
+        Zona zona = createZonaIfNotFound("zona1", "Zona 1", usuarioAdminZona);
+        updateAsentamientoIfFound(1L, zona);
 
         alreadySetup = true;
     }
@@ -177,4 +190,29 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return usuario;
     }
 
+    @Transactional
+    public final Zona createZonaIfNotFound(final String codigo, final String nombre, final Usuario adminZona) {
+        Optional<Zona> optZona = zonaRepository.findById(codigo);
+        Zona zona = optZona.orElse(new Zona());
+        if (!optZona.isPresent()) {
+            zona.setCodigo(codigo);
+            zona.setNombre(nombre);
+            zona.setAdminZona(adminZona);
+            zona = zonaRepository.save(zona);
+        }
+
+        return zona;
+    }
+
+    @Transactional
+    public final Asentamiento updateAsentamientoIfFound(final Long id, final Zona zona) {
+        Optional<Asentamiento> optAsentamiento = asentamientoRepository.findById(id);
+        Asentamiento asentamiento = null;
+        if (optAsentamiento.isPresent()) {
+            asentamiento = optAsentamiento.get();
+            asentamiento.setZona(zona);
+            asentamientoRepository.save(asentamiento);
+        }
+        return asentamiento;
+    }
 }
