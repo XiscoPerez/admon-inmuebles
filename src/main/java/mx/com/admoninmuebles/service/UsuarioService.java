@@ -14,6 +14,8 @@ public interface UsuarioService {
     
     UsuarioDto findById(Long idUsuario);
     
+    UsuarioDto findByUsernameOrCorreo(final String usernameCorreo);
+    
     void deleteById(Long idUsuario);
     
     Collection<UsuarioDto> findAll();

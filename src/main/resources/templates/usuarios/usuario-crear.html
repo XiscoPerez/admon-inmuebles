@@ -5,9 +5,18 @@
 	layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{home.title}"></title>
+<title th:text="#{usuario.crear.title}"></title>
 <script th:inline="javascript">
-	
+/*<![CDATA[*/
+$(document).ready(function() {
+  $('.dropify').dropify();
+  addControlState(document.getElementById('divUsername'),/*[[#{mensaje.username.requerido}]]*/);
+  addControlState(document.getElementById('divCorreo'),/*[[#{mensaje.correo.requerido}]]*/);
+  addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
+  addControlState(document.getElementById('divApellidoPaterno'),/*[[#{mensaje.appaterno.requerido}]]*/);
+  addControlState(document.getElementById('divRol'),/*[[#{mensaje.rol.requerido}]]*/);
+});
+/*]]>*/
 </script>
 </head>
 <body>
@@ -29,34 +38,57 @@
 							
                                <h4 class="card-title"><span th:text="#{usuario.titulo}"></span></h4>
                                <h6 class="card-subtitle"><span th:text="#{usuario.titulo.crear}"></span></h6>
-    							<form name="crearUsuarioForm" action="#" th:action="@{/usuarios}" th:object="${usuarioDto}" method="post" class="form-horizontal form-material">
-                                       <div class="form-group">
+    							<form name="crearUsuarioForm" action="#" th:action="@{/usuarios}" th:object="${usuarioDto}" method="post" class="form-control-line">
+    									<div id="divUsername" th:class="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
                                            <div class="col-md-12 m-b-20">
-                                               <input type="text" class="form-control" th:field="*{username}" placeholder="label.usuario.username"> 
+                                               <input type="text" class="form-control" th:field="*{username}" required placeholder="label.usuario.username"> 
+                                               <span class="form-control-feedback">
+								                	<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+								              </span>
                                            </div>
+                                        </div>
+                                        <div id="divCorreo" th:class="${#fields.hasErrors('correo')}? 'form-group has-danger':'form-group'">
                                            <div class="col-md-12 m-b-20">
-                                               <input type="text" class="form-control" th:field="*{correo}" placeholder="label.usuario.correo"> 
+                                               <input type="text" class="form-control" th:field="*{correo}" required placeholder="label.usuario.correo"> 
+                                               <span class="form-control-feedback">
+								                <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
+								              </span>
                                            </div>
+                                         </div>
+                                         <div id="divNombre" th:class="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
                                            <div class="col-md-12 m-b-20">
-                                               <input type="text" class="form-control" th:field="*{nombre}" placeholder="label.usuario.nombre"> 
+                                               <input type="text" class="form-control" th:field="*{nombre}" required placeholder="label.usuario.nombre"> 
+                                               <span class="form-control-feedback">
+								                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+								              </span>
                                            </div>
+                                         </div>
+                                          <div id="divApellidoPaterno" th:class="${#fields.hasErrors('apellidoPaterno')}? 'form-group has-danger':'form-group'">
                                            <div class="col-md-12 m-b-20">
-                                               <input type="text" class="form-control" th:field="*{apellidoPaterno}" placeholder="label.usuario.apellidopaterno"> 
+                                               <input type="text" class="form-control" th:field="*{apellidoPaterno}" required placeholder="label.usuario.apellidopaterno"> 
+                                               <span class="form-control-feedback">
+								                <span th:if="${#fields.hasErrors('apellidoPaterno')}" th:errors="*{apellidoPaterno}"></span>
+								              </span>
                                            </div>
+                                          </div>
                                            <div class="col-md-12 m-b-20">
                                                <input type="text" class="form-control" th:field="*{apellidoMaterno}" placeholder="label.usuario.apellidomaterno"> 
                                            </div>
-                                           <div class="col-md-12 m-b-20">
-<!-- 		                                        <label>ROL</label> -->
-		                                        <select  name="rolId" class="form-control" th:field="*{rolesSeleccionados}" required multiple="multiple">	
-													<option th:each="rol : ${rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option>
-		                                        </select>
-		                                   </div>
+                                           <div id="divRol" th:class="${#fields.hasErrors('rolesSeleccionados')}? 'form-group has-danger':'form-group'">
+	                                           <div class="col-md-12 m-b-20">
+	<!-- 		                                        <label>ROL</label> -->
+			                                        <select  name="rolId" class="form-control" th:field="*{rolesSeleccionados}" required multiple="multiple">	
+														<option th:each="rol : ${rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option>
+			                                        </select>
+			                                        <span class="form-control-feedback">
+										                <span th:if="${#fields.hasErrors('rolesSeleccionados')}" th:errors="*{rolesSeleccionados}"></span>
+										             </span>
+			                                   </div>
+		                                	</div>
                                            <div class="col-md-12 m-b-20">
 			                                    <button type="submit" class="btn btn-info-gesco waves-effect" th:text="#{etiqueta.guardar}"></button>
 			                                    <a th:href="@{/usuarios}" class="btn btn-secondary waves-effect" th:text="#{etiqueta.cancelar}"></a>
                                            </div>
-                                       </div>
                               </form>
 							
 						</div>

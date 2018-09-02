@@ -17,12 +17,71 @@
 <link th:href="@{/assets/css/style.css}" rel="stylesheet">
 <!-- You can change the theme colors from here -->
 <link th:href="@{/assets/css/colors/blue.css}" id="theme" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/assets/plugins/dropify/dist/css/dropify.min.css}">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+var serverContext = [[@{/}]];
+
+$(document).ready(function() {
+	console.log('validando' + $("#username").value);
+	$('#mensajeValidacionUsername').hide();
+	$('#mensajeValidacionPassword').hide();
+	$('#mensajeValidacionLogin').hide();mensajeErrorUsuarioNoEncontrado
+	$('#mensajeErrorUsuarioNoEncontrado').hide();
+});
+
+function validarLogin() {
+	console.log('validando' + $("#username").val());
+	console.log('validando' + $("#password").val());
+	
+	if ( ($("#username").val() == '' || $("#username").val() == undefined) || ($("#password").val() == '' || $("#password").val() == undefined)) {
+		if ($("#username").val() == "" || $("#username").val() == undefined) {
+	   	 	$("#divUsername").addClass("has-danger");
+	   	 	$("#username").addClass("form-control-danger");
+	   	 	$('#mensajeValidacionUsername').show();
+		}
+   	 	
+		if ($("#password").val() == "" || $("#password").val() == undefined) {
+	   	 	$("#divPassword").addClass("has-danger");
+		 	$("#password").addClass("form-control-danger");
+		 	$('#mensajeValidacionPassword').show();
+		}
+    	return false;
+	}
+
+}	
+
+function validarRecuperaContrasenia() {
+	
+		if ($("#login").val() == "" || $("#login").val() == undefined) {
+	   	 	$("#divLogin").addClass("has-danger");
+	   	 	$("#login").addClass("form-control-danger");
+	   	 	$('#mensajeValidacionLogin').show();
+    		return false;
+		}
+		validarUsuario();
+   	 	
+}	
+
+function validarUsuario(){
+    var login = $("#login").val();
+    $.get(serverContext + "api/usuarios/" + login, function( data ) {
+    	  console.log( data );
+    	  if(data == "false"){
+	    	  $('#mensajeErrorUsuarioNoEncontrado').show();
+	    	  return;
+    	  }
+   	});
+}
+/*]]>*/	
+</script>
 </head>
 
 <body>
@@ -40,31 +99,41 @@
         <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">        
             <div class="login-box card">
             <div class="card-body">
-                <form class="form-horizontal form-material" id="loginform" name="loginForm" th:action="@{/login}" method="post">
+                <form class="form-control-line" id="loginform" name="loginForm" th:action="@{/login}" method="post" onsubmit="return validarLogin();">
 					<a href="inicio" class="text-center db"><img th:src="@{/assets/images/LOGOTIPO_GESCO_72dpi.png}" alt="Home" /></a>
-
-					<div class="form-group m-t-40">
+					<div th:if="${param.error}" >
+	                    <div class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span th:text="#{label.login.error.autenticacion}"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                        </div>
+	                </div>
+					<div id="divUsername" class="form-group m-t-20">
 						<div class="col-xs-12">
-							<input class="form-control" name="username" type="text" required="required" placeholder="Usuario">
+							<input class="form-control" id="username" name="username" type="text" placeholder="Usuario">
+							<span id="mensajeValidacionUsername" class="form-control-feedback">
+				                <span th:text="#{label.login.username.requerido}"></span>
+				             </span>
 						</div>
 					</div>
-					<div class="form-group">
+					<div id="divPassword" class="form-group">
 						<div class="col-xs-12">
-							<input class="form-control" name="password" type="password" required="required" placeholder="Contraseña">
+							<input class="form-control" id="password" name="password" type="password" placeholder="Contraseña">
+							<span id="mensajeValidacionPassword" class="form-control-feedback">
+				                <span th:text="#{label.login.password.requerido}"></span>
+				             </span>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-md-12">
 							<div class="checkbox checkbox-primary pull-left p-t-0">
 								<input id="checkbox-signup" type="checkbox" name="remember-me">
-								<label for="checkbox-signup"> Recordarme </label>
+								<label for="checkbox-signup" th:text="#{label.login.recordarme}"> </label>
 							</div>
-							<a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Olvide mi contraseña?</a>
+							<a href="javascript:void(0)" id="to-recover" class="text-dark pull-right" th:text="#{label.login.olvidecontrasenia}"><i class="fa fa-lock m-r-5"></i></a>
 						</div>
 					</div>
 					<div class="form-group text-center m-t-20">
 						<div class="col-xs-12">
-							<button class="btn btn-gesco btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Ingresar</button>
+							<button class="btn btn-gesco btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" th:text="#{label.login.ingresar}"></button>
 						</div>
 					</div>
 					<div class="form-group m-b-0">
@@ -75,26 +144,33 @@
 						</div>
 					</div>
 				</form>
-				<form class="form-horizontal" id="recoverform" action="index.html">
+				<form name="recuperaContraseniaForm" action="#" th:action="@{/usuarios/correo-recuperar-contrasenia}" th:object="${recuperacionContraseniaCorreoDto}" method="post" 
+					onsubmit="return validarRecuperaContrasenia();" class="form-control-line" id="recoverform" >
 					<a href="inicio" class="text-center db"><img th:src="@{/assets/images/LOGOTIPO_GESCO_72dpi.png}" alt="Home" /></a>
+					<div id="mensajeErrorUsuarioNoEncontrado" class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span th:text="#{label.login.error.usuarionoencontrado}"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
 					<div class="form-group m-t-40">
 						<div class="col-xs-12">
-							<h3>Recuperar Constraseña</h3>
-							<p class="text-muted">Ingresa tu usuario o correo para reestablecer tu contraseña</p>
+							<h3 th:text="#{label.login.recuperacontrasenia}"></h3>
+							<p class="text-muted" th:text="#{label.login.recuperacontrasenia.subtitulo}"></p>
 						</div>
 					</div>
-					<div class="form-group ">
+					<div id="divLogin" class="form-group">
 						<div class="col-xs-12">
-							<input class="form-control" type="text" required placeholder="Usuario o correo">
+							<input id="login" class="form-control" type="text" th:field="*{login}" placeholder="Usuario o correo">
+							<span id="mensajeValidacionLogin" class="form-control-feedback">
+				                <span th:text="#{label.recuperacontrasenia.login.requerido}"></span>
+				            </span>
 						</div>
 					</div>
 					<div class="form-group text-center m-t-20">
 						<div class="col-xs-12">
-							<button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Recuperar</button>
+							<button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" th:text="#{label.login.recuperar}"></button>
 						</div>
 					</div>
 					<div class="col-xs-12">
-						<a href="login" class="btn btn-block btn-secondary text-uppercase waves-effect waves-light">Cancealar</a>
+						<a href="login" class="btn btn-block btn-secondary text-uppercase waves-effect waves-light" th:text="#{label.login.cancelar}"></a>
 					</div>
 				</form>
             </div>
@@ -134,7 +210,7 @@
 	<!-- ============================================================== -->
 	<!-- All Jquery -->
 	<!-- ============================================================== -->
-	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<!-- 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script> -->
 	<script type="text/javascript" th:src="@{/assets/plugins/bootstrap/js/popper.min.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
@@ -143,6 +219,7 @@
 	<script type="text/javascript" th:src="@{/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/js/custom.min.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/plugins/styleswitcher/jQuery.style.switcher.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/dropify/dist/js/dropify.min.js}"></script>
 </body>
 
 </html>

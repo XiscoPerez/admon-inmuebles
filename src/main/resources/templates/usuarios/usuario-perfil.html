@@ -7,7 +7,16 @@
 <head>
 <title th:text="#{home.title}"></title>
 <script th:inline="javascript">
-	
+/*<![CDATA[*/
+$(document).ready(function() {
+  $('.dropify').dropify();
+  addControlState(document.getElementById('divUsername'),/*[[#{mensaje.username.requerido}]]*/);
+  addControlState(document.getElementById('divCorreo'),/*[[#{mensaje.correo.requerido}]]*/);
+  addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
+  addControlState(document.getElementById('divApellidoPaterno'),/*[[#{mensaje.appaterno.requerido}]]*/);
+  addControlState(document.getElementById('divRol'),/*[[#{mensaje.rol.requerido}]]*/);
+});
+/*]]>*/
 </script>
 </head>
 <body>
@@ -139,24 +148,42 @@
                                 </div>
                                 <div class="tab-pane" id="editar" role="tabpanel">
                                     <div class="card-body">
-                                        <form name="editarUsuarioForm" action="#" th:action="@{/usuarios/perfil/editar}" th:object="${usuarioDto}" method="post" class="form-horizontal form-material">
+                                        <form name="editarUsuarioForm" action="#" th:action="@{/usuarios/perfil/editar}" th:object="${usuarioDto}" method="post" class="form-control-line">
                                         	<input type="hidden" class="form-control" th:field="*{id}"/>
-                                            <div class="form-group">
+                                            <div id="divUsername" th:class="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
                                                 <label class="col-md-12" th:text="#{label.usuario.username}"></label>
                                                 <div class="col-md-12">
-                                                     <input type="text" class="form-control" th:field="*{username}" placeholder="label.usuario.username"> 
+                                                     <input type="text" class="form-control" th:field="*{username}" placeholder="label.usuario.username">
+                                                     <span class="form-control-feedback">
+									                	<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+									              	</span> 
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div id="divCorreo" th:class="${#fields.hasErrors('correo')}? 'form-group has-danger':'form-group'">
                                                 <label for="example-email" th:text="#{label.usuario.correo}" class="col-md-12"></label>
                                                 <div class="col-md-12">
                                                     <input type="text" class="form-control" th:field="*{correo}" placeholder="label.usuario.correo"> 
+                                                    <span class="form-control-feedback">
+										                <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
+										              </span>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div id="divNombre" th:class="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
+                                                <label for="example-nombre" th:text="#{label.usuario.nombre}" class="col-md-12"></label>
+                                                <div class="col-md-12">
+                                                    <input type="text" class="form-control" th:field="*{nombre}" placeholder="label.usuario.nombre">  
+                                                    <span class="form-control-feedback">
+									                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+									              </span>
+                                                </div>
+                                            </div>
+                                            <div id="divApellidoPaterno" th:class="${#fields.hasErrors('apellidoPaterno')}? 'form-group has-danger':'form-group'">
                                                 <label for="example-email" th:text="#{label.usuario.apellidopaterno}" class="col-md-12"></label>
                                                 <div class="col-md-12">
                                                     <input type="text" class="form-control" th:field="*{apellidoPaterno}" placeholder="label.usuario.apellidopaterno">  
+                                                    <span class="form-control-feedback">
+										                <span th:if="${#fields.hasErrors('apellidoPaterno')}" th:errors="*{apellidoPaterno}"></span>
+										              </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -195,7 +222,7 @@
                                                     <input type="text" class="form-control" th:field="*{googleMapsDir}" placeholder="#{label.usuario.googleMapsDir}">  
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                           <div id="divRol" th:class="${#fields.hasErrors('rolesSeleccionados')}? 'form-group has-danger':'form-group'">
                                                 <label for="example-email" th:text="#{label.usuario.roles}" class="col-md-12"></label>
                                                 <div class="col-md-12 m-t-10">
 			                                        <select  name="rolId" class="form-control" th:field="*{rolesSeleccionados}" required multiple="multiple">	
@@ -205,6 +232,9 @@
 																th:text="${rol.nombre}">
 																</option>
 			                                        </select>
+			                                        <span class="form-control-feedback">
+										                <span th:if="${#fields.hasErrors('rolesSeleccionados')}" th:errors="*{rolesSeleccionados}"></span>
+										             </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">

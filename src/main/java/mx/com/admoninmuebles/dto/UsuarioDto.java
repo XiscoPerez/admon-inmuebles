@@ -2,6 +2,7 @@ package mx.com.admoninmuebles.dto;
 
 import java.util.Collection;
 
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -10,14 +11,18 @@ public class UsuarioDto {
 
     private Long id;
 
+    @NotNull
     private String username;
 
+    @NotNull
     private String nombre;
 
+    @NotNull
     private String apellidoPaterno;
 
     private String apellidoMaterno;
 
+    @NotNull
     private String correo;
     
     private String telefono;
@@ -38,7 +43,7 @@ public class UsuarioDto {
 
     private boolean credencialesExpiradas;
 
-    private boolean activo = true;
+    private boolean activo;
 
     private String identificador;
 
