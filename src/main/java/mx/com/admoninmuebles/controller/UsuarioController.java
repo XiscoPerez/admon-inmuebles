@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,12 +20,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
+import mx.com.admoninmuebles.dto.RecuperaContraseniaDto;
+import mx.com.admoninmuebles.dto.RecuperacionContraseniaCorreoDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
+import mx.com.admoninmuebles.dto.ActivacionUsuarioDto;
 import mx.com.admoninmuebles.dto.ZonaDto;
+import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
+import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
 import mx.com.admoninmuebles.service.RolService;
 import mx.com.admoninmuebles.service.UsuarioService;
+import mx.com.admoninmuebles.service.ActivacionUsuarioService;
+import mx.com.admoninmuebles.service.RecuperacionContraseniaService;
 
 @Controller
 public class UsuarioController {
@@ -36,34 +46,21 @@ public class UsuarioController {
     
     @Autowired
     private RolService rolService;
+    
+    @Autowired
+    private ActivacionUsuarioService activacionUsuarioService;
+    
+    @Autowired
+    private RecuperacionContraseniaService recuperacionContraseniaService;
+    
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @GetMapping(value = "/crearUsuario")
     public String showForm(final UsuarioDto userDto) {
         return "crearUsuario";
     }
 
-//    @PostMapping(value = "/crearUsuario")
-//    public String crearUsuario(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
-//        FieldError error;
-//
-//        if (!usuarioDto.getContrasenia()().equals(usuarioDto.getConfirmPassword())) {
-//            error = new FieldError("usuarioDto", "confirmPassword", messages.getMessage("message.password.notMatch", null, locale));
-//            bindingResult.addError(error);
-//            error = new FieldError("usuarioDto", "password", messages.getMessage("message.password.notMatch", null, locale));
-//            bindingResult.addError(error);
-//        } else {
-//            userService.save(usuarioDto);
-//        }
-//
-//        if (bindingResult.hasErrors()) {
-//            return "crearUsuario";
-//        }
-//
-//        model.addAttribute("message", messages.getMessage("message.success.crearUsuario", null, locale));
-//        return "redirect:/login";
-//    }
-//    
-    
     @PreAuthorize("hasRole('ADMIN_CORP')")
     @GetMapping(value = "/usuarios")
     public String init(final UsuarioDto usuarioDto, final Model model) {
@@ -80,10 +77,12 @@ public class UsuarioController {
     
     @PreAuthorize("hasRole('ADMIN_CORP')")
     @PostMapping(value = "/usuarios")
-    public String guardar(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
-    	System.out.println("USUARIO: " + usuarioDto.toString());
-    	System.out.println("ROLES: " + usuarioDto.getRolesSeleccionados().size());
-    	userService.crearCuenta(usuarioDto);
+    public String guardar(final HttpServletRequest request, final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    	 if (bindingResult.hasErrors()) {
+             return "usuarios/usuario-crear";
+         }
+    	UsuarioDto newUsuarioDto = userService.crearCuenta(usuarioDto);
+    	eventPublisher.publishEvent(new OnRegistroCompletoEvent(newUsuarioDto, request.getLocale(), getAppUrl(request)));
     	return "redirect:/usuarios";
     }
     
@@ -140,16 +139,76 @@ public class UsuarioController {
     @PreAuthorize("hasRole('ADMIN_CORP')")
     @PostMapping(value = "/usuarios/perfil/editar")
     public String editarPerfil(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    	if (bindingResult.hasErrors()) {
+            return "usuarios/usuario-perfil";
+        }
     	userService.crearCuenta(usuarioDto);
     	return "redirect:/usuarios/perfil/" + usuarioDto.getId();
     }
     
     @PostMapping(value = "/usuarios/perfil/cambioContrasenia")
     public String cambiarContrasenia(final Locale locale, final Model model, @Valid final CambioContraseniaDto cambioContraseniaDto, final BindingResult bindingResult) {
+    	
     	UsuarioDto usuarioDto = userService.cambiarContrasenia(cambioContraseniaDto);
+    	
     	return "redirect:/usuarios/perfil/" + usuarioDto.getId();
     }
     
     
+    @GetMapping(value = "/usuarios/activar/{token}")
+    public String activarcionUsuarioInit(final HttpServletRequest request, final Model model, @PathVariable final String token) {
+    	ActivacionUsuarioDto activacionUsuarioDto = new ActivacionUsuarioDto();
+    	activacionUsuarioDto.setToken(token);
+    	model.addAttribute("token", token);
+    	model.addAttribute("activacionUsuarioDto", activacionUsuarioDto);
+        return "usuarios/usuario-activar";
+    }
+    
+    @PostMapping(value = "/usuarios/activar")
+    public String activarUsuario(final Locale locale, final Model model, @Valid final ActivacionUsuarioDto activacionUsuarioDto, final BindingResult bindingResult) {
+    	if (bindingResult.hasErrors()) {
+            return "usuarios/usuario-activar";
+        }
+    	UsuarioDto usuarioDto = activacionUsuarioService.activar(activacionUsuarioDto);
+        return "redirect:/login";
+    }
+    
+//    @GetMapping(value = "/usuarios/correo-recuperar-contrasenia")
+//    public String enviarCorreoRecuperacionContrasenia(final RecuperacionContraseniaCorreo recuperacionContraseniaCorreo) {
+//        return "redirect:/login";
+//    }
+    
+    @PostMapping(value = "/usuarios/correo-recuperar-contrasenia")
+    public String enviarCorreoRecuperacionContrasenia(final HttpServletRequest request, final Locale locale, final Model model, @Valid final RecuperacionContraseniaCorreoDto recuperacionContraseniaCorreo, final BindingResult bindingResult) {
+    	System.out.println("Enviando correo de recuperación de contraseña");
+    	System.out.println("LOGIN: " + recuperacionContraseniaCorreo.getLogin());
+    	UsuarioDto usuarioDto = userService.findByUsernameOrCorreo(recuperacionContraseniaCorreo.getLogin());
+    	System.out.println("Usuario: " + usuarioDto.getUsername());
+    	eventPublisher.publishEvent(new OnRecuperacionContraseniaEvent(usuarioDto, request.getLocale(), getAppUrl(request)));
+        return "redirect:/login";
+    }
+    
+    @GetMapping(value = "/usuarios/recuperar-contrasenia/{token}")
+    public String recuperarContraseniaInit(final HttpServletRequest request, final Model model, @PathVariable final String token) {
+    	RecuperaContraseniaDto recuperaContraseniaDto = new RecuperaContraseniaDto();
+    	recuperaContraseniaDto.setToken(token);
+    	model.addAttribute("token", token);
+    	model.addAttribute("recuperaContraseniaDto", recuperaContraseniaDto);
+        return "usuarios/usuario-recupera-contrasenia";
+    }
+    
+    @PostMapping(value = "/usuarios/recuperar-contrasenia/")
+    public String recuperarContrasenia(final HttpServletRequest request, final Locale locale, final Model model, @Valid final RecuperaContraseniaDto recuperaContraseniaDto, final BindingResult bindingResult) {
+    	if (bindingResult.hasErrors()) {
+            return "usuarios/usuario-recupera-contrasenia";
+        }
+    	recuperacionContraseniaService.guardarNuevaContrasenia(recuperaContraseniaDto);
+        return "redirect:/login";
+    }
+    
+    
+    private String getAppUrl(HttpServletRequest request) {
+        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    }
 
 }

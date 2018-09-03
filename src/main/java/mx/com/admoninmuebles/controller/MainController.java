@@ -2,8 +2,12 @@
 package mx.com.admoninmuebles.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import mx.com.admoninmuebles.dto.CambioContraseniaDto;
+import mx.com.admoninmuebles.dto.RecuperacionContraseniaCorreoDto;
 
 @Controller
 public class MainController {
@@ -19,7 +23,8 @@ public class MainController {
     }
 
     @RequestMapping("/login")
-    public String login() {
+    public String login(final Model model) {
+    	model.addAttribute("recuperacionContraseniaCorreoDto", new RecuperacionContraseniaCorreoDto());
         return "login";
     }
 

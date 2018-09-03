@@ -7,8 +7,11 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +37,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private ModelMapper modelMapper;
+    
+
 
     @Override
     public UsuarioDto crearCuenta(final UsuarioDto userDto) {
@@ -48,7 +53,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         usuario.setRoles(roles);
         Usuario usuarioCreado = userRepository.save(usuario);
-        // correoService.sendMail()
         return modelMapper.map(usuarioCreado, UsuarioDto.class);
     }
 
@@ -145,5 +149,25 @@ public class UsuarioServiceImpl implements UsuarioService {
         return modelMapper.map(usuarioLogin, UsuarioDto.class);
 
     }
+
+	@Override
+	public UsuarioDto findByUsernameOrCorreo(String usernameCorreo) {
+		
+		 Optional<Usuario> usuarioOptional;
+
+
+		
+		if (new EmailValidator().isValid(usernameCorreo, null)) {
+			usuarioOptional = userRepository.findByCorreo(usernameCorreo);
+		}else {
+			usuarioOptional = userRepository.findByUsername(usernameCorreo);
+		}
+		
+        if (!usuarioOptional.isPresent()) {
+        	throw new UsernameNotFoundException("No se econtro el usuario");
+        }
+        
+		return modelMapper.map(usuarioOptional.get(), UsuarioDto.class);
+	}
 
 }
