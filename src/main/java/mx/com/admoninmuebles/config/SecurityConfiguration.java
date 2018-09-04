@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/actuator/**").permitAll()
             .antMatchers("/usuarios/activar/**").permitAll()
             .antMatchers("/usuarios/correo-recuperar-contrasenia/**").permitAll()
+            .antMatchers("/usuarios/recuperar-contrasenia-peticion/**").permitAll()
             .antMatchers("/usuarios/recuperar-contrasenia/**").permitAll()
             .antMatchers("/api/**").permitAll()
                 .antMatchers("/invalidSession*").anonymous()

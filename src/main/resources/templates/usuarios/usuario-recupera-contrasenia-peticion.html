@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title th:text="#{home.title}"></title>
+<script th:inline="javascript">
+/*<![CDATA[*/
+	
+var serverContext = [[@{/}]];
+	
+	
+$(document).ready(function() {
+	$('#mensajeErrorUsuarioNoEncontrado').hide();
+	$('#mensajeExitoRecuperacion').hide();
+  	$('.dropify').dropify();
+  	addControlState(document.getElementById('divLogin'),/*[[#{mensaje.login.requerido}]]*/);
+});
+
+function validarUsuario(){
+	var login = $("#login").val();
+	$.get(serverContext + "api/usuarios/" + login, function( data ) {
+		  console.log( data );
+		  if(data == "false"){
+		 	  $('#mensajeErrorUsuarioNoEncontrado').show();
+		 	  return;
+		  }else{
+			  $('#mensajeExitoRecuperacion').show();
+		  }
+		});
+}
+
+/*]]>*/
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container-fluid">
+				 <div class="row page-titles">
+                    <div class="col-md-6 col-8 align-self-center">
+                        <h3 class="text-themecolor m-b-0 m-t-0" th:text="#{usuario.recuperacontrasenia.peticion}"></h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{usuario.usuario}"></a></li>
+                            <li class="breadcrumb-item active" th:text="#{usuario.recuperacontrasenia.peticion}"></li>
+                        </ol>
+                    </div>
+                </div>
+		         <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title" th:text="#{usuario.recuperacontrasenia.peticion}"></h4>
+                                <h6 class="card-subtitle" th:text="#{usuario.recuperacontrasenia.peticion.subtitulo}"></h6>
+                                <form name="recuperaContraseniaForm" action="#" th:object="${recuperacionContraseniaCorreoDto}" method="post" 
+									class="form-control-line" id="recuperaContraseniaPeticionform" >
+									<div id="mensajeErrorUsuarioNoEncontrado" class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span th:text="#{label.login.error.usuarionoencontrado}"></span>
+				                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+				                    </div>
+				                    <div id="mensajeExitoRecuperacion" class="alert alert-info  m-t-20"> <i class="ti-user"></i>  <span th:text="#{label.login.exito.recuperacion}"></span>
+				                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+				                    </div>
+									<div id="divLogin" class="form-group">
+										<div class="col-xs-12">
+											<input id="login" class="form-control" type="text" th:field="*{login}" required placeholder="Usuario o correo">
+											<span class="form-control-feedback">
+								                <span th:text="#{label.recuperacontrasenia.login.requerido}"></span>
+								            </span>
+										</div>
+									</div>
+									<div class="col-md-12 m-b-20">
+	                                    <button type="button" class="btn btn-info-gesco waves-effect" onclick="validarUsuario();" th:text="#{label.login.recuperar}"></button>
+	                                    <a th:href="@{/login}" class="btn btn-secondary waves-effect" th:text="#{etiqueta.regresar}"></a>
+	                                </div>
+								</form>
+                            </div>
+                        </div>
+			</div>
+		</div>
+		</div>
+	</div>
+</body>
+</html>

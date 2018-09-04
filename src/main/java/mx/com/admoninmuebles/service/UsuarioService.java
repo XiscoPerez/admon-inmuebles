@@ -10,7 +10,7 @@ public interface UsuarioService {
 
     Usuario save(UsuarioDto userDto);
     
-    UsuarioDto update(UsuarioDto userDto);
+    UsuarioDto editarPerfil(UsuarioDto userDto);
     
     UsuarioDto findById(Long idUsuario);
     

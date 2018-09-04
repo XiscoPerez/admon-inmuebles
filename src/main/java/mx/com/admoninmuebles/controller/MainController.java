@@ -23,8 +23,7 @@ public class MainController {
     }
 
     @RequestMapping("/login")
-    public String login(final Model model) {
-    	model.addAttribute("recuperacionContraseniaCorreoDto", new RecuperacionContraseniaCorreoDto());
+    public String login() {
         return "login";
     }
 

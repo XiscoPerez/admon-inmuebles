@@ -11,12 +11,14 @@ import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
+import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
@@ -39,7 +41,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     private ModelMapper modelMapper;
     
 
-
     @Override
     public UsuarioDto crearCuenta(final UsuarioDto userDto) {
         String contrasenia = RandomStringUtils.randomAlphanumeric(8);
@@ -48,9 +49,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = modelMapper.map(userDto, Usuario.class);
 
         Collection<Rol> roles = new ArrayList<>();
-        for (Long idRol : userDto.getRolesSeleccionados()) {
-            roles.add(rolRepository.findById(idRol).get());
-        }
+        roles.add(rolRepository.findById(userDto.getRolSeleccionado()).get());
         usuario.setRoles(roles);
         Usuario usuarioCreado = userRepository.save(usuario);
         return modelMapper.map(usuarioCreado, UsuarioDto.class);
@@ -70,25 +69,23 @@ public class UsuarioServiceImpl implements UsuarioService {
     
 
     @Override
-    public UsuarioDto update(final UsuarioDto userDto) {
-        Optional<Usuario> usuarioOptional = userRepository.findById(userDto.getId());
-
-        if (!usuarioOptional.isPresent()) {
-
-        }
+    public UsuarioDto editarPerfil(final UsuarioDto userDto) {
+    	String usuarioAutenticado = SecurityUtils.getCurrentUserLogin().get();
+        Optional<Usuario> usuarioOptional = userRepository.findByUsername(usuarioAutenticado);
 
         Usuario usuario = usuarioOptional.get();
 
-        usuario.setActivo(userDto.isActivo());
         usuario.setApellidoMaterno(userDto.getApellidoMaterno());
         usuario.setApellidoPaterno(userDto.getApellidoPaterno());
         usuario.setNombre(userDto.getNombre());
+        usuario.setCorreo(userDto.getCorreo());
+        usuario.setFacebook(userDto.getFacebook());
+        usuario.setFotoUrl(userDto.getFotoUrl());
+        usuario.setGoogleMapsDir(userDto.getGoogleMapsDir());
+        usuario.setTelefono(userDto.getTelefono());
+        usuario.setTwiter(userDto.getTwiter());
+        usuario.setYoutube(userDto.getYoutube());
 
-        Collection<Rol> roles = new ArrayList<>();
-        for (Long idRol : userDto.getRolesSeleccionados()) {
-            roles.add(rolRepository.findById(idRol).get());
-        }
-        usuario.setRoles(roles);
         Usuario usuarioCreado = userRepository.save(usuario);
         return modelMapper.map(usuarioCreado, UsuarioDto.class);
     }
@@ -130,16 +127,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         Optional<Usuario> usuarioOptional = userRepository.findByUsername(usuarioAutenticado);
 
         if (!usuarioOptional.isPresent()) {
-
+        	throw new BusinessException("usuario.error.noencontrado");
         }
         Usuario usuarioLogin = usuarioOptional.get();
         
         if(!passwordEncoder.matches(cambioContraseniaDto.getContraseniaAnterior(), usuarioLogin.getContrasenia())){
-        	
+        	 throw new BusinessException("usuario.error.contraseniaanterior.novalida");
         }
         
         if(!cambioContraseniaDto.getContraseniaNueva().equals(cambioContraseniaDto.getContraseniaConfirmacion())) {
-        	
+        	throw new BusinessException("usuario.error.contrasenias.noiguales");
         }
         
         usuarioLogin.setContrasenia(passwordEncoder.encode(cambioContraseniaDto.getContraseniaNueva()));

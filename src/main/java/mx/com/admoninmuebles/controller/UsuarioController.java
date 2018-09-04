@@ -91,7 +91,7 @@ public class UsuarioController {
     public String edicionInit(final @PathVariable Long idUsuario, final Model model) {
     	UsuarioDto usuarioDto = userService.findById(idUsuario);
     	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
-    	usuarioDto.setRolesSeleccionados( rolesUsuario );
+    	usuarioDto.setRolSeleccionado( rolesUsuario.get(0) );
     	model.addAttribute("usuarioDto", usuarioDto);
     	model.addAttribute("rolesDto", rolService.findAll());
         return "usuarios/usuario-editar";
@@ -101,7 +101,6 @@ public class UsuarioController {
     @PostMapping(value = "/usuarios/editar")
     public String editar(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
     	System.out.println("USUARIO: " + usuarioDto.toString());
-    	System.out.println("ROLES: " + usuarioDto.getRolesSeleccionados().size());
     	userService.crearCuenta(usuarioDto);
     	return "redirect:/usuarios";
     }
@@ -114,22 +113,20 @@ public class UsuarioController {
     }
 //    
     @PreAuthorize("hasRole('ADMIN_CORP')")
-    @GetMapping(value = "/usuarios/perfil/{idUsuario}")
-    public String verPerfil(final @PathVariable Long idUsuario, final Model model) {
+    @GetMapping(value = "/usuarios/ver/{idUsuario}")
+    public String ver(final @PathVariable Long idUsuario, final Model model) {
     	UsuarioDto usuarioDto = userService.findById(idUsuario);
     	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
-    	usuarioDto.setRolesSeleccionados( rolesUsuario );
+    	usuarioDto.setRolSeleccionado( rolesUsuario.get(0) );
     	model.addAttribute("usuarioDto", usuarioDto);
-    	model.addAttribute("cambioContraseniaDto", new CambioContraseniaDto());
-    	model.addAttribute("rolesDto", rolService.findAll());
-        return "usuarios/usuario-perfil";
+        return "usuarios/usuario-ver";
     }
     
     @GetMapping(value = "/usuarios/perfil")
     public String verMiPerfil(final Model model) {
     	UsuarioDto usuarioDto = userService.findUserLogin();
     	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
-    	usuarioDto.setRolesSeleccionados( rolesUsuario );
+    	usuarioDto.setRolSeleccionado( rolesUsuario.get(0) );
     	model.addAttribute("usuarioDto", usuarioDto);
     	model.addAttribute("cambioContraseniaDto", new CambioContraseniaDto());
     	model.addAttribute("rolesDto", rolService.findAll());
@@ -142,16 +139,16 @@ public class UsuarioController {
     	if (bindingResult.hasErrors()) {
             return "usuarios/usuario-perfil";
         }
-    	userService.crearCuenta(usuarioDto);
-    	return "redirect:/usuarios/perfil/" + usuarioDto.getId();
+    	userService.editarPerfil(usuarioDto);
+    	return "redirect:/usuarios/perfil/";
     }
     
     @PostMapping(value = "/usuarios/perfil/cambioContrasenia")
     public String cambiarContrasenia(final Locale locale, final Model model, @Valid final CambioContraseniaDto cambioContraseniaDto, final BindingResult bindingResult) {
     	
-    	UsuarioDto usuarioDto = userService.cambiarContrasenia(cambioContraseniaDto);
+    	userService.cambiarContrasenia(cambioContraseniaDto);
     	
-    	return "redirect:/usuarios/perfil/" + usuarioDto.getId();
+    	return "redirect:/usuarios/perfil/";
     }
     
     
@@ -204,6 +201,12 @@ public class UsuarioController {
         }
     	recuperacionContraseniaService.guardarNuevaContrasenia(recuperaContraseniaDto);
         return "redirect:/login";
+    }
+    
+    @GetMapping(value = "/usuarios/recuperar-contrasenia-peticion")
+    public String recuperarContraseniaPticionInit(final Model model) {
+    	model.addAttribute("recuperacionContraseniaCorreoDto", new RecuperacionContraseniaCorreoDto());
+        return "usuarios/usuario-recupera-contrasenia-peticion";
     }
     
     
