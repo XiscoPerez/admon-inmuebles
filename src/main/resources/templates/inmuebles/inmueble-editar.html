@@ -5,7 +5,12 @@
 <script th:inline="javascript">
 /*<![CDATA[*/
 $(document).ready(function() {
-  $('.dropify').dropify();
+  var drEvent = $('.dropify').dropify();
+  drEvent.on('dropify.fileReady', function(event, element) {
+    $('#imagenUrl').val('');
+    $('#imagen').prop('required',true);;
+  });
+   
   addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
   addControlState(document.getElementById('divDiaCuotaOrdinaria'),/*[[#{mensaje.diacuotaordinaria.requerido}]]*/);
   addControlState(document.getElementById('divMontoCuotaOrdinaria'),/*[[#{mensaje.montocuotaordinaria.requerido}]]*/);
@@ -38,7 +43,9 @@ $(document).ready(function() {
       </div>
       <div class="card">
         <div class="card-body">
-          <form name="crearInmuebleForm" action="#" th:action="@{/inmueble-crear}" th:object="${inmuebleDto}" method="post" enctype="multipart/form-data">
+          <form name="crearInmuebleForm" action="#" th:action="@{/inmueble-editar}" th:object="${inmuebleDto}" method="post" enctype="multipart/form-data">
+            <input name="imagenUrl" type="hidden" th:field="*{imagenUrl}" />
+            <input name="id" type="hidden" th:field="*{id}" />
             <div class="form-body">
               <h3 class="card-title" th:text="#{inmueble.titulo}"></h3>
               <hr>
@@ -126,7 +133,7 @@ $(document).ready(function() {
                 </div>
                 <div id="divImagen" class="col-md-4" th:classappend="${#fields.hasErrors('imagen')}? 'form-group has-danger':'form-group'">
                   <label class="form-control-label" th:text="#{etiqueta.imagen}"></label>
-                  <input name="imagen" type="file" class="form-control dropify" th:field="*{imagen}" th:title="#{mensaje.imagen.validacion}" required>
+                  <input name="imagen" type="file" class="form-control dropify" th:field="*{imagen}" data-show-remove="false" th:title="#{mensaje.imagen.validacion}"  th:attr="data-default-file=|*{imagenUrl}|">
                   <span class="form-control-feedback">
                     <span th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></span>
                   </span>
