@@ -29,12 +29,16 @@ public class InmuebleDto {
     private MultipartFile imagen;
     private String imagenUrl;
     private Long adminBiId;
+    private String adminBiNombre;
+    private String adminBiApellidoPaterno;
+    private String adminBiApellidoMaterno;
     private String direccionCalle;
     private String direccionNumeroExterior;
     private String direccionNumeroInterior;
     private String direccionEntreCalles;
     private String direccionReferencias;
     private Long direccionAsentamientoId;
+    private String direccionAsentamientoNombre;
     private String datosAdicionalesNombreRepresentante;
     private String datosAdicionalesRazonSocial;
     private String datosAdicionalesRfc;

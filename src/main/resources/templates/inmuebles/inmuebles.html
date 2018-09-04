@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <title th:text="#{inmueble.titulo}"></title>
@@ -14,7 +15,7 @@
       var mensaje = /*[[#{mensaje.eliminar.inmueble}]]*/
       modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
       modal.find('.modal-body p').text(mensaje.format(nombre))
-      modal.find('.modal-footer a').attr('href', '/catalogos/inmueble-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.find('.modal-footer a').attr('href', '/inmueble-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
       modal.modal("show");
     });
   });
@@ -46,6 +47,7 @@
                     <tr>
                       <th th:text="#{inmueble.id}"></th>
                       <th th:text="#{inmueble.nombre}"></th>
+                      <th th:text="#{zona.accion}"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -53,6 +55,11 @@
                       <tr>
                         <td th:text="${inmueble.id}"></td>
                         <td th:text="${inmueble.nombre}"></td>
+                        <td>
+                          <a th:href="${'/inmuebles/inmueble-info/'  + inmueble.id}" class="btn btn-sm btn-icon btn-pure btn-outline"> <i class="fa fa-info text-inverse m-r-10" aria-hidden="true"></i></a>
+                          <a th:href="${'/inmuebles/inmueble-editar/'  + inmueble.id}" class="btn btn-sm btn-icon btn-pure btn-outline"> <i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a> 
+                          <a th:attr="data-id=${inmueble.id}" th:attrappend="data-nombre=${inmueble.nombre}" class="btn btn-sm btn-icon btn-pure btn-outline modal-show"> <i class="fa fa-close text-danger" aria-hidden="true"></i></a>
+                        </td>
                       </tr>
                     </th:block>
                   </tbody>
