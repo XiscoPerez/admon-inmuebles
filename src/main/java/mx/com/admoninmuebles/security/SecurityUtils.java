@@ -6,11 +6,11 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import mx.com.admoninmuebles.constant.RolConstant;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 
 public final class SecurityUtils {
 
-    public static final String ROLE_ANONIMO = "ROLE_ANONYMOUS";
 
     private SecurityUtils() {
     }
@@ -47,7 +47,7 @@ public final class SecurityUtils {
     public static boolean isAuthenticated() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         return Optional.ofNullable(securityContext.getAuthentication())
-                .map(authentication -> authentication.getAuthorities().stream().noneMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(ROLE_ANONIMO))).orElse(false);
+                .map(authentication -> authentication.getAuthorities().stream().noneMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(RolConstant.ROLE_ANONIMO))).orElse(false);
     }
 
     public static boolean isCurrentUserInRole(final String authority) {

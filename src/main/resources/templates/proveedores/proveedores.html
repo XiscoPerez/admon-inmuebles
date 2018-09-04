@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title th:text="#{proveedor.titulo}"></title>
+<script th:inline="javascript">
+	
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-6 col-8 align-self-center">
+					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{proveedor.titulo}"></h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{usuario.usuario}"></a></li>
+						<li class="breadcrumb-item active" th:text="#{proveedor.subtitulo}"></li>
+					</ol>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- Start Page Content -->
+			<!-- ============================================================== -->
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title" th:text="#{proveedor.titulo}"></h4>
+							<h6 class="card-subtitle" th:text="#{proveedor.subtitulo}"></h6>
+                                    <div class="table-responsive">
+                                        <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th th:text="#{tabla.proveedor.usuario}"></th>
+                                                    <th th:text="#{tabla.proveedor.correo}"></th>
+                                                    <th th:text="#{tabla.proveedor.nombre}"></th>
+                                                    <th th:text="#{tabla.proveedor.estatus}"></th>
+                                                    <th th:text="#{tabla.proveedor.accion}"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	<th:block th:each="proveedor : ${proveedores}">
+	                                                <tr>
+	                                                    <td th:text="${proveedor.id}"></td>
+	                                                    <td>
+	                                                        <a href="app-contact-detail.html"><img src="../assets/images/users/1.jpg" alt="user" class="img-circle" /> <span th:text="${proveedor.username}"></span></a>
+	                                                    </td>
+	                                                    <td th:text="${proveedor.correo}"></td>
+	                                                    <td th:text="${proveedor.nombre}"></td>
+	                                                    <td>
+		                                                    <div th:switch="${proveedor.activo}"> 
+															  <span th:case="${true}" class="text-success" th:text="#{proveedor.estatus.activo}">Activo</span>
+															  <span th:case="${false}" class="text-muted" th:text="#{proveedor.estatus.inactivo}">Inactivo</span>
+															</div>
+														</td>
+<!-- 	                                                    <td th:text="${usuario.activo}"></td> -->
+	                                                    <td>
+	                                                    	<a th:href="${'/proveedor-detalle/'  + proveedor.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-search text-inverse m-r-10" aria-hidden="true"></i></a> 
+	                                                    	<a th:href="${'/proveedor-editar/'  + proveedor.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a>
+	                                                    	<a th:href="${'/proveedor-eliminar/'  + proveedor.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
+	<!--                                                         <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button> -->
+	                                                    </td>
+	                                                </tr>
+                                               </th:block>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <a th:href="@{/proveedor-crear}" class="btn btn-info btn-rounded" th:text="#{etiqueta.nuevo}"></a>
+                                                    </td>
+
+                                                    <td colspan="7">
+                                                        <div class="text-right">
+                                                            <ul class="pagination"> </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- End PAge Content -->
+			<!-- ============================================================== -->
+		</div>
+	</div>
+</body>
+</html>

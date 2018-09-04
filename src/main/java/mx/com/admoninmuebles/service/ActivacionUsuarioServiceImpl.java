@@ -55,6 +55,16 @@ public class ActivacionUsuarioServiceImpl implements ActivacionUsuarioService{
         final ActivacionUsuarioToken verificacionToken = new ActivacionUsuarioToken(token, usuario);
         activacionUsuarioTokenRepository.save(verificacionToken);
     }
+    
+    @Override
+    public boolean isTokenValido(final String token) {
+    	Optional<ActivacionUsuarioToken> verificacionTokenOpt = activacionUsuarioTokenRepository.findByToken(token);
+    	if(!verificacionTokenOpt.isPresent()) {
+    		return false;
+    	}
+    	
+    	return !verificacionTokenOpt.get().isUtilizado();
+    }
 	
 	
 

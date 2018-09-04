@@ -79,12 +79,18 @@ public class Usuario extends EntidadBase {
     private Collection<Rol> roles;
 
     // Proveedor
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_datos_adicionales", referencedColumnName = "id_datos_adicionales")
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id_datos_adicionales", referencedColumnName = "id_datos_adicionales")
+    
+    @OneToOne
+    @JoinColumn(name = "id_datos_adicionales_fk", nullable = true)
     private DatosAdicionales datosAdicionales;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion", nullable = true)
+//    @OneToOne(fetch = FetchType.LAZY, optional = true)
+//    @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion", nullable = true)
+    
+    @OneToOne
+    @JoinColumn(name = "id_direccion_fk", nullable = true)
     private Direccion direccion;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")

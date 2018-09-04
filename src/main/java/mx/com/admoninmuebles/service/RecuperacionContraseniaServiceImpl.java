@@ -53,5 +53,15 @@ public class RecuperacionContraseniaServiceImpl implements RecuperacionContrasen
         final RecuperacionContraseniaToken recuperacionContraseniaToken = new RecuperacionContraseniaToken(token, usuario);
         recuperacionContraseniaTokenRepository.save(recuperacionContraseniaToken);
 	}
+	
+    @Override
+    public boolean isTokenValido(final String token) {
+    	Optional<RecuperacionContraseniaToken> recuperacionContraseniaToken = recuperacionContraseniaTokenRepository.findByToken(token);
+    	if(!recuperacionContraseniaToken.isPresent()) {
+    		return false;
+    	}
+    	
+    	return !recuperacionContraseniaToken.get().isUtilizado();
+    }
 
 }

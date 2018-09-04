@@ -61,21 +61,21 @@ public class UsuarioController {
         return "crearUsuario";
     }
 
-    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/usuarios")
     public String init(final UsuarioDto usuarioDto, final Model model) {
         model.addAttribute("usuarios", userService.findAll());
         return "usuarios/usuarios";
     }
     
-    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/usuarios/nuevo")
     public String nuevoInit(final UsuarioDto usuarioDto, final Model model) {
     	model.addAttribute("rolesDto", rolService.findAll());
         return "usuarios/usuario-crear";
     }
     
-    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @PostMapping(value = "/usuarios")
     public String guardar(final HttpServletRequest request, final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
     	 if (bindingResult.hasErrors()) {
@@ -86,7 +86,7 @@ public class UsuarioController {
     	return "redirect:/usuarios";
     }
     
-    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/usuarios/editar/{idUsuario}")
     public String edicionInit(final @PathVariable Long idUsuario, final Model model) {
     	UsuarioDto usuarioDto = userService.findById(idUsuario);
@@ -97,7 +97,7 @@ public class UsuarioController {
         return "usuarios/usuario-editar";
     }
     
-    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @PostMapping(value = "/usuarios/editar")
     public String editar(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
     	System.out.println("USUARIO: " + usuarioDto.toString());
@@ -111,8 +111,8 @@ public class UsuarioController {
     	userService.deleteById(idUsuario);
         return "redirect:/usuarios";
     }
-//    
-    @PreAuthorize("hasRole('ADMIN_CORP')")
+    
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/usuarios/ver/{idUsuario}")
     public String ver(final @PathVariable Long idUsuario, final Model model) {
     	UsuarioDto usuarioDto = userService.findById(idUsuario);
@@ -133,7 +133,6 @@ public class UsuarioController {
         return "usuarios/usuario-perfil";
     }
     
-    @PreAuthorize("hasRole('ADMIN_CORP')")
     @PostMapping(value = "/usuarios/perfil/editar")
     public String editarPerfil(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
     	if (bindingResult.hasErrors()) {
@@ -154,6 +153,9 @@ public class UsuarioController {
     
     @GetMapping(value = "/usuarios/activar/{token}")
     public String activarcionUsuarioInit(final HttpServletRequest request, final Model model, @PathVariable final String token) {
+    	if(!activacionUsuarioService.isTokenValido(token)){
+    		return "usuarios/usuario-token-novalido";
+    	}
     	ActivacionUsuarioDto activacionUsuarioDto = new ActivacionUsuarioDto();
     	activacionUsuarioDto.setToken(token);
     	model.addAttribute("token", token);
@@ -187,6 +189,9 @@ public class UsuarioController {
     
     @GetMapping(value = "/usuarios/recuperar-contrasenia/{token}")
     public String recuperarContraseniaInit(final HttpServletRequest request, final Model model, @PathVariable final String token) {
+    	if(!activacionUsuarioService.isTokenValido(token)){
+    		return "usuarios/usuario-token-novalido";
+    	}
     	RecuperaContraseniaDto recuperaContraseniaDto = new RecuperaContraseniaDto();
     	recuperaContraseniaDto.setToken(token);
     	model.addAttribute("token", token);
