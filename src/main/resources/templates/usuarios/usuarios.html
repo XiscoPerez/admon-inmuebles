@@ -14,7 +14,7 @@
 				<div class="col-md-6 col-8 align-self-center">
 					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{usuario.titulo}"></h3>
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{usuario.usuario}"></a></li>
 						<li class="breadcrumb-item active" th:text="#{usuario.subtitulo}"></li>
 					</ol>
 				</div>
@@ -63,7 +63,7 @@
 														</td>
 <!-- 	                                                    <td th:text="${usuario.activo}"></td> -->
 	                                                    <td>
-	                                                    	<a th:href="${'/usuarios/perfil/'  + usuario.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-search text-inverse m-r-10" aria-hidden="true"></i></a> 
+	                                                    	<a th:href="${'/usuarios/ver/'  + usuario.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-search text-inverse m-r-10" aria-hidden="true"></i></a> 
 	                                                    	<a th:href="${'/usuarios/editar/'  + usuario.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a>
 	                                                    	<a th:href="${'/usuarios/eliminar/'  + usuario.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
 	<!--                                                         <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button> -->

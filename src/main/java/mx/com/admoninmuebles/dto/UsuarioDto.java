@@ -51,7 +51,9 @@ public class UsuarioDto {
 
     private Collection<RolDto> roles;
     
-    private Collection<Long> rolesSeleccionados;
+    private Long rolSeleccionado;
+    
+//    private Collection<Long> rolesSeleccionados;
 //
 //    public Collection<String> zonas;
 //
