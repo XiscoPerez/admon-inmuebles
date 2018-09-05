@@ -52,7 +52,7 @@ public class BienInmuebleController {
     @PostMapping(value = "/inmueble-crear")
     public String guardarInmueble(final Locale locale, final Model model, @Valid final InmuebleDto inmuebleDto, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/inmuebles/inmueble-crear";
+            return "inmuebles/inmueble-crear";
         }
         inmuebleDto.setImagenUrl("/" + storageService.store(inmuebleDto.getImagen()));
         bienInmuebleService.save(inmuebleDto);
@@ -61,14 +61,14 @@ public class BienInmuebleController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
-    @GetMapping(value = "/inmuebles/inmueble-info/{id}")
+    @GetMapping(value = "inmueble-detalle/{id}")
     public String buscarInmueblePorId(final @PathVariable long id, final Model model) {
         model.addAttribute("inmuebleDto", bienInmuebleService.findById(id));
-        return "inmuebles/inmueble-info";
+        return "inmuebles/inmueble-detalle";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
-    @GetMapping(value = "/inmuebles/inmueble-editar/{id}")
+    @GetMapping(value = "inmueble-editar/{id}")
     public String editarInmueblePorId(final @PathVariable long id, final Model model, final HttpSession session) {
         model.addAttribute("inmuebleDto", bienInmuebleService.findById(id));
         session.setAttribute("colonias", coloniaService.findByZonaIsNotNull());
@@ -80,10 +80,10 @@ public class BienInmuebleController {
     @PostMapping(value = "/inmueble-editar")
     public String editarInmueble(final Locale locale, final Model model, @Valid final InmuebleDto inmuebleDto, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/inmueble-editar";
+            return "inmuebles/inmueble-editar";
         }
 
-        if (StringUtils.isAllEmpty(inmuebleDto.getImagenUrl())) {
+        if (StringUtils.isEmpty(inmuebleDto.getImagenUrl())) {
             inmuebleDto.setImagenUrl("/" + storageService.store(inmuebleDto.getImagen()));
         }
         bienInmuebleService.save(inmuebleDto);

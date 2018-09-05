@@ -13,12 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import mx.com.admoninmuebles.persistence.model.AreaServicio;
 import mx.com.admoninmuebles.persistence.model.Asentamiento;
+import mx.com.admoninmuebles.persistence.model.EstatusTicket;
 import mx.com.admoninmuebles.persistence.model.Privilegio;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.model.Zona;
+import mx.com.admoninmuebles.persistence.repository.AreaServicioRepository;
 import mx.com.admoninmuebles.persistence.repository.AsentamientoRepository;
+import mx.com.admoninmuebles.persistence.repository.EstatusTicketRepository;
 import mx.com.admoninmuebles.persistence.repository.PrivilegioRepository;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
 import mx.com.admoninmuebles.persistence.repository.UsuarioRepository;
@@ -43,6 +47,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     private AsentamientoRepository asentamientoRepository;
+
+    @Autowired
+    private AreaServicioRepository areaServicioRepository;
+
+    @Autowired
+    private EstatusTicketRepository estatusTicketRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -145,6 +155,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Zona zona = createZonaIfNotFound("zona1", "Zona 1", usuarioAdminZona);
         updateAsentamientoIfFound(1L, zona);
 
+        createAreaServicioIfNotFound(1L, "Jardineria");
+        createEstatusTicketIfNotFound(1L, "Creado");
+
         alreadySetup = true;
     }
 
@@ -200,7 +213,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             zona.setAdminZona(adminZona);
             zona = zonaRepository.save(zona);
         }
-
         return zona;
     }
 
@@ -214,5 +226,27 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             asentamientoRepository.save(asentamiento);
         }
         return asentamiento;
+    }
+
+    @Transactional
+    public final AreaServicio createAreaServicioIfNotFound(final Long id, final String nombre) {
+        Optional<AreaServicio> optAreaServicio = areaServicioRepository.findById(id);
+        AreaServicio areaServicio = optAreaServicio.orElse(new AreaServicio());
+        if (!optAreaServicio.isPresent()) {
+            areaServicio.setNombre(nombre);
+            areaServicio = areaServicioRepository.save(areaServicio);
+        }
+        return areaServicio;
+    }
+
+    @Transactional
+    public final EstatusTicket createEstatusTicketIfNotFound(final Long id, final String nombre) {
+        Optional<EstatusTicket> optEstatusTicket = estatusTicketRepository.findById(id);
+        EstatusTicket estatusTicket = optEstatusTicket.orElse(new EstatusTicket());
+        if (!optEstatusTicket.isPresent()) {
+            estatusTicket.setNombre(nombre);
+            estatusTicket = estatusTicketRepository.save(estatusTicket);
+        }
+        return estatusTicket;
     }
 }

@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
-import mx.com.admoninmuebles.persistence.model.Usuario;
-import mx.com.admoninmuebles.service.UsuarioService;
 import mx.com.admoninmuebles.service.ActivacionUsuarioService;
 
 @Component

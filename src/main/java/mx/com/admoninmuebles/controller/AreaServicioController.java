@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,50 +22,37 @@ public class AreaServicioController {
     @Autowired
     private AreaServicioService areaServicioService;
 
-    @GetMapping(value = "/crearAreaServicio")
-    public String showForm(final AreaServicioDto areaServicioDto) {
-        return "crearAreaServicio";
-    }
-
-    @PostMapping(value = "/crearAreaServicio")
-    public String crearAreaServicio(final Locale locale, final Model model, @Valid final AreaServicioDto areaServicioDto, final BindingResult bindingResult) {
-        areaServicioService.save(areaServicioDto);
-        return "redirect:/crearAreaServicio";
-    }
-
-    @PostMapping(value = "/catalogos/areas-servicio")
-    public String guardarAreaServicio(final Locale locale, final Model model, @Valid final AreaServicioDto areaServicioDto, final BindingResult bindingResult) {
-        System.out.println("Guardando Area de Servicio " + areaServicioDto.getNombre());
-        areaServicioService.save(areaServicioDto);
-        return "redirect:/catalogos/areas-servicio";
-    }
-
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/catalogos/areas-servicio")
     public String init(final AreaServicioDto areaServicioDto, final Model model) {
-
         model.addAttribute("areasServicio", areaServicioService.findAll());
-        return "catalogos/areas-servicio";
+        return "/catalogos/areas-servicio";
     }
 
-    @GetMapping(value = "/catalogos/areas-servicio-edicion/{idAreaServicio}")
-    public String buscarAreaServicioPorId(final @PathVariable long idAreaServicio, final Model model) {
-
-        model.addAttribute("areaServicioDto", areaServicioService.findAreaServicioById(idAreaServicio));
-        return "catalogos/areas-servicio-edicion";
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @GetMapping(value = "/catalogos/area-servicio-crear")
+    public String showForm(final AreaServicioDto areaServicioDto) {
+        return "/catalogos/area-servicio-crear";
     }
 
-    @PostMapping(value = "/catalogos/editar-areas-servicio")
-    public String editarAreaServicio(final Locale locale, final Model model, @Valid final AreaServicioDto areaServicioDto, final BindingResult bindingResult) {
-        System.out.println("Editando Area de Servicio " + areaServicioDto.getNombre());
-        System.out.println("Editando Area de Servicio " + areaServicioDto.getId());
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PostMapping(value = "/areaServicio")
+    public String crearAreaServicio(final Locale locale, final Model model, @Valid final AreaServicioDto areaServicioDto, final BindingResult bindingResult) {
         areaServicioService.save(areaServicioDto);
         return "redirect:/catalogos/areas-servicio";
     }
 
-    @GetMapping(value = "/catalogos/eliminar-areas-servicio/{idAreaServicio}")
-    public String eliminarAreaServicio(final @PathVariable long idAreaServicio) {
-        areaServicioService.deleteAreaServicio(idAreaServicio);
-        ;
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @GetMapping(value = "/catalogos/area-servicio-editar/{id}")
+    public String findById(final @PathVariable long id, final Model model) {
+        model.addAttribute("areaServicioDto", areaServicioService.findById(id));
+        return "/catalogos/area-servicio-crear";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @GetMapping(value = "/catalogos/area-servicio-eliminar/{id}")
+    public String eliminarAreaServicio(final @PathVariable long id) {
+        areaServicioService.delete(id);
         return "redirect:/catalogos/areas-servicio";
     }
 

@@ -1,28 +1,110 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout.html}"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{home.title}"></title>
+<title th:text="#{ticket.titulo}"></title>
 <script th:inline="javascript">
-	
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $('.modal-show').click(function(event) {
+      event.preventDefault();
+      var id = $(this).data('id')
+      var titulo = $(this).data('titulo')
+
+      var modal = $("#modalEliminar")
+      var mensaje = /*[[#{mensaje.eliminar.ticket}]]*/
+      modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+      modal.find('.modal-body p').text(mensaje.format(titulo))
+      modal.find('.modal-footer a').attr('href', '/ticket-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.modal("show");
+    });
+  });
+  /*]]>*/
 </script>
 </head>
 <body>
-	<div layout:fragment="content">
-		<div class="row">
-			<div class="col-12">
-				<div class="card">
-					<div class="card-body">
-						<div>
-							<span>Tickets</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div layout:fragment="content">
+    <div class="container-fluid">
+      <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+          <h3 class="text-themecolor m-b-0 m-t-0" th:text="#{ticket.titulo}"></h3>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
+            <li class="breadcrumb-item active" th:text="#{ticket.titulo}"></li>
+          </ol>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" th:text="#{ticket.titulo}"></h4>
+              <h6 class="card-subtitle" th:text="#{ticket.subtitulo}"></h6>
+              <a  sec:authorize="hasRole('SOCIO_BI')" th:href="@{/ticket-crear}" class="btn btn-info btn-rounded waves-effect" th:text="#{ticket.nuevo}"></a>
+              <div class="table-responsive">
+                <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                  <thead>
+                    <tr>
+                      <th th:text="#{etiqueta.ticket.titulo}"></th>
+                      <th th:text="#{etiqueta.ticket.areaServicio}"></th>
+                      <th th:text="#{etiqueta.ticket.estatusTicket}"></th>
+                      <th th:text="#{etiqueta.accion}"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <th:block th:each="ticket : ${tickets}">
+                      <tr>
+                        <td th:text="${ticket.titulo}"></td>
+                        <td th:text="${ticket.areaServicioNombre}"></td>
+                        <td th:text="${ticket.estatusTicketNombre}"></td>
+                        <td>
+                          <a th:href="${'ticket-detalle/'  + ticket.id}" class="btn btn-sm btn-icon btn-pure btn-outline"> <i class="fa fa-info text-inverse m-r-10" aria-hidden="true"></i></a>
+                          <a th:href="${'ticket-editar/'  + ticket.id}" class="btn btn-sm btn-icon btn-pure btn-outline"> <i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a> 
+                          <a th:attr="data-id=${ticket.id}" th:attrappend="data-titulo=${ticket.titulo}" class="btn btn-sm btn-icon btn-pure btn-outline modal-show"> <i class="fa fa-close text-danger" aria-hidden="true"></i></a>
+                        </td>
+                      </tr>
+                    </th:block>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="6">
+                        <div class="text-right">
+                          <ul class="pagination">
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div class="col-md-4">
+                  <div class="card card-body">
+                    <div id="modalEliminar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p></p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+                            <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

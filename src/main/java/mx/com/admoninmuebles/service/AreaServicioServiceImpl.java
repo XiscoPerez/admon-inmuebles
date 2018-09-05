@@ -27,23 +27,20 @@ public class AreaServicioServiceImpl implements AreaServicioService {
         return areaServicioRepository.save(modelMapper.map(userDto, AreaServicio.class));
     }
 
-	@Override
-	public Collection<AreaServicioDto> findAll() {
-		return StreamSupport.stream(areaServicioRepository.findAll().spliterator(), false)
-		.map(areaServicio -> modelMapper.map(areaServicio, AreaServicioDto.class))
-		.collect(Collectors.toList());
-	}
+    @Override
+    public Collection<AreaServicioDto> findAll() {
+        return StreamSupport.stream(areaServicioRepository.findAll().spliterator(), false).map(areaServicio -> modelMapper.map(areaServicio, AreaServicioDto.class)).collect(Collectors.toList());
+    }
 
-	@Override
-	public AreaServicioDto findAreaServicioById(Long idAreaServicio) {
-		Optional<AreaServicio> areaServicio = areaServicioRepository.findById(idAreaServicio);
-		return modelMapper.map(areaServicio.get(), AreaServicioDto.class);
-	}
+    @Override
+    public AreaServicioDto findById(final Long id) {
+        Optional<AreaServicio> areaServicio = areaServicioRepository.findById(id);
+        return modelMapper.map(areaServicio.get(), AreaServicioDto.class);
+    }
 
-	@Override
-	public void deleteAreaServicio(Long idAreaServicio) {
-		areaServicioRepository.deleteById(idAreaServicio);
-		
-	}
+    @Override
+    public void delete(final Long id) {
+        areaServicioRepository.deleteById(id);
+    }
 
 }
