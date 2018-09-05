@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,10 +20,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CambioTicket extends EntidadBase {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -42,15 +37,7 @@ public class CambioTicket extends EntidadBase {
     @Column(length = 50, unique = true, nullable = false)
     private String evidenciaImagenUrl;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_estatus_ticket", referencedColumnName = "id_estatus_ticket", nullable = false)
-    private EstatusTicket estatusTicket;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
-    private Usuario usuario;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_ticket", referencedColumnName = "id_ticket", nullable = false)
+    @JoinColumn(name = "id_ticket_fk", referencedColumnName = "id_ticket", nullable = false)
     private Ticket ticket;
 }

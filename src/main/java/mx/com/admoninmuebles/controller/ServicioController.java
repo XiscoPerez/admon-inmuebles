@@ -66,7 +66,7 @@ public class ServicioController {
             return "/catalogos/servicio-editar";
         }
 
-        if (StringUtils.isAllEmpty(servicioDto.getImagenUrl())) {
+        if (StringUtils.isEmpty(servicioDto.getImagenUrl())) {
             servicioDto.setImagenUrl("/" + storageService.store(servicioDto.getImagen()));
         }
         servicioService.save(servicioDto);

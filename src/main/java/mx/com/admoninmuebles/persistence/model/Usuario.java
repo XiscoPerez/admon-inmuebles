@@ -46,18 +46,18 @@ public class Usuario extends EntidadBase {
     private String apellidoMaterno;
 
     private String correo;
-    
+
     private String telefono;
-    
+
     private String facebook;
-    
+
     private String twiter;
-    
+
     private String youtube;
-    
+
     @Column(length = 1000, columnDefinition = "text", nullable = true)
     private String googleMapsDir;
-    
+
     private String fotoUrl;
 
     @Column(name = "cuenta_expirada")
@@ -78,15 +78,6 @@ public class Usuario extends EntidadBase {
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Collection<Rol> roles;
 
-    @OneToMany(mappedBy = "adminZona")
-    public Collection<Zona> zonas;
-
-    @OneToMany(mappedBy = "adminBi")
-    private Collection<BienInmueble> bienInmueble;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuarioAsignado")
-    private Collection<Ticket> tickets;
-
     // Proveedor
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_datos_adicionales", referencedColumnName = "id_datos_adicionales")
@@ -96,19 +87,14 @@ public class Usuario extends EntidadBase {
     @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion", nullable = true)
     private Direccion direccion;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Collection<Telefono> telefonos;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
-            name = "users_areas_servicios",
-            joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_area_servicio", referencedColumnName = "id_area_servicio"))
+            name = "usuarios_areas_servicios",
+            joinColumns = @JoinColumn(name = "id_proveedor_fk", referencedColumnName = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_area_servicio_fk", referencedColumnName = "id_area_servicio"))
     private Collection<AreaServicio> areasServicios;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private Collection<Comentario> comentarios;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private Collection<Pago> pagos;
 }

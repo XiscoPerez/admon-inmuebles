@@ -15,7 +15,6 @@ import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
 import mx.com.admoninmuebles.persistence.model.RecuperacionContraseniaToken;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.repository.RecuperacionContraseniaTokenRepository;
-import mx.com.admoninmuebles.service.ActivacionUsuarioService;
 
 @Component
 public class RecuperacionContraseniaListener implements ApplicationListener<OnRecuperacionContraseniaEvent>{

@@ -3,7 +3,6 @@ package mx.com.admoninmuebles.config;
 import java.util.Optional;
 
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import mx.com.admoninmuebles.persistence.model.Usuario;
@@ -13,13 +12,12 @@ public class SpringSecurityAuditorAware implements AuditorAware<Usuario> {
 
     @Override
     public Optional<Usuario> getCurrentAuditor() {
-        Optional<Usuario> optUsuario = Optional.empty();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication()).map(authentication -> {
+            if (authentication.getPrincipal() instanceof CustomUserDetails) {
+                return ((CustomUserDetails) authentication.getPrincipal()).getUsuario();
+            }
+            return null;
+        });
 
-        if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof CustomUserDetails) {
-            optUsuario = Optional.of(((CustomUserDetails) authentication.getPrincipal()).getUsuario());
-        }
-
-        return optUsuario;
     }
 }
