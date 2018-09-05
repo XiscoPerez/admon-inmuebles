@@ -9,5 +9,7 @@ public interface ActivacionUsuarioService {
 	UsuarioDto activar(ActivacionUsuarioDto verificacionContraseniaDto);
 	
 	void guardarToken(final UsuarioDto usuarioDto, final String token);
+	
+	boolean isTokenValido(final String token);
 
 }

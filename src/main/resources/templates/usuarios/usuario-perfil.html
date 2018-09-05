@@ -24,9 +24,21 @@ $(document).ready(function() {
   addControlState(document.getElementById('divContraseniaAnterior'),/*[[#{mensaje.contraseniaanterior.requerido}]]*/);
   addControlState(document.getElementById('divContraseniaNueva'),/*[[#{mensaje.contrasenianueva.requerido}]]*/);
   addControlState(document.getElementById('divContraseniaConfirmacion'),/*[[#{mensaje.contraseniaconfirmacion.requerido}]]*/);
+  
+  
+  $("#cambiarContraseniaForm").submit(function(e) {
+	    e.preventDefault();
+	    cambiarContrasenia();
+	    $("#cambiarContraseniaForm")[0].reset();
+	    return false;
+
+	  });
+  
 });
 
 function cambiarContrasenia(){
+	$("#mensajeErrorCambiarContrasenia").hide();
+	$("#mensajeExitoCambiarContrasenia").hide();
 	var contraseniaAnterior= $("#contraseniaAnterior").val();
 	var contraseniaNueva= $("#contraseniaNueva").val();
 	var contraseniaConfirmacion= $("#contraseniaConfirmacion").val();
@@ -34,16 +46,20 @@ function cambiarContrasenia(){
 	var obj = { "contraseniaAnterior": contraseniaAnterior, "contraseniaNueva":contraseniaNueva, "contraseniaConfirmacion": contraseniaConfirmacion };
 	
 	$.post(serverContext + "api/usuarios/cambioContrasenia",obj ,function(data, status, xhr){
-		console.log( status );
-		console.log( xhr.status );
-		console.log( data );
 		if( 200 == xhr.status){
 			$("#mensajeExitoCambiarContrasenia").show();
 			$("#mensajeExitoCambiarContraseniaSpan").text(data);
+			
+			$("#divContraseniaAnterior").removeClass('has-success');
+			$("#divContraseniaNueva").removeClass('has-success');
+			$("#divContraseniaConfirmacion").removeClass('has-success');
 		}
     }).fail(function(data, textStatus, xhr) {
     	$("#mensajeErrorCambiarContrasenia").show();
 		$("#mensajeErrorCambiarContraseniaSpan").text(data.responseText);
+		$("#divContraseniaAnterior").removeClass('has-danger').removeClass('has-success');
+		$("#divContraseniaNueva").removeClass('has-danger').removeClass('has-success');
+		$("#divContraseniaConfirmacion").removeClass('has-danger').removeClass('has-success');
    })
 }
 /*]]>*/
@@ -260,7 +276,7 @@ function cambiarContrasenia(){
                                 </div>
                                 <div class="tab-pane" id="cambio-contrasenia" role="tabpanel">
                                     <div class="card-body">
-                                        <form name="cambiarContraseniaForm" id="cambiarContraseniaForm" action="#"  th:object="${cambioContraseniaDto}" method="post" class="form-horizontal form-material">
+                                        <form name="cambiarContraseniaForm" id="cambiarContraseniaForm" action="#"  th:object="${cambioContraseniaDto}" method="post" class="form-control-line">
                                         <div id="mensajeErrorCambiarContrasenia" class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span id="mensajeErrorCambiarContraseniaSpan"></span>
 					                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
 					                    </div>
@@ -270,7 +286,7 @@ function cambiarContrasenia(){
                                             <div id="divContraseniaAnterior" th:class="${#fields.hasErrors('contraseniaAnterior')}? 'form-group has-danger':'form-group'">
                                                 <label class="col-md-12" th:text="#{label.usuario.contrasenia.anterior}"></label>
                                                 <div class="col-md-12">
-                                                     <input id="contraseniaAnterior" name="contraseniaAnterior" type="password" class="form-control" th:field="*{contraseniaAnterior}"> 
+                                                     <input id="contraseniaAnterior" name="contraseniaAnterior" type="password" required class="form-control" th:field="*{contraseniaAnterior}"> 
                                                      <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('contraseniaAnterior')}" th:errors="*{contraseniaAnterior}"></span>
 										              </span>
@@ -279,7 +295,7 @@ function cambiarContrasenia(){
                                             <div id="divContraseniaNueva" th:class="${#fields.hasErrors('contraseniaNueva')}? 'form-group has-danger':'form-group'">
                                                 <label for="example-email" th:text="#{label.usuario.contrasenia.nueva}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input id="contraseniaNueva" name="contraseniaNueva" type="password" class="form-control" th:field="*{contraseniaNueva}" > 
+                                                    <input id="contraseniaNueva" name="contraseniaNueva" type="password" class="form-control" required th:field="*{contraseniaNueva}" > 
                                                     <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('contraseniaNueva')}" th:errors="*{contraseniaNueva}"></span>
 										              </span>
@@ -288,7 +304,7 @@ function cambiarContrasenia(){
                                             <div id="divContraseniaConfirmacion" th:class="${#fields.hasErrors('contraseniaConfirmacion')}? 'form-group has-danger':'form-group'">
                                                 <label for="example-email" th:text=#{label.usuario.contrasenia.confirmacion} class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input id="contraseniaConfirmacion" name="contraseniaConfirmacion" type="password" class="form-control" th:field="*{contraseniaConfirmacion}" >  
+                                                    <input id="contraseniaConfirmacion" name="contraseniaConfirmacion" type="password" required class="form-control" th:field="*{contraseniaConfirmacion}" >  
                                                     <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('contraseniaConfirmacion')}" th:errors="*{contraseniaConfirmacion}"></span>
 										              </span>
@@ -297,8 +313,8 @@ function cambiarContrasenia(){
                           
                                             <div class="form-group">
                                                 <div class="col-sm-12">
-                                                 	<button type="button" onclick="cambiarContrasenia();" class="btn btn-info-gesco waves-effect" th:text="#{etiqueta.guardar}"></button>
-<!--                                                     <button type="submit" class="btn btn-info-gesco waves-effect" th:text="#{etiqueta.guardar}"></button> -->
+<!--                                                  	<button type="button" onclick="cambiarContrasenia();" class="btn btn-info-gesco waves-effect" th:text="#{etiqueta.guardar}"></button> -->
+                                                    <button id="guardarBtn" type="submit" class="btn btn-info-gesco waves-effect" th:text="#{etiqueta.guardar}"></button>
                                                 </div>
                                             </div>
                                         </form>

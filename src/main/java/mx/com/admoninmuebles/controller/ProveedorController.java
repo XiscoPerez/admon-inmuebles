@@ -1,0 +1,81 @@
+package mx.com.admoninmuebles.controller;
+
+import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import mx.com.admoninmuebles.dto.ProveedorDto;
+import mx.com.admoninmuebles.service.ProveedorService;
+
+@Controller
+public class ProveedorController {
+
+	@Autowired
+	private ProveedorService proveedorService;
+
+	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+	@GetMapping(value = "/proveedores")
+	public String init(final Model model) {
+		model.addAttribute("proveedores", proveedorService.getProveedores());
+		return "proveedores/proveedores";
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @GetMapping(value = "/proveedor-crear")
+    public String crearProveedorInit(final ProveedorDto proveedorDto, final HttpSession session) {
+        return "proveedores/proveedor-crear";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PostMapping(value = "/proveedor-crear")
+    public String crearProveedor(final Locale locale, final Model model, @Valid final ProveedorDto proveedorDto, final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "proveedores/proveedor-crear";
+        }
+        
+        proveedorService.guardar(proveedorDto);
+        return "proveedores";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @GetMapping(value = "/proveedor-detalle/{id}")
+    public String buscarProveedorPorId(final @PathVariable long id, final Model model) {
+        model.addAttribute("proveedorDto", proveedorService.buscarProveedorPorId(id));
+        return "proveedores/proveedor-detalle";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @GetMapping(value = "/proveedor-editar/{id}")
+    public String editarProveedor(final @PathVariable long id, final Model model, final HttpSession session) {
+        model.addAttribute("proveedorDto", proveedorService.buscarProveedorPorId(id));
+        return "proveedores/proveedor-editar";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PostMapping(value = "/proveedor-editar")
+    public String editarInmueble(final Locale locale, final Model model, @Valid final ProveedorDto proveedorDto, final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "proveedores/proveedor-editar";
+        }
+
+        proveedorService.guardar(proveedorDto);
+        return "redirect:/proveedores";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @GetMapping(value = "/proveedor-eliminar/{id}")
+    public String eliminarInmueble(final @PathVariable Long id) {
+    	proveedorService.eliminar(id);
+        return "redirect:/proveedores";
+    }
+}

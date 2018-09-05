@@ -32,7 +32,7 @@
                 <li><a href="index2.html" th:text="#{menu.bieninmueble}"></a></li>
                 <li><a href="index3.html" th:text="#{menu.tickets}"></a></li>
                 <li><a href="index4.html" th:text="#{menu.pagos}"></a></li>
-                <li><a href="index5.html" th:text="#{menu.proveedores}"></a></li>
+                <li><a href="/proveedores" th:text="#{menu.proveedores}"></a></li>
               </ul></li>
             <li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')"><a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i> <span class="hide-menu"
                   th:text="#{menu.catalogos}"></span></a>
