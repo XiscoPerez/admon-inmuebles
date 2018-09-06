@@ -23,8 +23,7 @@ public class TicketDto {
     @NotNull
     private Long areaServicioId;
     private String areaServicioNombre;
-    private Long estatusTicketId;
-    private String estatusTicketNombre;
+    private String estatus;
     private Long usuarioCreadorId;
 
 }

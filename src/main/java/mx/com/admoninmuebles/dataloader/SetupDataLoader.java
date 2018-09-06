@@ -69,11 +69,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Privilegio historialPagos = createPrivilegioIfNotFound("HISTORIAL_PAGOS");
         Privilegio historialPagoInmuble = createPrivilegioIfNotFound("HISTORIAL_PAGOS_INMUEBLE");
         Privilegio verificarPago = createPrivilegioIfNotFound("VERIFICAR_PAGO");
-        Privilegio iniciarTicket = createPrivilegioIfNotFound("INICIAR_TICKET");
+        Privilegio abrirTicket = createPrivilegioIfNotFound("ABRIR_TICKET");
         Privilegio asignarTicket = createPrivilegioIfNotFound("ASIGNAR_TICKET");
-        Privilegio actualizarTicket = createPrivilegioIfNotFound("ACTUALIZAR_TICKET");
+        Privilegio aceptarTicket = createPrivilegioIfNotFound("ACEPTAR_TICKET");
+        Privilegio atenderTicket = createPrivilegioIfNotFound("ATENDER_TICKET");
+        Privilegio rechazarTicket = createPrivilegioIfNotFound("RECHAZAR_TICKET");
         Privilegio cerrarTicket = createPrivilegioIfNotFound("CERRAR_TICKET");
-        Privilegio evidenciaServicio = createPrivilegioIfNotFound("EVIDENCIA_SERVICIO");
+        Privilegio cancelarTicket = createPrivilegioIfNotFound("CANCELAR_TICKET");
         Privilegio listaSocios = createPrivilegioIfNotFound("LISTA_SOCIOS");
         Privilegio estadoFinancieroInmueble = createPrivilegioIfNotFound("ESTADO_FINANCIERO_INMUEBLE");
         Privilegio estadoFinancieroColonia = createPrivilegioIfNotFound("ESTADO FINANCIERO_COLONIA");
@@ -93,16 +95,17 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Privilegio reporteMorosos = createPrivilegioIfNotFound("REPORTE_MOROSOS");
 
         List<Privilegio> privilegiosProveedor = new ArrayList<>();
-        privilegiosProveedor.add(actualizarTicket);
-        privilegiosProveedor.add(evidenciaServicio);
+        privilegiosProveedor.add(aceptarTicket);
+        privilegiosProveedor.add(atenderTicket);
+        privilegiosProveedor.add(rechazarTicket);
         Rol proveedor = createRolIfNotFound("ROLE_PROVEEDOR", privilegiosProveedor);
 
         List<Privilegio> privilegiosSocioBi = new ArrayList<>();
         privilegiosSocioBi.add(tablero);
         privilegiosSocioBi.add(notificarPago);
         privilegiosSocioBi.add(historialPagos);
-        privilegiosSocioBi.add(iniciarTicket);
-        privilegiosSocioBi.add(actualizarTicket);
+        privilegiosSocioBi.add(abrirTicket);
+        privilegiosSocioBi.add(cancelarTicket);
         Rol socioBi = createRolIfNotFound("ROLE_SOCIO_BI", privilegiosSocioBi);
 
         List<Privilegio> privilegiosRepBi = new ArrayList<>();
@@ -116,10 +119,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         List<Privilegio> privilegiosAdminBi = new ArrayList<>();
         privilegiosAdminBi.addAll(privilegiosRepBi);
         privilegiosAdminBi.add(asignarTicket);
-        privilegiosAdminBi.add(gestionarSocioBi);
         privilegiosAdminBi.add(cerrarTicket);
+        privilegiosAdminBi.add(gestionarSocioBi);
         privilegiosAdminBi.add(verificarPago);
-        privilegiosAdminBi.add(asignarTicket);
         privilegiosAdminBi.add(historialPagos);
         privilegiosAdminBi.add(gestionarColonia);
         privilegiosAdminBi.add(gestionarBienesInmubeles);

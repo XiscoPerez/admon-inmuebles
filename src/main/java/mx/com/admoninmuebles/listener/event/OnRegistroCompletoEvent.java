@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationEvent;
 
 import lombok.Data;
 import mx.com.admoninmuebles.dto.UsuarioDto;
-import mx.com.admoninmuebles.persistence.model.Usuario;
 
 @Data
 public class OnRegistroCompletoEvent extends ApplicationEvent{

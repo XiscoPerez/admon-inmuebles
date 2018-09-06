@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.dto.RolDto;
-import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
