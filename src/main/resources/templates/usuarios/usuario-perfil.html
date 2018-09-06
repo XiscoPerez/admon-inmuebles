@@ -111,8 +111,8 @@ function cambiarContrasenia(){
                         <div class="card">
                             <div class="card-body"> <small class="text-muted" th:text="#{label.usuario.correo}"></small>
                                 <h6 th:text="${usuarioDto.correo}"></h6> 
-                                <small class="text-muted p-t-30 db" th:text="#{label.usuario.telefono}"></small>
-                                <h6 th:text="${usuarioDto.telefono}"></h6> 
+                                <small class="text-muted p-t-30 db" th:text="#{label.usuario.telefonomovil}"></small>
+                                <h6 th:text="${usuarioDto.telefonoMovil}"></h6> 
                                 <small class="text-muted p-t-30 db" th:text="#{label.usuario.googleMapsDir}"></small>
 	                                <div class="map-box">
                                 		<iframe th:src="${usuarioDto.googleMapsDir}" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -168,9 +168,9 @@ function cambiarContrasenia(){
                                                 	 <p class="text-muted" th:text="${rol.nombre}"></p>
                                                 </th:block>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefono}"></strong>
+                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.youtube}"></strong>
                                                 <br>
-                                                <p class="text-muted" th:text="${usuarioDto.telefono}"></p>
+                                                <p class="text-muted" th:text="${usuarioDto.youtube}"></p>
                                             </div>
                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.facebook}"></strong>
                                                 <br>
@@ -182,11 +182,25 @@ function cambiarContrasenia(){
                                             </div>
                                         </div>
                                         <div class="row m-t-20">
-      
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.youtube}"></strong>
+                                        
+                                        	 <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefonomovil}"></strong>
                                                 <br>
-                                                <p class="text-muted" th:text="${usuarioDto.youtube}"></p>
+                                                <p class="text-muted" th:text="${usuarioDto.telefonoMovil}"></p>
                                             </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefonofijo}"></strong>
+                                                <br>
+                                                <p class="text-muted" th:text="${usuarioDto.telefonoFijo}"></p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefonoaficina}"></strong>
+                                                <br>
+                                                <p class="text-muted" th:text="${usuarioDto.telefonoOficina}"></p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefonoalternativo}"></strong>
+                                                <br>
+                                                <p class="text-muted" th:text="${usuarioDto.telefonoAlternativo}"></p>
+                                            </div>
+      
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -237,12 +251,6 @@ function cambiarContrasenia(){
                                                 </div>
                                             </div>
                                              <div class="form-group">
-                                                <label for="example-email" th:text="#{label.usuario.telefono}" class="col-md-12"></label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{telefono}" placeholder="label.usuario.telefono">  
-                                                </div>
-                                            </div>
-                                             <div class="form-group">
                                                 <label for="example-email" th:text="#{label.usuario.facebook}" class="col-md-12"></label>
                                                 <div class="col-md-12">
                                                     <input type="text" class="form-control" th:field="*{facebook}" placeholder="#{label.usuario.facebook}">  
@@ -264,6 +272,30 @@ function cambiarContrasenia(){
                                                 <label for="example-email" th:text="#{label.usuario.googleMapsDir}" class="col-md-12"></label>
                                                 <div class="col-md-12">
                                                     <input type="text" class="form-control" th:field="*{googleMapsDir}" placeholder="#{label.usuario.googleMapsDir}">  
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-telefono-movil" th:text="#{label.usuario.telefonomovil}" class="col-md-12"></label>
+                                                <div class="col-md-12">
+                                                    <input type="text" class="form-control" th:field="*{telefonoMovil}" placeholder="#{label.usuario.telefonomovil}">  
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-telefono-fijo" th:text="#{label.usuario.telefonofijo}" class="col-md-12"></label>
+                                                <div class="col-md-12">
+                                                    <input type="text" class="form-control" th:field="*{telefonoFijo}" placeholder="#{label.usuario.telefonofijo}">  
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-telefono-oficina" th:text="#{label.usuario.telefonooficina}" class="col-md-12"></label>
+                                                <div class="col-md-12">
+                                                    <input type="text" class="form-control" th:field="*{telefonoOficina}" placeholder="#{label.usuario.telefonooficina}">  
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-telefono-alternativo" th:text="#{label.usuario.telefonoalternativo}" class="col-md-12"></label>
+                                                <div class="col-md-12">
+                                                    <input type="text" class="form-control" th:field="*{telefonoAlternativo}" placeholder="#{label.usuario.telefonoalternativo}">  
                                                 </div>
                                             </div>
                                             <div class="form-group">

@@ -19,21 +19,15 @@
           <ul aria-expanded="true" class="collapse in">
             <li sec:authorize="!hasAnyRole('SOCIO_BI')"><a class="has-arrow" th:href="@{/tickets}" aria-expanded="false"><i class="mdi mdi-file"></i> <span class="hide-menu" th:text="#{menu.tickets}"></span></a></li>
             <li sec:authorize="hasAnyRole('SOCIO_BI', 'PROVEEDOR')"><a class="has-arrow" th:href="@{/mis-tickets}" aria-expanded="false"><i class="mdi mdi-file"></i> <span class="hide-menu" th:text="#{menu.misTickets}"></span></a></li>
-            <li><a class="has-arrow " th:href="@{/inmuebles}" aria-expanded="false"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.bieninmueble}"></span></a></li>
+            <li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')"><a class="has-arrow " th:href="@{/inmuebles}" aria-expanded="false"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.bieninmueble}"></span></a></li>
+            <li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')"><a class="has-arrow " th:href="@{/proveedores}" aria-expanded="false"><i class="mdi mdi-table"></i> <span class="hide-menu" th:text="#{menu.proveedores}"></span></a></li>
             <li><a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-widgets"></i> <span class="hide-menu" th:text="#{menu.pagos}"></span></a>
               <ul aria-expanded="false" class="collapse">
                 <li><a href="index.html" th:text="#{menu.notificacionpago}"></a></li>
                 <li><a href="index2.html" th:text="#{menu.historialpago}"></a></li>
                 <li><a href="index2.html" th:text="#{menu.morosos}"></a></li>
               </ul></li>
-            <li><a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i> <span class="hide-menu" th:text="#{menu.usuarios}"></span></a>
-              <ul aria-expanded="false" class="collapse">
-                <li><a th:href="@{/usuarios}" th:text="#{menu.usuarios}"></a></li>
-                <li><a href="index2.html" th:text="#{menu.bieninmueble}"></a></li>
-                <li><a href="index3.html" th:text="#{menu.tickets}"></a></li>
-                <li><a href="index4.html" th:text="#{menu.pagos}"></a></li>
-                <li><a href="/proveedores" th:text="#{menu.proveedores}"></a></li>
-              </ul></li>
+            <li><a class="has-arrow" th:href="@{/usuarios}" href="#" aria-expanded="false" ><i class="mdi mdi-gauge"></i> <span class="hide-menu" th:text="#{menu.usuarios}"></span></a></li>
             <li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')"><a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i> <span class="hide-menu"
                   th:text="#{menu.catalogos}"></span></a>
               <ul aria-expanded="false" class="collapse">

@@ -25,7 +25,13 @@ public class UsuarioDto {
     @NotNull
     private String correo;
     
-    private String telefono;
+    private String telefonoFijo;
+    
+    private String telefonoOficina;
+    
+    private String telefonoMovil;
+    
+    private String telefonoAlternativo;
     
     private String facebook;
     

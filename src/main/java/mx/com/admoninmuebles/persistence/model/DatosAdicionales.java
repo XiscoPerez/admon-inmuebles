@@ -39,19 +39,16 @@ public class DatosAdicionales extends EntidadBase {
     @Column(length = 13, nullable = false)
     private String rfc;
 
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(length = 50, nullable = false)
+    @Size(min = 0, max = 50)
+    @Column(length = 50, nullable = true)
     private String telefono;
 
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(length = 100, nullable = false)
+    @Size(min = 0, max = 100)
+    @Column(length = 100, nullable = true)
     private String correo;
 
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(length = 50, nullable = false)
+    @Size(min = 0, max = 50)
+    @Column(length = 50, nullable = true)
     private String numeroCuenta;
 
 }

@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -31,6 +33,8 @@ import mx.com.admoninmuebles.service.RecuperacionContraseniaService;
 
 @Controller
 public class UsuarioController {
+	
+	Logger logger = LoggerFactory.getLogger(UsuarioController.class);
 
     @Autowired
     private MessageSource messages;
@@ -72,10 +76,15 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @PostMapping(value = "/usuarios")
     public String guardar(final HttpServletRequest request, final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    	logger.info(usuarioDto.toString());
     	 if (bindingResult.hasErrors()) {
+    		logger.info("Ocurrieron errores " + bindingResult.toString());
+    		
              return "usuarios/usuario-crear";
          }
+    	 logger.info("Ante de guardar");
     	UsuarioDto newUsuarioDto = userService.crearCuenta(usuarioDto);
+    	logger.info("Usuario generardo " + newUsuarioDto.toString());
     	eventPublisher.publishEvent(new OnRegistroCompletoEvent(newUsuarioDto, request.getLocale(), getAppUrl(request)));
     	return "redirect:/usuarios";
     }

@@ -158,6 +158,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         updateAsentamientoIfFound(1L, zona);
 
         createAreaServicioIfNotFound(1L, "Jardineria");
+        createAreaServicioIfNotFound(1L, "Limpieza");
+        createAreaServicioIfNotFound(1L, "Construcción");
         createEstatusTicketIfNotFound(1L, "Creado");
 
         alreadySetup = true;
