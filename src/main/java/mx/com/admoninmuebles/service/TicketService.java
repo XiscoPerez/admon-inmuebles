@@ -12,6 +12,8 @@ public interface TicketService {
 
     Collection<TicketDto> findByUsuarioCreadorId(Long id);
 
+    Collection<TicketDto> findByUsuarioAsignadoId(Long id);
+
     TicketDto findById(Long id);
 
     void delete(Long id);

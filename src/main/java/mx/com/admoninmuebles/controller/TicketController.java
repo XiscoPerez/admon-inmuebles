@@ -3,6 +3,7 @@ package mx.com.admoninmuebles.controller;
 import java.util.Locale;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import mx.com.admoninmuebles.dto.TicketDto;
+import mx.com.admoninmuebles.enums.EstatusTiket;
 import mx.com.admoninmuebles.security.SecurityUtils;
 import mx.com.admoninmuebles.service.AreaServicioService;
 import mx.com.admoninmuebles.service.TicketService;
@@ -29,34 +31,38 @@ public class TicketController {
     @Autowired
     private AreaServicioService areaServicioService;
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI', 'SOCIO_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/tickets")
     public String init(final TicketDto ticketDto, final Model model) {
         model.addAttribute("tickets", ticketService.findAll());
         return "/ticket/tickets";
     }
 
-    @PreAuthorize("hasRole('SOCIO_BI')")
+    @PreAuthorize("hasAnyRole('SOCIO_BI', 'PROVEEDOR')")
     @GetMapping(value = "/mis-tickets")
-    public String misTickets(final TicketDto ticketDto, final Model model) {
+    public String misTickets(final TicketDto ticketDto, final Model model, final HttpServletRequest request) {
         Optional<Long> optId = SecurityUtils.getCurrentUserId();
         if (optId.isPresent()) {
-            model.addAttribute("tickets", ticketService.findByUsuarioCreadorId(optId.get()));
+            if (request.isUserInRole("SOCIO_BI")) {
+                model.addAttribute("tickets", ticketService.findByUsuarioCreadorId(optId.get()));
+            } else if (request.isUserInRole("PROVEEDOR")) {
+                model.addAttribute("tickets", ticketService.findByUsuarioAsignadoId(optId.get()));
+            }
         }
         return "/ticket/tickets";
     }
 
-    @PreAuthorize("hasAuthority('INICIAR_TICKET')")
+    @PreAuthorize("hasAuthority('ABRIR_TICKET')")
     @GetMapping(value = "/ticket-crear")
     public String ticketCrear(final TicketDto ticketDto, final HttpSession session) {
         session.setAttribute("areasServicio", areaServicioService.findAll());
         return "/ticket/ticket-crear";
     }
 
-    @PreAuthorize("hasAuthority('INICIAR_TICKET')")
+    @PreAuthorize("hasAuthority('ABRIR_TICKET')")
     @PostMapping(value = "/ticket")
     public String crearTicket(final Locale locale, final Model model, @Valid final TicketDto ticketDto, final BindingResult bindingResult) {
-        ticketDto.setEstatusTicketId(1L);
+        ticketDto.setEstatus(EstatusTiket.ABIERTO.toString());
         Optional<Long> optId = SecurityUtils.getCurrentUserId();
         if (optId.isPresent()) {
             ticketDto.setUsuarioCreadorId(optId.get());
@@ -65,7 +71,7 @@ public class TicketController {
         return "redirect:/mis-tickets";
     }
 
-    @PreAuthorize("hasAuthority('INICIAR_TICKET')")
+    @PreAuthorize("hasAuthority('ABRIR_TICKET')")
     @GetMapping(value = "/ticket-editar/{id}")
     public String findById(final @PathVariable long id, final Model model, final HttpSession session) {
         model.addAttribute("ticketDto", ticketService.findById(id));
@@ -73,7 +79,7 @@ public class TicketController {
         return "/ticket/ticket-crear";
     }
 
-    @PreAuthorize("hasAuthority('INICIAR_TICKET')")
+    @PreAuthorize("hasAuthority('ABRIR_TICKET')")
     @GetMapping(value = "/ticket-detalle/{id}")
     public String buscarInmueblePorId(final @PathVariable long id, final Model model) {
         model.addAttribute("inmuebleDto", ticketService.findById(id));

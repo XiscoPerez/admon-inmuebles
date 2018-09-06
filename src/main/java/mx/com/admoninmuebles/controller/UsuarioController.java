@@ -5,7 +5,6 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +14,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
 import mx.com.admoninmuebles.dto.RecuperaContraseniaDto;
 import mx.com.admoninmuebles.dto.RecuperacionContraseniaCorreoDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.dto.ActivacionUsuarioDto;
-import mx.com.admoninmuebles.dto.ZonaDto;
 import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
 import mx.com.admoninmuebles.service.RolService;

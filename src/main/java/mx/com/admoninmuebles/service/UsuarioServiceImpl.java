@@ -10,8 +10,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -43,9 +43,8 @@ public class Ticket extends EntidadBase {
     @Column(length = 4000, columnDefinition = "text", nullable = false)
     private String descripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "id_estatus_ticket_fk", referencedColumnName = "id_estatus_ticket", nullable = false)
-    private EstatusTicket estatusTicket;
+    @NotNull
+    private String estatus;
 
     @ManyToOne
     @JoinColumn(name = "id_area_servicio_fk", referencedColumnName = "id_area_servicio", nullable = false)
