@@ -9,21 +9,25 @@ import mx.com.admoninmuebles.persistence.model.Usuario;
 public interface UsuarioService {
 
     Usuario save(UsuarioDto userDto);
-    
+
     UsuarioDto editarPerfil(UsuarioDto userDto);
-    
+
     UsuarioDto findById(Long idUsuario);
-    
+
     UsuarioDto findByUsernameOrCorreo(final String usernameCorreo);
-    
+
     void deleteById(Long idUsuario);
-    
+
     Collection<UsuarioDto> findAll();
-    
+
     UsuarioDto crearCuenta(UsuarioDto userDto);
-    
+
     UsuarioDto findUserLogin();
-    
+
     UsuarioDto cambiarContrasenia(CambioContraseniaDto cambioContraseniaDto);
+
+    Collection<UsuarioDto> findByRolesNombre(String nombre);
+
+    Collection<UsuarioDto> findByRolesNombreAndAreasServicioId(String nombre, Long id);
 
 }

@@ -1,8 +1,6 @@
 package mx.com.admoninmuebles.service;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.dto.RolDto;
 import mx.com.admoninmuebles.persistence.model.Rol;
-import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
 
 @Service
@@ -30,20 +27,8 @@ public class RolServiceImpl implements RolService {
     }
 
     @Override
-    public Collection<Usuario> findUsuariosByNombreRol(final String nombre) {
-        Collection<Usuario> usuarios = Collections.emptyList();
-        Optional<Rol> optRol = rolRepository.findByNombre(nombre);
-        if (optRol.isPresent()) {
-            usuarios = optRol.get().getUsuarios();
-        }
-        return usuarios;
+    public Collection<RolDto> findAll() {
+        return StreamSupport.stream(rolRepository.findAll().spliterator(), false).map(rol -> modelMapper.map(rol, RolDto.class)).collect(Collectors.toList());
     }
-
-	@Override
-	public Collection<RolDto> findAll() {
-		return StreamSupport.stream(rolRepository.findAll().spliterator(), false)
-				.map(rol -> modelMapper.map(rol, RolDto.class))
-				.collect(Collectors.toList());
-	}
 
 }

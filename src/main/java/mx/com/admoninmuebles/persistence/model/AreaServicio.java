@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.persistence.model;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +33,17 @@ public class AreaServicio extends EntidadBase {
     @Column(length = 50, nullable = false)
     private String nombre;
 
-    @ManyToMany(mappedBy = "areasServicios")
-    private Collection<Usuario> proveedores;
+    @ManyToMany(mappedBy = "areasServicio")
+    private Collection<Usuario> proveedores = new HashSet<>();
+
+    public void addProveedor(final Usuario proveedor) {
+        proveedores.add(proveedor);
+        proveedor.getAreasServicio().add(this);
+    }
+
+    public void removeProveedor(final Usuario proveedor) {
+        proveedores.remove(proveedor);
+        proveedor.getAreasServicio().remove(this);
+    }
 
 }

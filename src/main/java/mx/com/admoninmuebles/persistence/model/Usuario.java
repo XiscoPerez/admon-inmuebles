@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.persistence.model;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,10 +21,6 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * The persistent class for the users database table.
- *
- */
 @Entity
 @Table(name = "usuarios")
 @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
@@ -47,11 +45,11 @@ public class Usuario extends EntidadBase {
     private String correo;
 
     private String telefonoFijo;
-    
+
     private String telefonoOficina;
-    
+
     private String telefonoMovil;
-    
+
     private String telefonoAlternativo;
 
     private String facebook;
@@ -83,27 +81,39 @@ public class Usuario extends EntidadBase {
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Collection<Rol> roles;
 
-    
+    @ManyToOne
+    @JoinColumn(name = "id_inmueble_fk")
+    private Inmueble inmueble;
+
     @OneToOne
     @JoinColumn(name = "id_datos_adicionales_fk", nullable = true)
     private DatosAdicionales datosAdicionales;
-    
+
     @OneToOne
     @JoinColumn(name = "id_direccion_fk", nullable = true)
     private Direccion direccion;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-//    private Collection<Telefono> telefonos;
-    
+    // @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    // private Collection<Telefono> telefonos;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Collection<Comentario> comentarios;
-
 
     @ManyToMany
     @JoinTable(
             name = "usuarios_areas_servicios",
             joinColumns = @JoinColumn(name = "id_proveedor_fk", referencedColumnName = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_area_servicio_fk", referencedColumnName = "id_area_servicio"))
-    private Collection<AreaServicio> areasServicios;
+    private Collection<AreaServicio> areasServicio = new HashSet<>();
+
+    public void addAreaServicio(final AreaServicio areaServicio) {
+        areasServicio.add(areaServicio);
+        areaServicio.getProveedores().add(this);
+    }
+
+    public void removeAreaServicio(final AreaServicio areaServicio) {
+        areasServicio.remove(areaServicio);
+        areaServicio.getProveedores().remove(this);
+    }
 
 }

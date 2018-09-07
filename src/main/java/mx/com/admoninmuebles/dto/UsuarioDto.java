@@ -24,23 +24,23 @@ public class UsuarioDto {
 
     @NotNull
     private String correo;
-    
+
     private String telefonoFijo;
-    
+
     private String telefonoOficina;
-    
+
     private String telefonoMovil;
-    
+
     private String telefonoAlternativo;
-    
+
     private String facebook;
-    
+
     private String twiter;
-    
+
     private String youtube;
-    
+
     private String googleMapsDir;
-    
+
     private String fotoUrl;
 
     private boolean cuentaExpirada;
@@ -56,27 +56,31 @@ public class UsuarioDto {
     private String contrasenia;
 
     private Collection<RolDto> roles;
-    
+
     private Long rolSeleccionado;
-    
-//    private Collection<Long> rolesSeleccionados;
-//
-//    public Collection<String> zonas;
-//
-//    private Collection<Long> bienInmueble;
-//
-//    private Collection<Long> tickets;
-//
-//    private Long id;
-//
-//    private Long id;
-//
-//    private Collection<Long> telefonos;
-//
-//    private Collection<Long> areasServicios;
-//
-//    private Collection<Long> comentarios;
-//
-//    private Collection<Long> pagos;
+
+    // private Collection<Long> rolesSeleccionados;
+    //
+    // public Collection<String> zonas;
+    //
+    // private Collection<Long> inmueble;
+    //
+    // private Collection<Long> tickets;
+    //
+    // private Long id;
+    //
+    // private Long id;
+    //
+    // private Collection<Long> telefonos;
+    //
+    // private Collection<Long> areasServicios;
+    //
+    // private Collection<Long> comentarios;
+    //
+    // private Collection<Long> pagos;
+
+    public String getNombreCompleto() {
+        return String.format("%s %s %s", nombre, apellidoPaterno, apellidoMaterno);
+    }
 
 }

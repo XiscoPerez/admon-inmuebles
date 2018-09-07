@@ -3,10 +3,10 @@ package mx.com.admoninmuebles.service;
 import java.util.Collection;
 
 import mx.com.admoninmuebles.dto.InmuebleDto;
-import mx.com.admoninmuebles.persistence.model.BienInmueble;
+import mx.com.admoninmuebles.persistence.model.Inmueble;
 
-public interface BienInmuebleService {
-    BienInmueble save(InmuebleDto bienInmuebleDto);
+public interface InmuebleService {
+    Inmueble save(InmuebleDto inmuebleDto);
 
     Collection<InmuebleDto> findAll();
 

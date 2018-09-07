@@ -10,4 +10,5 @@ import mx.com.admoninmuebles.persistence.model.Rol;
 @Repository
 public interface RolRepository extends CrudRepository<Rol, Long> {
     Optional<Rol> findByNombre(String nombre);
+
 }
