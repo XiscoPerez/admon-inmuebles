@@ -1,5 +1,6 @@
 package mx.com.admoninmuebles.dataloader;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,18 +14,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import mx.com.admoninmuebles.constant.EstatusTicketConst;
+import mx.com.admoninmuebles.constant.PrivilegioConst;
+import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.persistence.model.AreaServicio;
 import mx.com.admoninmuebles.persistence.model.Asentamiento;
-import mx.com.admoninmuebles.persistence.model.EstatusTicket;
+import mx.com.admoninmuebles.persistence.model.DatosAdicionales;
+import mx.com.admoninmuebles.persistence.model.Direccion;
+import mx.com.admoninmuebles.persistence.model.Inmueble;
 import mx.com.admoninmuebles.persistence.model.Privilegio;
 import mx.com.admoninmuebles.persistence.model.Rol;
+import mx.com.admoninmuebles.persistence.model.Ticket;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.model.Zona;
 import mx.com.admoninmuebles.persistence.repository.AreaServicioRepository;
 import mx.com.admoninmuebles.persistence.repository.AsentamientoRepository;
-import mx.com.admoninmuebles.persistence.repository.EstatusTicketRepository;
+import mx.com.admoninmuebles.persistence.repository.DatosAdicionalesRepository;
+import mx.com.admoninmuebles.persistence.repository.DireccionRepository;
+import mx.com.admoninmuebles.persistence.repository.InmuebleRepository;
 import mx.com.admoninmuebles.persistence.repository.PrivilegioRepository;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
+import mx.com.admoninmuebles.persistence.repository.TicketRepository;
 import mx.com.admoninmuebles.persistence.repository.UsuarioRepository;
 import mx.com.admoninmuebles.persistence.repository.ZonaRepository;
 
@@ -46,13 +56,22 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private ZonaRepository zonaRepository;
 
     @Autowired
+    private DireccionRepository direccionRepository;
+
+    @Autowired
+    private DatosAdicionalesRepository datosAdicionalesRepository;
+
+    @Autowired
+    private InmuebleRepository inmuebleRepository;
+
+    @Autowired
     private AsentamientoRepository asentamientoRepository;
 
     @Autowired
     private AreaServicioRepository areaServicioRepository;
 
     @Autowired
-    private EstatusTicketRepository estatusTicketRepository;
+    private TicketRepository ticketRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -64,49 +83,52 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             return;
         }
 
-        Privilegio tablero = createPrivilegioIfNotFound("TABLERO");
-        Privilegio notificarPago = createPrivilegioIfNotFound("NOTIFICAR_PAGO");
-        Privilegio historialPagos = createPrivilegioIfNotFound("HISTORIAL_PAGOS");
-        Privilegio historialPagoInmuble = createPrivilegioIfNotFound("HISTORIAL_PAGOS_INMUEBLE");
-        Privilegio verificarPago = createPrivilegioIfNotFound("VERIFICAR_PAGO");
-        Privilegio abrirTicket = createPrivilegioIfNotFound("ABRIR_TICKET");
-        Privilegio asignarTicket = createPrivilegioIfNotFound("ASIGNAR_TICKET");
-        Privilegio aceptarTicket = createPrivilegioIfNotFound("ACEPTAR_TICKET");
-        Privilegio atenderTicket = createPrivilegioIfNotFound("ATENDER_TICKET");
-        Privilegio rechazarTicket = createPrivilegioIfNotFound("RECHAZAR_TICKET");
-        Privilegio cerrarTicket = createPrivilegioIfNotFound("CERRAR_TICKET");
-        Privilegio cancelarTicket = createPrivilegioIfNotFound("CANCELAR_TICKET");
-        Privilegio listaSocios = createPrivilegioIfNotFound("LISTA_SOCIOS");
-        Privilegio estadoFinancieroInmueble = createPrivilegioIfNotFound("ESTADO_FINANCIERO_INMUEBLE");
-        Privilegio estadoFinancieroColonia = createPrivilegioIfNotFound("ESTADO FINANCIERO_COLONIA");
-        Privilegio estadoFinancieroZona = createPrivilegioIfNotFound("ESTADO_FINANCIERO_ZONA");
-        Privilegio gestionarColonia = createPrivilegioIfNotFound("GESTIONAR_COLONIA");
-        Privilegio gestionarZona = createPrivilegioIfNotFound("GESTIONAR_ZONA");
-        Privilegio gestionarBienesInmubeles = createPrivilegioIfNotFound("GESTIONAR_BIENES_INMUEBLES");
-        Privilegio gestionarServicios = createPrivilegioIfNotFound("GESTIONAR_SERVICIOS");
-        Privilegio gestionarPreguntas = createPrivilegioIfNotFound("GESTIONAR_PREGUNTAS");
-        Privilegio gestionarSocioBi = createPrivilegioIfNotFound("GESTIONAR_SOCIO_BI");
-        Privilegio gestionarRepBi = createPrivilegioIfNotFound("GESTIONAR_REP_BI");
-        Privilegio gestionarAdminBi = createPrivilegioIfNotFound("GESTIONAR_ADMIN_BI");
-        Privilegio gestionarAdminZona = createPrivilegioIfNotFound("GESTIONAR_ADMIN_ZONA");
-        Privilegio gestionarProveedor = createPrivilegioIfNotFound("GESTIONAR_PROVEEDOR");
-        Privilegio gestionarAdminCorp = createPrivilegioIfNotFound("GESTIONAR_ADMIN_CORP");
-        Privilegio reportes = createPrivilegioIfNotFound("REPORTES");
-        Privilegio reporteMorosos = createPrivilegioIfNotFound("REPORTE_MOROSOS");
+        Privilegio tablero = createPrivilegioIfNotFound(PrivilegioConst.TABLERO);
+        Privilegio notificarPago = createPrivilegioIfNotFound(PrivilegioConst.NOTIFICAR_PAGO);
+        Privilegio historialPagos = createPrivilegioIfNotFound(PrivilegioConst.HISTORIAL_PAGOS);
+        Privilegio historialPagoInmuble = createPrivilegioIfNotFound(PrivilegioConst.HISTORIAL_PAGOS_INMUEBLE);
+        Privilegio verificarPago = createPrivilegioIfNotFound(PrivilegioConst.VERIFICAR_PAGO);
+        Privilegio abrirTicket = createPrivilegioIfNotFound(PrivilegioConst.ABRIR_TICKET);
+        Privilegio verTicket = createPrivilegioIfNotFound(PrivilegioConst.VER_TICKET);
+        Privilegio asignarTicket = createPrivilegioIfNotFound(PrivilegioConst.ASIGNAR_TICKET);
+        Privilegio aceptarTicket = createPrivilegioIfNotFound(PrivilegioConst.ACEPTAR_TICKET);
+        Privilegio atenderTicket = createPrivilegioIfNotFound(PrivilegioConst.ATENDER_TICKET);
+        Privilegio rechazarTicket = createPrivilegioIfNotFound(PrivilegioConst.RECHAZAR_TICKET);
+        Privilegio cerrarTicket = createPrivilegioIfNotFound(PrivilegioConst.CERRAR_TICKET);
+        Privilegio cancelarTicket = createPrivilegioIfNotFound(PrivilegioConst.CANCELAR_TICKET);
+        Privilegio listaSocios = createPrivilegioIfNotFound(PrivilegioConst.LISTA_SOCIOS);
+        Privilegio estadoFinancieroInmueble = createPrivilegioIfNotFound(PrivilegioConst.ESTADO_FINANCIERO_INMUEBLE);
+        Privilegio estadoFinancieroColonia = createPrivilegioIfNotFound(PrivilegioConst.ESTADO_FINANCIERO_COLONIA);
+        Privilegio estadoFinancieroZona = createPrivilegioIfNotFound(PrivilegioConst.ESTADO_FINANCIERO_ZONA);
+        Privilegio gestionarColonia = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_COLONIA);
+        Privilegio gestionarZona = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_ZONA);
+        Privilegio gestionarBienesInmubeles = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_INMUEBLES);
+        Privilegio gestionarServicios = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_SERVICIOS);
+        Privilegio gestionarPreguntas = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_PREGUNTAS);
+        Privilegio gestionarSocioBi = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_SOCIO_BI);
+        Privilegio gestionarRepBi = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_REP_BI);
+        Privilegio gestionarAdminBi = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_ADMIN_BI);
+        Privilegio gestionarAdminZona = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_ADMIN_ZONA);
+        Privilegio gestionarProveedor = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_PROVEEDOR);
+        Privilegio gestionarAdminCorp = createPrivilegioIfNotFound(PrivilegioConst.GESTIONAR_ADMIN_CORP);
+        Privilegio reportes = createPrivilegioIfNotFound(PrivilegioConst.REPORTES);
+        Privilegio reporteMorosos = createPrivilegioIfNotFound(PrivilegioConst.REPORTE_MOROSOS);
 
         List<Privilegio> privilegiosProveedor = new ArrayList<>();
         privilegiosProveedor.add(aceptarTicket);
+        privilegiosProveedor.add(verTicket);
         privilegiosProveedor.add(atenderTicket);
         privilegiosProveedor.add(rechazarTicket);
-        Rol proveedor = createRolIfNotFound("ROLE_PROVEEDOR", privilegiosProveedor);
+        Rol proveedor = createRolIfNotFound(RolConst.ROLE_PROVEEDOR, privilegiosProveedor);
 
         List<Privilegio> privilegiosSocioBi = new ArrayList<>();
         privilegiosSocioBi.add(tablero);
         privilegiosSocioBi.add(notificarPago);
         privilegiosSocioBi.add(historialPagos);
+        privilegiosSocioBi.add(verTicket);
         privilegiosSocioBi.add(abrirTicket);
         privilegiosSocioBi.add(cancelarTicket);
-        Rol socioBi = createRolIfNotFound("ROLE_SOCIO_BI", privilegiosSocioBi);
+        Rol socioBi = createRolIfNotFound(RolConst.ROLE_SOCIO_BI, privilegiosSocioBi);
 
         List<Privilegio> privilegiosRepBi = new ArrayList<>();
         privilegiosRepBi.add(historialPagoInmuble);
@@ -114,12 +136,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosRepBi.add(listaSocios);
         privilegiosRepBi.add(reporteMorosos);
         privilegiosSocioBi.addAll(privilegiosRepBi);
-        Rol repBi = createRolIfNotFound("ROLE_REP_BI", privilegiosSocioBi);
+        Rol repBi = createRolIfNotFound(RolConst.ROLE_REP_BI, privilegiosSocioBi);
 
         List<Privilegio> privilegiosAdminBi = new ArrayList<>();
         privilegiosAdminBi.addAll(privilegiosRepBi);
         privilegiosAdminBi.add(asignarTicket);
+        privilegiosAdminBi.add(verTicket);
         privilegiosAdminBi.add(cerrarTicket);
+        privilegiosAdminBi.add(cancelarTicket);
         privilegiosAdminBi.add(gestionarSocioBi);
         privilegiosAdminBi.add(verificarPago);
         privilegiosAdminBi.add(historialPagos);
@@ -132,35 +156,39 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosAdminBi.add(gestionarAdminBi);
         privilegiosAdminBi.add(gestionarProveedor);
         privilegiosAdminBi.add(estadoFinancieroColonia);
-        Rol adminBi = createRolIfNotFound("ROLE_ADMIN_BI", privilegiosAdminBi);
+        Rol adminBi = createRolIfNotFound(RolConst.ROLE_ADMIN_BI, privilegiosAdminBi);
 
         List<Privilegio> privilegiosAdminZona = new ArrayList<>();
         privilegiosAdminZona.addAll(privilegiosAdminBi);
         privilegiosAdminZona.add(estadoFinancieroZona);
-        Rol adminZona = createRolIfNotFound("ROLE_ADMIN_ZONA", privilegiosAdminZona);
+        Rol adminZona = createRolIfNotFound(RolConst.ROLE_ADMIN_ZONA, privilegiosAdminZona);
 
         List<Privilegio> privilegiosAdminCorp = new ArrayList<>();
-        privilegiosAdminCorp.add(gestionarZona);
         privilegiosAdminCorp.addAll(privilegiosAdminZona);
+        privilegiosAdminCorp.add(gestionarZona);
         privilegiosAdminCorp.add(gestionarAdminZona);
         privilegiosAdminCorp.add(gestionarAdminCorp);
         privilegiosAdminCorp.add(reportes);
-        Rol adminCorp = createRolIfNotFound("ROLE_ADMIN_CORP", privilegiosAdminCorp);
+        Rol adminCorp = createRolIfNotFound(RolConst.ROLE_ADMIN_CORP, privilegiosAdminCorp);
 
-        Usuario usuarioProveedor = createUsuarioIfNotFound("proveedor", "Proveedor", "", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
+        Usuario usuarioProveedorJardineria = createUsuarioIfNotFound("proveedor_jardineria", "Proveedor", "Jardineria", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
+        Usuario usuarioProveedorLimpieza = createUsuarioIfNotFound("proveedor_limieza", "Proveedor", "Limpieza", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
+        Usuario usuarioProveedorConstruccion = createUsuarioIfNotFound("proveedor_construccion", "Proveedor", "Construccion", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
         Usuario usuarioSocioBi = createUsuarioIfNotFound("socio_bi", "Socio", "Bi", "Inmueble", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)));
         Usuario usuarioRepBi = createUsuarioIfNotFound("rep_bi", "Representante", "Bien", "Inmubele", "rep_bi", new ArrayList<>(Arrays.asList(repBi)));
         Usuario usuarioAdminBi = createUsuarioIfNotFound("admin_bi", "Administrador", "Bien", "Inmueble", "admin_bi", new ArrayList<>(Arrays.asList(adminBi)));
         Usuario usuarioAdminZona = createUsuarioIfNotFound("admin_zona", "Administrador", "Zona", "", "admin_zona", new ArrayList<>(Arrays.asList(adminZona)));
-        Usuario usuarioAdminCorp = createUsuarioIfNotFound("admin_corp", "Administrador", "Corporativo", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)));
+        createUsuarioIfNotFound("admin_corp", "Administrador", "Corporativo", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)));
 
         Zona zona = createZonaIfNotFound("zona1", "Zona 1", usuarioAdminZona);
-        updateAsentamientoIfFound(1L, zona);
+        Asentamiento asentamiento = updateAsentamientoIfFound(1L, zona);
 
-        createAreaServicioIfNotFound(1L, "Jardineria");
-        createAreaServicioIfNotFound(1L, "Limpieza");
-        createAreaServicioIfNotFound(1L, "Construcción");
-        createEstatusTicketIfNotFound(1L, "Creado");
+        createInmuebleIfNotFound(1L, "Inmueble", asentamiento, usuarioAdminBi, usuarioSocioBi);
+
+        AreaServicio areaServicioJardineria = createAreaServicioIfNotFound(1L, "Jardineria", usuarioProveedorJardineria);
+        createAreaServicioIfNotFound(2L, "Limpieza", usuarioProveedorLimpieza);
+        createAreaServicioIfNotFound(3L, "Construcción", usuarioProveedorConstruccion);
+        createTicketIfNotFound(1L, "Podar cesped", "Quiero que poden el ceped de mi casa.", areaServicioJardineria, usuarioSocioBi);
 
         alreadySetup = true;
     }
@@ -202,6 +230,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
             usuario.setContrasenia(passwordEncoder.encode(contrasenia));
             usuario.setRoles(roles);
+
             usuario = usuarioRepository.save(usuario);
         }
         return usuario;
@@ -233,24 +262,67 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
-    public final AreaServicio createAreaServicioIfNotFound(final Long id, final String nombre) {
+    public final Inmueble createInmuebleIfNotFound(final Long id, final String nombre, final Asentamiento asentamiento, final Usuario adminBi, final Usuario socio) {
+        Optional<Inmueble> optInmueble = inmuebleRepository.findById(id);
+        Inmueble inmueble = optInmueble.orElse(new Inmueble());
+        if (!optInmueble.isPresent()) {
+            inmueble.setNombre(nombre);
+            inmueble.setDiaCuotaOrdinaria(11);
+            inmueble.setMontoCuotaOrdinaria(new BigDecimal("11.11"));
+            inmueble.setAdminBi(adminBi);
+            inmueble.setImagenUrl("/files/inmueble.jpg");
+
+            Direccion direccion = new Direccion();
+            direccion.setAsentamiento(asentamiento);
+            direccion.setCalle("calle");
+            direccion.setEntreCalles("entreCalles");
+            direccion.setNumeroExterior("numeroExterior");
+            direccion.setNumeroInterior("numeroInterior");
+            direccion.setReferencias("referencias");
+            inmueble.setDireccion(direccionRepository.save(direccion));
+
+            DatosAdicionales datosAdicionales = new DatosAdicionales();
+            datosAdicionales.setCorreo("correo");
+            datosAdicionales.setNombreRepresentante("nombreRepresentante");
+            datosAdicionales.setNumeroCuenta("numeroCuenta");
+            datosAdicionales.setRazonSocial("razonSocial");
+            datosAdicionales.setRfc("rfc");
+            datosAdicionales.setTelefono("telefono");
+            inmueble.setDatosAdicionales(datosAdicionalesRepository.save(datosAdicionales));
+
+            inmueble.addSocio(socio);
+
+            inmueble = inmuebleRepository.save(inmueble);
+        }
+        return inmueble;
+    }
+
+    @Transactional
+    public final AreaServicio createAreaServicioIfNotFound(final Long id, final String nombre, final Usuario proveedor) {
         Optional<AreaServicio> optAreaServicio = areaServicioRepository.findById(id);
         AreaServicio areaServicio = optAreaServicio.orElse(new AreaServicio());
         if (!optAreaServicio.isPresent()) {
             areaServicio.setNombre(nombre);
+            areaServicio.addProveedor(proveedor);
             areaServicio = areaServicioRepository.save(areaServicio);
+            usuarioRepository.save(proveedor);
         }
+
         return areaServicio;
     }
 
     @Transactional
-    public final EstatusTicket createEstatusTicketIfNotFound(final Long id, final String nombre) {
-        Optional<EstatusTicket> optEstatusTicket = estatusTicketRepository.findById(id);
-        EstatusTicket estatusTicket = optEstatusTicket.orElse(new EstatusTicket());
-        if (!optEstatusTicket.isPresent()) {
-            estatusTicket.setNombre(nombre);
-            estatusTicket = estatusTicketRepository.save(estatusTicket);
+    public final Ticket createTicketIfNotFound(final Long id, final String titulo, final String descripcion, final AreaServicio areaServicio, final Usuario usuarioCreador) {
+        Optional<Ticket> optTicket = ticketRepository.findById(id);
+        Ticket ticket = optTicket.orElse(new Ticket());
+        if (!optTicket.isPresent()) {
+            ticket.setTitulo(titulo);
+            ticket.setDescripcion(descripcion);
+            ticket.setEstatus(EstatusTicketConst.ABIERTO);
+            ticket.setAreaServicio(areaServicio);
+            ticket.setUsuarioCreador(usuarioCreador);
+            ticket = ticketRepository.save(ticket);
         }
-        return estatusTicket;
+        return ticket;
     }
 }

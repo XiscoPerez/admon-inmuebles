@@ -1,8 +1,8 @@
 package mx.com.admoninmuebles.constant;
 
-public final class RolConstant {
+public final class RolConst {
 	
-	private RolConstant() throws IllegalAccessException {
+	private RolConst() throws IllegalAccessException {
 		throw new IllegalAccessException();
 	}
 	

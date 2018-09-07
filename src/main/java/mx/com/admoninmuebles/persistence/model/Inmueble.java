@@ -2,11 +2,11 @@ package mx.com.admoninmuebles.persistence.model;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,15 +25,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "bienes_inmuebles")
+@Table(name = "inmuebles")
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class BienInmueble extends EntidadBase {
+public class Inmueble extends EntidadBase {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_bien_inmueble")
+    @Column(name = "id_inmueble")
     private Long id;
 
     @NotNull
@@ -57,19 +57,27 @@ public class BienInmueble extends EntidadBase {
     @Column(name = "imagen_url", length = 100, nullable = false)
     private String imagenUrl;
 
-    @OneToOne
-    @JoinColumn(name = "id_direccion_fk", nullable = false)
-    private Direccion direccion;
-
     @ManyToOne
     @JoinColumn(name = "id_admin_bi_fk", nullable = false)
     public Usuario adminBi;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bienInmueble")
-    private Collection<Notificacion> notificaciones;
+    @OneToOne
+    @JoinColumn(name = "id_direccion_fk", nullable = false)
+    private Direccion direccion;
 
     @OneToOne
     @JoinColumn(name = "id_datos_adicionales_fk", nullable = false)
     private DatosAdicionales datosAdicionales;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inmueble")
+    private Collection<Notificacion> notificaciones;
+
+    @OneToMany(mappedBy = "inmueble")
+    private Collection<Usuario> socios = new HashSet<>();;
+
+    public void addSocio(final Usuario socio) {
+        socios.add(socio);
+        socio.setInmueble(this);
+    }
 
 }

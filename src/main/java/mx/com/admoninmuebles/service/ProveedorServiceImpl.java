@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.com.admoninmuebles.constant.RolConstant;
+import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.ProveedorDto;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Telefono;
@@ -45,7 +45,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 
 	@Override
 	public Collection<ProveedorDto> getProveedores() {
-		Optional<Rol> rolOpt = rolRepository.findByNombre(RolConstant.ROLE_PROVEEDOR);
+		Optional<Rol> rolOpt = rolRepository.findByNombre(RolConst.ROLE_PROVEEDOR);
 		Collection<Usuario> proveedores = rolOpt.get().getUsuarios();
 		return StreamSupport.stream(proveedores.spliterator(), false)
 				 .map(proveedor -> modelMapper.map(proveedor, ProveedorDto.class))
@@ -61,7 +61,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 	@Override
 	public ProveedorDto guardar(ProveedorDto proveedorDto) {
 		Usuario proveedor = modelMapper.map(proveedorDto, Usuario.class);
-		Rol rol = rolRepository.findByNombre(RolConstant.ROLE_PROVEEDOR).get();
+		Rol rol = rolRepository.findByNombre(RolConst.ROLE_PROVEEDOR).get();
 		List<Rol> rolProveedor = new ArrayList<>();
 		rolProveedor.add(rol);
 		

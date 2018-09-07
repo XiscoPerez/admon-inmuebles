@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.ZonaDto;
-import mx.com.admoninmuebles.service.RolService;
+import mx.com.admoninmuebles.service.UsuarioService;
 import mx.com.admoninmuebles.service.ZonaService;
 
 @Controller
@@ -30,9 +31,9 @@ public class ZonaController {
     private ZonaService zonaService;
 
     @Autowired
-    private RolService rolService;
+    private UsuarioService usuarioService;
 
-    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @PreAuthorize("hasRole('" + RolConst.ROLE_ADMIN_CORP + "')")
     @GetMapping(value = "/catalogos/zonas")
     public String init(final ZonaDto zonaDto, final Model model) {
         model.addAttribute("zonas", zonaService.findAll());
@@ -42,7 +43,7 @@ public class ZonaController {
     @PreAuthorize("hasRole('ADMIN_CORP')")
     @GetMapping(value = "/catalogos/zona-crear")
     public String crearZona(final ZonaDto zonaDto, final HttpSession session) {
-        session.setAttribute("usuariosAdminZona", rolService.findUsuariosByNombreRol("ROLE_ADMIN_ZONA"));
+        session.setAttribute("usuariosAdminZona", usuarioService.findByRolesNombre(RolConst.ROLE_ADMIN_ZONA));
         return "catalogos/zona-crear";
     }
 
@@ -67,7 +68,7 @@ public class ZonaController {
     @PreAuthorize("hasRole('ADMIN_CORP')")
     @GetMapping(value = "/catalogos/zona-editar/{codigo}")
     public String buscarZonaPorId(final @PathVariable String codigo, final Model model, final HttpSession session) {
-        session.setAttribute("usuariosAdminZona", rolService.findUsuariosByNombreRol("ROLE_ADMIN_ZONA"));
+        session.setAttribute("usuariosAdminZona", usuarioService.findByRolesNombre(RolConst.ROLE_ADMIN_ZONA));
         model.addAttribute("zonaDto", zonaService.findById(codigo));
         return "catalogos/zona-editar";
     }

@@ -15,28 +15,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.InmuebleDto;
-import mx.com.admoninmuebles.service.BienInmuebleService;
 import mx.com.admoninmuebles.service.ColoniaService;
-import mx.com.admoninmuebles.service.RolService;
+import mx.com.admoninmuebles.service.InmuebleService;
+import mx.com.admoninmuebles.service.UsuarioService;
 import mx.com.admoninmuebles.storage.StorageService;
 
 @Controller
-public class BienInmuebleController {
+public class InmuebleController {
     @Autowired
     private StorageService storageService;
     @Autowired
-    private RolService rolService;
+    private UsuarioService usuarioService;
     @Autowired
     private ColoniaService coloniaService;
 
     @Autowired
-    private BienInmuebleService bienInmuebleService;
+    private InmuebleService inmuebleService;
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/inmuebles")
     public String init(final Model model) {
-        model.addAttribute("inmuebles", bienInmuebleService.findAll());
+        model.addAttribute("inmuebles", inmuebleService.findAll());
         return "inmuebles/inmuebles";
     }
 
@@ -44,7 +45,7 @@ public class BienInmuebleController {
     @GetMapping(value = "/inmueble-crear")
     public String crearInmueble(final InmuebleDto inmuebleDto, final HttpSession session) {
         session.setAttribute("colonias", coloniaService.findByZonaIsNotNull());
-        session.setAttribute("usuariosAdminBi", rolService.findUsuariosByNombreRol("ROLE_ADMIN_BI"));
+        session.setAttribute("usuariosAdminBi", usuarioService.findByRolesNombre(RolConst.ROLE_ADMIN_BI));
         return "inmuebles/inmueble-crear";
     }
 
@@ -55,7 +56,7 @@ public class BienInmuebleController {
             return "inmuebles/inmueble-crear";
         }
         inmuebleDto.setImagenUrl("/" + storageService.store(inmuebleDto.getImagen()));
-        bienInmuebleService.save(inmuebleDto);
+        inmuebleService.save(inmuebleDto);
 
         return "redirect:inmuebles";
     }
@@ -63,16 +64,16 @@ public class BienInmuebleController {
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "inmueble-detalle/{id}")
     public String buscarInmueblePorId(final @PathVariable long id, final Model model) {
-        model.addAttribute("inmuebleDto", bienInmuebleService.findById(id));
+        model.addAttribute("inmuebleDto", inmuebleService.findById(id));
         return "inmuebles/inmueble-detalle";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "inmueble-editar/{id}")
     public String editarInmueblePorId(final @PathVariable long id, final Model model, final HttpSession session) {
-        model.addAttribute("inmuebleDto", bienInmuebleService.findById(id));
+        model.addAttribute("inmuebleDto", inmuebleService.findById(id));
         session.setAttribute("colonias", coloniaService.findByZonaIsNotNull());
-        session.setAttribute("usuariosAdminBi", rolService.findUsuariosByNombreRol("ROLE_ADMIN_BI"));
+        session.setAttribute("usuariosAdminBi", usuarioService.findByRolesNombre(RolConst.ROLE_ADMIN_BI));
         return "inmuebles/inmueble-editar";
     }
 
@@ -86,14 +87,14 @@ public class BienInmuebleController {
         if (StringUtils.isEmpty(inmuebleDto.getImagenUrl())) {
             inmuebleDto.setImagenUrl("/" + storageService.store(inmuebleDto.getImagen()));
         }
-        bienInmuebleService.save(inmuebleDto);
+        inmuebleService.save(inmuebleDto);
         return "redirect:/inmuebles";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/inmueble-eliminar/{id}")
     public String eliminarInmueble(final @PathVariable Long id) {
-        bienInmuebleService.deleteById(id);
+        inmuebleService.deleteById(id);
         return "redirect:/inmuebles";
     }
 }

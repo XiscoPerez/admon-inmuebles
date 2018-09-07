@@ -59,6 +59,8 @@
                         <td th:text="${ticket.estatus}"></td>
                         <td>
                           <a th:href="${'ticket-detalle/'  + ticket.id}" class="btn btn-sm btn-icon btn-pure btn-outline"> <i class="fa fa-info text-inverse m-r-10" aria-hidden="true"></i></a>
+                          <a th:href="${'ticket-editar/'  + ticket.id}" class="btn btn-sm btn-icon btn-pure btn-outline"> <i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a> 
+                          <a th:attr="data-id=${ticket.id}" th:attrappend="data-titulo=${ticket.titulo}" class="btn btn-sm btn-icon btn-pure btn-outline modal-show"> <i class="fa fa-close text-danger" aria-hidden="true"></i></a>
                         </td>
                       </tr>
                     </th:block>
