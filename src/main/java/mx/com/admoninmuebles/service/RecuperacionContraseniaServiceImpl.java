@@ -41,8 +41,10 @@ public class RecuperacionContraseniaServiceImpl implements RecuperacionContrasen
 		
 		Usuario usuarioModificado = usuarioRepository.save(usuario);
 		
-		recuperacionContraseniaToken.setUtilizado(true);
-		recuperacionContraseniaTokenRepository.save(recuperacionContraseniaToken);
+//		recuperacionContraseniaToken.setUtilizado(true);
+//		recuperacionContraseniaTokenRepository.save(recuperacionContraseniaToken);
+		
+		recuperacionContraseniaTokenRepository.delete(recuperacionContraseniaToken);
 		
 		return modelMapper.map(usuarioModificado, UsuarioDto.class);
 	}

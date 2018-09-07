@@ -42,8 +42,10 @@ public class ActivacionUsuarioServiceImpl implements ActivacionUsuarioService{
 		
 		Usuario usuarioModificado = usuarioRepository.save(usuario);
 		
-		verificacionToken.setUtilizado(true);
-		activacionUsuarioTokenRepository.save(verificacionToken);
+//		verificacionToken.setUtilizado(true);
+//		activacionUsuarioTokenRepository.save(verificacionToken);
+		
+		activacionUsuarioTokenRepository.delete(verificacionToken);
 		
 		return modelMapper.map(usuarioModificado, UsuarioDto.class);
 	}

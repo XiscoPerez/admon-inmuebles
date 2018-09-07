@@ -61,13 +61,17 @@ public class ProveedorServiceImpl implements ProveedorService {
 	@Override
 	public ProveedorDto guardar(ProveedorDto proveedorDto) {
 		Usuario proveedor = modelMapper.map(proveedorDto, Usuario.class);
+		Rol rol = rolRepository.findByNombre(RolConstant.ROLE_PROVEEDOR).get();
+		List<Rol> rolProveedor = new ArrayList<>();
+		rolProveedor.add(rol);
 		
-		List<Telefono> telefonos = new ArrayList<>();
-		for(Telefono telefono: proveedor.getTelefonos()) {
-			telefonos.add(telefonoRepository.save(telefono));
-		}
-		
-		proveedor.setTelefonos(telefonos);
+//		List<Telefono> telefonos = new ArrayList<>();
+//		for(Telefono telefono: proveedor.getTelefonos()) {
+//			telefonos.add(telefonoRepository.save(telefono));
+//		}
+//		
+//		proveedor.setTelefonos(telefonos);
+		proveedor.setRoles(rolProveedor);
 		proveedor.setDireccion(direccionRepository.save(proveedor.getDireccion()));
 		proveedor.setDatosAdicionales(datosAdicionalesRepository.save(proveedor.getDatosAdicionales()));
 		return modelMapper.map(usuarioRepository.save(proveedor), ProveedorDto.class);

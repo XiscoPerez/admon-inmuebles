@@ -80,7 +80,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setFacebook(userDto.getFacebook());
         usuario.setFotoUrl(userDto.getFotoUrl());
         usuario.setGoogleMapsDir(userDto.getGoogleMapsDir());
-        usuario.setTelefono(userDto.getTelefono());
+//        usuario.setTelefono(userDto.getTelefono());
         usuario.setTwiter(userDto.getTwiter());
         usuario.setYoutube(userDto.getYoutube());
 
