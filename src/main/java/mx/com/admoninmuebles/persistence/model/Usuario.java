@@ -92,6 +92,14 @@ public class Usuario extends EntidadBase {
     @OneToOne
     @JoinColumn(name = "id_direccion_fk", nullable = true)
     private Direccion direccion;
+    
+    
+    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "usuario")
+    private RecuperacionContraseniaToken recuperacionContraseniaToken;
+    
+    
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private ActivacionUsuarioToken activacionUsuarioToken;
 
     // @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     // private Collection<Telefono> telefonos;

@@ -192,7 +192,7 @@ public class UsuarioController {
     
     @GetMapping(value = "/usuarios/recuperar-contrasenia/{token}")
     public String recuperarContraseniaInit(final HttpServletRequest request, final Model model, @PathVariable final String token) {
-    	if(!activacionUsuarioService.isTokenValido(token)){
+    	if(!recuperacionContraseniaService.isTokenValido(token)){
     		return "usuarios/usuario-token-novalido";
     	}
     	RecuperaContraseniaDto recuperaContraseniaDto = new RecuperaContraseniaDto();

@@ -15,12 +15,16 @@ import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
 import mx.com.admoninmuebles.persistence.model.RecuperacionContraseniaToken;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.repository.RecuperacionContraseniaTokenRepository;
+import mx.com.admoninmuebles.service.RecuperacionContraseniaService;
 
 @Component
 public class RecuperacionContraseniaListener implements ApplicationListener<OnRecuperacionContraseniaEvent>{
 
 	@Autowired
     private RecuperacionContraseniaTokenRepository recuperacionContraseniaTokenRepository;
+	
+	@Autowired
+    private RecuperacionContraseniaService recuperacionContraseniaService;
 
     @Autowired
     private MessageSource messages;
@@ -40,13 +44,8 @@ public class RecuperacionContraseniaListener implements ApplicationListener<OnRe
         final UsuarioDto usuarioDto = event.getUsuarioDto();
         final String token = UUID.randomUUID().toString();
         
-        RecuperacionContraseniaToken recuperacionContraseniaToken = new RecuperacionContraseniaToken();
-        recuperacionContraseniaToken.setToken(token);
-        Usuario usuario = new Usuario();
-        usuario.setId(usuarioDto.getId());
-        recuperacionContraseniaToken.setUsuario(usuario);
-        recuperacionContraseniaTokenRepository.save(recuperacionContraseniaToken);
-
+        recuperacionContraseniaService.guardarToken(usuarioDto, token);
+        
         final SimpleMailMessage email = crearCorreoRecuperacion(event, usuarioDto, token);
         mailSender.send(email);
         System.out.println("Correo enviado a " + usuarioDto.getCorreo());

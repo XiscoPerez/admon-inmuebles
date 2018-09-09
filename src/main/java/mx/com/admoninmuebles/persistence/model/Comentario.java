@@ -35,5 +35,15 @@ public class Comentario extends EntidadBase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
     private Usuario usuario;
+    
+    public Comentario() {
+    	super();
+    }
+    
+    
+    public Comentario(String comentario, Usuario usuario) {
+    	this.comentario = comentario;
+    	this.usuario = usuario;
+    }
 
 }

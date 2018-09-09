@@ -31,7 +31,6 @@ public class RecuperacionContraseniaServiceImpl implements RecuperacionContrasen
 
 	@Override
 	public UsuarioDto guardarNuevaContrasenia(RecuperaContraseniaDto recuperaContraseniaDto) {
-		System.out.println("TOKEN: " + recuperaContraseniaDto.getToken());
 		Optional<RecuperacionContraseniaToken> recuperacionContraseniaTokenOpt = recuperacionContraseniaTokenRepository.findByToken(recuperaContraseniaDto.getToken());
 		RecuperacionContraseniaToken recuperacionContraseniaToken = recuperacionContraseniaTokenOpt.get();
 		
@@ -41,10 +40,7 @@ public class RecuperacionContraseniaServiceImpl implements RecuperacionContrasen
 		
 		Usuario usuarioModificado = usuarioRepository.save(usuario);
 		
-//		recuperacionContraseniaToken.setUtilizado(true);
-//		recuperacionContraseniaTokenRepository.save(recuperacionContraseniaToken);
-		
-		recuperacionContraseniaTokenRepository.delete(recuperacionContraseniaToken);
+		recuperacionContraseniaTokenRepository.deleteByToken(recuperacionContraseniaToken.getToken());
 		
 		return modelMapper.map(usuarioModificado, UsuarioDto.class);
 	}
@@ -52,8 +48,12 @@ public class RecuperacionContraseniaServiceImpl implements RecuperacionContrasen
 	@Override
 	public void guardarToken(UsuarioDto usuarioDto, String token) {
 		Usuario usuario = usuarioRepository.findById(usuarioDto.getId()).get();
-        final RecuperacionContraseniaToken recuperacionContraseniaToken = new RecuperacionContraseniaToken(token, usuario);
-        recuperacionContraseniaTokenRepository.save(recuperacionContraseniaToken);
+		RecuperacionContraseniaToken recuperacionContraseniaToken = usuario.getRecuperacionContraseniaToken();
+		if(recuperacionContraseniaToken != null) {
+			recuperacionContraseniaTokenRepository.deleteByToken(recuperacionContraseniaToken.getToken());
+		}
+		RecuperacionContraseniaToken recuperacionContraseniaTokenNuevo = new RecuperacionContraseniaToken(token, usuario);
+        recuperacionContraseniaTokenRepository.save(recuperacionContraseniaTokenNuevo);
 	}
 	
     @Override

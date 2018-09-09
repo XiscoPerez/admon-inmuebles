@@ -32,22 +32,27 @@ public class Sucursal extends EntidadBase {
     @Column(length = 100, unique = true, nullable = false)
     private String nombre;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_direccion", referencedColumnName = "id_direccion", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "id_direccion_fk", nullable = false)
     private Direccion direccion;
 
-    @NotNull
-    @Size(min = 1, max = 1000)
-    @Column(length = 1000, columnDefinition = "text", nullable = false)
-    private String referencias;
+//    @NotNull
+//    @Size(min = 0, max = 1000)
+//    @Column(length = 1000, columnDefinition = "text", nullable = false)
+//    private String referencias;
 
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(length = 50, unique = true, nullable = false)
+    @Column(length = 50,  nullable = false)
     private String correo;
 
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(length = 50, unique = true, nullable = false)
+    @Column(length = 50,  nullable = false)
     private String telefono;
+    
+    @NotNull
+    @Size(min = 1, max = 1000)
+    @Column(length = 1000, columnDefinition = "text", nullable = false)
+    private String direccionMaps;
 }

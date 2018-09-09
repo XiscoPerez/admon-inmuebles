@@ -3,9 +3,11 @@ package mx.com.admoninmuebles.rest.resource;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
+import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.error.BusinessException;
+import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
 import mx.com.admoninmuebles.service.UsuarioService;
 
 @RestController
@@ -27,16 +31,20 @@ import mx.com.admoninmuebles.service.UsuarioService;
 public class UsuarioResource {
 	
     @Autowired
+    private ApplicationEventPublisher eventPublisher;
+	
+    @Autowired
     private UsuarioService userService;
     
     @Autowired
     private MessageSource messages;
 
-	@GetMapping("/usuarios/{login}")
-	public ResponseEntity<String> existeUsuario(@PathVariable String login) {
+	@GetMapping("/usuarios/{login}/recuperar-contrasenia")
+	public ResponseEntity<String> recuperarContrasenia(final Locale locale, final HttpServletRequest request,  @PathVariable String login) {
 		System.out.println("Iniciando validacion usuario");
 		try {
-			userService.findByUsernameOrCorreo(login);
+			UsuarioDto usuarioDto = userService.findByUsernameOrCorreo(login);
+			eventPublisher.publishEvent(new OnRecuperacionContraseniaEvent(usuarioDto, request.getLocale(), getAppUrl(request)));
 		} catch(UsernameNotFoundException e) {
 			return new ResponseEntity<String>(Boolean.FALSE.toString(), HttpStatus.OK);
 		}
@@ -54,6 +62,11 @@ public class UsuarioResource {
     		return new ResponseEntity<String>(messages.getMessage(e.getMessage(), null, locale), HttpStatus.BAD_REQUEST);
     	}
     	
+    }
+    
+    
+    private String getAppUrl(HttpServletRequest request) {
+        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 
 }

@@ -28,6 +28,10 @@ public class MensajeContacto extends EntidadBase {
     @Size(min = 1, max = 100)
     @Column(length = 100, nullable = false)
     private String nombre;
+    
+    @Size(min = 1, max = 100)
+    @Column(length = 100, nullable = true)
+    private String inmueble;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -43,5 +47,8 @@ public class MensajeContacto extends EntidadBase {
     @Size(min = 1, max = 4000)
     @Column(length = 4000, columnDefinition = "text", nullable = false)
     private String mensaje;
+    
+    @NotNull
+    private boolean atendido;
 
 }

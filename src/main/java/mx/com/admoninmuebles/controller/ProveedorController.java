@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.controller;
 
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,14 +69,24 @@ public class ProveedorController {
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/proveedor-detalle/{id}")
     public String buscarProveedorPorId(final @PathVariable long id, final Model model) {
+    	ProveedorDto proveedorDto = proveedorService.buscarProveedorPorId(id);
         model.addAttribute("proveedorDto", proveedorService.buscarProveedorPorId(id));
+        proveedorDto.setAreasServicioSeleccionados(proveedorDto.getAreasServicio().stream().map(as -> as.getId()).collect(Collectors.toList()));
+        
+        model.addAttribute("comentariosDto", proveedorDto.getComentarios());
+        model.addAttribute("proveedorDto", proveedorDto);
+        model.addAttribute("areasServicio", proveedorDto.getAreasServicio());
         return "proveedores/proveedor-detalle";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/proveedor-editar/{id}")
     public String editarProveedor(final @PathVariable long id, final Model model, final HttpSession session) {
-        model.addAttribute("proveedorDto", proveedorService.buscarProveedorPorId(id));
+    	ProveedorDto proveedorDto = proveedorService.buscarProveedorPorId(id);
+    	proveedorDto.setAreasServicioSeleccionados(proveedorDto.getAreasServicio().stream().map(as -> as.getId()).collect(Collectors.toList()));
+        model.addAttribute("proveedorDto", proveedorDto);
+        model.addAttribute("areasServicio", areaServicioService.findAll());
+//        model.addAttribute("coloniaDto", proveedorDto);
         return "proveedores/proveedor-editar";
     }
 

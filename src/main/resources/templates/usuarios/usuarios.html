@@ -57,15 +57,15 @@
 	                                                    </td>
 	                                                    <td>
 		                                                    <div th:switch="${usuario.activo}"> 
-															  <span th:case="${true}" class="text-success" th:text="#{usuario.estatus.activo}">Activo</span>
-															  <span th:case="${false}" class="text-muted" th:text="#{usuario.estatus.inactivo}">Inactivo</span>
+															  <span th:case="${true}" class="text-success" th:text="#{usuario.estatus.activo}"></span>
+															  <span th:case="${false}" class="text-muted" th:text="#{usuario.estatus.inactivo}"></span>
 															</div>
 														</td>
 <!-- 	                                                    <td th:text="${usuario.activo}"></td> -->
 	                                                    <td>
 	                                                    	<a th:href="${'/usuarios/ver/'  + usuario.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-search text-inverse m-r-10" aria-hidden="true"></i></a> 
 	                                                    	<a th:href="${'/usuarios/editar/'  + usuario.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a>
-	                                                    	<a th:href="${'/usuarios/eliminar/'  + usuario.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
+	                                                    	<a th:if="${usuario.username != #authentication.principal.username}" th:href="${'/usuarios/eliminar/'  + usuario.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
 	<!--                                                         <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button> -->
 	                                                    </td>
 	                                                </tr>

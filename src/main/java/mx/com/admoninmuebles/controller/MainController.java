@@ -23,11 +23,6 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping("/informacion/contacto")
-    public String contacto() {
-        return "/informacion/contacto";
-    }
-
     @RequestMapping("/informacion/nuestros-clientes")
     public String nuestrosClientes() {
         return "/informacion/nuestros-clientes";

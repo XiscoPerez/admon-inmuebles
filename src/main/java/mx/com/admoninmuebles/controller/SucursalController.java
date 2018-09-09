@@ -21,46 +21,52 @@ public class SucursalController {
     @Autowired
     private SucursalService sucursalService;
 
-    @GetMapping(value = "/crearSucursal")
-    public String showForm(final SucursalDto sucursalDto) {
-        return "crearSucursal";
-    }
-
-    @PostMapping(value = "/crearSucursal")
-    public String crearSucursal(final Locale locale, final Model model, @Valid final SucursalDto sucursalDto, final BindingResult bindingResult) {
-        sucursalService.save(sucursalDto);
-        return "redirect:/crearSucursal";
-    }
     
-    @GetMapping(value = "/catalogos/sucursal")
-    public String init(final SucursalDto sucursalDto, Model model) {
-    	
+    @GetMapping(value = "/catalogos/sucursales")
+    public String init(Model model) {
     	model.addAttribute("sucursalesDto", sucursalService.findAll());
-    	return "catalogos/sucursal";
+    	return "catalogos/sucursales";
     }
     
-    @PostMapping(value = "/catalogos/sucursal")
+    @GetMapping(value = "/catalogos/sucursal-crear")
+    public String init(final SucursalDto sucursalDto) {
+    	return "catalogos/sucursal-crear";
+    }
+    
+    @PostMapping(value = "/catalogos/sucursal-crear")
     public String guardarSucursal(final Locale locale, final Model model, @Valid final SucursalDto sucursalDto, final BindingResult bindingResult) {
+    	if (bindingResult.hasErrors()) {
+            return "catalogos/inmueble-crear";
+        }
     	sucursalService.save(sucursalDto);
-        return "redirect:/catalogos/sucursal";
+        return "redirect:/catalogos/sucursales";
     }
     
     @GetMapping(value = "/catalogos/sucursal-editar/{idSucursal}")
-    public String buscarSucursalPorId(final @PathVariable long idSucursal, Model model) {
+    public String editarSucursal(final @PathVariable long idSucursal, Model model) {
     	model.addAttribute("sucursalDto", sucursalService.findById(idSucursal));
         return "catalogos/sucursal-edicion";
     }
     
     @PostMapping(value = "/catalogos/sucursal-editar")
     public String editarSucursal(final Locale locale, final Model model, @Valid final SucursalDto sucursalDto, final BindingResult bindingResult) {
+    	if (bindingResult.hasErrors()) {
+            return "catalogos/inmueble-editar";
+        }
     	sucursalService.save(sucursalDto);
-        return "redirect:/catalogos/sucursal";
+        return "redirect:/catalogos/sucursales";
+    }
+    
+    @GetMapping(value = "/catalogos/sucursal-detalle/{idSucursal}")
+    public String verSucursal(final @PathVariable long idSucursal, Model model) {
+    	model.addAttribute("sucursalDto", sucursalService.findById(idSucursal));
+        return "catalogos/sucursal-detalle";
     }
     
     @GetMapping(value = "/catalogos/sucursal-eliminar/{idSucursal}")
     public String eliminarSucursal(final @PathVariable long idSucursal) {
     	sucursalService.deleteById(idSucursal);
-        return "redirect:/catalogos/sucursal";
+        return "redirect:/catalogos/sucursales";
     }
 
 }

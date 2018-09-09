@@ -1,17 +1,22 @@
 package mx.com.admoninmuebles.dto;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
+import mx.com.admoninmuebles.persistence.model.Usuario;
 
 @Data
 public class ComentarioDto {
 	
 	private Long id;
 
-    @NotNull
-    @Size(min = 6, max = 100)
-    private String nombre;
+    private String comentario;
+    
+    private UsuarioDto modificadoPor;
+    
+    private Date fechaModificacion;
 
 }

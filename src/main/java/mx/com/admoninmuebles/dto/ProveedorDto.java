@@ -21,6 +21,9 @@ public class ProveedorDto extends UsuarioDto{
     private String direccionReferencias;
     
     private String direccionAsentamientoNombre;
+    private String direccionAsentamientoCodigoPostal;
+    private String direccionAsentamientoMunicipioNombre;
+    private String direccionAsentamientoMunicipioEstadoNombre;
     
     @NotNull
     private Long direccionAsentamientoId;

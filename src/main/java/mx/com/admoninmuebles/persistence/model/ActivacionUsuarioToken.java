@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "verificacion_token")
+@Table(name = "activacion_usuario_token")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ActivacionUsuarioToken extends EntidadBase{
@@ -28,6 +29,7 @@ public class ActivacionUsuarioToken extends EntidadBase{
 	private static final int EXPIRATION = 60 * 24;
 	  
     @Id
+    @Column(name = "id_usuario_activacion_usuario_token", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
   
@@ -35,8 +37,7 @@ public class ActivacionUsuarioToken extends EntidadBase{
     
     private boolean utilizado;
   
-    @OneToOne(targetEntity = Usuario.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "id_usuario_pk")
+    @OneToOne @MapsId
     private Usuario usuario;
   
     private Date expiryDate;
