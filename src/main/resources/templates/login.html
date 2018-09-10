@@ -30,17 +30,12 @@
 var serverContext = [[@{/}]];
 
 $(document).ready(function() {
-	console.log('validando' + $("#username").value);
 	$('#mensajeValidacionUsername').hide();
 	$('#mensajeValidacionPassword').hide();
 	$('#mensajeValidacionLogin').hide();
-// 	$('#mensajeErrorUsuarioNoEncontrado').hide();
 });
 
 function validarLogin() {
-	console.log('validando' + $("#username").val());
-	console.log('validando' + $("#password").val());
-	
 	if ( ($("#username").val() == '' || $("#username").val() == undefined) || ($("#password").val() == '' || $("#password").val() == undefined)) {
 		if ($("#username").val() == "" || $("#username").val() == undefined) {
 	   	 	$("#divUsername").addClass("has-danger");
@@ -57,29 +52,6 @@ function validarLogin() {
 	}
 
 }	
-
-// function validarRecuperaContrasenia() {
-	
-// 		if ($("#login").val() == "" || $("#login").val() == undefined) {
-// 	   	 	$("#divLogin").addClass("has-danger");
-// 	   	 	$("#login").addClass("form-control-danger");
-// 	   	 	$('#mensajeValidacionLogin').show();
-//     		return false;
-// 		}
-// 		validarUsuario();
-   	 	
-// }	
-
-// function validarUsuario(){
-//     var login = $("#login").val();
-//     $.get(serverContext + "api/usuarios/" + login, function( data ) {
-//     	  console.log( data );
-//     	  if(data == "false"){
-// 	    	  $('#mensajeErrorUsuarioNoEncontrado').show();
-// 	    	  return;
-//     	  }
-//    	});
-// }
 /*]]>*/	
 </script>
 </head>
@@ -145,35 +117,6 @@ function validarLogin() {
 						</div>
 					</div>
 				</form>
-<!-- 				<form name="recuperaContraseniaForm" action="#" th:action="@{/usuarios/correo-recuperar-contrasenia}" th:object="${recuperacionContraseniaCorreoDto}" method="post"  -->
-<!-- 					onsubmit="return validarRecuperaContrasenia();" class="form-control-line" id="recoverform" > -->
-<!-- 					<a href="inicio" class="text-center db"><img th:src="@{/assets/images/LOGOTIPO_GESCO_72dpi.png}" alt="Home" /></a> -->
-<!-- 					<div id="mensajeErrorUsuarioNoEncontrado" class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span th:text="#{label.login.error.usuarionoencontrado}"></span> -->
-<!--                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> -->
-<!--                     </div> -->
-<!-- 					<div class="form-group m-t-40"> -->
-<!-- 						<div class="col-xs-12"> -->
-<!-- 							<h3 th:text="#{label.login.recuperacontrasenia}"></h3> -->
-<!-- 							<p class="text-muted" th:text="#{label.login.recuperacontrasenia.subtitulo}"></p> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div id="divLogin" class="form-group"> -->
-<!-- 						<div class="col-xs-12"> -->
-<!-- 							<input id="login" class="form-control" type="text" th:field="*{login}" placeholder="Usuario o correo"> -->
-<!-- 							<span id="mensajeValidacionLogin" class="form-control-feedback"> -->
-<!-- 				                <span th:text="#{label.recuperacontrasenia.login.requerido}"></span> -->
-<!-- 				            </span> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="form-group text-center m-t-20"> -->
-<!-- 						<div class="col-xs-12"> -->
-<!-- 							<button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" th:text="#{label.login.recuperar}"></button> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-xs-12"> -->
-<!-- 						<a href="login" class="btn btn-block btn-secondary text-uppercase waves-effect waves-light" th:text="#{label.login.cancelar}"></a> -->
-<!-- 					</div> -->
-<!-- 				</form> -->
             </div>
           </div>
         </div>

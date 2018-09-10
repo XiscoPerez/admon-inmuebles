@@ -1,27 +1,80 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout.html}"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{home.title}"></title>
+<title th:text="#{sucursal.titulo}"></title>
 <script th:inline="javascript">
 	
 </script>
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="row">
-			<div class="col-12">
-				<div class="card">
-					<div class="card-body">
-						<div>
-							<span>sucursales catalogo</span>
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-6 col-8 align-self-center">
+					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{sucursal.titulo}"></h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{sucursal.sucursal}"></a></li>
+						<li class="breadcrumb-item active" th:text="#{sucursal.subtitulo}"></li>
+					</ol>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- Start Page Content -->
+			<!-- ============================================================== -->
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title" th:text="#{sucursal.titulo}"></h4>
+							<h6 class="card-subtitle" th:text="#{sucursal.subtitulo}"></h6>
+                                    <div class="table-responsive">
+                                        <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th th:text="#{tabla.sucursal.nombre}"></th>
+                                                    <th th:text="#{tabla.sucursal.correo}"></th>
+                                                    <th th:text="#{tabla.sucursal.telefono}"></th>
+                                                    <th th:text="#{tabla.sucursal.accion}"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	<th:block th:each="sucursalDto : ${sucursalesDto}">
+	                                                <tr>
+	                                                    <td th:text="${sucursalDto.id}"></td>
+	                                                    <td th:text="${sucursalDto.nombre}"></td>
+	                                                    <td th:text="${sucursalDto.correo}"></td>
+	                                                    <td th:text="${sucursalDto.telefono}"></td>
+	                                                    <td>
+	                                                    	<a th:href="${'/catalogos/sucursal-detalle/'  + sucursalDto.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-search text-inverse m-r-10" aria-hidden="true"></i></a> 
+	                                                    	<a th:href="${'/catalogos/sucursal-editar/'  + sucursalDto.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a>
+	                                                    	<a th:href="${'/catalogos/sucursal-eliminar/'  + sucursalDto.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
+	                                                    </td>
+	                                                </tr>
+                                               </th:block>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                	<td colspan="2">
+                                                        <a th:href="@{/catalogos/sucursal-crear}" class="btn btn-info btn-rounded" th:text="#{etiqueta.nuevo}"></a>
+                                                    </td>
+                                                    <td colspan="7">
+                                                        <div class="text-right">
+                                                            <ul class="pagination"> </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- ============================================================== -->
+			<!-- End PAge Content -->
+			<!-- ============================================================== -->
 		</div>
 	</div>
 </body>

@@ -1,14 +1,28 @@
 package mx.com.admoninmuebles.dto;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import lombok.Data;
 
 @Data
 public class MensajeContactoDto {
+	
+    private Long id;
+
     @NotNull
-    @Size(min = 6, max = 100)
     private String nombre;
+    
+    private String inmueble;
+
+    @NotNull
+    private String correo;
+
+    @NotNull
+    private String telefono;
+
+    @NotNull
+    private String mensaje;
+    
+    private boolean atendido;
 
 }

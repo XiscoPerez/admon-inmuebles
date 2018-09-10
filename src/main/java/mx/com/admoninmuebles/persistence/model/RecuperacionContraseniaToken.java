@@ -3,12 +3,14 @@ package mx.com.admoninmuebles.persistence.model;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,15 +28,14 @@ public class RecuperacionContraseniaToken extends EntidadBase{
 	private static final int EXPIRATION = 60 * 24;
 	  
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
   
     private String token;
     
     private boolean utilizado;
   
-    @OneToOne(targetEntity = Usuario.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "id_usuario_pk")
+    @OneToOne @MapsId
     private Usuario usuario;
   
     private Date expiryDate;

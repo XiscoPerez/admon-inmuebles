@@ -30,22 +30,18 @@ public class ActivacionUsuarioServiceImpl implements ActivacionUsuarioService{
 	private ModelMapper modelMapper;
 
 	@Override
-	public UsuarioDto activar(ActivacionUsuarioDto verificacionContraseniaDto) {
-		System.out.println("TOKEN: " + verificacionContraseniaDto.getToken());
-		Optional<ActivacionUsuarioToken> verificacionTokenOpt = activacionUsuarioTokenRepository.findByToken(verificacionContraseniaDto.getToken());
-		ActivacionUsuarioToken verificacionToken = verificacionTokenOpt.get();
+	public UsuarioDto activar(ActivacionUsuarioDto activacionUsuarioDto) {
+		Optional<ActivacionUsuarioToken> activacionUsuarioTokenOpt = activacionUsuarioTokenRepository.findByToken(activacionUsuarioDto.getToken());
+		ActivacionUsuarioToken activacionUsuarioToken = activacionUsuarioTokenOpt.get();
 		
-		Usuario usuario = verificacionToken.getUsuario();
+		Usuario usuario = activacionUsuarioToken.getUsuario();
 		
-		usuario.setContrasenia(passwordEncoder.encode(verificacionContraseniaDto.getContrasenia()));
+		usuario.setContrasenia(passwordEncoder.encode(activacionUsuarioDto.getContrasenia()));
 		usuario.setActivo(true);
 		
 		Usuario usuarioModificado = usuarioRepository.save(usuario);
 		
-//		verificacionToken.setUtilizado(true);
-//		activacionUsuarioTokenRepository.save(verificacionToken);
-		
-		activacionUsuarioTokenRepository.delete(verificacionToken);
+		activacionUsuarioTokenRepository.deleteByToken(activacionUsuarioToken.getToken());
 		
 		return modelMapper.map(usuarioModificado, UsuarioDto.class);
 	}

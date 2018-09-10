@@ -19,15 +19,16 @@ $(document).ready(function() {
   	addControlState(document.getElementById('divLogin'),/*[[#{mensaje.login.requerido}]]*/);
 });
 
-function validarUsuario(){
+function recuperarContrasenia(){
 	var login = $("#login").val();
-	$.get(serverContext + "api/usuarios/" + login, function( data ) {
+	$.get(serverContext + "api/usuarios/" + login +"/recuperar-contrasenia", function( data ) {
 		  console.log( data );
 		  if(data == "false"){
 		 	  $('#mensajeErrorUsuarioNoEncontrado').show();
 		 	  return;
 		  }else{
 			  $('#mensajeExitoRecuperacion').show();
+			  $("#recuperaContraseniaBtn").prop("disabled", true);
 		  }
 		});
 }
@@ -70,7 +71,7 @@ function validarUsuario(){
 										</div>
 									</div>
 									<div class="col-md-12 m-b-20">
-	                                    <button type="button" class="btn btn-info-gesco waves-effect" onclick="validarUsuario();" th:text="#{label.login.recuperar}"></button>
+	                                    <button id="recuperaContraseniaBtn" type="button" class="btn btn-info-gesco waves-effect" onclick="recuperarContrasenia();" th:text="#{label.login.recuperar}"></button>
 	                                    <a th:href="@{/login}" class="btn btn-secondary waves-effect" th:text="#{etiqueta.regresar}"></a>
 	                                </div>
 								</form>

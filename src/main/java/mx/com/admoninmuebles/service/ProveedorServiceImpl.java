@@ -12,10 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.constant.RolConst;
+import mx.com.admoninmuebles.dto.AreaServicioDto;
 import mx.com.admoninmuebles.dto.ProveedorDto;
+import mx.com.admoninmuebles.persistence.model.AreaServicio;
+import mx.com.admoninmuebles.persistence.model.Comentario;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Telefono;
 import mx.com.admoninmuebles.persistence.model.Usuario;
+import mx.com.admoninmuebles.persistence.repository.AreaServicioRepository;
+import mx.com.admoninmuebles.persistence.repository.ComentarioRepository;
 import mx.com.admoninmuebles.persistence.repository.DatosAdicionalesRepository;
 import mx.com.admoninmuebles.persistence.repository.DireccionRepository;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
@@ -30,6 +35,12 @@ public class ProveedorServiceImpl implements ProveedorService {
 	
 	@Autowired
 	private RolRepository rolRepository;
+	
+	@Autowired
+	private AreaServicioRepository areaServicioRepository;
+	
+	@Autowired
+	private ComentarioRepository comentarioRepository;
 
 	@Autowired
 	private DireccionRepository direccionRepository;
@@ -65,22 +76,24 @@ public class ProveedorServiceImpl implements ProveedorService {
 		List<Rol> rolProveedor = new ArrayList<>();
 		rolProveedor.add(rol);
 		
-//		List<Telefono> telefonos = new ArrayList<>();
-//		for(Telefono telefono: proveedor.getTelefonos()) {
-//			telefonos.add(telefonoRepository.save(telefono));
-//		}
-//		
-//		proveedor.setTelefonos(telefonos);
+		List<AreaServicio> areasServicio = StreamSupport.stream(proveedorDto.getAreasServicioSeleccionados().spliterator(), false)
+				 .map(as -> areaServicioRepository.findById(as).get())
+				 .collect(Collectors.toList());
+
+		proveedor.setAreasServicio(areasServicio);
 		proveedor.setRoles(rolProveedor);
 		proveedor.setDireccion(direccionRepository.save(proveedor.getDireccion()));
 		proveedor.setDatosAdicionales(datosAdicionalesRepository.save(proveedor.getDatosAdicionales()));
-		return modelMapper.map(usuarioRepository.save(proveedor), ProveedorDto.class);
+		
+		Usuario proveedorCreado = usuarioRepository.save(proveedor);
+		
+		if(proveedorDto.getComentario() != null && !proveedorDto.getComentario().trim().isEmpty()) {
+			comentarioRepository.save(new Comentario(proveedorDto.getComentario(), proveedorCreado));
+		}
+		
+		return modelMapper.map(proveedorCreado, ProveedorDto.class);
 	}
 
-	@Override
-	public ProveedorDto editar(ProveedorDto proveedorDto) {
-		return null;
-	}
 
 	@Override
 	public void eliminar(Long idProveedor) {

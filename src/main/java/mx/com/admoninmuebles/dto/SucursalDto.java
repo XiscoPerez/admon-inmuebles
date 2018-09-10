@@ -13,11 +13,8 @@ public class SucursalDto {
     @Size(min = 1, max = 100)
     private String nombre;
 
-    private Long direccionId;
-
-    @NotNull
-    @Size(min = 1, max = 1000)
-    private String referencias;
+    
+    private String codigoPostal;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -26,5 +23,21 @@ public class SucursalDto {
     @NotNull
     @Size(min = 1, max = 50)
     private String telefono;
+    
+    @NotNull
+    @Size(min = 1, max = 1000)
+    private String direccionMaps;
+    
+    private String direccionAsentamientoNombre;
+    private String direccionCalle;
+    private String direccionNumeroExterior;
+    private String direccionNumeroInterior;
+    private String direccionEntreCalles;
+    private String direccionReferencias;
+    private Long direccionAsentamientoId;
+    
+    private String direccionAsentamientoCodigoPostal;
+    private String direccionAsentamientoMunicipioNombre;
+    private String direccionAsentamientoMunicipioEstadoNombre;
 
 }
