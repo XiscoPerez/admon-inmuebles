@@ -78,6 +78,8 @@ public class Usuario extends EntidadBase {
 
     private String contrasenia;
 
+    private String datosDomicilio;
+    
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Collection<Rol> roles;
 
