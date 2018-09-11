@@ -9,6 +9,10 @@ public interface InmuebleService {
     Inmueble save(InmuebleDto inmuebleDto);
 
     Collection<InmuebleDto> findAll();
+    
+    Collection<InmuebleDto> findByAdminBiId(Long id);
+    
+    Collection<InmuebleDto> findByDireccionAsentamientoId(Long id);
 
     InmuebleDto findById(Long id);
 

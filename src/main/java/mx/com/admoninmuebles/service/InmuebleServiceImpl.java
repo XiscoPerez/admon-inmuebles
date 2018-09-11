@@ -56,4 +56,14 @@ public class InmuebleServiceImpl implements InmuebleService {
         return inmuebleRepository.existsById(id);
     }
 
+	@Override
+	public Collection<InmuebleDto> findByAdminBiId(Long id) {
+		 return StreamSupport.stream(inmuebleRepository.findByAdminBiId(id).spliterator(), false).map(zona -> modelMapper.map(zona, InmuebleDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public Collection<InmuebleDto> findByDireccionAsentamientoId(Long id) {
+		 return StreamSupport.stream(inmuebleRepository.findByDireccionAsentamientoId(id).spliterator(), false).map(zona -> modelMapper.map(zona, InmuebleDto.class)).collect(Collectors.toList());
+	}
+
 }

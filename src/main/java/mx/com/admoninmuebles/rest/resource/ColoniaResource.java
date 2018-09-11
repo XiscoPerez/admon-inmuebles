@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.rest.resource;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -23,9 +24,18 @@ public class ColoniaResource {
     private ColoniaService coloniaService;
     
 	@GetMapping("/colonias")
-	public ResponseEntity<Collection<ColoniaDto>> existeUsuario(@RequestParam("codigoPostal") String codigoPostal) {
+	public ResponseEntity<Collection<ColoniaDto>> buscar(@RequestParam(name = "codigoPostal", required = false) String codigoPostal , @RequestParam(name = "zonaCodigo", required = false) String zonaCodigo) {
 		try {
-			Collection<ColoniaDto> colonias = coloniaService.findBycodigoPostal(codigoPostal);
+			Collection<ColoniaDto> colonias = null;
+			if( (codigoPostal != null && !codigoPostal.isEmpty()) && (zonaCodigo != null && !zonaCodigo.isEmpty())) {
+				colonias = coloniaService.findBycodigoPostalAndZonaCodigo(codigoPostal, zonaCodigo);
+			} else if(codigoPostal != null && !codigoPostal.isEmpty()){
+				colonias = coloniaService.findBycodigoPostal(codigoPostal);
+			} else if(zonaCodigo != null && !zonaCodigo.isEmpty()){
+				colonias = coloniaService.findByZonaCodigo(zonaCodigo);
+			}else {
+				colonias = Collections.emptyList();
+			}
 			return new ResponseEntity<>(colonias, HttpStatus.OK);
 		} catch(UsernameNotFoundException e) {
 			return new ResponseEntity<>(null, HttpStatus.OK);
@@ -33,6 +43,4 @@ public class ColoniaResource {
 		
 	}
 	
-	
-
 }
