@@ -42,8 +42,8 @@ public class Sucursal extends EntidadBase {
 //    private String referencias;
 
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(length = 50,  nullable = false)
+    @Size(min = 1, max = 100)
+    @Column(length = 100,  nullable = false)
     private String correo;
 
     @NotNull
@@ -55,4 +55,9 @@ public class Sucursal extends EntidadBase {
     @Size(min = 1, max = 1000)
     @Column(length = 1000, columnDefinition = "text", nullable = false)
     private String direccionMaps;
+    
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(length = 200,  nullable = false)
+    private String nombreResponsable;
 }

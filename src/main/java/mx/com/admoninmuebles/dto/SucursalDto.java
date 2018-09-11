@@ -17,12 +17,16 @@ public class SucursalDto {
     private String codigoPostal;
 
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     private String correo;
 
     @NotNull
     @Size(min = 1, max = 50)
     private String telefono;
+    
+    @NotNull
+    @Size(min = 1, max = 200)
+    private String nombreResponsable;
     
     @NotNull
     @Size(min = 1, max = 1000)

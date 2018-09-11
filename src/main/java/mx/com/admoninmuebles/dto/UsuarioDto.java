@@ -58,6 +58,8 @@ public class UsuarioDto {
     private Collection<RolDto> roles;
 
     private Long rolSeleccionado;
+    
+    private String datosDomicilio;
 
     // private Collection<Long> rolesSeleccionados;
     //

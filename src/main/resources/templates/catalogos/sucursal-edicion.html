@@ -16,6 +16,7 @@ $(document).ready(function() {
   addControlState(document.getElementById('divColonia'),/*[[#{mensaje.colonia.requerido}]]*/);
   addControlState(document.getElementById('divCalle'),/*[[#{mensaje.calle.requerido}]]*/);
   addControlState(document.getElementById('divNumeroExterior'),/*[[#{mensaje.numeroexterior.requerido}]]*/);  
+  addControlState(document.getElementById('divNombreResponsable'),/*[[#{mensaje.divNombreresponsable.requerido}]]*/); 
 });
 
 function cargarColonias() {
@@ -81,6 +82,13 @@ function cargarColonias() {
                   <input name="nombre" class="form-control" th:field="*{direccionMaps}" required pattern="^[\w\s]{1,100}$" th:title="#{mensaje.direccionmaps.validacion}" />
                   <span class="form-control-feedback">
                     <span th:if="${#fields.hasErrors('direccionMaps')}" th:errors="*{direccionMaps}"></span>
+                  </span>
+                </div>
+                <div id="divNombreResponsable" class="col-md-6 form-group" th:classappend="${#fields.hasErrors('nombreResponsable')}? ' has-danger'">
+                  <label class="form-control-label" th:text="#{etiqueta.nombreresponsable}"></label>
+                  <input name="nombreResponsable" class="form-control" th:field="*{nombreResponsable}" required />
+                  <span class="form-control-feedback">
+                    <span th:if="${#fields.hasErrors('nombreResponsable')}" th:errors="*{nombreResponsable}"></span>
                   </span>
                 </div>
 
