@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.dto.ZonaDto;
+import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.persistence.model.Zona;
 import mx.com.admoninmuebles.persistence.repository.ZonaRepository;
 
@@ -48,5 +49,11 @@ public class ZonaServiceImpl implements ZonaService {
     public boolean exist(final String codigo) {
         return zonaRepository.existsById(codigo);
     }
+
+	@Override
+	public Collection<ZonaDto> findByAdminZonaId(Long id) {
+		
+		return StreamSupport.stream(zonaRepository.findByAdminZonaId(id).spliterator(), false).map(zona -> modelMapper.map(zona, ZonaDto.class)).collect(Collectors.toList());
+	}
 
 }

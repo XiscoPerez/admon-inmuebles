@@ -12,6 +12,8 @@ public interface ZonaService {
     Collection<ZonaDto> findAll();
 
     ZonaDto findById(String codigo);
+    
+    Collection<ZonaDto>  findByAdminZonaId(Long id);
 
     void deleteById(String codigo);
 

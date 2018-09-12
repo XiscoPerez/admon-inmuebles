@@ -41,7 +41,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioDto crearCuenta(final UsuarioDto userDto) {
         String contrasenia = RandomStringUtils.randomAlphanumeric(8);
-        System.out.println("CONTRASENIA: " + contrasenia);
         userDto.setContrasenia(contrasenia);
         Usuario usuario = modelMapper.map(userDto, Usuario.class);
 
@@ -78,7 +77,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setFacebook(userDto.getFacebook());
         usuario.setFotoUrl(userDto.getFotoUrl());
         usuario.setGoogleMapsDir(userDto.getGoogleMapsDir());
-        // usuario.setTelefono(userDto.getTelefono());
         usuario.setTwiter(userDto.getTwiter());
         usuario.setYoutube(userDto.getYoutube());
 

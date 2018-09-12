@@ -56,12 +56,10 @@ public class SocioServiceImpl implements SocioService{
 	@Override
 	public SocioDto guardar(SocioDto socioDto) {
 		Usuario socio = modelMapper.map(socioDto, Usuario.class);
-		Rol rol = rolRepository.findByNombre(RolConst.ROLE_SOCIO_BI).get();
-		List<Rol> rolProveedor = new ArrayList<>();
-		rolProveedor.add(rol);
 		
-		socio.setRoles(rolProveedor);
-		
+		 Collection<Rol> roles = new ArrayList<>();
+	        roles.add(rolRepository.findById(socioDto.getRolSeleccionado()).get());
+	        socio.setRoles(roles);
 		Usuario socioCreado = usuarioRepository.save(socio);
 		
 		return modelMapper.map(socioCreado, SocioDto.class);
@@ -77,5 +75,7 @@ public class SocioServiceImpl implements SocioService{
 	public boolean exist(Long id) {
 		return usuarioRepository.existsById(id);
 	}
+	
+
 
 }

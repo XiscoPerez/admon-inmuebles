@@ -52,11 +52,23 @@ public class ColoniaServiceImpl implements ColoniaService {
         return StreamSupport.stream(asentamientoRepository.findBycodigoPostal(codigoPostal).spliterator(), false).map(asentamiento -> modelMapper.map(asentamiento, ColoniaDto.class))
                 .collect(Collectors.toList());
     }
+    
+    @Override
+    public Collection<ColoniaDto> findBycodigoPostalAndZonaCodigo(final String codigoPostal, String zonaCodigo) {
+        return StreamSupport.stream(asentamientoRepository.findBycodigoPostal(codigoPostal).spliterator(), false).map(asentamiento -> modelMapper.map(asentamiento, ColoniaDto.class))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public ColoniaDto findById(final Long id) {
         Optional<Asentamiento> asentamiento = asentamientoRepository.findById(id);
         return modelMapper.map(asentamiento.get(), ColoniaDto.class);
     }
+
+	@Override
+	public Collection<ColoniaDto> findByZonaCodigo(String zonaCodigo) {
+		 return StreamSupport.stream(asentamientoRepository.findByZonaCodigo( zonaCodigo ).spliterator(), false).map(asentamiento -> modelMapper.map(asentamiento, ColoniaDto.class))
+	                .collect(Collectors.toList());
+	}
 
 }

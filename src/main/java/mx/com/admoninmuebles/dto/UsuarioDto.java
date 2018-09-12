@@ -54,13 +54,20 @@ public class UsuarioDto {
     private String identificador;
 
     private String contrasenia;
+    
 
     private Collection<RolDto> roles;
 
     private Long rolSeleccionado;
     
+    private Long zonaSeleccionado;
+    
+    private Long coloniaSeleccionado;
+    
     private String datosDomicilio;
-
+    private Long inmuebleId;
+    private String inmuebleNombre;
+    
     // private Collection<Long> rolesSeleccionados;
     //
     // public Collection<String> zonas;

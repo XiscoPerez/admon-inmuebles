@@ -15,5 +15,9 @@ public interface ColoniaService {
     Collection<ColoniaDto> findByZonaIsNotNull();
 
     Collection<ColoniaDto> findBycodigoPostal(String codigoPostal);
+    
+    Collection<ColoniaDto> findByZonaCodigo(String zonaCodigo);
+    
+    Collection<ColoniaDto> findBycodigoPostalAndZonaCodigo(final String codigoPostal, String zonaCodigo);
 
 }

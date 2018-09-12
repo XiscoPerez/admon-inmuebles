@@ -9,5 +9,7 @@ public interface RolService {
     Rol save(RolDto rolDto);
 
     Collection<RolDto> findAll();
+    
+    public Collection<RolDto> getRolesSociosRepresentantes();
 
 }
