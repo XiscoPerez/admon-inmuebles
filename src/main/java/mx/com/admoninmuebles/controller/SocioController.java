@@ -73,22 +73,12 @@ public class SocioController {
 		model.addAttribute("rolesDto", rolService.getRolesSociosRepresentantes());
 		Optional<Long> optId = SecurityUtils.getCurrentUserId();
         if (optId.isPresent()) {
-            if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP) || request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
-            	
-            	Collection<ZonaDto> zonasDto = request.isUserInRole(RolConst.ROLE_ADMIN_CORP) ? zonaService.findAll() : zonaService.findByAdminZonaId(optId.get());
-                model.addAttribute("zonasDto", zonasDto);
+            if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP)) {
+                model.addAttribute("zonasDto", zonaService.findAll());
                 
-                if( zonasDto.size() == 1) {
-                	String codigoZona = zonasDto.stream().findFirst().get().getCodigo();
-                	Collection<ColoniaDto> coloniasDto = coloniaService.findByZonaCodigo(codigoZona);
-	           		model.addAttribute("coloniasDto", coloniasDto);
-	           		
-	           		if(coloniasDto.size() == 1) {
-	           			Long idColonia = coloniasDto.stream().findFirst().get().getId();
-	           			model.addAttribute("inmueblesDto", inmuebleService.findByDireccionAsentamientoId(idColonia));
-	           		}
-           	 	}
-                
+            } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
+            	model.addAttribute("zonasDto", zonaService.findByAdminZonaId(optId.get()));
+            
             } else if (request.isUserInRole(RolConst.ROLE_ADMIN_BI)) {
             	model.addAttribute("inmueblesDto", inmuebleService.findByAdminBiId(optId.get()));
             }
@@ -120,12 +110,26 @@ public class SocioController {
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/socio-editar/{id}")
-    public String editarSocio(final @PathVariable long id, final Model model, final HttpSession session) {
+    public String editarSocio(final @PathVariable long id, final Model model, final HttpServletRequest request) {
     	UsuarioDto usuarioDto = usuarioService.findById(id);
     	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
     	usuarioDto.setRolSeleccionado( rolesUsuario.get(0) );
         model.addAttribute("usuarioDto", usuarioDto);
         model.addAttribute("rolesDto", rolService.getRolesSociosRepresentantes());
+        
+        Optional<Long> optId = SecurityUtils.getCurrentUserId();
+        if (optId.isPresent()) {
+            if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP) || request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
+            	Collection<ZonaDto> zonasDto = request.isUserInRole(RolConst.ROLE_ADMIN_CORP) ? zonaService.findAll() : zonaService.findByAdminZonaId(optId.get());
+                model.addAttribute("zonasDto", zonasDto);
+           		model.addAttribute("coloniasDto", coloniaService.findByZonaCodigo(usuarioDto.getInmuebleDireccionAsentamientoZonaCodigo()));
+       			model.addAttribute("inmueblesDto", inmuebleService.findByDireccionAsentamientoId(usuarioDto.getInmuebleDireccionAsentamientoId()));
+            } else if (request.isUserInRole(RolConst.ROLE_ADMIN_BI)) {
+            	model.addAttribute("inmueblesDto", inmuebleService.findByAdminBiId(optId.get()));
+            }
+        }
+        
+        logger.info(usuarioDto.toString());
         return "socios/socio-editar";
     }
 

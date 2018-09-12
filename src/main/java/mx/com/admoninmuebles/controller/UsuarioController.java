@@ -175,10 +175,6 @@ public class UsuarioController {
         return "redirect:/login";
     }
     
-//    @GetMapping(value = "/usuarios/correo-recuperar-contrasenia")
-//    public String enviarCorreoRecuperacionContrasenia(final RecuperacionContraseniaCorreo recuperacionContraseniaCorreo) {
-//        return "redirect:/login";
-//    }
     
     @PostMapping(value = "/usuarios/correo-recuperar-contrasenia")
     public String enviarCorreoRecuperacionContrasenia(final HttpServletRequest request, final Locale locale, final Model model, @Valid final RecuperacionContraseniaCorreoDto recuperacionContraseniaCorreo, final BindingResult bindingResult) {
