@@ -8,9 +8,10 @@ import mx.com.admoninmuebles.persistence.model.Usuario;
 
 public interface UsuarioService {
 
-    Usuario save(UsuarioDto userDto);
 
     UsuarioDto editarPerfil(UsuarioDto userDto);
+    
+    UsuarioDto editarCuenta(final UsuarioDto userDto);
 
     UsuarioDto findById(Long idUsuario);
 

@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -16,13 +17,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
 import mx.com.admoninmuebles.dto.RecuperaContraseniaDto;
 import mx.com.admoninmuebles.dto.RecuperacionContraseniaCorreoDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
+import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.dto.ActivacionUsuarioDto;
 import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
@@ -68,25 +73,28 @@ public class UsuarioController {
     
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/usuarios/nuevo")
-    public String nuevoInit(final UsuarioDto usuarioDto, final Model model) {
-    	model.addAttribute("rolesDto", rolService.findAll());
+    public String nuevoInit(final UsuarioDto usuarioDto, final Model model, final HttpSession session) {
+//    	model.addAttribute("rolesDto", rolService.findAll());
+    	session.setAttribute("rolesDto", rolService.findAll());
         return "usuarios/usuario-crear";
     }
     
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @PostMapping(value = "/usuarios")
-    public String guardar(final HttpServletRequest request, final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    public String guardar(final HttpServletRequest request, final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
     	logger.info(usuarioDto.toString());
     	 if (bindingResult.hasErrors()) {
-    		logger.info("Ocurrieron errores " + bindingResult.toString());
-    		
              return "usuarios/usuario-crear";
          }
-    	 logger.info("Ante de guardar");
-    	UsuarioDto newUsuarioDto = userService.crearCuenta(usuarioDto);
-    	logger.info("Usuario generardo " + newUsuarioDto.toString());
-    	eventPublisher.publishEvent(new OnRegistroCompletoEvent(newUsuarioDto, request.getLocale(), getAppUrl(request)));
-    	return "redirect:/usuarios";
+    	
+    	 try {
+    		 UsuarioDto newUsuarioDto = userService.crearCuenta(usuarioDto);
+    		 eventPublisher.publishEvent(new OnRegistroCompletoEvent(newUsuarioDto, request.getLocale(), getAppUrl(request)));
+    		 return "redirect:/usuarios";
+    	 }catch(BusinessException e) {
+    		 bindingResult.addError(new ObjectError(messages.getMessage(e.getMessage(), null, locale), messages.getMessage(e.getMessage(), null, locale)));
+    		 return "usuarios/usuario-crear";
+    	 }
     }
     
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
@@ -103,8 +111,7 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @PostMapping(value = "/usuarios/editar")
     public String editar(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
-    	System.out.println("USUARIO: " + usuarioDto.toString());
-    	userService.crearCuenta(usuarioDto);
+    	userService.editarCuenta(usuarioDto);
     	return "redirect:/usuarios";
     }
     

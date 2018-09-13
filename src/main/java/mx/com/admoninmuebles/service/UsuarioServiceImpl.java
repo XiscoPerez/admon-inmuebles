@@ -40,6 +40,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioDto crearCuenta(final UsuarioDto userDto) {
+    	Optional<Usuario> usuarioOptional = userRepository.findByUsername(userDto.getUsername());
+        if (usuarioOptional.isPresent()) {
+            throw new BusinessException("usuario.error.yaexiste");
+        }
         String contrasenia = RandomStringUtils.randomAlphanumeric(8);
         userDto.setContrasenia(contrasenia);
         Usuario usuario = modelMapper.map(userDto, Usuario.class);
@@ -50,13 +54,18 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuarioCreado = userRepository.save(usuario);
         return modelMapper.map(usuarioCreado, UsuarioDto.class);
     }
-
+    
     @Override
-    public Usuario save(final UsuarioDto userDto) {
+    public UsuarioDto editarCuenta(final UsuarioDto userDto) {
         Usuario usuario = modelMapper.map(userDto, Usuario.class);
-        usuario.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
-        return userRepository.save(usuario);
+
+        Collection<Rol> roles = new ArrayList<>();
+        roles.add(rolRepository.findById(userDto.getRolSeleccionado()).get());
+        usuario.setRoles(roles);
+        Usuario usuarioCreado = userRepository.save(usuario);
+        return modelMapper.map(usuarioCreado, UsuarioDto.class);
     }
+
 
     @Override
     public Collection<UsuarioDto> findAll() {
@@ -108,7 +117,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Optional<Usuario> usuarioOptional = userRepository.findById(idUsuario);
 
         if (!usuarioOptional.isPresent()) {
-
+        	 throw new BusinessException("usuario.error.noencontrado");
         }
 
         userRepository.deleteById(idUsuario);

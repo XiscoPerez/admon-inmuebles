@@ -75,20 +75,6 @@ $(document).ready(function() {
                                            <div class="col-md-12 m-b-20">
                                                <input type="text" class="form-control" th:field="*{apellidoMaterno}" placeholder="label.usuario.apellidomaterno"> 
                                            </div>
-<!--                                         <div id="divRol" th:class="${#fields.hasErrors('rolesSeleccionados')}? 'form-group has-danger':'form-group'"> -->
-<!--                                            <div class="col-md-12 m-b-20"> -->
-<!-- 		                                        <select  name="rolId" class="form-control" th:field="*{rolesSeleccionados}" required multiple="multiple">	 -->
-<!-- 													<option th:each="rol : ${rolesDto}"  -->
-<!-- 															th:selected="${usuarioDto.rolesSeleccionados.contains(rol.id)}" -->
-<!-- 															th:value="${{rol.id}}"  -->
-<!-- 															th:text="${rol.nombre}"> -->
-													</option>
-<!-- 		                                        </select> -->
-<!-- 		                                        <span class="form-control-feedback"> -->
-<!-- 									                <span th:if="${#fields.hasErrors('rolesSeleccionados')}" th:errors="*{rolesSeleccionados}"></span> -->
-<!-- 									             </span> -->
-<!-- 		                                   </div> -->
-<!-- 		                                 </div> -->
 										<div id="divRol" th:class="${#fields.hasErrors('rolSeleccionado')}? 'form-group has-danger':'form-group'">
                                            <div class="col-md-12 m-b-20">
 		                                        <select  name="rolId" class="form-control" th:field="*{rolSeleccionado}" required>	
