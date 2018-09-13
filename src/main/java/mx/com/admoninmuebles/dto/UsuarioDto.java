@@ -55,38 +55,18 @@ public class UsuarioDto {
 
     private String contrasenia;
     
+    private String datosDomicilio;
 
     private Collection<RolDto> roles;
-
     private Long rolSeleccionado;
-    
-    private Long zonaSeleccionado;
-    
+    private String zonaSeleccionado;
     private Long coloniaSeleccionado;
     
-    private String datosDomicilio;
     private Long inmuebleId;
     private String inmuebleNombre;
+    private Long inmuebleDireccionAsentamientoId;
+    private String inmuebleDireccionAsentamientoZonaCodigo;
     
-    // private Collection<Long> rolesSeleccionados;
-    //
-    // public Collection<String> zonas;
-    //
-    // private Collection<Long> inmueble;
-    //
-    // private Collection<Long> tickets;
-    //
-    // private Long id;
-    //
-    // private Long id;
-    //
-    // private Collection<Long> telefonos;
-    //
-    // private Collection<Long> areasServicios;
-    //
-    // private Collection<Long> comentarios;
-    //
-    // private Collection<Long> pagos;
 
     public String getNombreCompleto() {
         return String.format("%s %s %s", nombre, apellidoPaterno, apellidoMaterno);

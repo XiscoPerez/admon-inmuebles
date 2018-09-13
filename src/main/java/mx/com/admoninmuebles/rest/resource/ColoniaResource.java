@@ -24,7 +24,7 @@ public class ColoniaResource {
     private ColoniaService coloniaService;
     
 	@GetMapping("/colonias")
-	public ResponseEntity<Collection<ColoniaDto>> buscar(@RequestParam(name = "codigoPostal", required = false) String codigoPostal , @RequestParam(name = "zonaCodigo", required = false) String zonaCodigo) {
+	public ResponseEntity<Collection<ColoniaDto>> buscarColonias(@RequestParam(name = "codigoPostal", required = false) String codigoPostal , @RequestParam(name = "zonaCodigo", required = false) String zonaCodigo) {
 		try {
 			Collection<ColoniaDto> colonias = null;
 			if( (codigoPostal != null && !codigoPostal.isEmpty()) && (zonaCodigo != null && !zonaCodigo.isEmpty())) {
@@ -34,11 +34,11 @@ public class ColoniaResource {
 			} else if(zonaCodigo != null && !zonaCodigo.isEmpty()){
 				colonias = coloniaService.findByZonaCodigo(zonaCodigo);
 			}else {
-				colonias = Collections.emptyList();
+				colonias = coloniaService.findAll();
 			}
 			return new ResponseEntity<>(colonias, HttpStatus.OK);
 		} catch(UsernameNotFoundException e) {
-			return new ResponseEntity<>(null, HttpStatus.OK);
+			return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
 		}
 		
 	}
