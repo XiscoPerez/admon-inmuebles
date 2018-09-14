@@ -39,6 +39,12 @@ $(document).ready(function() {
                                <h4 class="card-title"><span th:text="#{usuario.titulo}"></span></h4>
                                <h6 class="card-subtitle"><span th:text="#{usuario.titulo.crear}"></span></h6>
     							<form name="crearUsuarioForm" action="#" th:action="@{/usuarios}" th:object="${usuarioDto}" method="post" class="form-control-line">
+    									<div>
+	    									<div th:each="err : ${#fields.globalErrors()}"  id="mensajeErrorGlobal" class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span id="mensajeErrorGlobalSpan" th:text="${err}"></span>
+						                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+						                    </div>
+					                    </div>
+					                    
     									<div id="divUsername" th:class="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
                                            <div class="col-md-12 m-b-20">
                                                <input type="text" class="form-control" th:field="*{username}" required placeholder="label.usuario.username"> 
@@ -74,21 +80,11 @@ $(document).ready(function() {
                                            <div class="col-md-12 m-b-20">
                                                <input type="text" class="form-control" th:field="*{apellidoMaterno}" placeholder="label.usuario.apellidomaterno"> 
                                            </div>
-<!--                                            <div id="divRol" th:class="${#fields.hasErrors('rolesSeleccionados')}? 'form-group has-danger':'form-group'"> -->
-<!-- 	                                           <div class="col-md-12 m-b-20"> -->
-<!-- 			                                        <select  name="rolId" class="form-control" th:field="*{rolesSeleccionados}" required multiple="multiple">	 -->
-<!-- 														<option th:each="rol : ${rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option> -->
-<!-- 			                                        </select> -->
-<!-- 			                                        <span class="form-control-feedback"> -->
-<!-- 										                <span th:if="${#fields.hasErrors('rolesSeleccionados')}" th:errors="*{rolesSeleccionados}"></span> -->
-<!-- 										             </span> -->
-<!-- 			                                   </div> -->
-<!-- 		                                	</div> -->
 		                                	 <div id="divRol" th:class="${#fields.hasErrors('rolSeleccionado')}? 'form-group has-danger':'form-group'">
 	                                           <div class="col-md-12 m-b-20">
 	<!-- 		                                        <label>ROL</label> -->
 			                                        <select  name="rolId" class="form-control" th:field="*{rolSeleccionado}" required >	
-														<option th:each="rol : ${rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option>
+														<option th:each="rol : ${session.rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option>
 			                                        </select>
 			                                        <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('rolSeleccionado')}" th:errors="*{rolSeleccionado}"></span>

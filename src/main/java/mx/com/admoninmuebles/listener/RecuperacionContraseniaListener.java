@@ -20,8 +20,6 @@ import mx.com.admoninmuebles.service.RecuperacionContraseniaService;
 @Component
 public class RecuperacionContraseniaListener implements ApplicationListener<OnRecuperacionContraseniaEvent>{
 
-	@Autowired
-    private RecuperacionContraseniaTokenRepository recuperacionContraseniaTokenRepository;
 	
 	@Autowired
     private RecuperacionContraseniaService recuperacionContraseniaService;

@@ -26,7 +26,7 @@ public class InmuebleResource {
 		try {
 			Collection<InmuebleDto> inmuebles = inmuebleService.findByDireccionAsentamientoId(coloniaId);
 			return new ResponseEntity<>(inmuebles, HttpStatus.OK);
-		} catch(UsernameNotFoundException e) {
+		} catch(Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		}
 		

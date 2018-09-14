@@ -4,10 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,7 +35,7 @@ public class ColoniaResource {
 				colonias = coloniaService.findAll();
 			}
 			return new ResponseEntity<>(colonias, HttpStatus.OK);
-		} catch(UsernameNotFoundException e) {
+		} catch(Exception e) {
 			return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
 		}
 		
