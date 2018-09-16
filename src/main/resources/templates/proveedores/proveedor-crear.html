@@ -67,6 +67,9 @@ function cargarColonias() {
     							
                               
                               <form  name="crearProveedorForm" action="#" th:action="@{/proveedor-crear}" th:object="${proveedorDto}" method="post"  role="form">
+                              			<div th:each="err : ${#fields.globalErrors()}"  id="mensajeErrorGlobal" class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span id="mensajeErrorGlobalSpan" th:text="${err}"></span>
+					                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+					                    </div>
                                         <div class="row">
                                             <div id="divUsername" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
                                                 <label class="form-control-label" for="username" th:text="#{etiqueta.proveedor.username}"></label>
@@ -141,7 +144,7 @@ function cargarColonias() {
 												<div id="divAreasServicio" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('areasServicioSeleccionados')}? 'has-danger'">
 								                  <label class="form-control-label" th:text="#{etiqueta.areasservicio}"></label>
 								                  <select  name="areaServicio" class="form-control" th:field="*{areasServicioSeleccionados}" required multiple="multiple">	
-													<option th:each="areaServicio : ${areasServicio}" th:value="${{areaServicio.id}}" th:text="${areaServicio.nombre}"></option>
+													<option th:each="areaServicio : ${session.areasServicio}" th:value="${{areaServicio.id}}" th:text="${areaServicio.nombre}"></option>
 		                                        </select>
 								                  <span class="form-control-feedback">
 								                    <span th:if="${#fields.hasErrors('areasServicioSeleccionados')}" th:errors="*{areasServicioSeleccionados}"></span>

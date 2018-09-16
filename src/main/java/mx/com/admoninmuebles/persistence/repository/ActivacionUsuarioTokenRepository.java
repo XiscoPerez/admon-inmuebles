@@ -13,6 +13,10 @@ public interface ActivacionUsuarioTokenRepository extends CrudRepository<Activac
 	
 	Optional<ActivacionUsuarioToken> findByToken(String token);
 	
+	Optional<ActivacionUsuarioToken> findByUsuarioId(Long id);
+	
+	ActivacionUsuarioToken saveAndFlush(ActivacionUsuarioToken activacionUsuarioToken);
+	
 	@Modifying
 	@Transactional
 	@Query("delete from ActivacionUsuarioToken u where u.token = ?1")

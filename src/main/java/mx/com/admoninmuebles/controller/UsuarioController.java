@@ -16,6 +16,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,7 @@ import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
 import mx.com.admoninmuebles.service.RolService;
 import mx.com.admoninmuebles.service.UsuarioService;
+import mx.com.admoninmuebles.storage.StorageService;
 import mx.com.admoninmuebles.service.ActivacionUsuarioService;
 import mx.com.admoninmuebles.service.RecuperacionContraseniaService;
 
@@ -40,6 +43,9 @@ import mx.com.admoninmuebles.service.RecuperacionContraseniaService;
 public class UsuarioController {
 	
 	Logger logger = LoggerFactory.getLogger(UsuarioController.class);
+	
+    @Autowired
+    private StorageService storageService;
 
     @Autowired
     private MessageSource messages;
@@ -111,6 +117,12 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @PostMapping(value = "/usuarios/editar")
     public String editar(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    	System.out.println("Editando usuario " + usuarioDto.toString());
+    	if (bindingResult.hasErrors()) {
+    		System.out.println("Errores " + bindingResult.toString() );
+            return "usuarios/usuario-editar";
+        }
+//    	usuarioDto.setFotoUrl("/" + storageService.store(usuarioDto.getImagen()));
     	userService.editarCuenta(usuarioDto);
     	return "redirect:/usuarios";
     }
@@ -145,11 +157,16 @@ public class UsuarioController {
     
     @PostMapping(value = "/usuarios/perfil/editar")
     public String editarPerfil(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    	System.out.println("Editando Perfil " + usuarioDto.toString());
+    	model.addAttribute("cambioContraseniaDto", new CambioContraseniaDto());
     	if (bindingResult.hasErrors()) {
             return "usuarios/usuario-perfil";
         }
+    	if( usuarioDto.getImagen() != null && !usuarioDto.getImagen().isEmpty() && !StringUtils.cleanPath(usuarioDto.getImagen().getOriginalFilename()).contains("..")) {
+    		usuarioDto.setFotoUrl("/" + storageService.store(usuarioDto.getImagen()));
+    	}
     	userService.editarPerfil(usuarioDto);
-    	return "redirect:/usuarios/perfil/";
+    	return "redirect:/usuarios/perfil";
     }
     
     @PostMapping(value = "/usuarios/perfil/cambioContrasenia")

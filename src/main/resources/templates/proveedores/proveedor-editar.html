@@ -68,10 +68,13 @@ function cargarColonias() {
                               
                               <form  name="crearProveedorForm" action="#" th:action="@{/proveedor-editar}" th:object="${proveedorDto}" method="post"  role="form">
                               			<input type="hidden" class="form-control" th:field="*{id}"/>
+                              			<input type="hidden" class="form-control" th:field="*{username}"/>
+                              			<input type="hidden" class="form-control" th:field="*{datosAdicionalesId}"/>
+                              			<input type="hidden" class="form-control" th:field="*{direccionId}"/>
                                         <div class="row">
                                             <div id="divUsername" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
                                                 <label class="form-control-label" for="username" th:text="#{etiqueta.proveedor.username}"></label>
-                                                <input type="text" th:field="*{username}" required class="form-control" id="username">
+                                                <input type="text" th:field="*{username}" required class="form-control" id="username" th:disabled="true">
                                                 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 								              	</span>

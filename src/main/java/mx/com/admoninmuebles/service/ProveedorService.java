@@ -9,6 +9,7 @@ public interface ProveedorService {
 	Collection<ProveedorDto> getProveedores();
 	ProveedorDto buscarProveedorPorId(Long idProveedor);
 	ProveedorDto guardar(ProveedorDto proveedorDto);
+	ProveedorDto editar(ProveedorDto proveedorDto);
 	void eliminar(Long idProveedor);
 	boolean exist(final Long id);
 

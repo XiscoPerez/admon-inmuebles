@@ -59,8 +59,12 @@
                                             	<th:block th:each="proveedor : ${proveedores}">
 	                                                <tr>
 	                                                    <td th:text="${proveedor.id}"></td>
-	                                                    <td>
-	                                                        <a href="app-contact-detail.html"><img src="../assets/images/users/1.jpg" alt="user" class="img-circle" /> <span th:text="${proveedor.username}"></span></a>
+	                                                    <td th:switch="${proveedor.fotoUrl != null}">
+	                                                        <a th:href="${'/proveedor-detalle/'  + proveedor.id}">
+	                                                        		<span  th:case="${false}" class="round round-success">P</span>
+                                									<img th:case="${true}" th:src="${proveedor.fotoUrl}" class="img-circle" width="100">
+	                                                        	<span th:text="${proveedor.username}"></span>
+	                                                        </a>
 	                                                    </td>
 	                                                    <td th:text="${proveedor.correo}"></td>
 	                                                    <td th:text="${proveedor.nombre}"></td>

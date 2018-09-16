@@ -14,8 +14,11 @@ import org.springframework.stereotype.Service;
 import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.AreaServicioDto;
 import mx.com.admoninmuebles.dto.ProveedorDto;
+import mx.com.admoninmuebles.dto.UsuarioDto;
+import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.persistence.model.AreaServicio;
 import mx.com.admoninmuebles.persistence.model.Comentario;
+import mx.com.admoninmuebles.persistence.model.DatosAdicionales;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Telefono;
 import mx.com.admoninmuebles.persistence.model.Usuario;
@@ -45,8 +48,6 @@ public class ProveedorServiceImpl implements ProveedorService {
 	@Autowired
 	private DireccionRepository direccionRepository;
 	
-	@Autowired
-	private TelefonoRepository telefonoRepository;
 
 	@Autowired
 	private DatosAdicionalesRepository datosAdicionalesRepository;
@@ -70,7 +71,80 @@ public class ProveedorServiceImpl implements ProveedorService {
 	}
 
 	@Override
+	public ProveedorDto editar(ProveedorDto proveedorDto) {
+		   Optional<Usuario> usuarioOptional = usuarioRepository.findById(proveedorDto.getId());
+	        Usuario usuario = usuarioOptional.get();
+	        usuario.setActivo(proveedorDto.isActivo());
+	        
+	        List<AreaServicio> areasServicio = StreamSupport.stream(proveedorDto.getAreasServicioSeleccionados().spliterator(), false)
+					 .map(as -> areaServicioRepository.findById(as).get())
+					 .collect(Collectors.toList());
+
+	        usuario.setAreasServicio(areasServicio);
+	        
+	        if(proveedorDto.getApellidoMaterno() != null && !proveedorDto.getApellidoMaterno().isEmpty()) {
+	        	usuario.setApellidoMaterno(proveedorDto.getApellidoMaterno() );
+	        }
+	        if(proveedorDto.getApellidoPaterno() != null && !proveedorDto.getApellidoPaterno().isEmpty()) {
+	        	usuario.setApellidoPaterno(proveedorDto.getApellidoPaterno());
+	        }
+	        if(proveedorDto.getCorreo() != null && !proveedorDto.getCorreo().isEmpty()) {
+	        	usuario.setCorreo(proveedorDto.getCorreo());
+	        }
+	        if(proveedorDto.getNombre() != null && !proveedorDto.getNombre().isEmpty()) {
+	        	usuario.setNombre(proveedorDto.getNombre());
+	        }
+	        if(proveedorDto.getFacebook() != null && !proveedorDto.getFacebook().isEmpty()) {
+	        	usuario.setFacebook(proveedorDto.getFacebook());
+	        }
+	        if(proveedorDto.getFotoUrl() != null && !proveedorDto.getFotoUrl().isEmpty()) {
+	        	usuario.setFotoUrl(proveedorDto.getFotoUrl());
+	        }
+	        if(proveedorDto.getGoogleMapsDir() != null && !proveedorDto.getGoogleMapsDir().isEmpty()) {
+	        	usuario.setGoogleMapsDir(proveedorDto.getGoogleMapsDir());
+	        }
+	        if( proveedorDto.getTwiter() != null && !proveedorDto.getTwiter().isEmpty()) {
+	        	usuario.setTwiter(proveedorDto.getTwiter());
+	        }
+	        if(proveedorDto.getYoutube() != null && !proveedorDto.getYoutube().isEmpty()) {
+	        	usuario.setYoutube(proveedorDto.getYoutube());
+	        }
+	        if(proveedorDto.getTelefonoAlternativo() != null && !proveedorDto.getTelefonoAlternativo().isEmpty()) {
+	        	usuario.setTelefonoAlternativo(proveedorDto.getTelefonoAlternativo());
+	        }
+	        if(proveedorDto.getTelefonoFijo() != null && !proveedorDto.getTelefonoFijo().isEmpty()) {
+	        	usuario.setTelefonoFijo(proveedorDto.getTelefonoFijo());
+	        }
+	        if(proveedorDto.getTelefonoMovil() != null && !proveedorDto.getTelefonoMovil().isEmpty()) {
+	        	usuario.setTelefonoMovil(proveedorDto.getTelefonoMovil());
+	        }
+	        if(proveedorDto.getTelefonoOficina() != null && !proveedorDto.getTelefonoOficina().isEmpty()) {
+	        	usuario.setTelefonoOficina(proveedorDto.getTelefonoOficina());
+	        }
+	        if(proveedorDto.getDatosDomicilio() != null && !proveedorDto.getDatosDomicilio().isEmpty()) {
+	        	usuario.setDatosDomicilio(proveedorDto.getDatosDomicilio());
+	        }
+	        
+			if(proveedorDto.getComentario() != null && !proveedorDto.getComentario().trim().isEmpty()) {
+				comentarioRepository.save(new Comentario(proveedorDto.getComentario(), usuario));
+			}
+			
+			DatosAdicionales datosAdicionales = modelMapper.map(proveedorDto, Usuario.class).getDatosAdicionales();
+			usuario.setDatosAdicionales(datosAdicionalesRepository.save(datosAdicionales));
+			
+			usuario.setDireccion(direccionRepository.save(modelMapper.map(proveedorDto, Usuario.class).getDireccion()));
+	        
+	        Usuario usuarioActualizado = usuarioRepository.save(usuario);
+	        return modelMapper.map(usuarioActualizado, ProveedorDto.class);
+	}
+	
+	
+	@Override
 	public ProveedorDto guardar(ProveedorDto proveedorDto) {
+    	Optional<Usuario> usuarioOptional = usuarioRepository.findByUsername(proveedorDto.getUsername());
+        if (usuarioOptional.isPresent()) {
+            throw new BusinessException("usuario.error.yaexiste");
+        }
 		Usuario proveedor = modelMapper.map(proveedorDto, Usuario.class);
 		Rol rol = rolRepository.findByNombre(RolConst.ROLE_PROVEEDOR).get();
 		List<Rol> rolProveedor = new ArrayList<>();

@@ -17,7 +17,7 @@ $(document).ready(function() {
 	$("#mensajeExitoCambiarContrasenia").hide();
 	
   $('.dropify').dropify();
-  addControlState(document.getElementById('divUsername'),/*[[#{mensaje.username.requerido}]]*/);
+//   addControlState(document.getElementById('divUsername'),/*[[#{mensaje.username.requerido}]]*/);
   addControlState(document.getElementById('divCorreo'),/*[[#{mensaje.correo.requerido}]]*/);
   addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
   addControlState(document.getElementById('divApellidoPaterno'),/*[[#{mensaje.appaterno.requerido}]]*/);
@@ -99,8 +99,9 @@ function cambiarContrasenia(){
                                 <div class="align-self-center "> 
                                 	<div th:switch="${usuarioDto.fotoUrl != null}"> 
 <!--                                 	  	<span th:case="${false}" class="round" style="width:100px; height: 100px"></span> -->
-                                	  	<img th:case="${false}" src="../../assets/images/users/1.jpg" class="img-circle" width="100">
-                                		<img th:case="${true}" src="../../assets/images/users/1.jpg" class="img-circle" width="100">
+<!--                                 	  	<img th:case="${false}" src="../../assets/images/users/1.jpg" class="img-circle" width="100"> -->
+                                	  	<span  th:case="${false}" class="round round-success" width="100">B</span>
+                                		<img th:case="${true}" th:src="${usuarioDto.fotoUrl}" class="img-circle" width="100">
 									</div>
                                 	
                                     <h4 class="card-title" th:text="${usuarioDto.nombre}"></h4>
@@ -206,21 +207,22 @@ function cambiarContrasenia(){
                                 </div>
                                 <div class="tab-pane" id="editar" role="tabpanel">
                                     <div class="card-body">
-                                        <form name="editarUsuarioForm" action="#" th:action="@{/usuarios/perfil/editar}" th:object="${usuarioDto}" method="post" class="form-control-line">
-<!--                                         	<input type="hidden" class="form-control" th:field="*{id}"/> -->
+                                        <form name="editarUsuarioForm" action="#" th:action="@{/usuarios/perfil/editar}" th:object="${usuarioDto}" method="post" class="form-control-line" enctype="multipart/form-data">
+                                        	<input type="hidden" class="form-control" th:field="*{id}"/>
+                                        	<input type="hidden" class="form-control" th:field="*{username}"/>
                                             <div id="divUsername" th:class="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
-                                                <label class="col-md-12" th:text="#{label.usuario.username}"></label>
+                                                <label class="col-md-12" for="username" th:text="#{label.usuario.username}"></label>
                                                 <div class="col-md-12">
-                                                     <input type="text" class="form-control" th:field="*{username}" placeholder="label.usuario.username">
+                                                     <input type="text" class="form-control" id="username" th:field="*{username}" th:disabled="true">
                                                      <span class="form-control-feedback">
 									                	<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 									              	</span> 
                                                 </div>
                                             </div>
                                             <div id="divCorreo" th:class="${#fields.hasErrors('correo')}? 'form-group has-danger':'form-group'">
-                                                <label for="example-email" th:text="#{label.usuario.correo}" class="col-md-12"></label>
+                                                <label for="example-email" th:text="#{label.usuario.correo}"  class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{correo}" placeholder="label.usuario.correo"> 
+                                                    <input type="text" class="form-control" th:field="*{correo}" required> 
                                                     <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
 										              </span>
@@ -229,7 +231,7 @@ function cambiarContrasenia(){
                                             <div id="divNombre" th:class="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
                                                 <label for="example-nombre" th:text="#{label.usuario.nombre}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{nombre}" placeholder="label.usuario.nombre">  
+                                                    <input type="text" class="form-control" th:field="*{nombre}" required>  
                                                     <span class="form-control-feedback">
 									                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
 									              </span>
@@ -238,7 +240,7 @@ function cambiarContrasenia(){
                                             <div id="divApellidoPaterno" th:class="${#fields.hasErrors('apellidoPaterno')}? 'form-group has-danger':'form-group'">
                                                 <label for="example-email" th:text="#{label.usuario.apellidopaterno}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{apellidoPaterno}" placeholder="label.usuario.apellidopaterno">  
+                                                    <input type="text" class="form-control" th:field="*{apellidoPaterno}" required>  
                                                     <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('apellidoPaterno')}" th:errors="*{apellidoPaterno}"></span>
 										              </span>
@@ -247,57 +249,65 @@ function cambiarContrasenia(){
                                             <div class="form-group">
                                                 <label for="example-email" th:text="#{label.usuario.apellidomaterno}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{apellidoMaterno}" placeholder="label.usuario.apellidomaterno">  
+                                                    <input type="text" class="form-control" th:field="*{apellidoMaterno}">  
                                                 </div>
                                             </div>
                                              <div class="form-group">
                                                 <label for="example-email" th:text="#{label.usuario.facebook}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{facebook}" placeholder="#{label.usuario.facebook}">  
+                                                    <input type="text" class="form-control" th:field="*{facebook}">  
                                                 </div>
                                             </div>
                                              <div class="form-group">
                                                 <label for="example-email" th:text="#{label.usuario.twiter}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{twiter}" placeholder="#{label.usuario.twiter}">  
+                                                    <input type="text" class="form-control" th:field="*{twiter}">  
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="example-email" th:text="#{label.usuario.youtube}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{youtube}" placeholder="#{label.usuario.youtube}">  
+                                                    <input type="text" class="form-control" th:field="*{youtube}" >  
                                                 </div>
                                             </div>
                                              <div class="form-group">
                                                 <label for="example-email" th:text="#{label.usuario.googleMapsDir}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{googleMapsDir}" placeholder="#{label.usuario.googleMapsDir}">  
+                                                    <input type="text" class="form-control" th:field="*{googleMapsDir}">  
+                                                     <a  target="_blank"  th:href="@{/informacion/mapa-google}"><small class="text-muted p-t-30 db" th:text="#{label.usuario.tutorial.googlemapa}"> </small></a>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="example-telefono-movil" th:text="#{label.usuario.telefonomovil}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{telefonoMovil}" placeholder="#{label.usuario.telefonomovil}">  
+                                                    <input type="text" class="form-control" th:field="*{telefonoMovil}" required>  
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="example-telefono-fijo" th:text="#{label.usuario.telefonofijo}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{telefonoFijo}" placeholder="#{label.usuario.telefonofijo}">  
+                                                    <input type="text" class="form-control" th:field="*{telefonoFijo}">  
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="example-telefono-oficina" th:text="#{label.usuario.telefonooficina}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{telefonoOficina}" placeholder="#{label.usuario.telefonooficina}">  
+                                                    <input type="text" class="form-control" th:field="*{telefonoOficina}">  
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="example-telefono-alternativo" th:text="#{label.usuario.telefonoalternativo}" class="col-md-12"></label>
                                                 <div class="col-md-12">
-                                                    <input type="text" class="form-control" th:field="*{telefonoAlternativo}" placeholder="#{label.usuario.telefonoalternativo}">  
+                                                    <input type="text" class="form-control" th:field="*{telefonoAlternativo}">  
                                                 </div>
                                             </div>
+                                            <div id="divImagen" class="col-md-4" th:classappend="${#fields.hasErrors('imagen')}? 'form-group has-danger':'form-group'">
+							                  <label class="form-control-label" th:text="#{etiqueta.imagen}"></label>
+							                  <input name="imagen" type="file" class="form-control dropify" th:field="*{imagen}" th:title="#{mensaje.imagen.validacion}">
+							                  <span class="form-control-feedback">
+							                    <span th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></span>
+							                  </span>
+							                </div>
                                             <div class="form-group">
                                                 <div class="col-sm-12">
                                                     <button type="submit" class="btn btn-info-gesco waves-effect" th:text="#{etiqueta.guardar}" ></button>

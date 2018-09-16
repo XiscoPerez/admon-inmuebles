@@ -59,8 +59,12 @@
                                             	<th:block th:each="socio : ${socios}">
 	                                                <tr>
 	                                                    <td th:text="${socio.id}"></td>
-	                                                    <td>
-	                                                        <a href="app-contact-detail.html"><img src="../assets/images/users/1.jpg" alt="user" class="img-circle" /> <span th:text="${socio.username}"></span></a>
+	                                                    <td th:switch="${socio.fotoUrl != null}">
+	                                                        <a th:href="${'/socio-detalle/'  + socio.id}">
+	                                                        		<span  th:case="${false}" class="round round-success" width="100">S</span>
+                                									<img th:case="${true}" th:src="${socio.fotoUrl}" class="img-circle" width="100">
+	                                                        	<span th:text="${socio.username}"></span>
+	                                                        </a>
 	                                                    </td>
 	                                                    <td th:text="${socio.correo}"></td>
 	                                                    <td th:text="${socio.nombre}"></td>

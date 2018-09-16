@@ -64,7 +64,7 @@ function recuperarContrasenia(){
 				                    </div>
 									<div id="divLogin" class="form-group">
 										<div class="col-xs-12">
-											<input id="login" class="form-control" type="text" th:field="*{login}" required placeholder="Usuario o correo">
+											<input id="login" class="form-control" type="text" th:field="*{login}" required th:placeholder="#{campo.recuperacontrasenia.username}">
 											<span class="form-control-feedback">
 								                <span th:text="#{label.recuperacontrasenia.login.requerido}"></span>
 								            </span>

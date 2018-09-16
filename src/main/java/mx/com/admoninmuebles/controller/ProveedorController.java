@@ -11,16 +11,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import mx.com.admoninmuebles.dto.ProveedorDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
+import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
 import mx.com.admoninmuebles.service.AreaServicioService;
 import mx.com.admoninmuebles.service.ProveedorService;
@@ -29,6 +32,9 @@ import mx.com.admoninmuebles.service.ProveedorService;
 public class ProveedorController {
 	
 	Logger logger = LoggerFactory.getLogger(ProveedorController.class);
+	
+    @Autowired
+    private MessageSource messages;
 
 	@Autowired
 	private ProveedorService proveedorService;
@@ -48,8 +54,9 @@ public class ProveedorController {
 	
 	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/proveedor-crear")
-    public String crearProveedorInit(final ProveedorDto proveedorDto, final Model model) {
-		 model.addAttribute("areasServicio", areaServicioService.findAll());
+    public String crearProveedorInit(final ProveedorDto proveedorDto, final Model model, final HttpSession session) {
+//		 model.addAttribute("areasServicio", areaServicioService.findAll());
+		 session.setAttribute("areasServicio", areaServicioService.findAll());
         return "proveedores/proveedor-crear";
     }
 
@@ -61,9 +68,14 @@ public class ProveedorController {
             return "proveedores/proveedor-crear";
         }
         
-        UsuarioDto proveedorNuevo = proveedorService.guardar(proveedorDto);
-        eventPublisher.publishEvent(new OnRegistroCompletoEvent(proveedorNuevo, request.getLocale(), getAppUrl(request)));
-        return "redirect:/proveedores";
+        try {
+	        UsuarioDto proveedorNuevo = proveedorService.guardar(proveedorDto);
+	        eventPublisher.publishEvent(new OnRegistroCompletoEvent(proveedorNuevo, request.getLocale(), getAppUrl(request)));
+	        return "redirect:/proveedores";
+        }catch(BusinessException e) {
+   		 bindingResult.addError(new ObjectError(messages.getMessage(e.getMessage(), null, locale), messages.getMessage(e.getMessage(), null, locale)));
+   		 return "proveedores/proveedor-crear";
+   	 }
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
@@ -92,18 +104,18 @@ public class ProveedorController {
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @PostMapping(value = "/proveedor-editar")
-    public String editarInmueble(final Locale locale, final Model model, @Valid final ProveedorDto proveedorDto, final BindingResult bindingResult) {
+    public String editarProveedor(final Locale locale, final Model model, @Valid final ProveedorDto proveedorDto, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "proveedores/proveedor-editar";
         }
 
-        proveedorService.guardar(proveedorDto);
+        proveedorService.editar(proveedorDto);
         return "redirect:/proveedores";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/proveedor-eliminar/{id}")
-    public String eliminarInmueble(final @PathVariable Long id) {
+    public String eliminarProveedor(final @PathVariable Long id) {
     	proveedorService.eliminar(id);
         return "redirect:/proveedores";
     }

@@ -22,9 +22,11 @@ import mx.com.admoninmuebles.persistence.model.Asentamiento;
 import mx.com.admoninmuebles.persistence.model.DatosAdicionales;
 import mx.com.admoninmuebles.persistence.model.Direccion;
 import mx.com.admoninmuebles.persistence.model.Inmueble;
+import mx.com.admoninmuebles.persistence.model.Municipio;
 import mx.com.admoninmuebles.persistence.model.Privilegio;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Ticket;
+import mx.com.admoninmuebles.persistence.model.TipoAsentamiento;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.model.Zona;
 import mx.com.admoninmuebles.persistence.repository.AreaServicioRepository;
@@ -257,6 +259,18 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             asentamiento = optAsentamiento.get();
             asentamiento.setZona(zona);
             asentamientoRepository.save(asentamiento);
+        }else {
+        	Municipio municpio = new Municipio();
+        	municpio.setId(9010l);
+        	TipoAsentamiento tipoAsentamiento = new TipoAsentamiento();
+        	tipoAsentamiento.setId(9l);
+        	asentamiento = new Asentamiento();
+        	asentamiento.setCodigoPostal("01000");
+        	asentamiento.setNombre("San Ángel");
+        	asentamiento.setMunicipio(municpio);
+        	asentamiento.setTipoAsentamiento(tipoAsentamiento);
+        	asentamiento.setZona(zona);
+        	asentamientoRepository.save(asentamiento);
         }
         return asentamiento;
     }

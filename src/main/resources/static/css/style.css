@@ -58,4 +58,58 @@ iframe {
   position: absolute;
   right: 0;
   border-top: 1px solid rgba(120, 130, 140, 0.13);
-  background: #008688; }
+  background: #008688; 
+}
+
+.footer-font-size {
+	font-size: 12px;
+}
+
+
+
+
+/* RIBBON GESCO */
+.ribbon-gesco {
+/* 	background: rgb(0, 96, 62); */
+	background: #00445C;
+}
+
+
+.ribbon-bookmark.ribbon-gesco:before {
+  border-color: #00445C;
+  border-right-color: transparent; }
+
+.ribbon-bookmark.ribbon-right.ribbon-gesco:before {
+  border-right-color: #00445C;
+  border-left-color: transparent; }
+
+.ribbon-bookmark.ribbon-vertical-l.ribbon-gesco:before,
+.ribbon-bookmark.ribbon-vertical-r.ribbon-gesco:before {
+  border-right-color: #00445C;
+  border-bottom-color: transparent; }
+
+.ribbon-gesco.ribbon-corner:before {
+  border-top-color: #00445C;
+  border-left-color: #00445C; }
+
+.ribbon-gesco.ribbon-corner.ribbon-right:before {
+  border-right-color: #00445C;
+  border-left-color: transparent; }
+
+.ribbon-gesco.ribbon-corner.ribbon-bottom:before {
+  border-top-color: transparent;
+  border-bottom-color: #00445C; }
+  
+  
+.color-secundario-gesco {
+/* 	background: rgb(0, 96, 62); */
+	background: #00445C;
+	
+}
+
+
+/* CARDS */
+.card-color-secunadario-gesco {
+  background: #00445C;
+  border-color: #00445C; 
+ }
