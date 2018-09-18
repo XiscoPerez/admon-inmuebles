@@ -79,8 +79,8 @@ function cargarInmueblesPorColonia() {
 					                    </div>
                                         <div class="row">
                                             <div id="divUsername" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
-                                                <label class="form-control-label" for="username" th:text="#{etiqueta.socio.username}"></label>
-                                                <input type="text" th:field="*{username}" required class="form-control" id="username">
+                                                <label class="form-control-label" for="username" th:text="#{etiqueta.socio.username}" ></label>
+                                                <input type="text" th:field="*{username}" required class="form-control" id="username" pattern="^[\w\s]{6,25}$" th:title="#{mensaje.username.validacion}">
                                                 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 								              	</span>

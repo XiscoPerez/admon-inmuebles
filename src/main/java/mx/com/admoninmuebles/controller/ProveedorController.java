@@ -25,6 +25,7 @@ import mx.com.admoninmuebles.dto.ProveedorDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
+import mx.com.admoninmuebles.security.SecurityUtils;
 import mx.com.admoninmuebles.service.AreaServicioService;
 import mx.com.admoninmuebles.service.ProveedorService;
 
@@ -44,6 +45,20 @@ public class ProveedorController {
 	
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+    
+	@PreAuthorize("hasAnyRole('PROVEEDOR')")
+	@GetMapping(value = "/proveedores/inicio")
+	public String home(final Model model) {
+		Long proveedorLogueadoId = SecurityUtils.getCurrentUserId().get();
+		ProveedorDto proveedorDto = proveedorService.buscarProveedorPorId(proveedorLogueadoId);
+        model.addAttribute("proveedorDto", proveedorDto);
+        proveedorDto.setAreasServicioSeleccionados(proveedorDto.getAreasServicio().stream().map(as -> as.getId()).collect(Collectors.toList()));
+        
+        model.addAttribute("comentariosDto", proveedorDto.getComentarios());
+        model.addAttribute("proveedorDto", proveedorDto);
+        model.addAttribute("areasServicio", proveedorDto.getAreasServicio());
+		return "proveedores/inicio";
+	}
 
 	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
 	@GetMapping(value = "/proveedores")
@@ -82,7 +97,7 @@ public class ProveedorController {
     @GetMapping(value = "/proveedor-detalle/{id}")
     public String buscarProveedorPorId(final @PathVariable long id, final Model model) {
     	ProveedorDto proveedorDto = proveedorService.buscarProveedorPorId(id);
-        model.addAttribute("proveedorDto", proveedorService.buscarProveedorPorId(id));
+        model.addAttribute("proveedorDto", proveedorDto);
         proveedorDto.setAreasServicioSeleccionados(proveedorDto.getAreasServicio().stream().map(as -> as.getId()).collect(Collectors.toList()));
         
         model.addAttribute("comentariosDto", proveedorDto.getComentarios());

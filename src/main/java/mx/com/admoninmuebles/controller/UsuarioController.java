@@ -33,10 +33,14 @@ import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.dto.ActivacionUsuarioDto;
 import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
+import mx.com.admoninmuebles.security.SecurityUtils;
 import mx.com.admoninmuebles.service.RolService;
 import mx.com.admoninmuebles.service.UsuarioService;
+import mx.com.admoninmuebles.service.ZonaService;
 import mx.com.admoninmuebles.storage.StorageService;
 import mx.com.admoninmuebles.service.ActivacionUsuarioService;
+import mx.com.admoninmuebles.service.ColoniaService;
+import mx.com.admoninmuebles.service.InmuebleService;
 import mx.com.admoninmuebles.service.RecuperacionContraseniaService;
 
 @Controller
@@ -62,12 +66,47 @@ public class UsuarioController {
     @Autowired
     private RecuperacionContraseniaService recuperacionContraseniaService;
     
+	@Autowired
+	private InmuebleService inmuebleService;
+	
+	@Autowired
+	private ColoniaService coloniaService;
+	
+	@Autowired
+	private ZonaService zonaService;
+    
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
     @GetMapping(value = "/crearUsuario")
     public String showForm(final UsuarioDto userDto) {
         return "crearUsuario";
+    }
+    
+
+    @PreAuthorize("hasAnyRole('ADMIN_CORP')")
+    @GetMapping(value = "/admincorp/inicio")
+    public String initAdminCorp(final UsuarioDto usuarioDto, final Model model) {
+    	model.addAttribute("zonas", zonaService.findAll());
+        model.addAttribute("colonias", coloniaService.findAll());
+        model.addAttribute("inmuebles", inmuebleService.findAll());
+//        model.addAttribute("usuarios", userService.findAll());
+        return "admincorp/inicio";
+    }
+    
+    @PreAuthorize("hasAnyRole('ADMIN_ZONA')")
+    @GetMapping(value = "/adminzona/inicio")
+    public String initAdminZona(final UsuarioDto usuarioDto, final Model model) {
+        model.addAttribute("usuarios", userService.findAll());
+        return "adminzona/inicio";
+    }
+    
+    @PreAuthorize("hasAnyRole('ADMIN_BI')")
+    @GetMapping(value = "/adminbi/inicio")
+    public String initAdminBi(final UsuarioDto usuarioDto, final Model model) {
+    	Long adminBiLogueadoId = SecurityUtils.getCurrentUserId().get();
+        model.addAttribute("inmuebles", inmuebleService.findByAdminBiId(adminBiLogueadoId));
+        return "adminbi/inicio";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")

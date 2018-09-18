@@ -15,7 +15,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import mx.com.admoninmuebles.constant.RolConst;
 
 @Configuration
 @EnableWebSecurity
@@ -55,6 +58,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/usuarios/recuperar-contrasenia-peticion/**").permitAll()
             .antMatchers("/usuarios/recuperar-contrasenia/**").permitAll()
             .antMatchers("/api/**").permitAll()
+            .antMatchers("/proveedores/inicio").hasRole("PROVEEDOR")
+            .antMatchers("/sociobi/inicio").hasRole("SOCIO_BI")
+            .antMatchers("/repbi/inicio").hasRole("REP_BI")
                 .antMatchers("/invalidSession*").anonymous()
                 .antMatchers("/catalogos/**").authenticated()
                 .anyRequest().authenticated()
@@ -62,6 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
                 .loginPage("/login")
+                .successHandler(customUrlAuthenticationSuccessHandler())
 //                .defaultSuccessUrl("/user/index")
                 .failureUrl("/login?error=true")
                 .failureHandler(authenticationFailureHandler)
@@ -85,6 +92,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean(name = "passwordEncoder")
     public PasswordEncoder passwordencoder() {
         return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public AuthenticationSuccessHandler customUrlAuthenticationSuccessHandler(){
+        return new CustomUrlAuthenticationSuccessHandler();
     }
 
 }
