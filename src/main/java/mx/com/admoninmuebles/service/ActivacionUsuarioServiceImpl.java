@@ -50,6 +50,10 @@ public class ActivacionUsuarioServiceImpl implements ActivacionUsuarioService{
     @Override
     public void guardarToken(final UsuarioDto usuarioDto, final String token) {
     	Usuario usuario = usuarioRepository.findById(usuarioDto.getId()).get();
+    	Optional<ActivacionUsuarioToken> activacionUsuarioTokenOpt = activacionUsuarioTokenRepository.findByUsuarioId(usuario.getId());
+    	if(activacionUsuarioTokenOpt.isPresent()) {
+    		activacionUsuarioTokenRepository.deleteByToken(activacionUsuarioTokenOpt.get().getToken());
+    	}
         final ActivacionUsuarioToken verificacionToken = new ActivacionUsuarioToken(token, usuario);
         activacionUsuarioTokenRepository.save(verificacionToken);
     }

@@ -52,5 +52,10 @@ public class MainController {
     public String sucursales() {
         return "/informacion/sucursales";
     }
+    
+    @RequestMapping("/informacion/mapa-google")
+    public String mapaGoolge() {
+        return "/informacion/mapa-google";
+    }
 
 }

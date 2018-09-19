@@ -63,7 +63,7 @@ function cargarColonias() {
                 </div>
                 <div id="divCorreo" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('correo')}? 'has-danger'">
                   <label class="form-control-label" th:text="#{etiqueta.correo}"></label>
-                  <input name="correo" class="form-control" th:field="*{correo}" required pattern="^[\w\s]{1,100}$" th:title="#{mensaje.correo.validacion}" />
+                  <input name="correo" class="form-control" th:field="*{correo}" required  />
                   <span class="form-control-feedback">
                     <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
                   </span>
@@ -79,7 +79,8 @@ function cargarColonias() {
               <div class="row">
                 <div id="divDireccionMaps" class="col-md-6 form-group" th:classappend="${#fields.hasErrors('direccionMaps')}? ' has-danger'">
                   <label class="form-control-label" th:text="#{etiqueta.direccionmaps}"></label>
-                  <input name="nombre" class="form-control" th:field="*{direccionMaps}" required pattern="^[\w\s]{1,100}$" th:title="#{mensaje.direccionmaps.validacion}" />
+                  <input name="nombre" class="form-control" th:field="*{direccionMaps}" required  />
+                  <a  th:href="@{/informacion/mapa-google}"><small class="text-muted p-t-30 db" th:text="#{label.usuario.tutorial.googlemapa}"> </small></a>
                   <span class="form-control-feedback">
                     <span th:if="${#fields.hasErrors('direccionMaps')}" th:errors="*{direccionMaps}"></span>
                   </span>

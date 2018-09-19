@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -45,5 +47,7 @@ public class InmuebleDto {
     private String datosAdicionalesTelefono;
     private String datosAdicionalesCorreo;
     private String datosAdicionalesNumeroCuenta;
+    @JsonIgnore
+    private Integer totalSocios;
 
 }

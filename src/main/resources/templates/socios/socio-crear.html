@@ -74,10 +74,13 @@ function cargarInmueblesPorColonia() {
     							
                               
                               <form  name="crearSocioForm" action="#" th:action="@{/socio-crear}" th:object="${usuarioDto}" method="post"  role="form">
+                              			<div th:each="err : ${#fields.globalErrors()}"  id="mensajeErrorGlobal" class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span id="mensajeErrorGlobalSpan" th:text="${err}"></span>
+					                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+					                    </div>
                                         <div class="row">
                                             <div id="divUsername" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
-                                                <label class="form-control-label" for="username" th:text="#{etiqueta.socio.username}"></label>
-                                                <input type="text" th:field="*{username}" required class="form-control" id="username">
+                                                <label class="form-control-label" for="username" th:text="#{etiqueta.socio.username}" ></label>
+                                                <input type="text" th:field="*{username}" required class="form-control" id="username" pattern="^[\w\s]{6,25}$" th:title="#{mensaje.username.validacion}">
                                                 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 								              	</span>
@@ -132,7 +135,7 @@ function cargarInmueblesPorColonia() {
                                           	<div id="divRol" class="col-md-12 form-group" th:classappend="${#fields.hasErrors('rolSeleccionado')}? 'form-group has-danger':'form-group'">
 													 <label class="form-control-label" for="rolId" th:text="#{etiqueta.socio.rol}"></label>
 			                                        <select  name="rolId" class="form-control" th:field="*{rolSeleccionado}" required >	
-														<option th:each="rol : ${rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option>
+														<option th:each="rol : ${session.rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option>
 			                                        </select>
 			                                        <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('rolSeleccionado')}" th:errors="*{rolSeleccionado}"></span>
@@ -174,7 +177,7 @@ function cargarInmueblesPorColonia() {
                                                 <label class="form-control-label" for="rolId" th:text="#{etiqueta.socio.inmueble.zona}"></label>
 			                                        <select  name="zona" id="zona" class="form-control" th:field="*{zonaSeleccionado}" onchange="cargarColoniasPorZona();">	
 			                                        	 <option selected="selected" value="" th:text="#{etiqueta.seleccione}"></option>
-														 <option th:each="zona : ${zonasDto}" th:value="${{zona.codigo}}" th:text="${zona.nombre}"></option>
+														 <option th:each="zona : ${session.zonasDto}" th:value="${{zona.codigo}}" th:text="${zona.nombre}"></option>
 			                                        </select>
 			                                        <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('zonaSeleccionado')}" th:errors="*{zonaSeleccionado}"></span>
@@ -184,7 +187,7 @@ function cargarInmueblesPorColonia() {
                                                 <label class="form-control-label" for="colonia" th:text="#{etiqueta.socio.inmueble.colonia}"></label>
 			                                        <select  name="colonia" id="colonia" class="form-control" th:field="*{coloniaSeleccionado}" onchange="cargarInmueblesPorColonia();">
 			                                        	<option selected="selected" value="" th:text="#{etiqueta.seleccione}"></option>	
-														<option th:each="colonia : ${coloniasDto}" th:value="${{colonia.id}}" th:text="${colonia.nombre}"></option>
+														<option th:each="colonia : ${session.coloniasDto}" th:value="${{colonia.id}}" th:text="${colonia.nombre}"></option>
 			                                        </select>
 			                                        <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('coloniaSeleccionado')}" th:errors="*{coloniaSeleccionado}"></span>
@@ -194,7 +197,7 @@ function cargarInmueblesPorColonia() {
                                                 <label class="form-control-label" for="inmueble" th:text="#{etiqueta.socio.inmueble}"></label>
 			                                        <select name="inmueble" id="inmueble" class="form-control" th:field="*{inmuebleId}" required >	
 			                                         	<option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option>
-														<option th:each="inmueble : ${inmueblesDto}" th:value="${{inmueble.id}}" th:text="${inmueble.nombre}"></option>
+														<option th:each="inmueble : ${session.inmueblesDto}" th:value="${{inmueble.id}}" th:text="${inmueble.nombre}"></option>
 			                                        </select>
 			                                        <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('inmuebleId')}" th:errors="*{inmuebleId}"></span>

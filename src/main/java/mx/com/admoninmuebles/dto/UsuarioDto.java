@@ -4,6 +4,12 @@ import java.util.Collection;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 import lombok.Data;
 
 @Data
@@ -56,7 +62,9 @@ public class UsuarioDto {
     private String contrasenia;
     
     private String datosDomicilio;
-
+    
+    private MultipartFile imagen;
+    
     private Collection<RolDto> roles;
     private Long rolSeleccionado;
     private String zonaSeleccionado;

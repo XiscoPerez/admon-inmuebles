@@ -45,9 +45,8 @@
                             <div class="card-img-overlay card-inverse  social-profile d-flex justify-content-center">
                                 <div class="align-self-center "> 
                                 	<div th:switch="${usuarioDto.fotoUrl != null}"> 
-<!--                                 	  	<span th:case="${false}" class="round" style="width:100px; height: 100px"></span> -->
-                                	  	<img th:case="${false}" src="../../assets/images/users/1.jpg" class="img-circle" width="100">
-                                		<img th:case="${true}" src="../../assets/images/users/1.jpg" class="img-circle" width="100">
+                                		<span  th:case="${false}" class="round round-success" width="100">S</span>
+                                		<img th:case="${true}" th:src="${usuarioDto.fotoUrl}" class="img-circle" width="100">
 									</div>
                                 	
                                     <h4 class="card-title" th:text="${usuarioDto.nombre}"></h4>

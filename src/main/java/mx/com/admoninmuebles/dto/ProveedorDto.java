@@ -4,9 +4,11 @@ import java.util.Collection;
 
 import javax.validation.constraints.NotNull;
 
+import groovy.transform.EqualsAndHashCode;
 import lombok.Data;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class ProveedorDto extends UsuarioDto{
 	
     private String comentario;
@@ -19,6 +21,7 @@ public class ProveedorDto extends UsuarioDto{
     private String direccionNumeroInterior;
     private String direccionEntreCalles;
     private String direccionReferencias;
+    private String direccionId;
     
     private String direccionAsentamientoNombre;
     private String direccionAsentamientoCodigoPostal;
@@ -39,6 +42,7 @@ public class ProveedorDto extends UsuarioDto{
     private String datosAdicionalesTelefono;
     private String datosAdicionalesCorreo;
     private String datosAdicionalesNumeroCuenta;
+    private String datosAdicionalesId;
     
     private Collection<AreaServicioDto> areasServicio;
     private Collection<ComentarioDto> comentarios;

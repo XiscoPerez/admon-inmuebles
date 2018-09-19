@@ -3,6 +3,8 @@ package mx.com.admoninmuebles.service;
 import java.util.Collection;
 
 import mx.com.admoninmuebles.dto.InmuebleDto;
+import mx.com.admoninmuebles.dto.TicketDto;
+import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.persistence.model.Inmueble;
 
 public interface InmuebleService {
@@ -13,6 +15,10 @@ public interface InmuebleService {
     Collection<InmuebleDto> findByAdminBiId(Long id);
     
     Collection<InmuebleDto> findByDireccionAsentamientoId(Long id);
+    
+    Collection<UsuarioDto> findSociosByInmuebleId(Long id);
+    
+    Collection<TicketDto> findTicketsByInmuebleId(Long id);
 
     InmuebleDto findById(Long id);
 

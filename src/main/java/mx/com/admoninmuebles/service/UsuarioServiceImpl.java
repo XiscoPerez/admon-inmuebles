@@ -14,11 +14,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
+import mx.com.admoninmuebles.persistence.repository.InmuebleRepository;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
 import mx.com.admoninmuebles.persistence.repository.UsuarioRepository;
 import mx.com.admoninmuebles.security.SecurityUtils;
@@ -28,6 +30,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioRepository userRepository;
+    
+    @Autowired
+    private InmuebleRepository inmuebleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -57,13 +62,69 @@ public class UsuarioServiceImpl implements UsuarioService {
     
     @Override
     public UsuarioDto editarCuenta(final UsuarioDto userDto) {
-        Usuario usuario = modelMapper.map(userDto, Usuario.class);
+//        Usuario usuario = modelMapper.map(userDto, Usuario.class);
+        Optional<Usuario> usuarioOptional = userRepository.findById(userDto.getId());
+        Usuario usuario = usuarioOptional.get();
 
         Collection<Rol> roles = new ArrayList<>();
         roles.add(rolRepository.findById(userDto.getRolSeleccionado()).get());
         usuario.setRoles(roles);
-        Usuario usuarioCreado = userRepository.save(usuario);
-        return modelMapper.map(usuarioCreado, UsuarioDto.class);
+        usuario.setActivo(userDto.isActivo());
+        
+        if(userDto.getApellidoMaterno() != null && !userDto.getApellidoMaterno().isEmpty()) {
+        	usuario.setApellidoMaterno(userDto.getApellidoMaterno() );
+        }
+        if(userDto.getApellidoPaterno() != null && !userDto.getApellidoPaterno().isEmpty()) {
+        	usuario.setApellidoPaterno(userDto.getApellidoPaterno());
+        }
+        if(userDto.getCorreo() != null && !userDto.getCorreo().isEmpty()) {
+        	usuario.setCorreo(userDto.getCorreo());
+        }
+        if(userDto.getNombre() != null && !userDto.getNombre().isEmpty()) {
+        	usuario.setNombre(userDto.getNombre());
+        }
+        if(userDto.getFacebook() != null && !userDto.getFacebook().isEmpty()) {
+        	usuario.setFacebook(userDto.getFacebook());
+        }
+        if(userDto.getFotoUrl() != null && !userDto.getFotoUrl().isEmpty()) {
+        	usuario.setFotoUrl(userDto.getFotoUrl());
+        }
+        if(userDto.getGoogleMapsDir() != null && !userDto.getGoogleMapsDir().isEmpty()) {
+        	usuario.setGoogleMapsDir(userDto.getGoogleMapsDir());
+        }
+        if( userDto.getTwiter() != null && !userDto.getTwiter().isEmpty()) {
+        	usuario.setTwiter(userDto.getTwiter());
+        }
+        if(userDto.getYoutube() != null && !userDto.getYoutube().isEmpty()) {
+        	usuario.setYoutube(userDto.getYoutube());
+        }
+        if(userDto.getTelefonoAlternativo() != null && !userDto.getTelefonoAlternativo().isEmpty()) {
+        	usuario.setTelefonoAlternativo(userDto.getTelefonoAlternativo());
+        }
+        if(userDto.getTelefonoFijo() != null && !userDto.getTelefonoFijo().isEmpty()) {
+        	usuario.setTelefonoFijo(userDto.getTelefonoFijo());
+        }
+        if(userDto.getTelefonoMovil() != null && !userDto.getTelefonoMovil().isEmpty()) {
+        	usuario.setTelefonoMovil(userDto.getTelefonoMovil());
+        }
+        if(userDto.getTelefonoOficina() != null && !userDto.getTelefonoOficina().isEmpty()) {
+        	usuario.setTelefonoOficina(userDto.getTelefonoOficina());
+        }
+        if(userDto.getDatosDomicilio() != null && !userDto.getDatosDomicilio().isEmpty()) {
+        	usuario.setDatosDomicilio(userDto.getDatosDomicilio());
+        }
+        
+        if(roles.stream().anyMatch( rol -> RolConst.ROLE_REP_BI.equals(rol.getNombre()) || RolConst.ROLE_SOCIO_BI.equals(rol.getNombre()))) {
+        	
+        	if(userDto.getInmuebleId() != null) {
+        		usuario.setInmueble(inmuebleRepository.findById(userDto.getInmuebleId()).get());
+        	}
+        	
+        }
+        
+        
+        Usuario usuarioActualizado = userRepository.save(usuario);
+        return modelMapper.map(usuarioActualizado, UsuarioDto.class);
     }
 
 
@@ -78,19 +139,50 @@ public class UsuarioServiceImpl implements UsuarioService {
         Optional<Usuario> usuarioOptional = userRepository.findByUsername(usuarioAutenticado);
 
         Usuario usuario = usuarioOptional.get();
+        
+        if(userDto.getApellidoMaterno() != null && !userDto.getApellidoMaterno().isEmpty()) {
+        	usuario.setApellidoMaterno(userDto.getApellidoMaterno() );
+        }
+        if(userDto.getApellidoPaterno() != null && !userDto.getApellidoPaterno().isEmpty()) {
+        	usuario.setApellidoPaterno(userDto.getApellidoPaterno());
+        }
+        if(userDto.getCorreo() != null && !userDto.getCorreo().isEmpty()) {
+        	usuario.setCorreo(userDto.getCorreo());
+        }
+        if(userDto.getNombre() != null && !userDto.getNombre().isEmpty()) {
+        	usuario.setNombre(userDto.getNombre());
+        }
+        if(userDto.getFacebook() != null && !userDto.getFacebook().isEmpty()) {
+        	usuario.setFacebook(userDto.getFacebook());
+        }
+        if(userDto.getFotoUrl() != null && !userDto.getFotoUrl().isEmpty()) {
+        	usuario.setFotoUrl(userDto.getFotoUrl());
+        }
+        if(userDto.getGoogleMapsDir() != null && !userDto.getGoogleMapsDir().isEmpty()) {
+        	usuario.setGoogleMapsDir(userDto.getGoogleMapsDir());
+        }
+        if( userDto.getTwiter() != null && !userDto.getTwiter().isEmpty()) {
+        	usuario.setTwiter(userDto.getTwiter());
+        }
+        if(userDto.getYoutube() != null && !userDto.getYoutube().isEmpty()) {
+        	usuario.setYoutube(userDto.getYoutube());
+        }
+        if(userDto.getTelefonoAlternativo() != null && !userDto.getTelefonoAlternativo().isEmpty()) {
+        	usuario.setTelefonoAlternativo(userDto.getTelefonoAlternativo());
+        }
+        if(userDto.getTelefonoFijo() != null && !userDto.getTelefonoFijo().isEmpty()) {
+        	usuario.setTelefonoFijo(userDto.getTelefonoFijo());
+        }
+        if(userDto.getTelefonoMovil() != null && !userDto.getTelefonoMovil().isEmpty()) {
+        	usuario.setTelefonoMovil(userDto.getTelefonoMovil());
+        }
+        if(userDto.getTelefonoOficina() != null && !userDto.getTelefonoOficina().isEmpty()) {
+        	usuario.setTelefonoOficina(userDto.getTelefonoOficina());
+        }
+        
 
-        usuario.setApellidoMaterno(userDto.getApellidoMaterno());
-        usuario.setApellidoPaterno(userDto.getApellidoPaterno());
-        usuario.setNombre(userDto.getNombre());
-        usuario.setCorreo(userDto.getCorreo());
-        usuario.setFacebook(userDto.getFacebook());
-        usuario.setFotoUrl(userDto.getFotoUrl());
-        usuario.setGoogleMapsDir(userDto.getGoogleMapsDir());
-        usuario.setTwiter(userDto.getTwiter());
-        usuario.setYoutube(userDto.getYoutube());
-
-        Usuario usuarioCreado = userRepository.save(usuario);
-        return modelMapper.map(usuarioCreado, UsuarioDto.class);
+        Usuario usuarioActualizado = userRepository.save(usuario);
+        return modelMapper.map(usuarioActualizado, UsuarioDto.class);
     }
 
     @Override
@@ -162,7 +254,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         if (!usuarioOptional.isPresent()) {
-            throw new UsernameNotFoundException("No se econtro el usuario");
+            throw new UsernameNotFoundException("usuario.error.noencontrado");
         }
 
         return modelMapper.map(usuarioOptional.get(), UsuarioDto.class);

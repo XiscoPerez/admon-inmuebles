@@ -14,18 +14,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.ColoniaDto;
+import mx.com.admoninmuebles.dto.InmuebleDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.dto.ZonaDto;
+import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
 import mx.com.admoninmuebles.security.SecurityUtils;
 import mx.com.admoninmuebles.service.SocioService;
@@ -38,6 +42,9 @@ import mx.com.admoninmuebles.service.ZonaService;
 public class SocioController {
 	
 	Logger logger = LoggerFactory.getLogger(SocioController.class);
+	
+    @Autowired
+    private MessageSource messages;
 	
     @Autowired
     private RolService rolService;
@@ -59,6 +66,32 @@ public class SocioController {
 	
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+    
+    @PreAuthorize("hasAnyRole('SOCIO_BI')")
+    @GetMapping(value = "/sociobi/inicio")
+    public String inicioSocioBi(final Model model) {
+    	Long socioBiLogueadoId = SecurityUtils.getCurrentUserId().get();
+    	UsuarioDto usuarioDto = usuarioService.findById(socioBiLogueadoId);
+    	model.addAttribute("socioDto", usuarioDto);
+        model.addAttribute("inmuebleDto", inmuebleService.findById(usuarioDto.getInmuebleId()));
+        return "sociobi/inicio";
+    }
+    
+    @PreAuthorize("hasAnyRole('REP_BI')")
+    @GetMapping(value = "/repbi/inicio")
+    public String inicioRepBi(final Model model) {
+    	Long socioBiLogueadoId = SecurityUtils.getCurrentUserId().get();
+    	UsuarioDto usuarioDto = usuarioService.findById(socioBiLogueadoId);
+    	logger.info("REP NI::::: " + usuarioDto == null ? "NADA" : usuarioDto.toString());
+    	
+    	InmuebleDto inmuebleDto = inmuebleService.findById(usuarioDto.getInmuebleId());
+    	
+    	model.addAttribute("repDto", usuarioDto);
+        model.addAttribute("inmuebleDto", inmuebleDto);
+        model.addAttribute("socios", inmuebleService.findSociosByInmuebleId(inmuebleDto.getId()));
+        model.addAttribute("tickets", inmuebleService.findTicketsByInmuebleId(inmuebleDto.getId()));
+        return "repbi/inicio";
+    }
 
 	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
 	@GetMapping(value = "/socios")
@@ -69,18 +102,18 @@ public class SocioController {
 	
 	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/socio-crear")
-    public String crearSocioInit(final UsuarioDto usuarioDto, final Model model, final HttpServletRequest request) {
-		model.addAttribute("rolesDto", rolService.getRolesSociosRepresentantes());
+    public String crearSocioInit(final UsuarioDto usuarioDto, final Model model, final HttpServletRequest request, final HttpSession session) {
+		session.setAttribute("rolesDto", rolService.getRolesSociosRepresentantes());
 		Optional<Long> optId = SecurityUtils.getCurrentUserId();
         if (optId.isPresent()) {
             if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP)) {
-                model.addAttribute("zonasDto", zonaService.findAll());
+                session.setAttribute("zonasDto", zonaService.findAll());
                 
             } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
-            	model.addAttribute("zonasDto", zonaService.findByAdminZonaId(optId.get()));
+            	session.setAttribute("zonasDto", zonaService.findByAdminZonaId(optId.get()));
             
             } else if (request.isUserInRole(RolConst.ROLE_ADMIN_BI)) {
-            	model.addAttribute("inmueblesDto", inmuebleService.findByAdminBiId(optId.get()));
+            	session.setAttribute("inmueblesDto", inmuebleService.findByAdminBiId(optId.get()));
             }
         }
         return "socios/socio-crear";
@@ -94,38 +127,41 @@ public class SocioController {
             return "socios/socio-crear";
         }
         
-        UsuarioDto socioNuevo = (UsuarioDto) usuarioService.crearCuenta(usuarioDto);
-        eventPublisher.publishEvent(new OnRegistroCompletoEvent(socioNuevo, request.getLocale(), getAppUrl(request)));
-        return "redirect:/socios";
+        try {
+	        UsuarioDto socioNuevo = (UsuarioDto) usuarioService.crearCuenta(usuarioDto);
+	        eventPublisher.publishEvent(new OnRegistroCompletoEvent(socioNuevo, request.getLocale(), getAppUrl(request)));
+	        return "redirect:/socios";
+        }catch(BusinessException e) {
+   		 bindingResult.addError(new ObjectError(messages.getMessage(e.getMessage(), null, locale), messages.getMessage(e.getMessage(), null, locale)));
+   		 return "socios/socio-crear";
+   	 	}
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/socio-detalle/{id}")
     public String buscarsocioPorId(final @PathVariable long id, final Model model) {
-    	UsuarioDto usuarioDto = usuarioService.findById(id);
         model.addAttribute("usuarioDto", socioService.buscarSocioPorId(id));
-        model.addAttribute("usuarioDto", usuarioDto);
         return "socios/socio-detalle";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/socio-editar/{id}")
-    public String editarSocio(final @PathVariable long id, final Model model, final HttpServletRequest request) {
+    public String editarSocio(final @PathVariable long id, final Model model, final HttpServletRequest request, final HttpSession session) {
     	UsuarioDto usuarioDto = usuarioService.findById(id);
     	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
     	usuarioDto.setRolSeleccionado( rolesUsuario.get(0) );
         model.addAttribute("usuarioDto", usuarioDto);
-        model.addAttribute("rolesDto", rolService.getRolesSociosRepresentantes());
+        session.setAttribute("rolesDto", rolService.getRolesSociosRepresentantes());
         
         Optional<Long> optId = SecurityUtils.getCurrentUserId();
         if (optId.isPresent()) {
             if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP) || request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
             	Collection<ZonaDto> zonasDto = request.isUserInRole(RolConst.ROLE_ADMIN_CORP) ? zonaService.findAll() : zonaService.findByAdminZonaId(optId.get());
-                model.addAttribute("zonasDto", zonasDto);
-           		model.addAttribute("coloniasDto", coloniaService.findByZonaCodigo(usuarioDto.getInmuebleDireccionAsentamientoZonaCodigo()));
-       			model.addAttribute("inmueblesDto", inmuebleService.findByDireccionAsentamientoId(usuarioDto.getInmuebleDireccionAsentamientoId()));
+            	session.setAttribute("zonasDto", zonasDto);
+            	session.setAttribute("coloniasDto", coloniaService.findByZonaCodigo(usuarioDto.getInmuebleDireccionAsentamientoZonaCodigo()));
+            	session.setAttribute("inmueblesDto", inmuebleService.findByDireccionAsentamientoId(usuarioDto.getInmuebleDireccionAsentamientoId()));
             } else if (request.isUserInRole(RolConst.ROLE_ADMIN_BI)) {
-            	model.addAttribute("inmueblesDto", inmuebleService.findByAdminBiId(optId.get()));
+            	session.setAttribute("inmueblesDto", inmuebleService.findByAdminBiId(optId.get()));
             }
         }
         
@@ -135,18 +171,18 @@ public class SocioController {
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @PostMapping(value = "/socio-editar")
-    public String editarInmueble(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
+    public String editarSocio(final Locale locale, final Model model, @Valid final UsuarioDto usuarioDto, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "socios/socio-editar";
         }
 
-        usuarioService.crearCuenta(usuarioDto);
+        usuarioService.editarCuenta(usuarioDto);
         return "redirect:/socios";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/socio-eliminar/{id}")
-    public String eliminarInmueble(final @PathVariable Long id) {
+    public String eliminarSocio(final @PathVariable Long id) {
     	usuarioService.deleteById(id);
         return "redirect:/socios";
     }

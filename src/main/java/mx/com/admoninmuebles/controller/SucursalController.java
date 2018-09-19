@@ -51,7 +51,7 @@ public class SucursalController {
     @PostMapping(value = "/catalogos/sucursal-editar")
     public String editarSucursal(final Locale locale, final Model model, @Valid final SucursalDto sucursalDto, final BindingResult bindingResult) {
     	if (bindingResult.hasErrors()) {
-            return "catalogos/inmueble-editar";
+            return "catalogos/sucursal-edicion";
         }
     	sucursalService.save(sucursalDto);
         return "redirect:/catalogos/sucursales";

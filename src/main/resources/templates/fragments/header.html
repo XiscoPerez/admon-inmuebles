@@ -6,7 +6,7 @@
 		<!-- Logo -->
 		<!-- ============================================================== -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="inicio"> <!-- Logo icon --> <b>
+			<a class="navbar-brand" href="/inicio"> <!-- Logo icon --> <b>
 					<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 					<!-- Dark Logo icon -->
 					<img th:src="@{/images/logo-icon.png}" alt="homepage" class="dark-logo" />
@@ -130,6 +130,15 @@
 			<!-- User profile and search -->
 			<!-- ============================================================== -->
 			<ul class="navbar-nav my-lg-0">
+				<li class="nav-item dropdown">
+                    <a class="nav-link"  target="_blank" href="https://www.facebook.com/"> <i class="fa fa-facebook"></i> </a>
+                </li>
+                <li class="nav-item dropdown">
+					 <a class="nav-link"  target="_blank" href="https://twitter.com/"> <i class="fa fa-twitter"></i> </a>
+                </li>
+                <li class="nav-item dropdown">
+				 	 <a class="nav-link"  target="_blank" href="https://www.youtube.com/"> <i class="fa fa-youtube"></i> </a>
+                </li>
 				<li sec:authorize="isAuthenticated()" class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> <img th:src="@{/assets/images/users/1.jpg}" alt="user" class="profile-pic" />
 				</a>
@@ -143,11 +152,11 @@
 									<div class="u-text">
 										<h4 sec:authentication="name"></h4><br/>
 <!-- 										<p class="text-muted" sec:authentication="principal"></p> -->
-										<a th:href="@{/usuarios/perfil}" class="btn btn-rounded btn-danger btn-sm" th:text="#{header.etiqueta.miperfil}"></a>
+										<a th:href="@{/usuarios/perfil}" class="btn btn-rounded btn-danger btn-sm" th:text="#{etiqueta.header.miperfil}"></a>
 									</div>
 								</div>
 							</li>
-							<li><a th:href="@{/logout}"> <i class="fa fa-power-off"></i> <span th:text="#{etiqueta.salir}"></span></a></li>
+							<li><a th:href="@{/logout}"> <i class="fa fa-power-off"></i> <span th:text="#{etiqueta.header.salir}"></span></a></li>
 						</ul>
 					</div></li>
 				<li class="nav-item hidden-sm-down"><th:block th:switch="__${#locale}__">
@@ -155,6 +164,7 @@
 						<a class="nav-link text-muted" aria-expanded="false" th:case="en" th:href="@{?lang=es_MX}"><i class="flag-icon flag-icon-us"></i></a>
 					</th:block>
 				</li>
+				
 
 
 			</ul>
