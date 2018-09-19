@@ -1,7 +1,9 @@
 package mx.com.admoninmuebles.controller;
 
 import java.util.Locale;
+import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.NotificacionDto;
+import mx.com.admoninmuebles.security.SecurityUtils;
+import mx.com.admoninmuebles.service.InmuebleService;
 import mx.com.admoninmuebles.service.NotificacionService;
 
 @Controller
@@ -20,47 +25,65 @@ public class NotificacionController {
 
     @Autowired
     private NotificacionService notificacionService;
-
-    @GetMapping(value = "/crearNotificacion")
-    public String showForm(final NotificacionDto notificacionDto) {
-        return "crearNotificacion";
-    }
-
-    @PostMapping(value = "/crearNotificacion")
-    public String crearNotificacion(final Locale locale, final Model model, @Valid final NotificacionDto notificacionDto, final BindingResult bindingResult) {
-        notificacionService.save(notificacionDto);
-        return "redirect:/crearNotificacion";
+    
+	@Autowired
+	private InmuebleService inmuebleService;
+	
+    @GetMapping(value = "/notificaciones")
+    public String showNotificaciones(final Model model) {
+    	model.addAttribute("notificacionSeleccionadaId", null);
+    	return "notificaciones/notificaciones";
     }
     
-    @GetMapping(value = "/catalogos/notificacion")
-    public String init(final NotificacionDto notificacionDto, Model model) {
+    @GetMapping(value = "/notificaciones/{id}")
+    public String showNotificacion(final Model model, final @PathVariable long id) {
+    	model.addAttribute("notificacionSeleccionadaId", id);
+    	return "notificaciones/notificaciones";
+    }
+
+    
+    @GetMapping(value = "/catalogos/notificaciones")
+    public String init(Model model) {
     	
     	model.addAttribute("notificaciones", notificacionService.findAll());
-    	return "catalogos/notificacion";
+    	return "catalogos/notificaciones";
     }
     
-    @PostMapping(value = "/catalogos/notificacion")
+    @GetMapping(value = "/catalogos/notificacion-crear")
+    public String guardarNotificacion(final NotificacionDto notificacionDto, Model model, final HttpSession session) {
+    	Optional<Long> optId = SecurityUtils.getCurrentUserId();
+        if (optId.isPresent()) {
+            session.setAttribute("inmueblesDto", inmuebleService.findByAdminBiId(optId.get()));
+        }
+        return "catalogos/notificacion-crear";
+    }
+    
+    @PostMapping(value = "/catalogos/notificacion-crear")
     public String guardarNotificacion(final Locale locale, final Model model, @Valid final NotificacionDto notificacionDto, final BindingResult bindingResult) {
     	notificacionService.save(notificacionDto);
-        return "redirect:/catalogos/notificacion";
+        return "redirect:/catalogos/notificaciones";
     }
     
     @GetMapping(value = "/catalogos/notificacion-editar/{idNotificacion}")
-    public String buscarNotificacionPorId(final @PathVariable long idNotificacion, Model model) {
+    public String buscarNotificacionPorId(final @PathVariable long idNotificacion, Model model, final HttpSession session) {
     	model.addAttribute("notificacionDto", notificacionService.findById(idNotificacion));
+    	Optional<Long> optId = SecurityUtils.getCurrentUserId();
+        if (optId.isPresent()) {
+            session.setAttribute("inmueblesDto", inmuebleService.findByAdminBiId(optId.get()));
+        }
         return "catalogos/notificacion-edicion";
     }
     
     @PostMapping(value = "/catalogos/notificacion-editar")
     public String editarNotificacion(final Locale locale, final Model model, @Valid final NotificacionDto notificacionDto, final BindingResult bindingResult) {
     	notificacionService.save(notificacionDto);
-        return "redirect:/catalogos/notificacion";
+        return "redirect:/catalogos/notificaciones";
     }
     
     @GetMapping(value = "/catalogos/notificacion-eliminar/{idNotificacion}")
     public String eliminarNotificacion(final @PathVariable long idNotificacion) {
     	notificacionService.deleteById(idNotificacion);;
-        return "redirect:/catalogos/notificacion";
+        return "redirect:/catalogos/notificaciones";
     }
 
 }

@@ -2549,3 +2549,4 @@ insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modif
 insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (18, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
 insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (19, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
 insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (20, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
+

@@ -3,6 +3,9 @@ iframe {
  height: auto;
 }
 
+.fondo-sombreado {
+	background: #f2f7f8;
+}
 
 .spacer {
     padding: 90px 0px;

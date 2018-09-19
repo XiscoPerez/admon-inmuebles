@@ -9,5 +9,6 @@ public interface NotificacionService {
     Notificacion save(NotificacionDto notificacionDto);
     Collection<NotificacionDto> findAll();
     NotificacionDto findById(Long idNotificacion);
+    Collection<NotificacionDto> findByInmuebleId(Long id);
     void deleteById(Long idNotificacion);
 }

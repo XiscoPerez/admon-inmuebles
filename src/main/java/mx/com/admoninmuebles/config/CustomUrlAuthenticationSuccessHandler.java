@@ -59,7 +59,6 @@ public class CustomUrlAuthenticationSuccessHandler implements AuthenticationSucc
         boolean isRepBi = false;
         boolean isSocioBi = false;
         boolean isProveedor = false;
-        
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
         	
