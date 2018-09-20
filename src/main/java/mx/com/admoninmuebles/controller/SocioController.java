@@ -35,6 +35,7 @@ import mx.com.admoninmuebles.security.SecurityUtils;
 import mx.com.admoninmuebles.service.SocioService;
 import mx.com.admoninmuebles.service.ColoniaService;
 import mx.com.admoninmuebles.service.InmuebleService;
+import mx.com.admoninmuebles.service.NotificacionService;
 import mx.com.admoninmuebles.service.RolService;
 import mx.com.admoninmuebles.service.UsuarioService;
 import mx.com.admoninmuebles.service.ZonaService;
@@ -64,16 +65,20 @@ public class SocioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private NotificacionService notificacionService;
+	
     @Autowired
     private ApplicationEventPublisher eventPublisher;
     
     @PreAuthorize("hasAnyRole('SOCIO_BI')")
     @GetMapping(value = "/sociobi/inicio")
-    public String inicioSocioBi(final Model model) {
+    public String inicioSocioBi(final Model model, final HttpSession session) {
     	Long socioBiLogueadoId = SecurityUtils.getCurrentUserId().get();
     	UsuarioDto usuarioDto = usuarioService.findById(socioBiLogueadoId);
     	model.addAttribute("socioDto", usuarioDto);
         model.addAttribute("inmuebleDto", inmuebleService.findById(usuarioDto.getInmuebleId()));
+        session.setAttribute("notificaciones", notificacionService.findByInmuebleId(usuarioDto.getInmuebleId()));
         return "sociobi/inicio";
     }
     
