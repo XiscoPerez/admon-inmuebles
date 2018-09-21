@@ -3826,7 +3826,7 @@ User card page
 
 .el-element-overlay .el-card-item {
   position: relative;
-  padding-bottom: 25px; }
+  padding-bottom: 5px; }
   .el-element-overlay .el-card-item .el-card-avatar {
     margin-bottom: 15px; }
   .el-element-overlay .el-card-item .el-card-content {

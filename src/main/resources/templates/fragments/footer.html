@@ -1,4 +1,4 @@
-
+<html xmlns:th="http://www.thymeleaf.org">
 <footer class="footer footer-fixed text-center font-weight-normal footer-font-size" style="position:fixed"> 
 
 	<div class="row d-flex align-items-center">
@@ -9,15 +9,43 @@
 			<span class="text-white">CDMX: 01 (55) 4431 4417 </span>
 		</div>
 		<div class="col-lg-2">
-			<span class="text-white">Ags: 449 365 2870  </span>
+			<span class="text-white">Aguascalientes: 449 365 2870  </span>
 		</div>
 		<div class="col-lg-2">
-			<span class="text-white">Cancun: Por definir </span>
+			<span class="text-white">Cancún: Por definir </span>
 		</div>
 		<div class="col-lg-2">
-			<span class="text-white">Qro: 442 114 6052 </span>
+			<span class="text-white">Querétaro: 442 114 6052 </span>
 		</div>
+		<div class="col-lg-2">
+			<a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" ><span class="text-white" th:text="#{footer.avisoprivacidad}"> </span></a>
+		</div>
+		
+
 
 	</div>
+              <!-- sample modal content -->
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Overflowing text to show scroll behavior</h4>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+	
 
 </footer>
