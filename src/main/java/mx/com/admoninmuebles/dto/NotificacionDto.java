@@ -8,8 +8,10 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import mx.com.admoninmuebles.validation.ComparacionFechas;
 
 @Data
+@ComparacionFechas
 public class NotificacionDto {
 
     private Long id;

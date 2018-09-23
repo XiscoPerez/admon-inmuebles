@@ -28,12 +28,12 @@ public class Direccion extends EntidadBase {
 
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = true)
     private String calle;
 
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "numero_exterior", length = 50, nullable = false)
+    @Column(name = "numero_exterior", length = 50, nullable = true)
     private String numeroExterior;
 
     @Size(min = 1, max = 50)
