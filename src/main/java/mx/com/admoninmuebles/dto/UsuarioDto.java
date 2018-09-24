@@ -23,7 +23,7 @@ public class UsuarioDto {
     @NotNull
     private String nombre;
 
-    @NotNull
+//    @NotNull
     private String apellidoPaterno;
 
     private String apellidoMaterno;

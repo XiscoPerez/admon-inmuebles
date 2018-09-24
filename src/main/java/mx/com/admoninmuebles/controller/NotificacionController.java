@@ -60,6 +60,9 @@ public class NotificacionController {
     
     @PostMapping(value = "/catalogos/notificacion-crear")
     public String guardarNotificacion(final Locale locale, final Model model, @Valid final NotificacionDto notificacionDto, final BindingResult bindingResult) {
+    	 if (bindingResult.hasErrors()) {
+             return "catalogos/notificacion-crear";
+         }
     	notificacionService.save(notificacionDto);
         return "redirect:/catalogos/notificaciones";
     }

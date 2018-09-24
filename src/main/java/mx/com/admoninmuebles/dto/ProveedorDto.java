@@ -13,10 +13,10 @@ public class ProveedorDto extends UsuarioDto{
 	
     private String comentario;
     private String codigoPostal;
-    @NotNull
+//    @NotNull
     private String direccionCalle;
     
-    @NotNull
+//    @NotNull
     private String direccionNumeroExterior;
     private String direccionNumeroInterior;
     private String direccionEntreCalles;
@@ -31,13 +31,13 @@ public class ProveedorDto extends UsuarioDto{
     @NotNull
     private Long direccionAsentamientoId;
     
-    @NotNull
+//    @NotNull
     private String datosAdicionalesNombreRepresentante;
     
-    @NotNull
+//    @NotNull
     private String datosAdicionalesRazonSocial;
     
-    @NotNull
+//    @NotNull
     private String datosAdicionalesRfc;
     private String datosAdicionalesTelefono;
     private String datosAdicionalesCorreo;

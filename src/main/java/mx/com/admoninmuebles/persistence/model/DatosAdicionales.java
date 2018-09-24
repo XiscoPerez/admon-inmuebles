@@ -26,17 +26,17 @@ public class DatosAdicionales extends EntidadBase {
 
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(length = 200, nullable = false)
+    @Column(length = 200, nullable = true)
     private String nombreRepresentante;
 
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(length = 200, nullable = false)
+    @Column(length = 200, nullable = true)
     private String razonSocial;
 
     @NotNull
     @Size(min = 1, max = 13)
-    @Column(length = 13, nullable = false)
+    @Column(length = 13, nullable = true)
     private String rfc;
 
     @Size(min = 0, max = 50)
