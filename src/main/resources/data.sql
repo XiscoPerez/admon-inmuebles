@@ -2529,24 +2529,20 @@ insert into tipos_asentamientos values (47,'Zona militar');
 insert into tipos_asentamientos values (48,'Rancho');
 --insert into asentamientos values (1,'01000','San Ángel',9010,9, null);
 
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (1, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (2, CURRENT_TIMESTAMP, null, 0, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (3, CURRENT_TIMESTAMP, null, 0, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (4, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (5, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (6, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (7, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (8, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (9, CURRENT_TIMESTAMP, null, 0, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (10, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (11, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (12, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (13, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (14, CURRENT_TIMESTAMP, null, 0, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (15, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (16, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (17, CURRENT_TIMESTAMP, null, 0, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (18, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (19, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
-insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk, atendido, correo, inmueble, mensaje, nombre, telefono) values (20, CURRENT_TIMESTAMP, null, 1, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777);
+--insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk,  correo, inmueble, mensaje, nombre, telefono, id_mensajes_contacto_estatus_fk) values (1, CURRENT_TIMESTAMP, null, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777, 1);
+--insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk,  correo, inmueble, mensaje, nombre, telefono, id_mensajes_contacto_estatus_fk) values (2, CURRENT_TIMESTAMP, null, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777, 1);
+--insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk,  correo, inmueble, mensaje, nombre, telefono, id_mensajes_contacto_estatus_fk) values (3, CURRENT_TIMESTAMP, null,  'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777, 1);
+--insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk,  correo, inmueble, mensaje, nombre, telefono, id_mensajes_contacto_estatus_fk) values (4, CURRENT_TIMESTAMP, null,  'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777, 1);
+--insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk,  correo, inmueble, mensaje, nombre, telefono, id_mensajes_contacto_estatus_fk) values (5, CURRENT_TIMESTAMP, null, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777, 1);
+
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre) values(1, 'No Atendido');
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre) values(2, 'En Proceso');
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre) values(3, 'Atendido');
+
+insert into sectores (id_sector, nombre) values(1, 'Condiminios');
+insert into sectores (id_sector, nombre) values(2, 'Corporativos');
+insert into sectores (id_sector, nombre) values(3, 'Centros Comerciales');
+insert into sectores (id_sector, nombre) values(4, 'Hoteles');
+insert into sectores (id_sector, nombre) values(5, 'Almacenes');
+insert into sectores (id_sector, nombre) values(6, 'Inmuebles');
 

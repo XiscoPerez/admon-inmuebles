@@ -60,14 +60,14 @@ public class ProveedorController {
 		return "proveedores/inicio";
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
 	@GetMapping(value = "/proveedores")
 	public String init(final Model model) {
 		model.addAttribute("proveedores", proveedorService.getProveedores());
 		return "proveedores/proveedores";
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @GetMapping(value = "/proveedor-crear")
     public String crearProveedorInit(final ProveedorDto proveedorDto, final Model model, final HttpSession session) {
 //		 model.addAttribute("areasServicio", areaServicioService.findAll());
@@ -75,7 +75,7 @@ public class ProveedorController {
         return "proveedores/proveedor-crear";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @PostMapping(value = "/proveedor-crear")
     public String crearProveedor(final HttpServletRequest request, final Locale locale, final Model model, @Valid final ProveedorDto proveedorDto, final BindingResult bindingResult) {
     	logger.info(proveedorDto.toString());
@@ -93,7 +93,7 @@ public class ProveedorController {
    	 }
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @GetMapping(value = "/proveedor-detalle/{id}")
     public String buscarProveedorPorId(final @PathVariable long id, final Model model) {
     	ProveedorDto proveedorDto = proveedorService.buscarProveedorPorId(id);
@@ -106,7 +106,7 @@ public class ProveedorController {
         return "proveedores/proveedor-detalle";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @GetMapping(value = "/proveedor-editar/{id}")
     public String editarProveedor(final @PathVariable long id, final Model model, final HttpSession session) {
     	ProveedorDto proveedorDto = proveedorService.buscarProveedorPorId(id);
@@ -117,7 +117,7 @@ public class ProveedorController {
         return "proveedores/proveedor-editar";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @PostMapping(value = "/proveedor-editar")
     public String editarProveedor(final Locale locale, final Model model, @Valid final ProveedorDto proveedorDto, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -128,7 +128,7 @@ public class ProveedorController {
         return "redirect:/proveedores";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @GetMapping(value = "/proveedor-eliminar/{id}")
     public String eliminarProveedor(final @PathVariable Long id) {
     	proveedorService.eliminar(id);

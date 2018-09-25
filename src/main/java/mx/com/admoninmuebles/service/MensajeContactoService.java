@@ -7,6 +7,7 @@ import mx.com.admoninmuebles.dto.MensajeContactoDto;
 public interface MensajeContactoService {
 	
     MensajeContactoDto save(MensajeContactoDto mensajeContactoDto);
+    MensajeContactoDto update(final MensajeContactoDto mensajeContactoDto);
     MensajeContactoDto findById(Long id);
     Collection<MensajeContactoDto> findAll();
     void deleteById(Long id);

@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         // @formatter:off
         http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().and()
-            .authorizeRequests().antMatchers("/assets/**").permitAll().and()
+            .authorizeRequests().antMatchers("/assets/**", "/files/**").permitAll().and()
             .authorizeRequests()
             .antMatchers("/inicio*", "/login*", "/contacto*").permitAll()
             .antMatchers("/informacion/**").permitAll()
