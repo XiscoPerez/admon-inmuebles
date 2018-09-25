@@ -29,29 +29,29 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Preguntas Frecuentes</h4>
-                                <h6 class="card-subtitle">Catálogo de Preguntas Frecuentes</h6>
+                                <h4 class="card-title" th:text="#{preguntafrecuentes.titulo}"></h4>
+                                <h6 class="card-subtitle" th:text="#{preguntafrecuentes.titulo.catalogo}"></h6>
                                 <div class="table-responsive">
                                     <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                                         <thead>
                                             <tr>
-                                                <th>ID #</th>
-                                                <th>pregunta</th>
-                                                <th>respuesta</th>
-                                                <th>Action</th>
+                                                <th>#</th>
+                                                <th th:text="#{preguntafrecuentes.tabla.pregunta}"></th>
+                                                <th th:text="#{preguntafrecuentes.tabla.respuesta}"></th>
+                                                <th th:text="#{preguntafrecuentes.tabla.accion}"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         	<th:block th:each="preguntaFrecuente : ${preguntasFrecuentes}">
 	                                            <tr>
-	                                                <td th:text="${preguntaFrecuente.idPreguntaFrecuente}"></td>
+	                                                <td th:text="${preguntaFrecuente.id}"></td>
 	                                                <td th:text="${preguntaFrecuente.pregunta}"></td>
 	                                                <td th:text="${preguntaFrecuente.respuesta}"></td>
 	             
 	                                                <td>
 <!-- 	                                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="modal" data-target=".bs-example-modal-sm" data-original-title="Eliminar"><i class="fa fa-close text-danger" aria-hidden="true"></i></button> -->
-	                                                	<a th:href="${'/catalogos/preguntas-frecuentes-editar/'  + preguntaFrecuente.idPreguntaFrecuente}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a>
-	                                                	<a th:href="${'/catalogos/preguntas-frecuentes-eliminar/'  + preguntaFrecuente.idPreguntaFrecuente}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
+	                                                	<a th:href="${'/catalogos/preguntas-frecuentes-editar/'  + preguntaFrecuente.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a>
+	                                                	<a th:href="${'/catalogos/preguntas-frecuentes-eliminar/'  + preguntaFrecuente.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
 	                                                </td>
 	                                            </tr>
                                              </th:block>

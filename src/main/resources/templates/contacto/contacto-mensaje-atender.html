@@ -12,10 +12,10 @@
 
 	$(document).ready(function() {
 	  $('.dropify').dropify();
-	  addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
-	  addControlState(document.getElementById('divCorreo'),/*[[#{mensaje.correo.requerido}]]*/);
-	  addControlState(document.getElementById('divTelefono'),/*[[#{mensaje.telefono.requerido}]]*/);
-	  addControlState(document.getElementById('divMensaje'),/*[[#{mensaje.mensaje.requerido}]]*/);
+// 	  addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
+// 	  addControlState(document.getElementById('divCorreo'),/*[[#{mensaje.correo.requerido}]]*/);
+// 	  addControlState(document.getElementById('divTelefono'),/*[[#{mensaje.telefono.requerido}]]*/);
+	  addControlState(document.getElementById('divmensajeContactoEstatus'),/*[[#{mensaje.mensajecontactoestatus.requerido}]]*/);
 	});
 /*]]>*/
 </script>
@@ -41,6 +41,7 @@
                                <h6 class="card-subtitle"><span th:text="#{contacto.titulo.atender}"></span></h6>
     							<form name="contactoForm" action="#" th:action="@{/contacto/mensaje-atender}" th:object="${mensajeContactoDto}" method="post">
     								<input type="hidden" class="form-control" th:field="*{id}"/>
+    								<input type="hidden" class="form-control" th:field="*{sectorId}">
 									<div th:if="${message}"  class="alert alert-info  m-t-20"> <i class="ti-user"></i>  <span th:text="${message}"></span>
 			                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
 			                        </div>
@@ -61,9 +62,14 @@
 								              	</span>
 											</div>
 										</div>
+<!-- 										<div class="col-lg-12"> -->
+<!-- 											<div class="form-group m-t-10"> -->
+<!-- 												<input type="text" class="form-control" th:readonly="true" id="inmueble" th:field="*{inmueble}"  th:placeholder="#{contacto.inmueble}"> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
 										<div class="col-lg-12">
 											<div class="form-group m-t-10">
-												<input type="text" class="form-control" th:readonly="true" id="inmueble" th:field="*{inmueble}"  th:placeholder="#{contacto.inmueble}">
+												<input type="text" class="form-control" th:readonly="true" id="sector" th:field="*{sectorNombre}"  th:placeholder="#{contacto.sector}">
 											</div>
 										</div>
 										<div class="col-lg-12">
@@ -82,14 +88,24 @@
 								              	</span>
 											</div>
 										</div>
-										<div class="col-md-12 m-b-20">
-	                                    	<label class="custom-control custom-checkbox">
-                                               <input type="checkbox" class="custom-control-input" th:field="*{atendido}">
-                                               <span class="custom-control-label" th:text="#{label.contacto.mensaje.atendido}"></span>
-                                           </label>
-                                          </div>
+										<div id="divmensajeContactoEstatus" th:class="${#fields.hasErrors('mensajeContactoEstatusId')}? 'form-group has-danger':'form-group'">
+	                                           <div class="col-md-12 m-b-20">
+		 		                                   <label class="form-control-label" for="mensajeContactoEstatus" th:text="#{etiqueta.contacto.estatusmensaje}"></label>
+			                                        <select name="mensajeContactoEstatus" id="mensajeContactoEstatus" class="form-control" th:field="*{mensajeContactoEstatusId}" required >	
+<!-- 			                                         	<option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option> -->
+														<option th:each="mensajeContactoEstatus : ${session.mensajesContactoEstatusDto}" 
+																th:selected="${mensajeContactoDto.mensajeContactoEstatusId}"
+																th:value="${{mensajeContactoEstatus.id}}" 
+																th:text="${mensajeContactoEstatus.nombre}"></option>
+			                                        </select>
+			                                        <span class="form-control-feedback">
+										                <span th:if="${#fields.hasErrors('mensajeContactoEstatusId')}" th:errors="mensajeContactoEstatusId"></span>
+										            </span>
+			                                  </div>
+		                                  </div>
 										<div class="col-lg-12">
 											 <button type="submit" class="btn btn-info-gesco" th:text="#{etiqueta.enviar}"></button>
+											 <a th:href="@{/contacto/mensajes}" class="btn btn-secondary waves-effect" th:text="#{etiqueta.regresar}"></a>
 										</div>
 									</div>
 								</form>

@@ -1,10 +1,13 @@
 package mx.com.admoninmuebles.persistence.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,10 +32,6 @@ public class MensajeContacto extends EntidadBase {
     @Column(length = 100, nullable = false)
     private String nombre;
     
-    @Size(min = 1, max = 100)
-    @Column(length = 100, nullable = true)
-    private String inmueble;
-
     @NotNull
     @Size(min = 1, max = 50)
     @Column(length = 50, nullable = false)
@@ -48,7 +47,15 @@ public class MensajeContacto extends EntidadBase {
     @Column(length = 4000, columnDefinition = "text", nullable = false)
     private String mensaje;
     
-    @NotNull
-    private boolean atendido;
+    @OneToOne
+    @JoinColumn(name = "id_mensajes_contacto_estatus_fk", nullable = true)
+    private MensajeContactoEstatus mensajeContactoEstatus;
+    
+    @OneToOne
+    @JoinColumn(name = "id_sector_fk", nullable = false)
+    private Sector sector;
+    
+//    @NotNull
+//    private boolean atendido;
 
 }

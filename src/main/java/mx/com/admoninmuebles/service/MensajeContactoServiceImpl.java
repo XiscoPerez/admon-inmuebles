@@ -10,13 +10,21 @@ import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.dto.MensajeContactoDto;
 import mx.com.admoninmuebles.persistence.model.MensajeContacto;
+import mx.com.admoninmuebles.persistence.repository.MensajeContactoEstatusRepository;
 import mx.com.admoninmuebles.persistence.repository.MensajeContactoRepository;
+import mx.com.admoninmuebles.persistence.repository.SectorRepository;
 
 @Service
 public class MensajeContactoServiceImpl implements MensajeContactoService {
 
     @Autowired
     private MensajeContactoRepository mensajeContactoRepository;
+    
+    @Autowired
+    private SectorRepository sectorRepository;
+    
+    @Autowired
+    private MensajeContactoEstatusRepository mensajeContactoEstatusRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -25,6 +33,16 @@ public class MensajeContactoServiceImpl implements MensajeContactoService {
     public MensajeContactoDto save(final MensajeContactoDto mensajeContactoDto) {
     	
     	MensajeContacto MensajeContactoCreado =  mensajeContactoRepository.save(modelMapper.map(mensajeContactoDto, MensajeContacto.class));
+    	
+    	return modelMapper.map(MensajeContactoCreado, MensajeContactoDto.class);
+    }
+    
+    @Override
+    public MensajeContactoDto update(final MensajeContactoDto mensajeContactoDto) {
+    	
+    	MensajeContacto MensajeContactoCreado =  mensajeContactoRepository.save(modelMapper.map(mensajeContactoDto, MensajeContacto.class));
+    	MensajeContactoCreado.setSector(sectorRepository.findById(mensajeContactoDto.getSectorId()).get());
+    	MensajeContactoCreado.setMensajeContactoEstatus(mensajeContactoEstatusRepository.findById(mensajeContactoDto.getMensajeContactoEstatusId()).get());
     	
     	return modelMapper.map(MensajeContactoCreado, MensajeContactoDto.class);
     }

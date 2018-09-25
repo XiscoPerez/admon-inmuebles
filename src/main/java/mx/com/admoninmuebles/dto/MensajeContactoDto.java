@@ -12,8 +12,6 @@ public class MensajeContactoDto {
     @NotNull
     private String nombre;
     
-    private String inmueble;
-
     @NotNull
     private String correo;
 
@@ -23,6 +21,14 @@ public class MensajeContactoDto {
     @NotNull
     private String mensaje;
     
-    private boolean atendido;
+    private Long MensajeContactoEstatusId;
+    
+    private String MensajeContactoEstatusNombre;
+    
+    private Long sectorId;
+    
+    private String sectorNombre;
+    
+//    private boolean atendido;
 
 }

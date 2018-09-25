@@ -29,9 +29,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title" th:text="#{preguntafrecuentes.titulo}"></h4>
-                                <h6 class="card-subtitle" th:text="#{preguntafrecuentes.titulo.editar}"></h6>
+                                <h6 class="card-subtitle" th:text="#{preguntafrecuentes.titulo.crear}"></h6>
      							<form name="editarPreguntaFrecuenteForm" action="#" th:action="@{/catalogos/preguntas-frecuentes}" th:object="${preguntaFrecuenteDto}" method="post">
-	                  					<input type="hidden" class="form-control" th:field="*{id}"/>
 	                                    <from class="form-horizontal form-material">
 	                                        <div class="form-group">
  												  <div class="col-md-12 m-b-20">

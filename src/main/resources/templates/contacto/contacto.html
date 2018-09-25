@@ -64,11 +64,20 @@ $(document).ready(function() {
 								              	</span>
 											</div>
 										</div>
-										<div class="col-lg-12">
-											<div class="form-group m-t-10">
-												<input type="text" class="form-control" id="inmueble" th:field="*{inmueble}"  th:placeholder="#{campo.contacto.inmueble}">
-											</div>
-										</div>
+										 <div class="col-md-12 m-b-20">
+	 		                                   <label class="form-control-label" for="sector" th:text="#{campo.contacto.sector}"></label>
+		                                        <select name="sector" id=sector class="form-control" th:field="*{sectorId}" >	
+			                                        <option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option>
+													<option th:each="sector : ${session.sectoresDto}" 
+															th:value="${{sector.id}}" 
+															th:text="${sector.nombre}"></option>
+		                                        </select>
+		                                  </div>
+<!-- 										<div class="col-lg-12"> -->
+<!-- 											<div class="form-group m-t-10"> -->
+<!-- 												<input type="text" class="form-control" id="inmueble" th:field="*{inmueble}"  th:placeholder="#{campo.contacto.inmueble}"> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
 										<div class="col-lg-12">
 											<div id="divTelefono" class="form-group m-t-10" th:classappend="${#fields.hasErrors('telefono')}? 'form-group has-danger':'form-group'">
 												 <input type="text" class="form-control" id="telefono" required th:field="*{telefono}"  th:placeholder="#{campo.contacto.telefono}">
