@@ -174,7 +174,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Rol adminCorp = createRolIfNotFound(RolConst.ROLE_ADMIN_CORP, privilegiosAdminCorp);
 
         Usuario usuarioProveedorJardineria = createUsuarioIfNotFound("proveedor_jardineria", "Proveedor", "Jardineria", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
-        Usuario usuarioProveedorLimpieza = createUsuarioIfNotFound("proveedor_limieza", "Proveedor", "Limpieza", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
+        Usuario usuarioProveedorLimpieza = createUsuarioIfNotFound("proveedor_limpieza", "Proveedor", "Limpieza", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
         Usuario usuarioProveedorConstruccion = createUsuarioIfNotFound("proveedor_construccion", "Proveedor", "Construccion", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
         Usuario usuarioSocioBi = createUsuarioIfNotFound("socio_bi", "Socio", "Bi", "Inmueble", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)));
         Usuario usuarioRepBi = createUsuarioIfNotFound("rep_bi", "Representante", "Bien", "Inmubele", "rep_bi", new ArrayList<>(Arrays.asList(repBi)));
@@ -190,7 +190,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         AreaServicio areaServicioJardineria = createAreaServicioIfNotFound(1L, "Jardineria", usuarioProveedorJardineria);
         createAreaServicioIfNotFound(2L, "Limpieza", usuarioProveedorLimpieza);
         createAreaServicioIfNotFound(3L, "Construcción", usuarioProveedorConstruccion);
-        createTicketIfNotFound(1L, "Podar cesped", "Quiero que poden el ceped de mi casa.", areaServicioJardineria, usuarioSocioBi);
+        createTicketIfNotFound(1L, "Podar cesped", "Quiero que poden el ceped de mi casa.", areaServicioJardineria, usuarioSocioBi, usuarioProveedorJardineria, EstatusTicketConst.ASIGNADO);
 
         alreadySetup = true;
     }
@@ -326,15 +326,17 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
-    public final Ticket createTicketIfNotFound(final Long id, final String titulo, final String descripcion, final AreaServicio areaServicio, final Usuario usuarioCreador) {
+    public final Ticket createTicketIfNotFound(final Long id, final String titulo, final String descripcion, final AreaServicio areaServicio, final Usuario usuarioCreador,
+            final Usuario usuarioAsignado, String estatus) {
         Optional<Ticket> optTicket = ticketRepository.findById(id);
         Ticket ticket = optTicket.orElse(new Ticket());
         if (!optTicket.isPresent()) {
             ticket.setTitulo(titulo);
             ticket.setDescripcion(descripcion);
-            ticket.setEstatus(EstatusTicketConst.ABIERTO);
+            ticket.setEstatus(estatus);
             ticket.setAreaServicio(areaServicio);
             ticket.setUsuarioCreador(usuarioCreador);
+            ticket.setUsuarioAsignado(usuarioAsignado);
             ticket = ticketRepository.save(ticket);
         }
         return ticket;
