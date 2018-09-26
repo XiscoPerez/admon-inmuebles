@@ -33,9 +33,16 @@ public class TicketDto {
     private String usuarioCreadorInmuebleDireccionNumeroExterior;
     private String usuarioCreadorInmuebleDireccionAsentamientoNombre;
     private Long usuarioAsignadoId;
+    private String usuarioAsignadoNombre;
+    private String usuarioAsignadoApellidoPaterno;
+    private String usuarioAsignadoApellidoMaterno;
 
     public String getNombreSocio() {
         return String.format("%s %s %s", usuarioCreadorNombre, usuarioCreadorApellidoPaterno, usuarioCreadorApellidoMaterno);
+    }
+
+    public String getNombreProveedor() {
+        return String.format("%s %s %s", usuarioAsignadoNombre, usuarioAsignadoApellidoPaterno, usuarioAsignadoApellidoMaterno);
     }
 
     public String getDireccion() {

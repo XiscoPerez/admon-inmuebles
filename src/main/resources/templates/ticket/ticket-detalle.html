@@ -47,6 +47,12 @@
                   <p class="form-control-static" th:text="*{descripcion}"></p>
                 </div>
               </div>
+               <div class="row" >
+                <div id="divProveedor" th:unless="*{estatus}=='ABIERTO'" class="col-md-4 form-group">
+                  <label class="form-control-label" th:text="#{etiqueta.proveedor}"></label>
+                  <p class="form-control-static" th:text="*{nombreProveedor}"></p>
+                </div>
+              </div>
               <div class="modal-footer">
                 <a th:href="@{/tickets}" class="btn btn-danger btn-rounded" th:text="#{etiqueta.cerrar}"></a>
               </div>
