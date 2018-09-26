@@ -16,5 +16,7 @@ public class PreguntaFrecuenteDto {
     @NotNull
     @Size(min = 1, max = 2000)
     private String respuesta;
+    
+    private String idioma;
 
 }

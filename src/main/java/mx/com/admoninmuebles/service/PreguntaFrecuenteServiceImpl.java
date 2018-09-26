@@ -46,4 +46,11 @@ public class PreguntaFrecuenteServiceImpl implements PreguntaFrecuenteService {
 		
 	}
 
+	@Override
+	public Collection<PreguntaFrecuenteDto> findByIdioma(String idioma) {
+		return StreamSupport.stream(preguntaFrecuenteRepository.findByIdioma( idioma ).spliterator(), false)
+				.map(preguntaFrecuente -> modelMapper.map(preguntaFrecuente, PreguntaFrecuenteDto.class))
+				.collect(Collectors.toList());
+	}
+
 }

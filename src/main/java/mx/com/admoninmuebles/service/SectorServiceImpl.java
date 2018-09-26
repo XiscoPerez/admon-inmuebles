@@ -35,4 +35,11 @@ public class SectorServiceImpl implements SectorService{
 		return modelMapper.map(sector.get(), SectorDto.class);
 	}
 
+	@Override
+	public Collection<SectorDto> findByIdioma(String idioma) {
+		return StreamSupport.stream(sectorRepository.findByIdioma( idioma ).spliterator(), false)
+				.map(sector -> modelMapper.map(sector, SectorDto.class))
+				.collect(Collectors.toList());
+	}
+
 }

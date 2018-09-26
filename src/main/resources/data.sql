@@ -2535,14 +2535,23 @@ insert into tipos_asentamientos values (48,'Rancho');
 --insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk,  correo, inmueble, mensaje, nombre, telefono, id_mensajes_contacto_estatus_fk) values (4, CURRENT_TIMESTAMP, null,  'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777, 1);
 --insert into mensajes_contacto (id_mensaje_contacto, fecha_modificacion, id_modificado_por_fk,  correo, inmueble, mensaje, nombre, telefono, id_mensajes_contacto_estatus_fk) values (5, CURRENT_TIMESTAMP, null, 'correo@gmail.com', 'imueble', 'un mensaje', 'paco', 7777777777, 1);
 
-insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre) values(1, 'No Atendido');
-insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre) values(2, 'En Proceso');
-insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre) values(3, 'Atendido');
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre, idioma) values(1, 'No Atendido', 'es');
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre, idioma) values(2, 'En Proceso', 'es');
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre, idioma) values(3, 'Atendido', 'es');
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre, idioma) values(4, 'To do', 'en');
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre, idioma) values(5, 'In Progress', 'en');
+insert into mensajes_contacto_estatus (id_mensajes_contacto_estatus, nombre, idioma) values(6, 'Done', 'en');
 
-insert into sectores (id_sector, nombre) values(1, 'Condiminios');
-insert into sectores (id_sector, nombre) values(2, 'Corporativos');
-insert into sectores (id_sector, nombre) values(3, 'Centros Comerciales');
-insert into sectores (id_sector, nombre) values(4, 'Hoteles');
-insert into sectores (id_sector, nombre) values(5, 'Almacenes');
-insert into sectores (id_sector, nombre) values(6, 'Inmuebles');
+insert into sectores (id_sector, nombre, idioma) values(1, 'Condiminios', 'es');
+insert into sectores (id_sector, nombre, idioma) values(2, 'Corporativos', 'es');
+insert into sectores (id_sector, nombre, idioma) values(3, 'Centros Comerciales', 'es');
+insert into sectores (id_sector, nombre, idioma) values(4, 'Hoteles', 'es');
+insert into sectores (id_sector, nombre, idioma) values(5, 'Almacenes', 'es');
+insert into sectores (id_sector, nombre, idioma) values(6, 'Inmuebles', 'es');
+insert into sectores (id_sector, nombre, idioma) values(7, 'Condominiums', 'en');
+insert into sectores (id_sector, nombre, idioma) values(8, 'Corporate', 'en');
+insert into sectores (id_sector, nombre, idioma) values(9, 'Malls', 'en');
+insert into sectores (id_sector, nombre, idioma) values(10, 'Hotels', 'en');
+insert into sectores (id_sector, nombre, idioma) values(11, 'Warehouses', 'en');
+insert into sectores (id_sector, nombre, idioma) values(12, 'Immovables', 'en');
 
