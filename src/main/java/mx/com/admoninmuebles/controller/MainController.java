@@ -57,5 +57,10 @@ public class MainController {
     public String mapaGoolge() {
         return "/informacion/mapa-google";
     }
+    
+    @RequestMapping("/iconos")
+    public String icnonos() {
+        return "iconos";
+    }
 
 }

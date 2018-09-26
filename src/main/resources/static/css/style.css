@@ -116,3 +116,13 @@ iframe {
   background: #00445C;
   border-color: #00445C; 
  }
+ 
+ .tarjeta_alto_350 {
+ 	min-height: 350px;
+	height: auto;
+ }
+ 
+ .tarjeta_alto_300 {
+ 	min-height: 290px;
+	height: auto;
+ }

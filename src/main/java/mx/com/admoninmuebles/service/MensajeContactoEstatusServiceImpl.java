@@ -35,4 +35,11 @@ public class MensajeContactoEstatusServiceImpl implements MensajeContactoEstatus
 		return modelMapper.map(mensajeContactoEstatus.get(), MensajeContactoEstatusDto.class);
 	}
 
+	@Override
+	public Collection<MensajeContactoEstatusDto> findByIdioma(String idioma) {
+		return StreamSupport.stream(mensajeContactoEstatusRepository.findByIdioma( idioma ).spliterator(), false)
+				.map(mensajeContactoEstatus -> modelMapper.map(mensajeContactoEstatus, MensajeContactoEstatusDto.class))
+				.collect(Collectors.toList());
+	}
+
 }

@@ -34,5 +34,10 @@ public class PreguntaFrecuente extends EntidadBase {
     @Size(min = 1, max = 2000)
     @Column(length = 2000, columnDefinition = "text", nullable = false)
     private String respuesta;
+    
+    @NotNull
+    @Size(min = 1, max = 3)
+    @Column(length = 100, nullable = false)
+    private String idioma;
 
 }
