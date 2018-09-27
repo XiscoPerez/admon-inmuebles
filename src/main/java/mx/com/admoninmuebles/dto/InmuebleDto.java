@@ -27,6 +27,8 @@ public class InmuebleDto {
     @NotNull
     @Digits(integer = 5, fraction = 2)
     private BigDecimal montoCuotaOrdinaria;
+    
+    @JsonIgnore
     @NotNull
     private MultipartFile imagen;
     private String imagenUrl;

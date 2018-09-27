@@ -16,9 +16,13 @@ iframe {
 	position: fixed;
 }
 
-
+background: #00445C;
 .text-gesco {
 	color: #008688 !important;
+}
+
+.text-gesco-secundario {
+	color: #00445C !important;
 }
 
 .btn-gesco,
@@ -117,12 +121,31 @@ iframe {
   border-color: #00445C; 
  }
  
- .tarjeta_alto_350 {
- 	min-height: 350px;
+ .tarjeta_alto_400 {
+ 	min-height: 400px;
 	height: auto;
  }
  
- .tarjeta_alto_300 {
+.tarjeta_alto_350 {
+	min-height: 350px;
+	height: auto;
+}
+ 
+ 
+ .tarjeta_alto_360 {
+ 	min-height: 360px;
+	height: auto;
+ }
+ 
+ .tarjeta_alto_290 {
  	min-height: 290px;
 	height: auto;
  }
+ 
+/*  .row-eq-height { */
+/*   display: -webkit-box; */
+/*   display: -webkit-flex; */
+/*   display: -ms-flexbox; */
+/*   display: flex; */
+/*    flex-wrap: wrap; */
+/* } */
