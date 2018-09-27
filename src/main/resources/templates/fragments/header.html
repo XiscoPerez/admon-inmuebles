@@ -81,20 +81,6 @@
 	            	<span class="text-white font-weight-bold" th:text="#{header.frase.publicitaria}"></span>
 	            </li>
 	        </ul>
-<!-- 			<div class="mx-auto order-0"> -->
-<!-- 		        <a class="navbar-brand mx-auto" href="#">Navbar 2</a> -->
-<!-- 		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2"> -->
-<!-- 		            <span class="navbar-toggler-icon"></span> -->
-<!-- 		        </button> -->
-<!-- 		    </div> -->
-			
-<!-- 			<div class="navbar-collapse collapse"> -->
-<!-- 		        <ul class="navbar-nav abs-center-x"> -->
-<!-- 		            <li class="nav-item"> -->
-<!-- 		                <a class="nav-link" href="#">Center</a> -->
-<!-- 		            </li> -->
-<!-- 		        </ul> -->
-<!-- 		    </div> -->
 			<!-- ============================================================== -->
 			<!-- User profile and search -->
 			<!-- ============================================================== -->
@@ -109,18 +95,22 @@
 				 	 <a class="nav-link text-white"  target="_blank" href="https://www.youtube.com/"> <i class="fa fa-youtube"></i> </a>
                 </li>
 				<li sec:authorize="isAuthenticated()" class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> <img th:src="@{/assets/images/users/1.jpg}" alt="user" class="profile-pic" />
+					aria-expanded="false"> 
+<!-- 						<img th:src="@{/assets/images/users/1.jpg}" alt="user" class="profile-pic" /> -->
+						<img th:if="${#authentication.principal.usuario.fotoUrl == null}" th:src="@{/images/header/default-user.png}" alt="user" class="profile-pic">
+						<img th:if="${#authentication.principal.usuario.fotoUrl != null}" th:src="${#authentication.principal.usuario.fotoUrl}" alt="user" class="profile-pic" />
 				</a>
 					<div class="dropdown-menu dropdown-menu-right animated flipInY">
 						<ul class="dropdown-user">
 							<li>
 								<div class="dw-user-box">
 									<div class="u-img">
-										<img th:src="@{/assets/images/users/1.jpg}" alt="user">
+										<img th:if="${#authentication.principal.usuario.fotoUrl == null}" th:src="@{/images/header/default-user.png}" alt="user">
+										<img th:if="${#authentication.principal.usuario.fotoUrl != null}" th:src="${#authentication.principal.usuario.fotoUrl}" alt="user" />
 									</div>
 									<div class="u-text">
 										<h4 sec:authentication="name"></h4><br/>
-<!-- 										<p class="text-muted" sec:authentication="principal"></p> -->
+<!-- 										<p class="text-muted" sec:authentication="principal.usuario.username"></p> -->
 										<a th:href="@{/usuarios/perfil}" class="btn btn-rounded btn-danger btn-sm" th:text="#{etiqueta.header.miperfil}"></a>
 									</div>
 								</div>
