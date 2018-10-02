@@ -21,17 +21,14 @@ public class PreguntaFrecuenteController {
 
     @Autowired
     private PreguntaFrecuenteService preguntaFrecuenteService;
-
-    @GetMapping(value = "/crearPreguntaFrecuente")
-    public String showForm(final PreguntaFrecuenteDto preguntaFrecuenteDto) {
-        return "crearPreguntaFrecuente";
+    
+    @GetMapping(value = "/preguntas-frecuentes")
+    public String mostrar(final Locale locale, Model model) {
+    	
+    	model.addAttribute("preguntasFrecuentesDto", preguntaFrecuenteService.findByIdioma(locale.getLanguage()));
+    	return "preguntasfrecuentes/preguntas-frecuentes";
     }
 
-    @PostMapping(value = "/crearPreguntaFrecuente")
-    public String crearPreguntaFrecuente(final Locale locale, final Model model, @Valid final PreguntaFrecuenteDto preguntaFrecuenteDto, final BindingResult bindingResult) {
-        preguntaFrecuenteService.save(preguntaFrecuenteDto);
-        return "redirect:/crearPreguntaFrecuente";
-    }
     
     @GetMapping(value = "/catalogos/preguntas-frecuentes")
     public String init(final Locale locale, final PreguntaFrecuenteDto preguntaFrecuenteDto, Model model) {

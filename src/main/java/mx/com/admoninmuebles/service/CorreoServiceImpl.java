@@ -31,8 +31,8 @@ public class CorreoServiceImpl implements CorreoService{
 	    MimeMessageHelper helper = new MimeMessageHelper(message);
 	
 	    try {
-	    	helper.setFrom("contacto_gesco@gesco-pls.com");
-	        helper.setTo("fco_javiercarrillo@hotmail.com");
+	    	helper.setFrom("prueba@gesco-pls.com");
+	        helper.setTo("ffcojaviercarrillo@gmail.com");
 	        helper.setText(build("Paco"), true);
 	        helper.setSubject("Mail From Spring Boot");
 	        sender.send(message);

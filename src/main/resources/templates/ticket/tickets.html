@@ -40,7 +40,7 @@
             <div class="card-body">
               <h4 class="card-title" th:text="#{ticket.titulo}"></h4>
               <h6 class="card-subtitle" th:text="#{ticket.subtitulo}"></h6>
-              <a  sec:authorize="hasAuthority('ABRIR_TICKET')" th:href="@{/ticket-crear}" class="btn btn-info btn-rounded waves-effect" th:text="#{ticket.nuevo}"></a>
+<!--               <a  sec:authorize="hasAuthority('ABRIR_TICKET')" th:href="@{/ticket-crear}" class="btn btn-info-gesco waves-effect" th:text="#{ticket.nuevo}"></a> -->
               <div class="table-responsive">
                 <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                   <thead>
@@ -65,6 +65,9 @@
                   </tbody>
                   <tfoot>
                     <tr>
+                    <td colspan="2">
+                    	<a  sec:authorize="hasAuthority('ABRIR_TICKET')" th:href="@{/ticket-crear}" class="btn btn-info-gesco waves-effect" th:text="#{ticket.nuevo}"></a>
+                    </td>
                       <td colspan="6">
                         <div class="text-right">
                           <ul class="pagination">
