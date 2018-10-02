@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.controller;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -78,7 +79,8 @@ public class SocioController {
     	UsuarioDto usuarioDto = usuarioService.findById(socioBiLogueadoId);
     	model.addAttribute("socioDto", usuarioDto);
         model.addAttribute("inmuebleDto", inmuebleService.findById(usuarioDto.getInmuebleId()));
-        session.setAttribute("notificaciones", notificacionService.findByInmuebleId(usuarioDto.getInmuebleId()));
+//        session.setAttribute("notificaciones", notificacionService.findByInmuebleId(usuarioDto.getInmuebleId()));
+        session.setAttribute("notificaciones", notificacionService.findByInmuebleIdNotExpired(usuarioDto.getInmuebleId()));
         return "sociobi/inicio";
     }
     

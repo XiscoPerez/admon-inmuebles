@@ -1,6 +1,9 @@
 package mx.com.admoninmuebles.service;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -49,6 +52,21 @@ public class NotificacionServiceImpl implements NotificacionService {
 	@Override
 	public Collection<NotificacionDto> findByInmuebleId(Long id) {
 		return StreamSupport.stream(notificacionRepository.findByInmuebleId(id).spliterator(), false)
+				.map(notificacion -> modelMapper.map(notificacion, NotificacionDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Collection<NotificacionDto> findByInmuebleIdNotExpired(Long id) {
+		
+		Date hoy = new Date();
+		
+//		GregorianCalendar cal = new GregorianCalendar();
+//		cal.setTime(hoy);
+//		cal.add(Calendar.DATE, 1);
+//		hoy =  cal.getTime();
+		
+		return StreamSupport.stream(notificacionRepository.findByInmuebleIdAndFechaExposicionInicialLessThanEqualAndFechaExposicionFinalGreaterThanEqual(id, hoy, hoy).spliterator(), false)
 				.map(notificacion -> modelMapper.map(notificacion, NotificacionDto.class))
 				.collect(Collectors.toList());
 	}
