@@ -183,6 +183,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createUsuarioIfNotFound("admin_corp", "Administrador", "Corporativo", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)));
 
         Zona zona = createZonaIfNotFound("zona1", "Zona 1", usuarioAdminZona);
+        Zona zona2 = createZonaIfNotFound("zona2", "CDMX", usuarioAdminZona);
+        Zona zona3 = createZonaIfNotFound("zona3", "Aguascalientes", usuarioAdminZona);
+        Zona zona4 = createZonaIfNotFound("zona4", "Querétaro", usuarioAdminZona);
+        Zona zona5 = createZonaIfNotFound("zona5", "Cancún", usuarioAdminZona);
         Asentamiento asentamiento = updateAsentamientoIfFound(1L, zona);
 
         createInmuebleIfNotFound(1L, "Inmueble", asentamiento, usuarioAdminBi, usuarioSocioBi);

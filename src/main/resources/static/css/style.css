@@ -39,9 +39,7 @@ iframe {
   .btn-gesco.active, .btn-info:focus,
   .btn-gesco.disabled.active,
   .btn-gesco.disabled:focus {
-    background: #00445C; }
-    
-    
+    background: #028ee1; }
 .btn-info-gesco,
 .btn-info-gesco.disabled {
   background: #008688;
@@ -51,13 +49,13 @@ iframe {
   .btn-info-gesco.disabled:hover {
     background: #00445C;
     opacity: 0.7;
-    border: 1px solid #00445C; 
+    border: 1px solid #008688; 
     color: #ffffff;}
   .btn-info-gesco.active, .btn-info:focus,
   .btn-info-gesco.disabled.active,
   .btn-info-gesco.disabled:focus {
-    background: #00445C; 
-    color: #ffffff;}
+    background: #008688; }
+
     
     
 .footer-login {

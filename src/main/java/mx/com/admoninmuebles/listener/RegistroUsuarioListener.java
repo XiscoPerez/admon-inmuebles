@@ -55,7 +55,7 @@ public class RegistroUsuarioListener implements ApplicationListener<OnRegistroCo
         email.setSubject(subject);
         email.setText("Clic en el link para activar y confirmar la cuenta" + " \r\n" + activacionUrl);
 //        email.setFrom(env.getProperty("support.email"));
-        email.setFrom("ffcojaviercarrillo@gmail.com");
+        email.setFrom("prueba@gesco-pls.com");
         return email;
     }
 

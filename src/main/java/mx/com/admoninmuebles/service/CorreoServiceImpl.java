@@ -9,7 +9,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
+
+import mx.com.admoninmuebles.dto.CorreoDto;
+import mx.com.admoninmuebles.error.BusinessException;
 
 @Service
 public class CorreoServiceImpl implements CorreoService{
@@ -20,30 +22,22 @@ public class CorreoServiceImpl implements CorreoService{
 	@Autowired
 	private TemplateEngine templateEngine;
  
-    public String build(String nombre) {
-        Context context = new Context();
-        context.setVariable("nombre", nombre);
-        return templateEngine.process("correoRecuperaContrasenia", context);
-    }
-	
-	public String sendMail() {
-	    MimeMessage message = sender.createMimeMessage();
+	@Override
+	public void enviarCorreo(CorreoDto correoDto) {
+		MimeMessage message = sender.createMimeMessage();
 	    MimeMessageHelper helper = new MimeMessageHelper(message);
 	
 	    try {
-	    	helper.setFrom("prueba@gesco-pls.com");
-	        helper.setTo("ffcojaviercarrillo@gmail.com");
-	        helper.setText(build("Paco"), true);
-	        helper.setSubject("Mail From Spring Boot");
+	    	String plantilla = templateEngine.process(correoDto.getPlantilla(), correoDto.getDatosPlantilla());
+	    	helper.setFrom(correoDto.getDe());
+	        helper.setTo(correoDto.getPara());
+	        helper.setSubject(correoDto.getAsunto());
 	        sender.send(message);
 	    } catch (MessagingException e) {
-	        e.printStackTrace();
-	        return "Error while sending mail ..";
+	        throw new BusinessException(e.getMessage(), e);
 	    } catch (MailException e) {
-	    	e.printStackTrace();
-	    	 return "Error while sending mail ..";
+	    	throw new BusinessException(e.getMessage(), e);
 	    }
-	    return "Mail Sent Success!";
 	}
 
 }
