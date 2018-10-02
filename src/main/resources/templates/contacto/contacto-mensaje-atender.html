@@ -42,6 +42,8 @@
     							<form name="contactoForm" action="#" th:action="@{/contacto/mensaje-atender}" th:object="${mensajeContactoDto}" method="post">
     								<input type="hidden" class="form-control" th:field="*{id}"/>
     								<input type="hidden" class="form-control" th:field="*{sectorId}">
+    								<input type="hidden" class="form-control" th:field="*{estadoId}">
+    								<input type="hidden" class="form-control" th:field="*{zonaCodigo}">
 									<div th:if="${message}"  class="alert alert-info  m-t-20"> <i class="ti-user"></i>  <span th:text="${message}"></span>
 			                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
 			                        </div>
@@ -70,6 +72,16 @@
 										<div class="col-lg-12">
 											<div class="form-group m-t-10">
 												<input type="text" class="form-control" th:readonly="true" id="sector" th:field="*{sectorNombre}"  th:placeholder="#{contacto.sector}">
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div class="form-group m-t-10">
+												<input type="text" class="form-control" th:readonly="true" id="zona" th:field="*{zonaNombre}"  th:placeholder="#{contacto.zona}">
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div class="form-group m-t-10">
+												<input type="text" class="form-control" th:readonly="true" id="estado" th:field="*{estadoNombre}"  th:placeholder="#{contacto.estado}">
 											</div>
 										</div>
 										<div class="col-lg-12">

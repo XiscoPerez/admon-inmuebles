@@ -29,6 +29,14 @@ public class MensajeContactoDto {
     
     private String sectorNombre;
     
+    private String zonaCodigo;
+    
+    private String zonaNombre;
+    
+    private Long estadoId;
+    
+    private String estadoNombre;
+    
 //    private boolean atendido;
 
 }

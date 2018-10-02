@@ -26,9 +26,9 @@
     <div class="container-fluid">
       <div class="row page-titles">
         <div class="col-md-6 col-8 align-self-center">
-          <h3 class="text-themecolor m-b-0 m-t-0" th:text="#{colonia.titulo}"></h3>
+          <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{colonia.titulo}"></h3>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
+            <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
             <li class="breadcrumb-item active" th:text="#{colonia.titulo}"></li>
           </ol>
         </div>
@@ -39,7 +39,7 @@
             <div class="card-body">
               <h4 class="card-title" th:text="#{colonia.titulo}"></h4>
               <h6 class="card-subtitle" th:text="#{colonia.subtitulo}"></h6>
-              <a th:href="@{/catalogos/colonia-agregar}" class="btn btn-info btn-rounded waves-effect" th:text="#{colonia.agregar}"></a>
+<!--               <a th:href="@{/catalogos/colonia-agregar}" class="btn btn-info-gesco waves-effect" th:text="#{colonia.agregar}"></a> -->
               <div class="table-responsive">
                 <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                   <thead>
@@ -63,6 +63,9 @@
                   </tbody>
                   <tfoot>
                     <tr>
+                      <td colspan="2">
+                          <a th:href="@{/catalogos/colonia-agregar}" class="btn btn-info-gesco waves-effect" th:text="#{colonia.agregar}"></a>
+                      </td>
                       <td colspan="6">
                         <div class="text-right">
                           <ul class="pagination">

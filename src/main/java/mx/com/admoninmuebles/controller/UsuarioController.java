@@ -98,6 +98,8 @@ public class UsuarioController {
     @GetMapping(value = "/adminzona/inicio")
     public String initAdminZona(final UsuarioDto usuarioDto, final Model model) {
         model.addAttribute("usuarios", userService.findAll());
+        model.addAttribute("colonias", coloniaService.findAll());
+        model.addAttribute("inmuebles", inmuebleService.findAll());
         return "adminzona/inicio";
     }
     

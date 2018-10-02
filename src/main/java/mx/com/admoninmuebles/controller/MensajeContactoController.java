@@ -18,9 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mx.com.admoninmuebles.constant.LocaleConst;
 import mx.com.admoninmuebles.dto.MensajeContactoDto;
+import mx.com.admoninmuebles.persistence.repository.EstadoRepository;
 import mx.com.admoninmuebles.service.MensajeContactoEstatusService;
 import mx.com.admoninmuebles.service.MensajeContactoService;
 import mx.com.admoninmuebles.service.SectorService;
+import mx.com.admoninmuebles.service.ZonaService;
 
 @Controller
 public class MensajeContactoController {
@@ -39,22 +41,32 @@ public class MensajeContactoController {
     
     @Autowired
     private SectorService sectorService;
+    
+    @Autowired
+    private ZonaService zonaService;
+    
+    @Autowired
+    private EstadoRepository estadoRepository;
 
     
     @RequestMapping("/contacto")
     public String contacto(final Locale locale, final MensajeContactoDto mensajeContactoDto, final HttpSession session) {
-//    	System.out.println("locale.toString()" + locale.toString());
-//    	System.out.println("locale.getCountry()" + locale.getCountry());
-//    	System.out.println("locale.getCountry()" + locale.getLanguage());
     	session.setAttribute("sectoresDto", sectorService.findByIdioma(locale.getLanguage()));
+    	session.setAttribute("zonasDto", zonaService.findAll());
+    	session.setAttribute("estadosDto", estadoRepository.findAll());
         return "/contacto/contacto";
     }
 
     @PostMapping(value = "/contacto")
     public String contactoMensajeCrear(final HttpSession session, final Locale locale, final Model model, @Valid final MensajeContactoDto mensajeContactoDto, final BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-//        	session.setAttribute("sectores", sectorService.findAll());
-            return "/contacto";
+    	System.out.println("DATA " + mensajeContactoDto.toString());
+    	if (bindingResult.hasErrors()) {
+    		session.setAttribute("sectoresDto", sectorService.findByIdioma(locale.getLanguage()));
+        	session.setAttribute("zonasDto", zonaService.findAll());
+        	session.setAttribute("estadosDto", estadoRepository.findAll());
+        	System.out.println("OCURRIO UN ERROR");
+        	redirectAttributes.addFlashAttribute("message", messages.getMessage("contacto.guarda.error", null, locale));
+            return "/contacto/contacto";
         }
         redirectAttributes.addFlashAttribute("message", messages.getMessage("contacto.guarda.ok", null, locale));
         

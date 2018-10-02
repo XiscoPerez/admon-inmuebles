@@ -1,6 +1,5 @@
 package mx.com.admoninmuebles.persistence.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,8 +51,16 @@ public class MensajeContacto extends EntidadBase {
     private MensajeContactoEstatus mensajeContactoEstatus;
     
     @OneToOne
-    @JoinColumn(name = "id_sector_fk", nullable = false)
+    @JoinColumn(name = "id_sector_fk", nullable = true)
     private Sector sector;
+    
+    @OneToOne
+    @JoinColumn(name = "id_zona_fk", nullable = true)
+    private Zona zona;
+    
+    @OneToOne
+    @JoinColumn(name = "id_estado_fk", nullable = true)
+    private Estado estado;
     
 //    @NotNull
 //    private boolean atendido;

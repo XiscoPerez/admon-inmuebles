@@ -61,7 +61,7 @@ public class RecuperacionContraseniaListener implements ApplicationListener<OnRe
         email.setSubject(subject);
         email.setText("Clic en el link para recuperar tu contraseña" + " \r\n" + confirmacionnUrl);
 //        email.setFrom(env.getProperty("support.email"));
-        email.setFrom("ffcojaviercarrillo@gmail.com");
+        email.setFrom("prueba@gesco-pls.com");
         return email;
     }
 

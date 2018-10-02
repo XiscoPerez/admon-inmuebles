@@ -1,7 +1,9 @@
 package mx.com.admoninmuebles.service;
 
+import mx.com.admoninmuebles.dto.CorreoDto;
+
 public interface CorreoService {
 	
-	String sendMail();
+	void enviarCorreo(CorreoDto correoDto);
 
 }
