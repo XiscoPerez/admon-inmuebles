@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.persistence.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -73,11 +74,19 @@ public class Inmueble extends EntidadBase {
     private Collection<Notificacion> notificaciones;
 
     @OneToMany(mappedBy = "inmueble")
-    private Collection<Usuario> socios = new HashSet<>();;
+    private Collection<Usuario> socios = new HashSet<>();
 
     public void addSocio(final Usuario socio) {
         socios.add(socio);
         socio.setInmueble(this);
+    }
+
+    @OneToMany(mappedBy = "inmueble")
+    private Collection<AreaComun> areasComunes = new ArrayList<>();
+
+    public void addAreaComun(final AreaComun areaComun) {
+        areasComunes.add(areaComun);
+        areaComun.setInmueble(this);
     }
 
 }

@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.dto;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
@@ -27,8 +28,6 @@ public class InmuebleDto {
     @NotNull
     @Digits(integer = 5, fraction = 2)
     private BigDecimal montoCuotaOrdinaria;
-    
-    @JsonIgnore
     @NotNull
     private MultipartFile imagen;
     private String imagenUrl;
@@ -51,5 +50,6 @@ public class InmuebleDto {
     private String datosAdicionalesNumeroCuenta;
     @JsonIgnore
     private Integer totalSocios;
+    private Collection<AreaComunDto> areasComunes;
 
 }
