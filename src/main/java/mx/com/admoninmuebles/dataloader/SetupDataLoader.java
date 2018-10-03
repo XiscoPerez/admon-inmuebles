@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.dataloader;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mx.com.admoninmuebles.constant.EstatusTicketConst;
 import mx.com.admoninmuebles.constant.PrivilegioConst;
 import mx.com.admoninmuebles.constant.RolConst;
+import mx.com.admoninmuebles.persistence.model.AreaComun;
 import mx.com.admoninmuebles.persistence.model.AreaServicio;
 import mx.com.admoninmuebles.persistence.model.Asentamiento;
 import mx.com.admoninmuebles.persistence.model.DatosAdicionales;
@@ -24,17 +26,20 @@ import mx.com.admoninmuebles.persistence.model.Direccion;
 import mx.com.admoninmuebles.persistence.model.Inmueble;
 import mx.com.admoninmuebles.persistence.model.Municipio;
 import mx.com.admoninmuebles.persistence.model.Privilegio;
+import mx.com.admoninmuebles.persistence.model.Reservacion;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Ticket;
 import mx.com.admoninmuebles.persistence.model.TipoAsentamiento;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.model.Zona;
+import mx.com.admoninmuebles.persistence.repository.AreaComunRepository;
 import mx.com.admoninmuebles.persistence.repository.AreaServicioRepository;
 import mx.com.admoninmuebles.persistence.repository.AsentamientoRepository;
 import mx.com.admoninmuebles.persistence.repository.DatosAdicionalesRepository;
 import mx.com.admoninmuebles.persistence.repository.DireccionRepository;
 import mx.com.admoninmuebles.persistence.repository.InmuebleRepository;
 import mx.com.admoninmuebles.persistence.repository.PrivilegioRepository;
+import mx.com.admoninmuebles.persistence.repository.ReservacionRepository;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
 import mx.com.admoninmuebles.persistence.repository.TicketRepository;
 import mx.com.admoninmuebles.persistence.repository.UsuarioRepository;
@@ -71,6 +76,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     private AreaServicioRepository areaServicioRepository;
+
+    @Autowired
+    private AreaComunRepository areaComunRepository;
+
+    @Autowired
+    private ReservacionRepository reservacionRepository;
 
     @Autowired
     private TicketRepository ticketRepository;
@@ -177,19 +188,23 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Usuario usuarioProveedorLimpieza = createUsuarioIfNotFound("proveedor_limpieza", "Proveedor", "Limpieza", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
         Usuario usuarioProveedorConstruccion = createUsuarioIfNotFound("proveedor_construccion", "Proveedor", "Construccion", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)));
         Usuario usuarioSocioBi = createUsuarioIfNotFound("socio_bi", "Socio", "Bi", "Inmueble", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)));
-        Usuario usuarioRepBi = createUsuarioIfNotFound("rep_bi", "Representante", "Bien", "Inmubele", "rep_bi", new ArrayList<>(Arrays.asList(repBi)));
+        createUsuarioIfNotFound("rep_bi", "Representante", "Bien", "Inmubele", "rep_bi", new ArrayList<>(Arrays.asList(repBi)));
         Usuario usuarioAdminBi = createUsuarioIfNotFound("admin_bi", "Administrador", "Bien", "Inmueble", "admin_bi", new ArrayList<>(Arrays.asList(adminBi)));
         Usuario usuarioAdminZona = createUsuarioIfNotFound("admin_zona", "Administrador", "Zona", "", "admin_zona", new ArrayList<>(Arrays.asList(adminZona)));
         createUsuarioIfNotFound("admin_corp", "Administrador", "Corporativo", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)));
 
         Zona zona = createZonaIfNotFound("zona1", "Zona 1", usuarioAdminZona);
-        Zona zona2 = createZonaIfNotFound("zona2", "CDMX", usuarioAdminZona);
-        Zona zona3 = createZonaIfNotFound("zona3", "Aguascalientes", usuarioAdminZona);
-        Zona zona4 = createZonaIfNotFound("zona4", "Querétaro", usuarioAdminZona);
-        Zona zona5 = createZonaIfNotFound("zona5", "Cancún", usuarioAdminZona);
+        createZonaIfNotFound("zona2", "CDMX", usuarioAdminZona);
+        createZonaIfNotFound("zona3", "Aguascalientes", usuarioAdminZona);
+        createZonaIfNotFound("zona4", "Querétaro", usuarioAdminZona);
+        createZonaIfNotFound("zona5", "Cancún", usuarioAdminZona);
         Asentamiento asentamiento = updateAsentamientoIfFound(1L, zona);
 
-        createInmuebleIfNotFound(1L, "Inmueble", asentamiento, usuarioAdminBi, usuarioSocioBi);
+        Inmueble inmueble = createInmuebleIfNotFound(1L, "Inmueble", asentamiento, usuarioAdminBi, usuarioSocioBi);
+
+        AreaComun areaComun = createAreaComunIfNotFound(1L, "Area comun 1", "Area para 30 personas", inmueble);
+
+        createReservacionIfNotFound(1L, "Fiesta Pablito", areaComun, usuarioSocioBi);
 
         AreaServicio areaServicioJardineria = createAreaServicioIfNotFound(1L, "Jardineria", usuarioProveedorJardineria);
         createAreaServicioIfNotFound(2L, "Limpieza", usuarioProveedorLimpieza);
@@ -263,18 +278,18 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             asentamiento = optAsentamiento.get();
             asentamiento.setZona(zona);
             asentamientoRepository.save(asentamiento);
-        }else {
-        	Municipio municpio = new Municipio();
-        	municpio.setId(9010l);
-        	TipoAsentamiento tipoAsentamiento = new TipoAsentamiento();
-        	tipoAsentamiento.setId(9l);
-        	asentamiento = new Asentamiento();
-        	asentamiento.setCodigoPostal("01000");
-        	asentamiento.setNombre("San Ángel");
-        	asentamiento.setMunicipio(municpio);
-        	asentamiento.setTipoAsentamiento(tipoAsentamiento);
-        	asentamiento.setZona(zona);
-        	asentamientoRepository.save(asentamiento);
+        } else {
+            Municipio municpio = new Municipio();
+            municpio.setId(9010l);
+            TipoAsentamiento tipoAsentamiento = new TipoAsentamiento();
+            tipoAsentamiento.setId(9l);
+            asentamiento = new Asentamiento();
+            asentamiento.setCodigoPostal("01000");
+            asentamiento.setNombre("San Ángel");
+            asentamiento.setMunicipio(municpio);
+            asentamiento.setTipoAsentamiento(tipoAsentamiento);
+            asentamiento.setZona(zona);
+            asentamientoRepository.save(asentamiento);
         }
         return asentamiento;
     }
@@ -316,6 +331,33 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
+    public final AreaComun createAreaComunIfNotFound(final Long id, final String nombre, final String descripcion, final Inmueble inmueble) {
+        Optional<AreaComun> optAreaComun = areaComunRepository.findById(id);
+        AreaComun areaComun = optAreaComun.orElse(new AreaComun());
+        if (!optAreaComun.isPresent()) {
+            areaComun.setNombre(nombre);
+            areaComun.setDescripcion(descripcion);
+            inmueble.addAreaComun(areaComun);
+            areaComun = areaComunRepository.save(areaComun);
+        }
+        return areaComun;
+    }
+
+    @Transactional
+    public final Reservacion createReservacionIfNotFound(final Long id, final String title, final AreaComun areaComun, final Usuario usuarioSocioBi) {
+        Optional<Reservacion> optReservacion = reservacionRepository.findById(id);
+        Reservacion reservacion = optReservacion.orElse(new Reservacion());
+        if (!optReservacion.isPresent()) {
+            reservacion.setTitle(title);
+            reservacion.setStart(LocalDate.now());
+            reservacion.setAreaComun(areaComun);
+            reservacion.setSocio(usuarioSocioBi);
+            reservacion = reservacionRepository.save(reservacion);
+        }
+        return reservacion;
+    }
+
+    @Transactional
     public final AreaServicio createAreaServicioIfNotFound(final Long id, final String nombre, final Usuario proveedor) {
         Optional<AreaServicio> optAreaServicio = areaServicioRepository.findById(id);
         AreaServicio areaServicio = optAreaServicio.orElse(new AreaServicio());
@@ -330,8 +372,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
-    public final Ticket createTicketIfNotFound(final Long id, final String titulo, final String descripcion, final AreaServicio areaServicio, final Usuario usuarioCreador,
-            final Usuario usuarioAsignado, String estatus) {
+    public final Ticket createTicketIfNotFound(final Long id, final String titulo, final String descripcion, final AreaServicio areaServicio, final Usuario usuarioCreador, final Usuario usuarioAsignado,
+            final String estatus) {
         Optional<Ticket> optTicket = ticketRepository.findById(id);
         Ticket ticket = optTicket.orElse(new Ticket());
         if (!optTicket.isPresent()) {
