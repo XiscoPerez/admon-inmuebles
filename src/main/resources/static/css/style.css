@@ -14,6 +14,10 @@ iframe {
     padding: 150px 0px;
 }
 
+.display-7 {
+  font-size: 4rem; 
+}
+
 .footer-fixed {
 	position: fixed;
 }

@@ -276,8 +276,8 @@
 						<div class="card card-shadow" data-aos="zoom-out-down"
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_360">
-								<div class="p-3 display-5 text-megna">
-									<i class="text-success-gradiant icon-people"></i>
+								<div class="display-7 text-megna">
+									<i class="text-success-gradiant mdi mdi-target"></i>
 								</div>
 								<h3 th:text="#{etiqueta.quienesomos.mision}"></h3>
 								<p class="m-t-20"
@@ -289,8 +289,8 @@
 						<div class="card card-shadow" data-aos="zoom-out-down"
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_360">
-								<div class="p-3 display-5 text-megna">
-									<i class="text-success-gradiant icon-people"></i>
+								<div class="display-7 text-megna">
+									<i class="text-success-gradiant mdi mdi-wan"></i>
 								</div>
 								<h3 th:text="#{etiqueta.quienesomos.vision}"></h3>
 								<p class="m-t-20"
@@ -302,8 +302,8 @@
 						<div class="card card-shadow" data-aos="zoom-out-down"
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_360">
-								<div class="p-3 display-5 text-megna">
-									<i class="text-success-gradiant icon-people"></i>
+								<div class="display-7 text-megna">
+									<i class="text-success-gradiant mdi mdi-star"></i>
 								</div>
 								<h3 th:text="#{etiqueta.quienesomos.valores}"></h3>
 								<p class="m-t-20"
@@ -756,7 +756,7 @@
 		<div id="manteniemientoModal" class="modal fade" tabindex="-1"
 			role="dialog" aria-labelledby="manteniemientoModalLabel"
 			aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="manteniemientoModalLabel"
@@ -765,38 +765,19 @@
 							aria-hidden="true">×</button>
 					</div>
 					<div class="modal-body">
-						<h4 th:text="#{etiqueta.servicios.mantenimiento.listado.titulo}"></h4>
-						<ul class="feeds">
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 1
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 2
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 3
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 4
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 5
-							</li>
-
-						</ul>
+						<h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.1}"></h4>
+						<h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2}"></h4>
+						 <ul class="list-icons">
+						 	 <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.1}"></span><br/><div class="m-l-20"><small th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.1.1}"></small></div></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.2}"></span><br/><div class="m-l-20"><small th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.2.1}"></small></div></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.3}"></span><br/><div class="m-l-20"><small th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.3.1}"></small></div></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.4}"></span><br/><div class="m-l-20"><small th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.4.1}"></small></div></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.5}"></span><br/><div class="m-l-20"><small th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.5.1}"></small></div></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.mantenimiento.listado.servicio.2.6}"></span></li>
+						 </ul>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info waves-effect"
+						<button type="button" class="btn btn-outline-secondary waves-effect"
 							data-dismiss="modal" th:text="#{etiqueta.cerrar}"></button>
 					</div>
 				</div>
@@ -809,7 +790,7 @@
 		<div id="administracionModal" class="modal fade" tabindex="-1"
 			role="dialog" aria-labelledby="administracionModalLabel"
 			aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="administracionModalLabel"
@@ -818,38 +799,36 @@
 							aria-hidden="true">×</button>
 					</div>
 					<div class="modal-body">
-						<h4 th:text="#{etiqueta.servicios.administracion.listado.titulo}"></h4>
-						<ul class="feeds">
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 1
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 2
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 3
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 4
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 5
-							</li>
+						<h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.administracion.listado.servicio.1}"></h4>
+						<h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.administracion.listado.servicio.2}"></h4>
+						 <ul class="list-icons">
+						 	 <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.2.1}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.2.2}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.2.3}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.2.4}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.2.5}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.2.6}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.2.7}"></span></li>
+						 </ul>
+                         <h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.administracion.listado.servicio.3}"></h4>
+						 <ul class="list-icons">
+						 	 <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.3.1}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.3.2}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.3.3}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.3.4}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.3.5}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.3.6}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.3.7}"></span></li>
+						 </ul> 
+						 <h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.administracion.listado.servicio.4}"></h4>
+						 <ul class="list-icons">
+						 	 <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.4.1}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.administracion.listado.servicio.4.2}"></span></li>
+						 </ul>                                 
 
-						</ul>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info waves-effect"
+						<button type="button" class="btn btn-outline-secondary waves-effect"
 							data-dismiss="modal" th:text="#{etiqueta.cerrar}"></button>
 					</div>
 				</div>
@@ -861,7 +840,7 @@
 		<div id="seguridadModal" class="modal fade" tabindex="-1"
 			role="dialog" aria-labelledby="seguridadModalLabel"
 			aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="seguridadModalLabel"
@@ -870,38 +849,16 @@
 							aria-hidden="true">×</button>
 					</div>
 					<div class="modal-body">
-						<h4 th:text="#{etiqueta.servicios.seguridad.listado.titulo}"></h4>
-						<ul class="feeds">
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 1
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 2
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 3
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 4
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 5
-							</li>
+						<h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.seguridad.listado.servicio.1}"></h4>
+						<h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.seguridad.listado.servicio.2}"></h4>
+						 <ul class="list-icons">
+						 	 <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.seguridad.listado.servicio.2.1}"></span></li>
+                             <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.seguridad.listado.servicio.2.2}"></span></li>
+						 </ul>
 
-						</ul>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info waves-effect"
+						<button type="button" class="btn btn-outline-secondary waves-effect"
 							data-dismiss="modal" th:text="#{etiqueta.cerrar}"></button>
 					</div>
 				</div>
@@ -912,47 +869,22 @@
 
 		<div id="portalModal" class="modal fade" tabindex="-1" role="dialog"
 			aria-labelledby="portalModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="portalModalLabel"
 							th:text="#{etiqueta.servicios.portalgesco}"></h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">×</button>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 					</div>
 					<div class="modal-body">
-						<h4 th:text="#{etiqueta.servicios.portalgesco.listado.titulo}"></h4>
-						<ul class="feeds">
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 1
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 2
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 3
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 4
-							</li>
-							<li>
-								<div class="bg-light-primary">
-									<i class="ti-settings"></i>
-								</div> Servicio 5
-							</li>
+						<h4 class="card-title text-gesco-secundario" th:text="#{etiqueta.servicios.portalgesco.listado.servicio.1}"></h4>
+						 <ul class="list-icons">
+						 	 <li><i class="fa fa-check text-gesco"></i><span th:text="#{etiqueta.servicios.portalgesco.listado.servicio.1.1}"></span></li>
+						 </ul>
 
-						</ul>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info waves-effect"
+						<button type="button" class="btn btn-outline-secondary waves-effect"
 							data-dismiss="modal" th:text="#{etiqueta.cerrar}"></button>
 					</div>
 				</div>
