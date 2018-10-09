@@ -69,7 +69,7 @@ function validarLogin() {
     <!-- ============================================================== -->
     <section id="wrapper">
 <!--         <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">        -->
-        <div class="login-register" style="background-image:url(../images/login/288783-P6NYUN-122.jpg);">  
+        <div class="login-register" style="background-image:url(../images/login/7_PANTALLA_USUARIO.png);">  
             <div class="login-box card">
             <div class="card-body">
                 <form class="form-control-line" id="loginform" name="loginForm" th:action="@{/login}" method="post" onsubmit="return validarLogin();">
@@ -146,7 +146,8 @@ function validarLogin() {
 			<small class="text-white">Qro: 442 114 6052 </small>
 		</div>
 		<div class="col-lg-2">
-			<a target="_blank" th:href="#{footer.archivo.avisoprivacidad}"><small class="text-white" th:text="#{footer.avisoprivacidad}"> </small></a>
+<!-- 			<a target="_blank" th:href="#{footer.archivo.avisoprivacidad}"><small class="text-white" th:text="#{footer.avisoprivacidad}"> </small></a> -->
+			<a target="_blank" th:href="@{/api/aviso-privacidad}"><small class="text-white" th:text="#{footer.avisoprivacidad}"> </small></a>
 		</div>
 
 	</div>
