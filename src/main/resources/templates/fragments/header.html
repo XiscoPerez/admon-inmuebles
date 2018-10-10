@@ -9,14 +9,14 @@
 			<a class="navbar-brand" href="/inicio"> <!-- Logo icon --> <b>
 					<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 					<!-- Dark Logo icon -->
-					<img th:src="@{/images/logo/IMAGOTIPO.png}" width="57px" height="57px" alt="homepage" class="dark-logo" />
+					<img th:src="#{header.imagen.logo}" width="57px" height="57px" alt="homepage" class="dark-logo" />
 					<!-- Light Logo icon -->
-					<img src="../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+					<img th:src="#{header.imagen.logo.light}" alt="homepage" class="light-logo" />
 				</b> <!--End Logo icon --> <!-- Logo text --> <span>
 					<!-- dark Logo text -->
-					<img th:src="@{/images/logo/NOMBRE2.png}" width="103px" height="40px" alt="homepage" class="dark-logo" />
+					<img th:src="#{header.imagen.logotext}" width="103px" height="40px" alt="homepage" class="dark-logo" />
 					<!-- Light Logo text -->
-					<img src="../assets/images/logo-light-text.png"  class="light-logo" alt="homepage" />
+					<img th:src="#{header.imagen.logotext.light}"  class="light-logo" alt="homepage" />
 				</span>
 			</a>
 		</div>
@@ -96,8 +96,7 @@
                 </li>
 				<li sec:authorize="isAuthenticated()" class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 
-<!-- 						<img th:src="@{/assets/images/users/1.jpg}" alt="user" class="profile-pic" /> -->
-						<img th:if="${#authentication.principal.usuario.fotoUrl == null}" th:src="@{/images/header/default-user.png}" alt="user" class="profile-pic">
+						<img th:if="${#authentication.principal.usuario.fotoUrl == null}" th:src="#{header.imagen.defaultuser}" alt="user" class="profile-pic">
 						<img th:if="${#authentication.principal.usuario.fotoUrl != null}" th:src="${#authentication.principal.usuario.fotoUrl}" alt="user" class="profile-pic" />
 				</a>
 					<div class="dropdown-menu dropdown-menu-right animated flipInY">
@@ -105,12 +104,11 @@
 							<li>
 								<div class="dw-user-box">
 									<div class="u-img">
-										<img th:if="${#authentication.principal.usuario.fotoUrl == null}" th:src="@{/images/header/default-user.png}" alt="user">
+										<img th:if="${#authentication.principal.usuario.fotoUrl == null}" th:src="#{header.imagen.defaultuser}" alt="user">
 										<img th:if="${#authentication.principal.usuario.fotoUrl != null}" th:src="${#authentication.principal.usuario.fotoUrl}" alt="user" />
 									</div>
 									<div class="u-text">
 										<h4 sec:authentication="name"></h4><br/>
-<!-- 										<p class="text-muted" sec:authentication="principal.usuario.username"></p> -->
 										<a th:href="@{/usuarios/perfil}" class="btn btn-rounded btn-danger btn-sm" th:text="#{etiqueta.header.miperfil}"></a>
 									</div>
 								</div>

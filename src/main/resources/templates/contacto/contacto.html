@@ -4,7 +4,7 @@
 	layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{contacto.title}"></title>
+<title th:text="#{etiqueta.contacto.titulo}"></title>
 <script th:inline="javascript">
 /*<![CDATA[*/
 	
@@ -73,15 +73,15 @@ $(document).ready(function() {
 															th:text="${sector.nombre}"></option>
 		                                        </select>
 		                                  </div>
-		                                  <div class="col-md-12 m-b-20">
-	 		                                   <label class="form-control-label" for="zona" th:text="#{campo.contacto.zona}"></label>
-		                                        <select name="zona" id=zona class="form-control" th:field="*{zonaCodigo}" >	
-			                                        <option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option>
-													<option th:each="zona : ${session.zonasDto}" 
-															th:value="${{zona.codigo}}" 
-															th:text="${zona.nombre}"></option>
-		                                        </select>
-		                                  </div>
+<!-- 		                                  <div class="col-md-12 m-b-20"> -->
+<!-- 	 		                                   <label class="form-control-label" for="zona" th:text="#{campo.contacto.zona}"></label> -->
+<!-- 		                                        <select name="zona" id=zona class="form-control" th:field="*{zonaCodigo}" >	 -->
+<!-- 			                                        <option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option> -->
+<!-- 													<option th:each="zona : ${session.zonasDto}"  -->
+<!-- 															th:value="${{zona.codigo}}"  -->
+<!-- 															th:text="${zona.nombre}"></option> -->
+<!-- 		                                        </select> -->
+<!-- 		                                  </div> -->
 		                                  <div class="col-md-12 m-b-20">
 	 		                                   <label class="form-control-label" for="estado" th:text="#{campo.contacto.estado}"></label>
 		                                        <select name="estado" id=sector class="form-control" th:field="*{estadoId}" >	

@@ -14,8 +14,8 @@
 <!--         <li><a href="/inicio#parte-nuestros-clientes" aria-expanded="false"><i class="mdi mdi-human"></i> <span class="hide-menu" th:text="#{menu.clientes}"></span></a></li> -->
         <li><a href="/inicio#parte-sucursales" aria-expanded="false"><i class="mdi mdi-map-marker"></i> <span class="hide-menu" th:text="#{menu.sucursales}"></span></a></li>
         <li><a href="/contacto" aria-expanded="false"><i class="mdi mdi-contact-mail"></i> <span class="hide-menu" th:text="#{menu.contactanos}"></span></a></li>
-        <li><a href="/preguntas-frecuentes" aria-expanded="false"><i class="mdi mdi-help-circle-outline"></i> <span class="hide-menu" th:text="#{menu.preguntasfrecuentes}"></span></a></li>
-        <li><a href="/iconos" aria-expanded="false"><i class="mdi mdi-airplay"></i> <span class="hide-menu">Iconos</span></a></li>
+        <li><a href="/preguntas-frecuentes" aria-expanded="false"><i class="mdi mdi-comment-account"></i> <span class="hide-menu" th:text="#{menu.preguntasfrecuentes}"></span></a></li>
+<!--         <li><a href="/iconos" aria-expanded="false"><i class="mdi mdi-airplay"></i> <span class="hide-menu">Iconos</span></a></li> -->
         <li sec:authorize="!isAuthenticated()"><a href="/login" aria-expanded="false"><i class="mdi mdi-account-key"></i> <span class="hide-menu" th:text="#{menu.ingresosocios}"></span></a></li>
         <li sec:authorize="hasRole('PROVEEDOR')"><a href="/proveedores/inicio" aria-expanded="false"><i class="mdi mdi-home"></i> <span class="hide-menu" th:text="#{menu.proveedor.inicio}"></span></a></li>
         <li sec:authorize="hasRole('SOCIO_BI')"><a href="/sociobi/inicio" aria-expanded="false"><i class="mdi mdi-home"></i> <span class="hide-menu" th:text="#{menu.sociobi.inicio}"></span></a></li>
@@ -38,7 +38,7 @@
 <!--                 <li><a href="index2.html" th:text="#{menu.morosos}"></a></li> -->
 <!--               </ul> -->
 <!--             </li> -->
-            <li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')"><a th:href="@{/usuarios}" href="#" aria-expanded="false" ><i class="mdi mdi-account-key"></i> <span class="hide-menu" th:text="#{menu.usuarios}"></span></a></li>
+            <li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')"><a th:href="@{/usuarios}" href="#" aria-expanded="false" ><i class="mdi mdi-account-key"></i> <span class="hide-menu" th:text="#{menu.usuarios}"></span></a></li>
             <li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')"><a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-clipboard"></i> <span class="hide-menu"
                   th:text="#{menu.catalogos}"></span></a>
               <ul aria-expanded="false" class="collapse">

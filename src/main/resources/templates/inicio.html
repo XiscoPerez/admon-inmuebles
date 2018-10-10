@@ -4,7 +4,7 @@
 	layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{home.title}"></title>
+<title th:text="#{inicio.titulo}"></title>
 <script th:inline="javascript">
 	
 </script>
@@ -27,33 +27,21 @@
 							<img class="img-responsive"
 								th:src="#{carrusel.imagen.1}"
 								alt="First slide">
-<!-- 							<div class="carousel-caption d-none d-md-block"> -->
-<!-- 								<h1 class="text-gesco-secundario" th:text="#{carrusel.titulo.1}"></h1> -->
-<!-- 							</div> -->
 						</div>
 						<div class="carousel-item">
 							<img class="img-responsive"
 								th:src="#{carrusel.imagen.2}"
 								alt="Second slide">
-<!-- 							<div class="carousel-caption d-none d-md-block"> -->
-<!-- 								<h1 class="text-gesco-secundario" th:text="#{carrusel.titulo.2}"></h1> -->
-<!-- 							</div> -->
 						</div>
 						<div class="carousel-item">
 							<img class="img-responsive"
 								th:src="#{carrusel.imagen.3}"
 								alt="Third slide">
-<!-- 							<div class="carousel-caption d-none d-md-block"> -->
-<!-- 								<h1 class="text-gesco-secundario" th:text="#{carrusel.titulo.3}"></h1> -->
-<!-- 							</div> -->
 						</div>
 						<div class="carousel-item">
 							<img class="img-responsive"
 								th:src="#{carrusel.imagen.4}"
 								alt="Fourth slide">
-<!-- 							<div class="carousel-caption d-none d-md-block"> -->
-<!-- 								<h1 class="text-gesco-secundario" th:text="#{carrusel.titulo.3}"></h1> -->
-<!-- 							</div> -->
 						</div>
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleIndicators3"
@@ -81,13 +69,12 @@
 							<div class="spacer">
 								<div class="text-center">
 									<h1 class="title text-megna" th:text="#{etiqueta.quienesomos}"></h1>
-									<!-- 	                               <h6 class="subtitle text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpa</h6> -->
 								</div>
 								<div class="container-fluid">
 								<div class="row m-t-40 d-flex align-items-center">
 									<div class="col-md-6">
 										<img class="img-responsive"
-											src="../images/quienessomos/2_QUIENES_SOMOS.png"
+											th:src="#{quienessomos.img.1}"
 											alt="First slide" data-aos="flip-left"
 											data-aos-easing="ease-out-cubic" data-aos-duration="2000">
 									</div>
@@ -116,14 +103,12 @@
 					<div class="col-lg-4 col-md-6">
 						<div class="card card-color-secunadario-gesco">
 							<div class="el-card-item">
-								<!--                                 <div class="el-card-avatar el-overlay-1"> <img src="../assets/images/users/1.jpg" alt="user" /> -->
 								<div class="el-card-avatar el-overlay-1">
 									<img
-										src="../images/quienessomos/sectores/1_SECTORES_A_CONDOMINIOS.png"
+										th:src="#{quienesomos.principalessectores.condominios.img.1}"
 										alt="user" />
 <!-- 									<div class="el-overlay"> -->
 <!-- 										<ul class="el-info"> -->
-<!-- 											                                            <li><a class="btn default btn-outline image-popup-vertical-fit" data-toggle="modal" data-target="#condiminiosModal"><i class="icon-magnifier"></i></a></li> -->
 <!-- 											<li><a class="btn default btn-outline" -->
 <!-- 												href="javascript:void(0);" data-toggle="modal" -->
 <!-- 												data-target="#condiminiosModal"><i class="icon-link"></i></a></li> -->
@@ -141,14 +126,12 @@
 					<div class="col-lg-4 col-md-6">
 						<div class="card card-color-secunadario-gesco">
 							<div class="el-card-item">
-								<!--                                 <div class="el-card-avatar el-overlay-1"> <img src="../assets/images/users/2.jpg" alt="user" /> -->
 								<div class="el-card-avatar el-overlay-1">
 									<img
-										src="../images/quienessomos/sectores/1_SECTORES_B_CORPORATIVOS.png"
+										th:src="#{quienesomos.principalessectores.corporativos.img.1}"
 										alt="user" />
 <!-- 									<div class="el-overlay"> -->
 <!-- 										<ul class="el-info"> -->
-<!-- 											                                            <li><a class="btn default btn-outline image-popup-vertical-fit" href="../plugins/images/users/1.jpg"><i class="icon-magnifier"></i></a></li> -->
 <!-- 											<li><a class="btn default btn-outline" -->
 <!-- 												href="javascript:void(0);" data-toggle="modal" -->
 <!-- 												data-target="#corporativosModal"><i class="icon-link"></i></a></li> -->
@@ -166,14 +149,12 @@
 					<div class="col-lg-4 col-md-6">
 						<div class="card card-color-secunadario-gesco">
 							<div class="el-card-item">
-								<!--                                 <div class="el-card-avatar el-overlay-1"> <img src="../assets/images/users/3.jpg" alt="user" /> -->
 								<div class="el-card-avatar el-overlay-1">
 									<img
-										src="../images/quienessomos/sectores/1_SECTORES_C_COMERCIALES.png"
+										th:src="#{quienesomos.principalessectores.centrocomenrciales.img.1}"
 										alt="user" />
 <!-- 									<div class="el-overlay"> -->
 <!-- 										<ul class="el-info"> -->
-<!-- 											                                            <li><a class="btn default btn-outline image-popup-vertical-fit" href="../plugins/images/users/1.jpg"><i class="icon-magnifier"></i></a></li> -->
 <!-- 											<li><a class="btn default btn-outline" -->
 <!-- 												href="javascript:void(0);" data-toggle="modal" -->
 <!-- 												data-target="#centrosComercialesModal"><i -->
@@ -195,14 +176,12 @@
 					<div class="col-lg-4 col-md-6">
 						<div class="card card-color-secunadario-gesco">
 							<div class="el-card-item">
-								<!--                                 <div class="el-card-avatar el-overlay-1"> <img src="../assets/images/users/1.jpg" alt="user" /> -->
 								<div class="el-card-avatar el-overlay-1">
 									<img
-										src="../images/quienessomos/sectores/1_SECTORES_D_HOTELES.png"
+										th:src="#{quienesomos.principalessectores.hoteles.img.1}"
 										alt="user" />
 <!-- 									<div class="el-overlay"> -->
 <!-- 										<ul class="el-info"> -->
-<!-- 											                                            <li><a class="btn default btn-outline image-popup-vertical-fit" href="../plugins/images/users/1.jpg"><i class="icon-magnifier"></i></a></li> -->
 <!-- 											<li><a class="btn default btn-outline" -->
 <!-- 												href="javascript:void(0);" data-toggle="modal" -->
 <!-- 												data-target="#hotelesModal"><i class="icon-link"></i></a></li> -->
@@ -220,14 +199,12 @@
 					<div class="col-lg-4 col-md-6">
 						<div class="card card-color-secunadario-gesco">
 							<div class="el-card-item">
-								<!--                                 <div class="el-card-avatar el-overlay-1"> <img src="../assets/images/users/2.jpg" alt="user" /> -->
 								<div class="el-card-avatar el-overlay-1">
 									<img
-										src="../images/quienessomos/sectores/1_SECTORES_E_ALMACENES.png"
+										th:src="#{quienesomos.principalessectores.almacenes.img.1}"
 										alt="user" />
 <!-- 									<div class="el-overlay"> -->
 <!-- 										<ul class="el-info"> -->
-<!-- 											                                            <li><a class="btn default btn-outline image-popup-vertical-fit" href="../plugins/images/users/1.jpg"><i class="icon-magnifier"></i></a></li> -->
 <!-- 											<li><a class="btn default btn-outline" -->
 <!-- 												href="javascript:void(0);" data-toggle="modal" -->
 <!-- 												data-target="#almacenesModal"><i class="icon-link"></i></a></li> -->
@@ -245,14 +222,12 @@
 					<div class="col-lg-4 col-md-6">
 						<div class="card card-color-secunadario-gesco">
 							<div class="el-card-item">
-								<!--                                 <div class="el-card-avatar el-overlay-1"> <img src="../assets/images/users/3.jpg" alt="user" /> -->
 								<div class="el-card-avatar el-overlay-1">
 									<img
-										src="../images/quienessomos/sectores/1_SECTORES_F_INMUEBLES.png"
+										th:src="#{quienesomos.principalessectores.inmuebles.img.1}"
 										alt="user" />
 <!-- 									<div class="el-overlay"> -->
 <!-- 										<ul class="el-info"> -->
-<!-- 											                                            <li><a class="btn default btn-outline image-popup-vertical-fit" href="../plugins/images/users/1.jpg"><i class="icon-magnifier"></i></a></li> -->
 <!-- 											<li><a class="btn default btn-outline" -->
 <!-- 												href="javascript:void(0);" data-toggle="modal" -->
 <!-- 												data-target="#inmueblesModal"><i class="icon-link"></i></a></li> -->
@@ -636,16 +611,10 @@
 		<!-- ============================================================== -->
 		<div id="parte-servicios">
 
-			<!--           <div class="row" style="background: url(../../assets/images/background/megamenubg.jpg) no-repeat right bottom #fff;"> -->
 			<div class="row" th:style="'background:url(' + #{servicios.imagen.1} + ') no-repeat right bottom #fff; background-size: 100% 100%;'">
-<!-- 				style="background: url(../images/servicios/3_SERVICIOS.png) no-repeat right bottom #fff; background-size: 100% 100%;"> -->
 
 				<div class="col-12">
 					<div class="text-center spacer">
-<!-- 						<h1 class="title text-megna" -->
-<!-- 							th:text="#{etiqueta.servicios.titulo}"></h1> -->
-<!-- 						<h6 class="subtitle text-muted" -->
-<!-- 							th:text="#{etiqueta.servicios.descripcion}"></h6> -->
 					</div>
 					<div class="spacer_2"></div>
 				</div>
@@ -661,7 +630,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body d-flex tarjeta_alto_290">
 								<div class="p-4 display-5 text-info align-self-center">
-									<img src="../images/servicios/ICONOS_SERVICIOS_01_MTTO.png"
+									<img th:src="#{servicios.mantenimiento.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<div class="align-self-center">
@@ -683,8 +652,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body d-flex tarjeta_alto_290">
 								<div class="p-4 display-5 text-info align-self-center">
-									<img
-										src="../images/servicios/ICONOS_SERVICIOS_02_SEGURIDAD.png"
+									<img th:src="#{servicios.seguridad.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<div class="align-self-center">
@@ -708,7 +676,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body d-flex tarjeta_alto_290">
 								<div class="p-4 display-5 text-info align-self-center">
-									<img src="../images/servicios/ICONOS_SERVICIOS_03_ADMON.png"
+									<img th:src="#{servicios.administracion.imagen.1}"
 										width="85px" alt=logo />
 								</div>
 								<div class="align-self-center">
@@ -730,7 +698,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body d-flex tarjeta_alto_290">
 								<div class="p-4 display-5 text-info align-self-center">
-									<img src="../images/servicios/ICONOS_SERVICIOS_04_PORTAL.png"
+									<img th:src="#{servicios.portal.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<div class="align-self-center">
@@ -906,13 +874,9 @@
 		<!-- ============================================================== -->
 		<div id="parte-ventajas-competitivas">
 
-			<!-- 	 <div class="row" style="background: url(../../assets/images/background/megamenubg.jpg) no-repeat right bottom #fff;"> -->
 			<div class="row" th:style="'background:url(' + #{ventajas.imagen.1} + ') no-repeat right bottom #fff; background-size: 100% 100%;'">
-<!-- 				style="background: url(../images/ventajas/VENTAJAS.png) no-repeat right bottom #fff; background-size: 100% 100%;"> -->
 				<div class="col-12">
 					<div class="text-center spacer">
-<!-- 						<h1 class="title text-megna" th:text="#{etiqueta.ventajas.titulo}"></h1> -->
-<!-- 						<h3 class="subtitle text-muted" th:text="#{etiqueta.ventajas.descripcion}"></h3> -->
 					</div>
 					<div class="spacer_2"></div>
 				</div>
@@ -926,7 +890,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_400">
 								<div class="p-3 display-5 text-megna">
-									<img src="../images/ventajas/VENTAJAS_03_ADMON.png"
+									<img th:src="#{ventajas.administracion.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<h4 th:text="#{etiqueta.ventajas.administracion}"></h4>
@@ -940,7 +904,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_400">
 								<div class="p-3 display-5 text-megna">
-									<img src="../images/ventajas/VENTAJAS_04_COMUNICACION.png"
+									<img th:src="#{ventajas.comunicacion.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<h4 th:text="#{etiqueta.ventajas.comunicacion}"></h4>
@@ -954,7 +918,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_400">
 								<div class="p-3 display-5 text-megna">
-									<img src="../images/ventajas/VENTAJAS_06_TRANSPARENCIA.png"
+									<img th:src="#{ventajas.transparencia.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<h4 th:text="#{etiqueta.ventajas.transparencia}"></h4>
@@ -968,7 +932,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_400">
 								<div class="p-3 display-5 text-megna">
-									<img src="../images/ventajas/VENTAJAS_01_MONITOREO.png"
+									<img th:src="#{ventajas.monitoreo.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<h4 th:text="#{etiqueta.ventajas.monitoreo}"></h4>
@@ -984,7 +948,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_350">
 								<div class="p-3 display-5 text-megna">
-									<img src="../images/ventajas/VENTAJAS_02_CONTROL.png"
+									<img th:src="#{ventajas.control.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<h4 th:text="#{etiqueta.ventajas.control}"></h4>
@@ -998,7 +962,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_350">
 								<div class="p-3 display-5 text-megna">
-									<img src="../images/ventajas/VENTAJAS_05_VIGILANCIA.png"
+									<img th:src="#{ventajas.vigilancia.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<h4 th:text="#{etiqueta.ventajas.vigilancia}"></h4>
@@ -1013,7 +977,7 @@
 							data-aos-delay="50" data-aos-duration="2000">
 							<div class="card-body text-center tarjeta_alto_350">
 								<div class="p-3 display-5 text-megna">
-									<img src="../images/ventajas/VENTAJAS_07_PORTAL.png"
+									<img th:src="#{ventajas.portal.imagen.1}"
 										width="90px" alt=logo />
 								</div>
 								<h4 th:text="#{etiqueta.ventajas.portal}"></h4>
@@ -1129,13 +1093,8 @@
 
 
 			<div class="row" th:style="'background:url(' + #{sucursales.imagen.1} + ') no-repeat right bottom #fff; background-size: 100% 100%;'">
-<!-- 				style="background: url(../../assets/images/background/megamenubg.jpg) no-repeat right bottom #fff;"> -->
 				<div class="col-12">
 					<div class="text-center spacer">
-<!-- 						<h1 class="title text-megna" -->
-<!-- 							th:text="#{etiqueta.sucursales.titulo}"></h1> -->
-<!-- 						<h3 class="subtitle text-muted" -->
-<!-- 							th:text="#{etiqueta.sucursales.descripcion}"></h3> -->
 					</div>
 					<div class="spacer_2"></div>
 				</div>
@@ -1148,11 +1107,11 @@
 					<div class="col-lg-6 col-md-4 col-sm-3 col-xs-12"
 						data-aos="fade-right" data-aos-delay="50" data-aos-duration="2000">
 						<div class="ribbon-wrapper card animated fadeInLeft">
-							<div class="ribbon ribbon-bookmark  ribbon-gesco">CDMX</div>
+							<div class="ribbon ribbon-bookmark  ribbon-gesco" th:text="#{sucursales.cdmx.nombre}"></div>
 							<div class="row  d-flex justify-content-center">
 								<div class="col-lg-12 col-md-12 text-center">
 									<iframe
-										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.863849070492!2d-99.16937748467946!3d19.418287786892364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3872f0c633%3A0x9d5cf9d68882b39c!2sColima+329%2C+Roma+Nte.%2C+06700+Ciudad+de+M%C3%A9xico%2C+CDMX!5e0!3m2!1ses-419!2smx!4v1537077207013"
+										th:src="#{sucursales.cdmx.mapa}"
 										width="100%" height="800" frameborder="0" style="border: 0"
 										allowfullscreen></iframe>
 								</div>
@@ -1160,22 +1119,22 @@
 							<div class="row m-b-5">
 								<div class="col-12">
 									<img
-										src="../images/sucursales/ICONOS_CONTACTO_01_UBICACION.png"
-										width="20" alt=logo /> <small>Colima 329, Col. Roma,
-										Del. Cuauhtémoc, C.P. 06700, CDMX</small>
+										th:src="#{sucursales.imagen.ubicacion}"
+										width="20" alt=logo /> <small th:text="#{sucursales.cdmx.direccion}"></small>
 								</div>
 							</div>
 							<div class="row  m-b-5">
 								<div class="col-12">
 									<img
-										src="../images/sucursales/ICONOS_CONTACTO_02_TELEFONO_CDMX.png"
-										width="20" alt=logo /> <small>01 (55) 4431 4417</small>
+										th:src="#{sucursales.imagen.telefono}"
+										width="20" alt=logo /> <small th:text="#{sucursales.cdmx.telefono}"></small>
 								</div>
 							</div>
 							<div class="row  m-b-5">
 								<div class="col-12">
-									<img src="../images/sucursales/ICONOS_CONTACTO_03_CORREO.png"
-										width="20" alt=logo /> <small>contacto.cdmx@gesco-pls.com</small>
+									<img 
+										th:src="#{sucursales.imagen.correo}"
+										width="20" alt=logo /> <small th:text="#{sucursales.cdmx.correo}"></small>
 								</div>
 							</div>
 						</div>
@@ -1183,11 +1142,11 @@
 					<div class="col-lg-6 col-md-4 col-sm-3 col-xs-12"
 						data-aos="fade-left" data-aos-delay="50" data-aos-duration="2000">
 						<div class="ribbon-wrapper card animated fadeInLeft">
-							<div class="ribbon ribbon-bookmark  ribbon-gesco">Cancún</div>
+							<div class="ribbon ribbon-bookmark  ribbon-gesco" th:text="#{sucursales.cancun.nombre}"></div>
 							<div class="row  d-flex justify-content-center">
 								<div class="col-lg-12 col-md-12 text-center">
 									<iframe
-										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.433571051594!2d-99.1767864846798!3d19.39366398690653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff718f4416e1%3A0x6e35698f0852629c!2sWorld+Trade+Center+Ciudad+de+M%C3%A9xico!5e0!3m2!1ses-419!2smx!4v1535393994443"
+										th:src="#{sucursales.cancun.mapa}"
 										width="100%" height="800" frameborder="0" style="border: 0"
 										allowfullscreen></iframe>
 								</div>
@@ -1195,21 +1154,22 @@
 							<div class="row m-b-5">
 								<div class="col-12">
 									<img
-										src="../images/sucursales/ICONOS_CONTACTO_01_UBICACION.png"
-										width="20" alt=logo /> <small>Margaritas 24-A, SM 22, Mna. 21 Retorno 10, Cancún, Quintana Roo</small>
+										th:src="#{sucursales.imagen.ubicacion}"
+										width="20" alt=logo /> <small th:text="#{sucursales.cancun.direccion}"></small>
 								</div>
 							</div>
 							<div class="row  m-b-5">
 								<div class="col-12">
 									<img
-										src="../images/sucursales/ICONOS_CONTACTO_02_CELULAR_AGS_QRO_CANCUN.png"
-										width="20" alt=logo /> <small>Pendiente celular</small>
+										th:src="#{sucursales.imagen.celular}"
+										width="20" alt=logo /> <small th:text="#{sucursales.cancun.telefono}"></small>
 								</div>
 							</div>
 							<div class="row  m-b-5">
 								<div class="col-12">
-									<img src="../images/sucursales/ICONOS_CONTACTO_03_CORREO.png"
-										width="20" alt=logo /> <small>contacto.cancun@gesco-pls.com</small>
+									<img 
+										th:src="#{sucursales.imagen.correo}"
+										width="20" alt=logo /> <small th:text="#{sucursales.cancun.correo}"></small>
 								</div>
 							</div>
 						</div>
@@ -1221,11 +1181,11 @@
 					<div class="col-lg-6 col-md-4 col-sm-3 col-xs-12"
 						data-aos="fade-right" data-aos-delay="50" data-aos-duration="2000">
 						<div class="ribbon-wrapper card animated fadeInLeft">
-							<div class="ribbon ribbon-bookmark  ribbon-gesco">Aguascalientes</div>
+							<div class="ribbon ribbon-bookmark  ribbon-gesco" th:text="#{sucursales.aguascalientes.nombre}"></div>
 							<div class="row  d-flex justify-content-center">
 								<div class="col-lg-12 col-md-12 text-center">
 									<iframe
-										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3702.936835355693!2d-102.31094768464563!3d21.85997198555409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8429ec2e5177a199%3A0xc633df80a10372de!2sReal+Dorado!5e0!3m2!1ses-419!2smx!4v1537077378166"
+										th:src="#{sucursales.aguascalientes.mapa}"
 										width="100%" height="800" frameborder="0" style="border: 0"
 										allowfullscreen></iframe>
 								</div>
@@ -1233,22 +1193,22 @@
 							<div class="row m-b-5">
 								<div class="col-12">
 									<img
-										src="../images/sucursales/ICONOS_CONTACTO_01_UBICACION.png"
-										width="20" alt=logo /> <small>Galicia 224, El Dorado,
-										Aguascalientes, Ags.</small>
+										th:src="#{sucursales.imagen.ubicacion}"
+										width="20" alt=logo /> <small th:text="#{sucursales.aguascalientes.direccion}"></small>
 								</div>
 							</div>
 							<div class="row  m-b-5">
 								<div class="col-12">
 									<img
-										src="../images/sucursales/ICONOS_CONTACTO_02_TELEFONO_CDMX.png"
-										width="20" alt=logo /> <small>449 365 2870</small>
+										th:src="#{sucursales.imagen.telefono}"
+										width="20" alt=logo /> <small th:text="#{sucursales.aguascalientes.telefono}"></small>
 								</div>
 							</div>
 							<div class="row  m-b-5">
 								<div class="col-12">
-									<img src="../images/sucursales/ICONOS_CONTACTO_03_CORREO.png"
-										width="20" alt=logo /> <small>contacto.ags@gesco-pls.com</small>
+									<img 
+										th:src="#{sucursales.imagen.correo}"
+										width="20" alt=logo /> <small th:text="#{sucursales.aguascalientes.correo}"></small>
 								</div>
 							</div>
 						</div>
@@ -1256,11 +1216,11 @@
 					<div class="col-lg-6 col-md-4 col-sm-3 col-xs-12"
 						data-aos="fade-left" data-aos-delay="50" data-aos-duration="2000">
 						<div class="ribbon-wrapper card animated fadeInLeft">
-							<div class="ribbon ribbon-bookmark  ribbon-gesco">Querétaro</div>
+							<div class="ribbon ribbon-bookmark  ribbon-gesco" th:text="#{sucursales.queretaro.nombre}"></div>
 							<div class="row  d-flex justify-content-center">
 								<div class="col-lg-12 col-md-12 text-center">
 									<iframe
-										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3731.9173344604865!2d-100.46307958466198!3d20.71358118616996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d3576d42de22b5%3A0x32022245d47689f8!2sBuenavista+236%2C+Villas+del+Mes%C3%B3n%2C+Juriquilla%2C+Qro.!5e0!3m2!1ses-419!2smx!4v1537077515362"
+										th:src="#{sucursales.queretaro.mapa}"
 										width="100%" height="800" frameborder="0" style="border: 0"
 										allowfullscreen></iframe>
 								</div>
@@ -1268,22 +1228,22 @@
 							<div class="row m-b-5">
 								<div class="col-12">
 									<img
-										src="../images/sucursales/ICONOS_CONTACTO_01_UBICACION.png"
-										width="20" alt=logo /> <small>Hda. Buenavista 236,
-										Villas del Mesón, Juriquilla, C.P. 76230, Qro.</small>
+										th:src="#{sucursales.imagen.ubicacion}"
+										width="20" alt=logo /> <small th:text="#{sucursales.queretaro.direccion}"></small>
 								</div>
 							</div>
 							<div class="row  m-b-5">
 								<div class="col-12">
 									<img
-										src="../images/sucursales/ICONOS_CONTACTO_02_CELULAR_AGS_QRO_CANCUN.png"
-										width="20" alt=logo /> <small>442 114 6052</small>
+										th:src="#{sucursales.imagen.celular}"
+										width="20" alt=logo /> <small th:text="#{sucursales.queretaro.telefono}"></small>
 								</div>
 							</div>
 							<div class="row  m-b-5">
 								<div class="col-12">
-									<img src="../images/sucursales/ICONOS_CONTACTO_03_CORREO.png"
-										width="20" alt=logo /> <small>contacto.qro@gesco-pls.com</small>
+									<img 
+										th:src="#{sucursales.imagen.correo}"
+										width="20" alt=logo /> <small th:text="#{sucursales.queretaro.correo}"></small>
 								</div>
 							</div>
 						</div>
