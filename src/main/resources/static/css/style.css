@@ -3,6 +3,18 @@ iframe {
  height: auto;
 }
 
+.force-p-r-0 {
+  padding-right: 0px !important; 
+}
+
+.force-p-l-0 {
+  padding-left: 0px !important; 
+}
+
+.force-p-l-5 {
+  padding-left: 5px !important; 
+}
+
 .fondo-sombreado {
 	background: #f2f7f8;
 }
@@ -38,14 +50,14 @@ iframe {
   color: #ffffff;}
   .btn-gesco:hover,
   .btn-gesco.disabled:hover {
-    background: #008688;
+    background: #008688 !important;
     opacity: 0.7;
     border: 1px solid #008688; 
     color: #ffffff;}
-  .btn-gesco.active, .btn-info:focus,
+  .btn-gesco.active, .btn-gesco:focus,
   .btn-gesco.disabled.active,
   .btn-gesco.disabled:focus {
-    background: #028ee1;
+    background: #008688;
     color: #ffffff; }
     
     

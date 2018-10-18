@@ -68,12 +68,11 @@ function validarLogin() {
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <section id="wrapper">
-<!--         <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">        -->
-        <div class="login-register" style="background-image:url(../images/login/7_PANTALLA_USUARIO.png);">  
+        <div class="login-register" th:style="'background-image:url(' + #{login.imagen.fondo} + ');'">  
             <div class="login-box card">
             <div class="card-body">
                 <form class="form-control-line" id="loginform" name="loginForm" th:action="@{/login}" method="post" onsubmit="return validarLogin();">
-					<a href="inicio" class="text-center db"><img th:src="@{/assets/images/LOGOTIPO_GESCO_72dpi.png}" alt="Home" /></a>
+					<a href="inicio" class="text-center db"><img th:src="#{login.imagen.logo}" alt="Home" /></a>
 					<div th:if="${param.error}" >
 	                    <div class="alert alert-danger  m-t-20"> <i class="ti-user"></i>  <span th:text="#{label.login.error.autenticacion}"></span>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
@@ -101,7 +100,6 @@ function validarLogin() {
 								<input id="checkbox-signup" type="checkbox" name="remember-me">
 								<label for="checkbox-signup" th:text="#{label.login.recordarme}"> </label>
 							</div>
-<!-- 							<a href="javascript:void(0)" id="to-recover" class="text-dark pull-right" th:text="#{label.login.olvidecontrasenia}"><i class="fa fa-lock m-r-5"></i></a> -->
 							<a href="/usuarios/recuperar-contrasenia-peticion" class="text-dark pull-right" th:text="#{label.login.olvidecontrasenia}"><i class="fa fa-lock m-r-5"></i></a>
 						</div>
 					</div>

@@ -85,7 +85,7 @@ public class UsuarioController {
     
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP')")
-    @GetMapping(value = "/admincorp/inicio")
+    @GetMapping(value = "/admincorp")
     public String initAdminCorp(final UsuarioDto usuarioDto, final Model model) {
     	model.addAttribute("zonas", zonaService.findAll());
         model.addAttribute("colonias", coloniaService.findAll());
@@ -95,7 +95,7 @@ public class UsuarioController {
     }
     
     @PreAuthorize("hasAnyRole('ADMIN_ZONA')")
-    @GetMapping(value = "/adminzona/inicio")
+    @GetMapping(value = "/adminzona")
     public String initAdminZona(final UsuarioDto usuarioDto, final Model model) {
         model.addAttribute("usuarios", userService.findAll());
         model.addAttribute("colonias", coloniaService.findAll());
@@ -104,7 +104,7 @@ public class UsuarioController {
     }
     
     @PreAuthorize("hasAnyRole('ADMIN_BI')")
-    @GetMapping(value = "/adminbi/inicio")
+    @GetMapping(value = "/adminbi")
     public String initAdminBi(final UsuarioDto usuarioDto, final Model model) {
     	Long adminBiLogueadoId = SecurityUtils.getCurrentUserId().get();
         model.addAttribute("inmuebles", inmuebleService.findByAdminBiId(adminBiLogueadoId));

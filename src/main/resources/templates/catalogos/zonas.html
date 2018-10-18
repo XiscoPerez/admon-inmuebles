@@ -11,10 +11,10 @@
       var nombre = $(this).data('nombre')
 
       var modal = $("#modalEliminar")
-      var mensaje = /*[[#{mensaje.eliminar.zona}]]*/
-      modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+      var mensaje = /*[[#{zona.modal.mensaje.eliminar}]]*/
+      modal.find('.modal-title').text(/*[[#{modal.eliminar.encabezado}]]*/)
       modal.find('.modal-body p').text(mensaje.format(nombre))
-      modal.find('.modal-footer a').attr('href', '/catalogos/zona-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.find('.modal-footer a').attr('href', '/catalogos/zona-eliminar/' + id).text(/*[[#{boton.eliminar}]]*/)
       modal.modal("show");
     });
   });
@@ -27,10 +27,10 @@
       <div class="row page-titles">
         <div class="col-md-6 col-8 align-self-center">
           <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{zona.titulo}"></h3>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-            <li class="breadcrumb-item active" th:text="#{zona.titulo}"></li>
-          </ol>
+<!--           <ol class="breadcrumb"> -->
+<!--             <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li> -->
+<!--             <li class="breadcrumb-item active" th:text="#{zona.titulo}"></li> -->
+<!--           </ol> -->
         </div>
       </div>
       <div class="row">
@@ -49,7 +49,7 @@
                       <th th:text="#{zona.codigo}"></th>
                       <th th:text="#{zona.nombre}"></th>
                       <th th:text="#{zona.administrador}"></th>
-                      <th th:text="#{zona.accion}"></th>
+                      <th th:text="#{tabla.accion}"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -67,7 +67,7 @@
                   <tfoot>
                     <tr>
                        <td colspan="2">
-                           <a th:href="@{/catalogos/zona-crear}" class="btn btn-info-gesco waves-effect" th:text="#{zona.nueva}"></a>
+                           <a th:href="@{/catalogos/zona-crear}" class="btn btn-info-gesco waves-effect" th:text="#{boton.crear}"></a>
                       </td>
                       <td colspan="6">
                         <div class="text-right">
@@ -93,7 +93,7 @@
                             <p></p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="#{boton.cerrar}"></button>
                             <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
                           </div>
                         </div>

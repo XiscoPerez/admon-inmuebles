@@ -50,7 +50,7 @@ $(document).ready(function() {
 									<div class="row">
 										<div class="col-lg-12">
 											<div id="divNombre" class="form-group m-t-10" th:classappend="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
-												 <input type="text" class="form-control" id="nombre" required th:field="*{nombre}" th:placeholder="#{campo.contacto.nombre}">
+												 <input type="text" class="form-control" id="nombre" required th:field="*{nombre}" th:placeholder="#{campo.contacto.nombre}" pattern="^[a-zA-Z]{1,50}$" th:title="#{validacion.solotexto}"/>
 												 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
 								              	</span>
@@ -94,7 +94,7 @@ $(document).ready(function() {
 
 										<div class="col-lg-12">
 											<div id="divTelefono" class="form-group m-t-10" th:classappend="${#fields.hasErrors('telefono')}? 'form-group has-danger':'form-group'">
-												 <input type="text" class="form-control" id="telefono" required th:field="*{telefono}"  th:placeholder="#{campo.contacto.telefono}">
+												 <input type="text" class="form-control" id="telefono" required th:field="*{telefono}"  th:placeholder="#{campo.contacto.telefono}" pattern="^[0-9]{1,15}$" th:title="#{validacion.solonumeros}">
 												 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
 								              	</span>
