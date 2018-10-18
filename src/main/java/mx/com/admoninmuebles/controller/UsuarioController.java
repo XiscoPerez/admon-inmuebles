@@ -88,7 +88,7 @@ public class UsuarioController {
     @GetMapping(value = "/admincorp")
     public String initAdminCorp(final UsuarioDto usuarioDto, final Model model) {
     	model.addAttribute("zonas", zonaService.findAll());
-        model.addAttribute("colonias", coloniaService.findAll());
+        model.addAttribute("colonias", coloniaService.findByZonaIsNotNull());
         model.addAttribute("inmuebles", inmuebleService.findAll());
 //        model.addAttribute("usuarios", userService.findAll());
         return "admincorp/inicio";
@@ -98,7 +98,7 @@ public class UsuarioController {
     @GetMapping(value = "/adminzona")
     public String initAdminZona(final UsuarioDto usuarioDto, final Model model) {
         model.addAttribute("usuarios", userService.findAll());
-        model.addAttribute("colonias", coloniaService.findAll());
+        model.addAttribute("colonias", coloniaService.findByZonaIsNotNull());
         model.addAttribute("inmuebles", inmuebleService.findAll());
         return "adminzona/inicio";
     }

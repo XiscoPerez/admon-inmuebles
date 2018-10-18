@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import mx.com.admoninmuebles.dto.ColoniaDto;
@@ -57,6 +58,13 @@ public class ColoniaController {
         coloniaService.save(coloniaDto);
 
         session.setAttribute("colonias", coloniaService.findBycodigoPostal(coloniaDto.getCodigoPostal()));
+        return "redirect:/catalogos/colonias";
+    }
+    
+    @PreAuthorize("hasRole('ADMIN_CORP')")
+    @GetMapping(value = "/catalogos/colonia-eliminar/{id}")
+    public String eliminarZona(final @PathVariable Long id) {
+    	coloniaService.deleteById(id);
         return "redirect:/catalogos/colonias";
     }
 

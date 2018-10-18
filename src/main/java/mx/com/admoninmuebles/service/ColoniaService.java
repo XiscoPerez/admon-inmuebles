@@ -7,6 +7,8 @@ import mx.com.admoninmuebles.dto.ColoniaDto;
 public interface ColoniaService {
 
     void save(ColoniaDto coloniaDto);
+    
+    void deleteById(final Long codigo);
 
     Collection<ColoniaDto> findAll();
 
