@@ -30,18 +30,18 @@ $(document).ready(function() {
 					<h6 class="card-subtitle" th:text="#{zona.subtitulo}"></h6>
 					<form name="crearZonaForm" action="#" th:action="@{/catalogos/zona-editar}" th:object="${zonaDto}" method="post">
 						<div id="divCodigo" class="form-group">
-							<label class="form-control-label" th:text="#{etiqueta.codigo}"></label>
+							<label class="form-control-label" th:text="#{zona.codigo}"></label>
 							<input name="codigo" class="form-control" th:field="*{codigo}" readonly />
 						</div>
 						<div id="divNombre" th:class="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
-							<label class="form-control-label" th:text="#{etiqueta.nombre}"></label>
+							<label class="form-control-label" th:text="#{zona.nombre}"></label>
 							<input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\w\s]{6,100}$" th:title="#{zona.nombre.mensaje.validacion}" />
 							<span class="form-control-feedback">
 								<span th:if="${#fields.hasErrors('nombre')}" th:errors="nombre"></span>
 							</span>
 						</div>
 						<div id="divAdminZona" th:class="${#fields.hasErrors('adminZonaId')}? 'form-group has-danger':'form-group'">
-							<label class="form-control-label" th:text="#{etiqueta.administradorZona}"></label>
+							<label class="form-control-label" th:text="#{zona.administradorzona}"></label>
 							<select name="adminZonaId" class="form-control" th:field="*{adminZonaId}" required>
 								<option selected="selected" value="" th:text="#{combo.seleccionar}"></option>
 								<option th:each="adminZona : ${session.usuariosAdminZona}" th:value="${adminZona.id}" th:text="#{${adminZona.nombre} + ' '+ ${adminZona.apellidoPaterno}+ ' '+ ${adminZona.apellidoMaterno}}"></option>
