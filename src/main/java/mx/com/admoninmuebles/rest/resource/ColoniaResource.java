@@ -32,7 +32,7 @@ public class ColoniaResource {
 			} else if(zonaCodigo != null && !zonaCodigo.isEmpty()){
 				colonias = coloniaService.findByZonaCodigo(zonaCodigo);
 			}else {
-				colonias = coloniaService.findAll();
+				colonias = Collections.emptyList();
 			}
 			return new ResponseEntity<>(colonias, HttpStatus.OK);
 		} catch(Exception e) {

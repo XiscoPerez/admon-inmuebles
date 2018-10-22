@@ -73,7 +73,7 @@ public class SocioController {
     private ApplicationEventPublisher eventPublisher;
     
     @PreAuthorize("hasAnyRole('SOCIO_BI')")
-    @GetMapping(value = "/sociobi/inicio")
+    @GetMapping(value = "/sociobi")
     public String inicioSocioBi(final Model model, final HttpSession session) {
     	Long socioBiLogueadoId = SecurityUtils.getCurrentUserId().get();
     	UsuarioDto usuarioDto = usuarioService.findById(socioBiLogueadoId);
@@ -85,7 +85,7 @@ public class SocioController {
     }
     
     @PreAuthorize("hasAnyRole('REP_BI')")
-    @GetMapping(value = "/repbi/inicio")
+    @GetMapping(value = "/repbi")
     public String inicioRepBi(final Model model) {
     	Long socioBiLogueadoId = SecurityUtils.getCurrentUserId().get();
     	UsuarioDto usuarioDto = usuarioService.findById(socioBiLogueadoId);

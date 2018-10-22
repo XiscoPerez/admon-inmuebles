@@ -6,8 +6,8 @@
 <script th:inline="javascript">
 /*<![CDATA[*/
 $(document).ready(function() {
-	addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
-	addControlState(document.getElementById('divAdminZona'),/*[[#{mensaje.adminzona.requerido}]]*/);
+	addControlState(document.getElementById('divNombre'),/*[[#{campo.requerido}]]*/);
+	addControlState(document.getElementById('divAdminZona'),/*[[#{campo.requerido}]]*/);
 });
 /*]]>*/
 </script>
@@ -17,10 +17,10 @@ $(document).ready(function() {
 		<div class="container-fluid">
 			<div class="row page-titles">
 				<div class="col-md-6 col-8 align-self-center">
-					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{zona.titulo}"></h3>
+					<h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{zona.titulo}"></h3>
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-						<li class="breadcrumb-item active" th:text="#{zona.titulo}"></li>
+						<li class="breadcrumb-item"><a class="text-gesco-secundario" th:href="@{/catalogos/zonas}" th:text="#{zona.titulo}"></a></li>
+						<li class="breadcrumb-item active" th:text="#{zona.editar.titulo}"></li>
 					</ol>
 				</div>
 			</div>
@@ -35,7 +35,7 @@ $(document).ready(function() {
 						</div>
 						<div id="divNombre" th:class="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
 							<label class="form-control-label" th:text="#{etiqueta.nombre}"></label>
-							<input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\w\s]{6,100}$" th:title="#{mensaje.nombre.validacion}" />
+							<input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\w\s]{6,100}$" th:title="#{zona.nombre.mensaje.validacion}" />
 							<span class="form-control-feedback">
 								<span th:if="${#fields.hasErrors('nombre')}" th:errors="nombre"></span>
 							</span>
@@ -43,7 +43,7 @@ $(document).ready(function() {
 						<div id="divAdminZona" th:class="${#fields.hasErrors('adminZonaId')}? 'form-group has-danger':'form-group'">
 							<label class="form-control-label" th:text="#{etiqueta.administradorZona}"></label>
 							<select name="adminZonaId" class="form-control" th:field="*{adminZonaId}" required>
-								<option selected="selected" value="">opcion</option>
+								<option selected="selected" value="" th:text="#{combo.seleccionar}"></option>
 								<option th:each="adminZona : ${session.usuariosAdminZona}" th:value="${adminZona.id}" th:text="#{${adminZona.nombre} + ' '+ ${adminZona.apellidoPaterno}+ ' '+ ${adminZona.apellidoMaterno}}"></option>
 							</select>
 							<span class="form-control-feedback">
@@ -52,8 +52,8 @@ $(document).ready(function() {
 						</div>
 
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-success btn-rounded" th:text="#{etiqueta.editar}"></button>
-							<a th:href="@{/catalogos/zonas}" class="btn btn-danger btn-rounded" th:text="#{etiqueta.cancelar}"></a>
+							<button type="submit" class="btn btn-info-gesco" th:text="#{boton.editar}"></button>
+							<a th:href="@{/catalogos/zonas}" class="btn btn-danger" th:text="#{boton.cancelar}"></a>
 						</div>
 					</form>
 				</div>

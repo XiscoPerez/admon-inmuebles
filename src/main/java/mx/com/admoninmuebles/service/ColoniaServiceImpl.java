@@ -35,6 +35,18 @@ public class ColoniaServiceImpl implements ColoniaService {
             asentamientoRepository.save(asentamiento);
         }
     }
+    
+    @Override
+    public void deleteById(final Long codigo) {
+        Optional<Asentamiento> optAsentamiento = asentamientoRepository.findById(codigo);
+        Asentamiento asentamiento;
+        if (optAsentamiento.isPresent()) {
+            asentamiento = optAsentamiento.get();
+            asentamiento.setZona(null);
+            asentamientoRepository.save(asentamiento);
+        }
+
+    }
 
     @Override
     public Collection<ColoniaDto> findAll() {

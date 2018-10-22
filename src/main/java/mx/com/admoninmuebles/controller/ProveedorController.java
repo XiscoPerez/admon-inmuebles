@@ -47,7 +47,7 @@ public class ProveedorController {
     private ApplicationEventPublisher eventPublisher;
     
 	@PreAuthorize("hasAnyRole('PROVEEDOR')")
-	@GetMapping(value = "/proveedores/inicio")
+	@GetMapping(value = "/proveedor")
 	public String home(final Model model) {
 		Long proveedorLogueadoId = SecurityUtils.getCurrentUserId().get();
 		ProveedorDto proveedorDto = proveedorService.buscarProveedorPorId(proveedorLogueadoId);

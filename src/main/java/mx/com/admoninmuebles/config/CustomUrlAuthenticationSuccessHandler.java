@@ -86,17 +86,17 @@ public class CustomUrlAuthenticationSuccessHandler implements AuthenticationSucc
         }
 
         if (isAdminCorp) {
-            return "/admincorp/inicio";
+            return "/admincorp";
         } else if (isAdminZona) {
-            return "/adminzona/inicio";
+            return "/adminzona";
         } else if (isAdminBi) {
-            return "/adminbi/inicio";
+            return "/adminbi";
         }else if (isRepBi) {
-        	return "/repbi/inicio";
+        	return "/repbi";
         }else if (isSocioBi) {
-            return "/sociobi/inicio";
+            return "/sociobi";
         }else if (isProveedor) {
-            return "/proveedores/inicio";
+            return "/proveedor";
         }
         else {
             throw new IllegalStateException();
