@@ -10,6 +10,8 @@ public interface RolService {
 
     Collection<RolDto> findAll();
     
-    public Collection<RolDto> getRolesSociosRepresentantes();
+    Collection<RolDto> getRolesSociosRepresentantes();
+    
+    Collection<RolDto> getRolesAdministradores();
 
 }

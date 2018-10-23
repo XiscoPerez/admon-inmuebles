@@ -17,6 +17,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,33 +37,64 @@ public class Usuario extends EntidadBase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Size(min = 6, max = 25)
+    @Column(length = 25)
     private String username;
 
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(length = 100)
     private String nombre;
 
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(length = 100)
     private String apellidoPaterno;
 
+    @Size(max = 100)
     private String apellidoMaterno;
 
+    @NotNull
+    @Email
+    @Size(max = 100)
+    @Column(length = 100)
     private String correo;
 
+    @Size(max = 15)
+    @Column(length = 15)
     private String telefonoFijo;
 
+    @Size(max = 15)
+    @Column(length = 15)
     private String telefonoOficina;
 
+    @Size(max = 15)
+    @Column(length = 15)
     private String telefonoMovil;
 
+    @Size(max = 15)
+    @Column(length = 15)
     private String telefonoAlternativo;
 
+    @Size(max = 100)
+    @Column(length = 100)
     private String facebook;
 
+    @Size(max = 100)
+    @Column(length = 100)
     private String twiter;
 
+    @Size(max = 100)
+    @Column(length = 100)
     private String youtube;
 
+    @Size(max = 1000)
     @Column(length = 1000, columnDefinition = "text", nullable = true)
     private String googleMapsDir;
 
+    @Size(max = 256)
+    @Column(length = 256)
     private String fotoUrl;
 
     @Column(name = "cuenta_expirada")

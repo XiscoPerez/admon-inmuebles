@@ -114,7 +114,7 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/usuarios")
     public String init(final UsuarioDto usuarioDto, final Model model) {
-        model.addAttribute("usuarios", userService.findAll());
+        model.addAttribute("usuarios", userService.findAllAdministradores());
         return "usuarios/usuarios";
     }
     
@@ -122,7 +122,7 @@ public class UsuarioController {
     @GetMapping(value = "/usuarios/nuevo")
     public String nuevoInit(final UsuarioDto usuarioDto, final Model model, final HttpSession session) {
 //    	model.addAttribute("rolesDto", rolService.findAll());
-    	session.setAttribute("rolesDto", rolService.findAll());
+    	session.setAttribute("rolesDto", rolService.getRolesAdministradores());
         return "usuarios/usuario-crear";
     }
     
