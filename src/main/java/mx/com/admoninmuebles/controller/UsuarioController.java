@@ -151,7 +151,7 @@ public class UsuarioController {
     	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
     	usuarioDto.setRolSeleccionado( rolesUsuario.get(0) );
     	model.addAttribute("usuarioDto", usuarioDto);
-    	model.addAttribute("rolesDto", rolService.findAll());
+    	model.addAttribute("rolesDto", rolService.getRolesAdministradores());
         return "usuarios/usuario-editar";
     }
     
