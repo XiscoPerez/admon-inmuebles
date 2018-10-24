@@ -112,6 +112,8 @@ public class Usuario extends EntidadBase {
 
     private String contrasenia;
 
+    @Size(max = 256)
+    @Column(length = 256)
     private String datosDomicilio;
     
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
