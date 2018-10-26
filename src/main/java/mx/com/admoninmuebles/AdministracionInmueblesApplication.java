@@ -19,8 +19,6 @@ public class AdministracionInmueblesApplication {
 
     @Bean
     CommandLineRunner init(final StorageService storageService) {
-        return (args) -> {
-            storageService.init();
-        };
+        return args -> storageService.init();
     }
 }

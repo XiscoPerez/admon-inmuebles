@@ -2,10 +2,8 @@ package mx.com.admoninmuebles.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import org.modelmapper.ModelMapper;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.InmuebleDto;
-import mx.com.admoninmuebles.dto.RolDto;
 import mx.com.admoninmuebles.dto.TicketDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.persistence.model.Inmueble;

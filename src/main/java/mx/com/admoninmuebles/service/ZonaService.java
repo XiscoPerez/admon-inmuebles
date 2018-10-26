@@ -7,15 +7,17 @@ import mx.com.admoninmuebles.persistence.model.Zona;
 
 public interface ZonaService {
 
-    Zona save(ZonaDto zonaDto);
+	Zona save(ZonaDto zonaDto);
 
-    Collection<ZonaDto> findAll();
+	Collection<ZonaDto> findAll();
 
-    ZonaDto findById(String codigo);
-    
-    Collection<ZonaDto>  findByAdminZonaId(Long id);
+	ZonaDto findById(String codigo);
 
-    void deleteById(String codigo);
+	Collection<ZonaDto> findByAdminZonaId(Long id);
+	
+	Collection<ZonaDto> findByAdministradoresBiId(Long id);
 
-    boolean exist(String codigo);
+	void deleteById(String codigo);
+
+	boolean exist(String codigo);
 }

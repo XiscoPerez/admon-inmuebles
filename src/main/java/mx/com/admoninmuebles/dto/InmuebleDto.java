@@ -19,14 +19,16 @@ import lombok.Data;
 public class InmuebleDto {
     private Long id;
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1,
+          max = 100)
     private String nombre;
     @NotNull
     @Min(value = 1)
     @Max(value = 31)
     private Integer diaCuotaOrdinaria;
     @NotNull
-    @Digits(integer = 5, fraction = 2)
+    @Digits(integer = 5,
+            fraction = 2)
     private BigDecimal montoCuotaOrdinaria;
     @NotNull
     private MultipartFile imagen;
@@ -48,6 +50,7 @@ public class InmuebleDto {
     private String datosAdicionalesTelefono;
     private String datosAdicionalesCorreo;
     private String datosAdicionalesNumeroCuenta;
+    private String zonaCodigo;
     @JsonIgnore
     private Integer totalSocios;
     private Collection<AreaComunDto> areasComunes;

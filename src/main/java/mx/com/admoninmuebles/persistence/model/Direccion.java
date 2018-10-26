@@ -36,7 +36,7 @@ public class Direccion extends EntidadBase {
     @Column(name = "numero_exterior", length = 50, nullable = true)
     private String numeroExterior;
 
-    @Size(min = 1, max = 50)
+    @Size(min = 0, max = 50)
     @Column(length = 50)
     private String numeroInterior;
 
