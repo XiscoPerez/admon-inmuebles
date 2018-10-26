@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 
 @Repository
@@ -21,5 +22,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
     Collection<Usuario> findByRolesNombre(String nombre);
 
     Collection<Usuario> findByRolesNombreAndAreasServicioId(String nombre, Long id);
+    
+    Collection<Usuario> findByRolesIn(List<Rol> roles);
     
 }

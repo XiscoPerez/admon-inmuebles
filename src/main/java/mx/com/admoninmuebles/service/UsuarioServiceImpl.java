@@ -2,6 +2,7 @@ package mx.com.admoninmuebles.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
+import mx.com.admoninmuebles.dto.RolDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.persistence.model.Rol;
@@ -271,5 +273,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         return StreamSupport.stream(userRepository.findByRolesNombreAndAreasServicioId(nombre, id).spliterator(), false).map(usuario -> modelMapper.map(usuario, UsuarioDto.class))
                 .collect(Collectors.toList());
     }
+
+	@Override
+	public Collection<UsuarioDto> findAllAdministradores() {
+		List<Rol> roles = StreamSupport.stream(rolRepository.findAll().spliterator(), false)
+				 .filter(rol -> ( RolConst.ROLE_ADMIN_BI.equals( rol.getNombre() ) || RolConst.ROLE_ADMIN_ZONA.equals( rol.getNombre() ) || RolConst.ROLE_ADMIN_CORP.equals( rol.getNombre() ) ) ) 
+				 .collect(Collectors.toList());
+		
+		 return StreamSupport.stream(userRepository.findByRolesIn(roles).spliterator(), false).map(usuario -> modelMapper.map(usuario, UsuarioDto.class)).collect(Collectors.toList());
+	}
 
 }

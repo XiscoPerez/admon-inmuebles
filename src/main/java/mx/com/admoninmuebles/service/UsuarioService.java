@@ -30,5 +30,7 @@ public interface UsuarioService {
     Collection<UsuarioDto> findByRolesNombre(String nombre);
 
     Collection<UsuarioDto> findByRolesNombreAndAreasServicioId(String nombre, Long id);
+    
+    Collection<UsuarioDto> findAllAdministradores();
 
 }

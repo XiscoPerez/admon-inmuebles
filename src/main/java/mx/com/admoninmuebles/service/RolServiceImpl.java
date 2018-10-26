@@ -43,5 +43,13 @@ public class RolServiceImpl implements RolService {
 				 .map(rol -> modelMapper.map(rol, RolDto.class))
 				 .collect(Collectors.toList());
 	}
+	
+	@Override
+	public Collection<RolDto> getRolesAdministradores() {
+		 return StreamSupport.stream(rolRepository.findAll().spliterator(), false)
+				 .filter(rol -> ( RolConst.ROLE_ADMIN_BI.equals( rol.getNombre() ) || RolConst.ROLE_ADMIN_ZONA.equals( rol.getNombre() ) || RolConst.ROLE_ADMIN_CORP.equals( rol.getNombre() ) ) ) 
+				 .map(rol -> modelMapper.map(rol, RolDto.class))
+				 .collect(Collectors.toList());
+	}
 
 }
