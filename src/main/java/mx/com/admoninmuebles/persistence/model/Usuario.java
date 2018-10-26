@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -115,13 +114,9 @@ public class Usuario extends EntidadBase {
     @Size(max = 256)
     @Column(length = 256)
     private String datosDomicilio;
-    
+
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Collection<Rol> roles;
-
-    @ManyToOne
-    @JoinColumn(name = "id_inmueble_fk")
-    private Inmueble inmueble;
 
     @OneToOne
     @JoinColumn(name = "id_datos_adicionales_fk", nullable = true)
@@ -130,12 +125,10 @@ public class Usuario extends EntidadBase {
     @OneToOne
     @JoinColumn(name = "id_direccion_fk", nullable = true)
     private Direccion direccion;
-    
-    
+
     @OneToOne(cascade = CascadeType.MERGE, mappedBy = "usuario")
     private RecuperacionContraseniaToken recuperacionContraseniaToken;
-    
-    
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private ActivacionUsuarioToken activacionUsuarioToken;
 
@@ -146,10 +139,8 @@ public class Usuario extends EntidadBase {
     private Collection<Comentario> comentarios;
 
     @ManyToMany
-    @JoinTable(
-            name = "usuarios_areas_servicios",
-            joinColumns = @JoinColumn(name = "id_proveedor_fk", referencedColumnName = "id_usuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_area_servicio_fk", referencedColumnName = "id_area_servicio"))
+    @JoinTable(name = "usuarios_areas_servicios", joinColumns = @JoinColumn(name = "id_proveedor_fk", referencedColumnName = "id_usuario"),
+               inverseJoinColumns = @JoinColumn(name = "id_area_servicio_fk", referencedColumnName = "id_area_servicio"))
     private Collection<AreaServicio> areasServicio = new HashSet<>();
 
     public void addAreaServicio(final AreaServicio areaServicio) {

@@ -190,14 +190,16 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Usuario usuarioSocioBi = createUsuarioIfNotFound("socio_bi", "Socio", "Bi", "Inmueble", "socio_bi", new ArrayList<>(Arrays.asList(socioBi)), "correo@gmail.com");
         createUsuarioIfNotFound("rep_bi", "Representante", "Bien", "Inmubele", "rep_bi", new ArrayList<>(Arrays.asList(repBi)), "correo@gmail.com");
         Usuario usuarioAdminBi = createUsuarioIfNotFound("admin_bi", "Administrador", "Bien", "Inmueble", "admin_bi", new ArrayList<>(Arrays.asList(adminBi)), "correo@gmail.com");
+        Usuario usuarioAdminB2 = createUsuarioIfNotFound("admin_bi2", "Administrador2", "Bien", "Inmueble", "admin_bi2", new ArrayList<>(Arrays.asList(adminBi)), "correo@gmail.com");
         Usuario usuarioAdminZona = createUsuarioIfNotFound("admin_zona", "Administrador", "Zona", "", "admin_zona", new ArrayList<>(Arrays.asList(adminZona)), "correo@gmail.com");
+        Usuario usuarioAdminZona2 = createUsuarioIfNotFound("admin_zona2", "Administrador2", "Zona", "", "admin_zona2", new ArrayList<>(Arrays.asList(adminZona)), "correo@gmail.com");
         createUsuarioIfNotFound("admin_corp", "Administrador", "Corporativo", "", "admin_corp", new ArrayList<>(Arrays.asList(adminCorp)), "correo@gmail.com");
 
-        Zona zona = createZonaIfNotFound("zona1", "Zona 1", usuarioAdminZona);
-        createZonaIfNotFound("zona2", "CDMX", usuarioAdminZona);
-        createZonaIfNotFound("zona3", "Aguascalientes", usuarioAdminZona);
-        createZonaIfNotFound("zona4", "Querétaro", usuarioAdminZona);
-        createZonaIfNotFound("zona5", "Cancún", usuarioAdminZona);
+        Zona zona = createZonaIfNotFound("zona1", "Zona 1", usuarioAdminZona, usuarioAdminBi);
+        createZonaIfNotFound("zona2", "CDMX", usuarioAdminZona, null);
+        createZonaIfNotFound("zona3", "Aguascalientes", usuarioAdminZona2, usuarioAdminB2);
+        createZonaIfNotFound("zona4", "Querétaro", usuarioAdminZona2, null);
+        createZonaIfNotFound("zona5", "Cancún", usuarioAdminZona2, null);
         Asentamiento asentamiento = updateAsentamientoIfFound(1L, zona);
 
         Inmueble inmueble = createInmuebleIfNotFound(1L, "Inmueble", asentamiento, usuarioAdminBi, usuarioSocioBi);
@@ -240,7 +242,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     @Transactional
     public final Usuario createUsuarioIfNotFound(final String username, final String firstNombre, final String apellidoPatarno, final String apellidoMaterno, final String contrasenia,
-            final Collection<Rol> roles, String correo) {
+            final Collection<Rol> roles, final String correo) {
         Optional<Usuario> optUsuario = usuarioRepository.findByUsername(username);
         Usuario usuario = optUsuario.orElse(new Usuario());
         if (!optUsuario.isPresent()) {
@@ -249,7 +251,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             usuario.setApellidoPaterno(apellidoPatarno);
             usuario.setApellidoMaterno(apellidoMaterno);
             usuario.setCorreo(correo);
-
             usuario.setContrasenia(passwordEncoder.encode(contrasenia));
             usuario.setRoles(roles);
 
@@ -259,13 +260,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
-    public final Zona createZonaIfNotFound(final String codigo, final String nombre, final Usuario adminZona) {
+    public final Zona createZonaIfNotFound(final String codigo, final String nombre, final Usuario adminZona, final Usuario usuarioAdminBi) {
         Optional<Zona> optZona = zonaRepository.findById(codigo);
         Zona zona = optZona.orElse(new Zona());
         if (!optZona.isPresent()) {
             zona.setCodigo(codigo);
             zona.setNombre(nombre);
             zona.setAdminZona(adminZona);
+            zona.addAdminBi(usuarioAdminBi);
             zona = zonaRepository.save(zona);
         }
         return zona;

@@ -1,5 +1,6 @@
 package mx.com.admoninmuebles.persistence.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -22,23 +23,30 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Zona extends EntidadBase {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Size(min = 4, max = 10)
-    @Column(length = 10)
-    private String codigo;
+	@Id
+	@Size(min = 4, max = 10)
+	@Column(length = 10)
+	private String codigo;
 
-    @NotNull
-    @Size(min = 4, max = 100)
-    @Column(length = 100)
-    private String nombre;
+	@NotNull
+	@Size(min = 4, max = 100)
+	@Column(length = 100)
+	private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "id_admin_zona_fk")
-    public Usuario adminZona;
+	@ManyToOne
+	@JoinColumn(name = "id_admin_zona_fk")
+	private Usuario adminZona;
 
-    @OneToMany(mappedBy = "zona")
-    public Collection<Asentamiento> asentamientos;
+	@OneToMany(mappedBy = "zona")
+	private Collection<Asentamiento> asentamientos;
+
+	@OneToMany
+	private Collection<Usuario> administradoresBi = new ArrayList<>();
+
+	public void addAdminBi(Usuario adminBi) {
+    	administradoresBi.add(adminBi);
+    }
 
 }

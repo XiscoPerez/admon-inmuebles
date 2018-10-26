@@ -4,13 +4,11 @@ import java.util.Collection;
 
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
-import mx.com.admoninmuebles.persistence.model.Usuario;
 
 public interface UsuarioService {
 
-
     UsuarioDto editarPerfil(UsuarioDto userDto);
-    
+
     UsuarioDto editarCuenta(final UsuarioDto userDto);
 
     UsuarioDto findById(Long idUsuario);
@@ -30,7 +28,9 @@ public interface UsuarioService {
     Collection<UsuarioDto> findByRolesNombre(String nombre);
 
     Collection<UsuarioDto> findByRolesNombreAndAreasServicioId(String nombre, Long id);
-    
+
     Collection<UsuarioDto> findAllAdministradores();
+
+    Collection<UsuarioDto> findAdministradoresBiByZonaCodigo(String zonaCodigo);
 
 }

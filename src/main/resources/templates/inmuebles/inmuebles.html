@@ -30,7 +30,7 @@
           <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{inmueble.titulo}"></h3>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-            <li class="breadcrumb-item active" th:text="#{inmueble.titulo}"></li>
+            <li class="breadcrumb-item active" th:text="#{etiqueta.inmueble.titulo}"></li>
           </ol>
         </div>
       </div>
@@ -38,16 +38,16 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title" th:text="#{inmueble.titulo}"></h4>
-              <h6 class="card-subtitle" th:text="#{inmueble.subtitulo}"></h6>
+              <h4 class="card-title" th:text="#{etiqueta.inmueble.titulo}"></h4>
+              <h6 class="card-subtitle" th:text="#{etiqueta.inmueble.subtitulo}"></h6>
 <!--               <a th:href="@{/inmueble-crear}" class="btn btn-info btn-rounded waves-effect" th:text="#{inmueble.nuevo}"></a> -->
               <div class="table-responsive">
                 <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                   <thead>
                     <tr>
-                      <th th:text="#{inmueble.id}"></th>
-                      <th th:text="#{inmueble.nombre}"></th>
-                      <th th:text="#{zona.accion}"></th>
+                      <th th:text="#{tabla.id}"></th>
+                      <th th:text="#{etiqueta.inmueble.nombre}"></th>
+                      <th th:text="#{tabla.accion}"></th>
                     </tr>
                   </thead>
                   <tbody>

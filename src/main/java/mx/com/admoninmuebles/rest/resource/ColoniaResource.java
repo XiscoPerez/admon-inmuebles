@@ -3,6 +3,7 @@ package mx.com.admoninmuebles.rest.resource;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +25,13 @@ public class ColoniaResource {
 	@GetMapping("/colonias")
 	public ResponseEntity<Collection<ColoniaDto>> buscarColonias(@RequestParam(name = "codigoPostal", required = false) String codigoPostal , @RequestParam(name = "zonaCodigo", required = false) String zonaCodigo) {
 		try {
-			Collection<ColoniaDto> colonias = null;
-			if( (codigoPostal != null && !codigoPostal.isEmpty()) && (zonaCodigo != null && !zonaCodigo.isEmpty())) {
+			Collection<ColoniaDto> colonias =  Collections.emptyList();
+			if( (!StringUtils.isEmpty(codigoPostal) && !StringUtils.isEmpty(zonaCodigo))) {
 				colonias = coloniaService.findBycodigoPostalAndZonaCodigo(codigoPostal, zonaCodigo);
-			} else if(codigoPostal != null && !codigoPostal.isEmpty()){
+			} else if(!StringUtils.isEmpty(codigoPostal) && StringUtils.isEmpty(zonaCodigo)){
 				colonias = coloniaService.findBycodigoPostal(codigoPostal);
-			} else if(zonaCodigo != null && !zonaCodigo.isEmpty()){
+			} else if(StringUtils.isEmpty(codigoPostal) && !StringUtils.isEmpty(zonaCodigo)){
 				colonias = coloniaService.findByZonaCodigo(zonaCodigo);
-			}else {
-				colonias = Collections.emptyList();
 			}
 			return new ResponseEntity<>(colonias, HttpStatus.OK);
 		} catch(Exception e) {
