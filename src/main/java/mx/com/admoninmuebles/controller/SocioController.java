@@ -78,9 +78,14 @@ public class SocioController {
     	Long socioBiLogueadoId = SecurityUtils.getCurrentUserId().get();
     	UsuarioDto usuarioDto = usuarioService.findById(socioBiLogueadoId);
     	model.addAttribute("socioDto", usuarioDto);
-        model.addAttribute("inmuebleDto", inmuebleService.findById(usuarioDto.getInmuebleId()));
+    	
+    	InmuebleDto inmuebleDto = inmuebleService.findBySociosId(socioBiLogueadoId).stream().findFirst().get();
+    	model.addAttribute("inmuebleDto", inmuebleDto);
+    	
+    	session.setAttribute("notificaciones", notificacionService.findByInmuebleIdNotExpired(inmuebleDto.getId()));
+//        model.addAttribute("inmuebleDto", inmuebleService.findById(usuarioDto.getInmuebleId()));
 //        session.setAttribute("notificaciones", notificacionService.findByInmuebleId(usuarioDto.getInmuebleId()));
-        session.setAttribute("notificaciones", notificacionService.findByInmuebleIdNotExpired(usuarioDto.getInmuebleId()));
+//        session.setAttribute("notificaciones", notificacionService.findByInmuebleIdNotExpired(usuarioDto.getInmuebleId()));
         return "sociobi/inicio";
     }
     

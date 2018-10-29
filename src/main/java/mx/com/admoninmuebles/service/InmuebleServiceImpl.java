@@ -122,5 +122,10 @@ public class InmuebleServiceImpl implements InmuebleService {
 		
 		return StreamSupport.stream(tickets.spliterator(), false).map(ticket -> modelMapper.map(ticket, TicketDto.class)).collect(Collectors.toList());
 	}
+	
+    @Override
+    public Collection<InmuebleDto> findBySociosId(final Long id) {
+    	 return StreamSupport.stream(inmuebleRepository.findBySociosId(id).spliterator(), false).map(inmueble -> modelMapper.map(inmueble, InmuebleDto.class)).collect(Collectors.toList());
+    }
 
 }
