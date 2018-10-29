@@ -75,7 +75,7 @@ function cargarColonias() {
                                         <div class="row">
                                             <div id="divUsername" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('username')}? 'form-group has-danger':'form-group'">
                                                 <label class="form-control-label" for="username" th:text="#{usuario.usuario}"></label>
-                                                <input type="text" th:field="*{username}" required class="form-control" id="username"maxlength="25" pattern="^[\w\s]{6,25}$" th:title="#{usuario.usuario.mensaje.validacion}">
+                                                <input type="text" th:field="*{username}" required class="form-control" id="username" maxlength="25" pattern="^[\w\s]{6,25}$" th:title="#{usuario.usuario.mensaje.validacion}">
                                                 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 								              	</span>
