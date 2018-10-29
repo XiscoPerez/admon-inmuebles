@@ -12,10 +12,10 @@
 
 	$(document).ready(function() {
 	  $('.dropify').dropify();
-// 	  addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
-// 	  addControlState(document.getElementById('divCorreo'),/*[[#{mensaje.correo.requerido}]]*/);
-// 	  addControlState(document.getElementById('divTelefono'),/*[[#{mensaje.telefono.requerido}]]*/);
-	  addControlState(document.getElementById('divmensajeContactoEstatus'),/*[[#{mensaje.mensajecontactoestatus.requerido}]]*/);
+// 	  addControlState(document.getElementById('divNombre'),/*[[#{campo.requerido}]]*/);
+// 	  addControlState(document.getElementById('divCorreo'),/*[[#{campo.requerido}]]*/);
+// 	  addControlState(document.getElementById('divTelefono'),/*[[#{campo.requerido}]]*/);
+	  addControlState(document.getElementById('divmensajeContactoEstatus'),/*[[#{campo.requerido}]]*/);
 	});
 /*]]>*/
 </script>
@@ -25,10 +25,10 @@
 		<div class="container-fluid">
 			<div class="row page-titles">
 				<div class="col-md-6 col-8 align-self-center">
-					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{contacto.titulo}"></h3>
+					<h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{contacto.titulo}"></h3>
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{contacto.titulo}"></a></li>
-						<li class="breadcrumb-item active" th:text="#{contacto.titulo.atender}"></li>
+						<li class="breadcrumb-item"><a class="text-gesco-secundario" th:href="@{/contacto/mensajes}" th:text="#{contacto.titulo}"></a></li>
+						<li class="breadcrumb-item active" th:text="#{contacto.editar.titulo}"></li>
 					</ol>
 				</div>
 			</div>
@@ -37,8 +37,8 @@
 					<div class="card">
 						<div class="card-body">
 							
-                               <h4 class="card-title"><span th:text="#{contacto.titulo}"></span></h4>
-                               <h6 class="card-subtitle"><span th:text="#{contacto.titulo.atender}"></span></h6>
+                               <h4 class="card-title"><span th:text="#{contacto.editar.titulo}"></span></h4>
+                               <h6 class="card-subtitle"><span th:text="#{contacto.editar.subtitulo}"></span></h6>
     							<form name="contactoForm" action="#" th:action="@{/contacto/mensaje-atender}" th:object="${mensajeContactoDto}" method="post">
     								<input type="hidden" class="form-control" th:field="*{id}"/>
     								<input type="hidden" class="form-control" th:field="*{sectorId}">
@@ -102,7 +102,7 @@
 										</div>
 										<div id="divmensajeContactoEstatus" th:class="${#fields.hasErrors('mensajeContactoEstatusId')}? 'form-group has-danger':'form-group'">
 	                                           <div class="col-md-12 m-b-20">
-		 		                                   <label class="form-control-label" for="mensajeContactoEstatus" th:text="#{etiqueta.contacto.estatusmensaje}"></label>
+		 		                                   <label class="form-control-label" for="mensajeContactoEstatus" th:text="#{contacto.estatus}"></label>
 			                                        <select name="mensajeContactoEstatus" id="mensajeContactoEstatus" class="form-control" th:field="*{mensajeContactoEstatusId}" required >	
 <!-- 			                                         	<option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option> -->
 														<option th:each="mensajeContactoEstatus : ${session.mensajesContactoEstatusDto}" 
@@ -116,8 +116,8 @@
 			                                  </div>
 		                                  </div>
 										<div class="col-lg-12">
-											 <button type="submit" class="btn btn-info-gesco" th:text="#{etiqueta.guardar}"></button>
-											 <a th:href="@{/contacto/mensajes}" class="btn btn-secondary waves-effect" th:text="#{etiqueta.regresar}"></a>
+											 <button type="submit" class="btn btn-info-gesco" th:text="#{boton.guardar}"></button>
+											 <a th:href="@{/contacto/mensajes}" class="btn btn-secondary waves-effect" th:text="#{boton.regresar}"></a>
 										</div>
 									</div>
 								</form>

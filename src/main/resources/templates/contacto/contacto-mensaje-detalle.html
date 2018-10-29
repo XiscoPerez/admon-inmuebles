@@ -17,10 +17,10 @@
 		<div class="container-fluid">
 			<div class="row page-titles">
 				<div class="col-md-6 col-8 align-self-center">
-					<h3 class="text-themecolor m-b-0 m-t-0" th:text="#{contacto.titulo}"></h3>
+					<h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{contacto.titulo}"></h3>
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{contacto.titulo}"></a></li>
-						<li class="breadcrumb-item active" th:text="#{contacto.titulo.detalle}"></li>
+						<li class="breadcrumb-item "><a class="text-gesco-secundario" th:href="@{/contacto/mensajes}" th:text="#{contacto.titulo}"></a></li>
+						<li class="breadcrumb-item active" th:text="#{contacto.ver.titulo}"></li>
 					</ol>
 				</div>
 			</div>
@@ -29,8 +29,8 @@
 					<div class="card">
 						<div class="card-body">
 							
-                               <h4 class="card-title"><span th:text="#{contacto.titulo}"></span></h4>
-                               <h6 class="card-subtitle"><span th:text="#{contacto.titulo.detalle}"></span></h6>
+                               <h4 class="card-title"><span th:text="#{contacto.ver.titulo}"></span></h4>
+                               <h6 class="card-subtitle"><span th:text="#{contacto.ver.subtitulo}"></span></h6>
     							<form name="contactoForm" action="#"  th:object="${mensajeContactoDto}">
 									<div class="row">
 										<div class="col-lg-12">
@@ -74,7 +74,7 @@
 											</div>
 										</div>
                                          <div class="col-md-12 m-b-20">
- 		                                   <label class="form-control-label" for="mensajeContactoEstatus" th:text="#{etiqueta.contacto.estatusmensaje}"></label>
+ 		                                   <label class="form-control-label" for="mensajeContactoEstatus" th:text="#{contacto.estatus}"></label>
 	                                        <select th:disabled="true" name="mensajeContactoEstatus" id="mensajeContactoEstatus" class="form-control" th:field="*{mensajeContactoEstatusId}" required >	
 												<option th:each="mensajeContactoEstatus : ${session.mensajesContactoEstatusDto}" 
 														th:selected="${mensajeContactoDto.mensajeContactoEstatusId}"
