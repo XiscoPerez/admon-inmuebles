@@ -12,10 +12,10 @@
       var nombre = $(this).data('nombre')
 
       var modal = $("#modalEliminar")
-      var mensaje = /*[[#{mensaje.eliminar.proveedor}]]*/
-      modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+      var mensaje = /*[[#{usuario.modal.mensaje.eliminar}]]*/
+      modal.find('.modal-title').text(/*[[#{modal.eliminar.encabezado}]]*/)
       modal.find('.modal-body p').text(mensaje.format(nombre))
-      modal.find('.modal-footer a').attr('href', '/proveedor-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.find('.modal-footer a').attr('href', '/proveedor-eliminar/' + id).text(/*[[#{boton.eliminar}]]*/)
       modal.modal("show");
     });
   });
@@ -27,11 +27,7 @@
 		<div class="container-fluid">
 			<div class="row page-titles">
 				<div class="col-md-6 col-8 align-self-center">
-					<h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{proveedor.titulo}"></h3>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{usuario.usuario}"></a></li>
-						<li class="breadcrumb-item active" th:text="#{proveedor.subtitulo}"></li>
-					</ol>
+					<h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{proveedores.titulo}"></h3>
 				</div>
 			</div>
 			<!-- ============================================================== -->
@@ -41,18 +37,18 @@
 				<div class="col-12">
 					<div class="card">
 						<div class="card-body">
-							<h4 class="card-title" th:text="#{proveedor.titulo}"></h4>
-							<h6 class="card-subtitle" th:text="#{proveedor.subtitulo}"></h6>
+							<h4 class="card-title" th:text="#{proveedores.titulo}"></h4>
+							<h6 class="card-subtitle" th:text="#{proveedores.subtitulo}"></h6>
                                     <div class="table-responsive">
                                         <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th th:text="#{tabla.proveedor.usuario}"></th>
-                                                    <th th:text="#{tabla.proveedor.correo}"></th>
-                                                    <th th:text="#{tabla.proveedor.nombre}"></th>
-                                                    <th th:text="#{tabla.proveedor.estatus}"></th>
-                                                    <th th:text="#{tabla.proveedor.accion}"></th>
+                                                    <th th:text="#{tabla.id}"></th>
+                                                    <th th:text="#{usuario.usuario}"></th>
+                                                    <th th:text="#{usuario.correo}"></th>
+                                                    <th th:text="#{usuario.nombre}"></th>
+                                                    <th th:text="#{usuario.estatus}"></th>
+                                                    <th th:text="#{tabla.accion}"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -70,8 +66,8 @@
 	                                                    <td th:text="${proveedor.nombre}"></td>
 	                                                    <td>
 		                                                    <div th:switch="${proveedor.activo}"> 
-															  <span th:case="${true}" class="text-success" th:text="#{proveedor.estatus.activo}">Activo</span>
-															  <span th:case="${false}" class="text-muted" th:text="#{proveedor.estatus.inactivo}">Inactivo</span>
+															  <span th:case="${true}" class="text-success" th:text="#{usuario.estatus.activo}"></span>
+															  <span th:case="${false}" class="text-muted" th:text="#{usuario.estatus.inactivo}"></span>
 															</div>
 														</td>
 <!-- 	                                                    <td th:text="${usuario.activo}"></td> -->
@@ -87,7 +83,7 @@
                                             <tfoot>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <a th:href="@{/proveedor-crear}" class="btn btn-info-gesco" th:text="#{etiqueta.nuevo}"></a>
+                                                        <a th:href="@{/proveedor-crear}" class="btn btn-info-gesco" th:text="#{boton.nuevo}"></a>
                                                     </td>
 
                                                     <td colspan="7">
@@ -113,7 +109,7 @@
 						                            <p></p>
 						                          </div>
 						                          <div class="modal-footer">
-						                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+						                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="#{boton.cerrar}"></button>
 						                            <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
 						                          </div>
 						                        </div>

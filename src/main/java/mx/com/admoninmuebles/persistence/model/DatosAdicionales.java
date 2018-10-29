@@ -24,30 +24,29 @@ public class DatosAdicionales extends EntidadBase {
     @Column(name = "id_datos_adicionales")
     private Long id;
 
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(length = 200, nullable = true)
     private String nombreRepresentante;
 
     @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(length = 200, nullable = true)
     private String razonSocial;
 
     @NotNull
-    @Size(min = 1, max = 13)
+    @Size(max = 13)
     @Column(length = 13, nullable = true)
     private String rfc;
 
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
     @Column(length = 50, nullable = true)
     private String telefono;
 
-    @Size(min = 0, max = 100)
+    @Size(max = 100)
     @Column(length = 100, nullable = true)
     private String correo;
 
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
     @Column(length = 50, nullable = true)
     private String numeroCuenta;
 
