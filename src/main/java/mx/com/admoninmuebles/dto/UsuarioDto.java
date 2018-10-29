@@ -29,7 +29,7 @@ public class UsuarioDto {
     private String nombre;
 
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     private String apellidoPaterno;
 
     private String apellidoMaterno;

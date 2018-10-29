@@ -27,24 +27,24 @@ public class Direccion extends EntidadBase {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(length = 100, nullable = true)
     private String calle;
 
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "numero_exterior", length = 50, nullable = true)
     private String numeroExterior;
 
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(length = 50)
     private String numeroInterior;
 
-    @Size(min = 0, max = 50)
-    @Column(length = 50)
+    @Size(max = 200)
+    @Column(length = 200)
     private String entreCalles;
 
-    @Size(min = 0, max = 100)
+    @Size(max = 100)
     @Column(length = 100)
     private String referencias;
 
