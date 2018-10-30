@@ -96,7 +96,8 @@ public class SocioController {
     	UsuarioDto usuarioDto = usuarioService.findById(socioBiLogueadoId);
     	logger.info("REP NI::::: " + usuarioDto == null ? "NADA" : usuarioDto.toString());
     	
-    	InmuebleDto inmuebleDto = inmuebleService.findById(usuarioDto.getInmuebleId());
+//    	InmuebleDto inmuebleDto = inmuebleService.findById(usuarioDto.getInmuebleId());
+    	InmuebleDto inmuebleDto = inmuebleService.findBySociosId(socioBiLogueadoId).stream().findFirst().get();
     	
     	model.addAttribute("repDto", usuarioDto);
         model.addAttribute("inmuebleDto", inmuebleDto);
@@ -141,6 +142,7 @@ public class SocioController {
         
         try {
 	        UsuarioDto socioNuevo = (UsuarioDto) usuarioService.crearCuenta(usuarioDto);
+	        inmuebleService.addSocio2Inmueble(socioNuevo, usuarioDto.getInmuebleId());
 	        eventPublisher.publishEvent(new OnRegistroCompletoEvent(socioNuevo, request.getLocale(), getAppUrl(request)));
 	        return "redirect:/socios";
         }catch(BusinessException e) {
@@ -152,6 +154,8 @@ public class SocioController {
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/socio-detalle/{id}")
     public String buscarsocioPorId(final @PathVariable long id, final Model model) {
+    	InmuebleDto inmuebleDto = inmuebleService.findBySociosId(id).stream().findFirst().get();
+    	model.addAttribute("inmuebleDto", inmuebleDto);
         model.addAttribute("usuarioDto", socioService.buscarSocioPorId(id));
         return "socios/socio-detalle";
     }
@@ -160,6 +164,10 @@ public class SocioController {
     @GetMapping(value = "/socio-editar/{id}")
     public String editarSocio(final @PathVariable long id, final Model model, final HttpServletRequest request, final HttpSession session) {
     	UsuarioDto usuarioDto = usuarioService.findById(id);
+    	InmuebleDto inmuebleDto = inmuebleService.findBySociosId(id).stream().findFirst().get();
+    	usuarioDto.setInmuebleId(inmuebleDto.getId());
+    	usuarioDto.setInmuebleDireccionAsentamientoZonaCodigo(usuarioDto.getInmuebleDireccionAsentamientoZonaCodigo());
+    	usuarioDto.setInmuebleDireccionAsentamientoId(inmuebleDto.getDireccionAsentamientoId());
     	List<Long> rolesUsuario = usuarioDto.getRoles().stream().map(rol -> rol.getId()).collect(Collectors.toList());
     	usuarioDto.setRolSeleccionado( rolesUsuario.get(0) );
         model.addAttribute("usuarioDto", usuarioDto);
@@ -188,7 +196,8 @@ public class SocioController {
             return "socios/socio-editar";
         }
 
-        usuarioService.editarCuenta(usuarioDto);
+        UsuarioDto socio = usuarioService.editarCuenta(usuarioDto);
+//        inmuebleService.addSocio2Inmueble(socio, usuarioDto.getInmuebleId());
         return "redirect:/socios";
     }
 
