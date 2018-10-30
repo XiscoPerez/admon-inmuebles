@@ -1,5 +1,6 @@
 package mx.com.admoninmuebles.persistence.repository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,6 +13,6 @@ import mx.com.admoninmuebles.persistence.model.Notificacion;
 public interface NotificacionRepository extends CrudRepository<Notificacion, Long> {
 	Collection<Notificacion> findByInmuebleId(Long id);
 	Collection<Notificacion> findByInmuebleIdAndFechaExposicionInicialBeforeAndFechaExposicionFinalAfter(Long id, Date today, Date todayf);
-	Collection<Notificacion> findByInmuebleIdAndFechaExposicionInicialLessThanEqualAndFechaExposicionFinalGreaterThanEqual(Long id, Date today, Date todayf);
+	Collection<Notificacion> findByInmuebleIdAndFechaExposicionInicialLessThanEqualAndFechaExposicionFinalGreaterThanEqual(Long id, LocalDate today, LocalDate todayf);
 
 }

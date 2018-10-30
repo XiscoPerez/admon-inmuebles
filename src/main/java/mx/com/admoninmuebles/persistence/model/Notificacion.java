@@ -1,5 +1,6 @@
 package mx.com.admoninmuebles.persistence.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -42,11 +43,11 @@ public class Notificacion extends EntidadBase {
 
     @NotNull
     @Column(nullable = false)
-    private Date fechaExposicionInicial;
+    private LocalDate fechaExposicionInicial;
 
     @NotNull
     @Column(nullable = false)
-    private Date fechaExposicionFinal;
+    private LocalDate fechaExposicionFinal;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_inmueble", referencedColumnName = "id_inmueble", nullable = false)

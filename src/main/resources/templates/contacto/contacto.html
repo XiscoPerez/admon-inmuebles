@@ -4,7 +4,7 @@
 	layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{etiqueta.contacto.titulo}"></title>
+<title th:text="#{contacto.titulo}"></title>
 <script th:inline="javascript">
 /*<![CDATA[*/
 	
@@ -12,10 +12,10 @@ var serverContext = [[@{/}]];
 
 $(document).ready(function() {
   $('.dropify').dropify();
-  addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
-  addControlState(document.getElementById('divCorreo'),/*[[#{mensaje.correo.requerido}]]*/);
-  addControlState(document.getElementById('divTelefono'),/*[[#{mensaje.telefono.requerido}]]*/);
-  addControlState(document.getElementById('divMensaje'),/*[[#{mensaje.mensaje.requerido}]]*/);
+  addControlState(document.getElementById('divNombre'),/*[[#{campo.requerido}]]*/);
+  addControlState(document.getElementById('divCorreo'),/*[[#{campo.requerido}]]*/);
+  addControlState(document.getElementById('divTelefono'),/*[[#{campo.requerido}]]*/);
+  addControlState(document.getElementById('divMensaje'),/*[[#{campo.requerido}]]*/);
 });
 
 
@@ -28,8 +28,7 @@ $(document).ready(function() {
 <div class="card">
 	<div class="card-body m-b-40">
 		<div class="text-center m-t-40">
-            <h1 class="title text-megna" th:text="#{etiqueta.contacto.titulo}"></h1>
-<!--             <h6 class="subtitle text-muted" th:text="#{etiqueta.contacto.descripcion}"></h6> -->
+            <h1 class="title text-megna" th:text="#{contacto.titulo}"></h1>
         </div>
 		<div class="row m-t-20">
 			<div class="col-12">
@@ -37,8 +36,8 @@ $(document).ready(function() {
 					<div class="row m-0">
 						<div class="col-lg-8">
 							<div class="card-shadow" data-aos-duration="1200">
-<!-- 								<img src="../assets/images/big/img_1.jpg" alt="wrapkit" class="img-responsive"> -->
-								<img src="../images/contactanos/6_CONTACTO.png" alt="wrapkit" class="img-responsive">
+<!-- 								<img src="../images/contactanos/6_CONTACTO.png" alt="wrapkit" class="img-responsive"> -->
+								<img th:src="#{contacto.imagen.1}" alt="wrapkit" class="img-responsive">
 							</div>
 						</div>
 						<div class="col-lg-4">
@@ -50,7 +49,7 @@ $(document).ready(function() {
 									<div class="row">
 										<div class="col-lg-12">
 											<div id="divNombre" class="form-group m-t-10" th:classappend="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
-												 <input type="text" class="form-control" id="nombre" required th:field="*{nombre}" th:placeholder="#{campo.contacto.nombre}" pattern="^[a-zA-Z]{1,50}$" th:title="#{validacion.solotexto}"/>
+												 <input type="text" class="form-control" id="nombre" required th:field="*{nombre}" th:placeholder="#{contacto.nombre}" maxlength="100" pattern="^[a-zA-Z]{1,100}$" th:title="#{contacto.nombre.validacion.solotexto}"/>
 												 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
 								              	</span>
@@ -58,16 +57,17 @@ $(document).ready(function() {
 										</div>
 										<div class="col-lg-12">
 											<div id="divCorreo" class="form-group m-t-10" th:classappend="${#fields.hasErrors('correo')}? 'form-group has-danger':'form-group'">
-												<input type="email" class="form-control" id="correo" required th:field="*{correo}"  th:placeholder="#{campo.contacto.correo}">
+												<input type="email" class="form-control" id="correo" required th:field="*{correo}"  th:placeholder="#{contacto.correo}" maxlength="50" 
+                                               		pattern="^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$" th:title="#{usuario.correo.mensaje.validacion}">
 												<span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
 								              	</span>
 											</div>
 										</div>
 										 <div class="col-md-12 m-b-20">
-	 		                                   <label class="form-control-label" for="sector" th:text="#{campo.contacto.sector}"></label>
+	 		                                   <label class="form-control-label" for="sector" th:text="#{contacto.sector}"></label>
 		                                        <select name="sector" id=sector class="form-control" th:field="*{sectorId}" >	
-			                                        <option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option>
+			                                        <option selected="selected" th:value="${null}" th:text="#{combo.seleccionar}"></option>
 													<option th:each="sector : ${session.sectoresDto}" 
 															th:value="${{sector.id}}" 
 															th:text="${sector.nombre}"></option>
@@ -83,9 +83,9 @@ $(document).ready(function() {
 <!-- 		                                        </select> -->
 <!-- 		                                  </div> -->
 		                                  <div class="col-md-12 m-b-20">
-	 		                                   <label class="form-control-label" for="estado" th:text="#{campo.contacto.estado}"></label>
+	 		                                   <label class="form-control-label" for="estado" th:text="#{contacto.estado}"></label>
 		                                        <select name="estado" id=sector class="form-control" th:field="*{estadoId}" >	
-			                                        <option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option>
+			                                        <option selected="selected" th:value="${null}" th:text="#{combo.seleccionar}"></option>
 													<option th:each="estado : ${session.estadosDto}" 
 															th:value="${{estado.id}}" 
 															th:text="${estado.nombre}"></option>
@@ -94,7 +94,7 @@ $(document).ready(function() {
 
 										<div class="col-lg-12">
 											<div id="divTelefono" class="form-group m-t-10" th:classappend="${#fields.hasErrors('telefono')}? 'form-group has-danger':'form-group'">
-												 <input type="text" class="form-control" id="telefono" required th:field="*{telefono}"  th:placeholder="#{campo.contacto.telefono}" pattern="^[0-9]{1,15}$" th:title="#{validacion.solonumeros}">
+												 <input type="text" class="form-control" id="telefono" required th:field="*{telefono}"  th:placeholder="#{contacto.telefono}" pattern="^[0-9]{1,15}$" maxlength="15" th:title="#{contacto.telefono.validacion.solonumeros}">
 												 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
 								              	</span>
@@ -102,7 +102,7 @@ $(document).ready(function() {
 										</div>
 										<div class="col-lg-12">
 											<div id="divMensaje" class="form-group m-t-10" th:classappend="${#fields.hasErrors('mensaje')}? 'form-group has-danger':'form-group'">
-												<textarea class="form-control" id="mensaje" required rows="4" th:field="*{mensaje}"  th:placeholder="#{campo.contacto.mensaje}"></textarea>
+												<textarea class="form-control" id="mensaje" required rows="4" th:field="*{mensaje}"  th:placeholder="#{contacto.mensaje}" maxlength="4000"></textarea>
 												<span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('mensaje')}" th:errors="*{mensaje}"></span>
 								              	</span>
@@ -122,49 +122,35 @@ $(document).ready(function() {
 		</div>
 	</div>
 </div>
-					<div class="container-fluid">
-						<div class="row">
-                            <div class="col-lg-12 col-md-4 col-sm-3 col-xs-12">
-                            	<div class="card">
-		                            <div class="card-body">
-		                                <h4 class="card-title" th:text="#{etiqueta.contacto.oficinacentral}"></h4>
-		                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.863849070492!2d-99.16937748467946!3d19.418287786892364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3872f0c633%3A0x9d5cf9d68882b39c!2sColima+329%2C+Roma+Nte.%2C+06700+Ciudad+de+M%C3%A9xico%2C+CDMX!5e0!3m2!1ses-419!2smx!4v1537077207013" width="100%" height="800" frameborder="0" style="border:0" allowfullscreen></iframe>
-		                            	<table class="table browser m-t-30 no-border">
-		                                    <tbody>
-		                                        <tr>
-		                                            <td style="width:40px"><img src="../images/sucursales/ICONOS_CONTACTO_01_UBICACION.png" width="30" alt=logo /></td>
-		                                            <td>Colima 329, Col. Roma, Del. Cuauhtémoc, C.P. 06700, CDMX</td>
-		                                        </tr>
-		                                        <tr>
-		                                            <td><img src="../images/sucursales/ICONOS_CONTACTO_02_TELEFONO_CDMX.png" width="30" alt=logo /></td>
-		                                            <td>01 (55) 4431 4417</td>
-		                                        </tr>
-		                                        <tr>
-		                                            <td><img src="../images/sucursales/ICONOS_CONTACTO_03_CORREO.png" width="30" alt=logo /></td>
-		                                            <td>contacto.cdmx@gesco-pls.com</td>
-		                                        </tr>
-		                                    </tbody>
-		                                </table>
-		                            </div>
-		                        </div>
-                            </div>
-                  		</div>
-                  	</div>
+<div class="container-fluid">
+	<div class="row">
+         <div class="col-lg-12 col-md-4 col-sm-3 col-xs-12">
+         	<div class="card">
+           <div class="card-body">
+               <h4 class="card-title" th:text="#{contacto.oficinacentral}"></h4>
+               <iframe th:src="#{sucursales.cdmx.mapa}" width="100%" height="800" frameborder="0" style="border:0" allowfullscreen></iframe>
+           	<table class="table browser m-t-30 no-border">
+                   <tbody>
+                       <tr>
+                           <td style="width:40px"><img th:src="#{sucursales.imagen.ubicacion}" width="30" alt=logo /></td>
+                           <td th:text="#{sucursales.cdmx.direccion}"></td>
+                       </tr>
+                       <tr>
+                           <td><img th:src="#{sucursales.imagen.telefono}" width="30" alt=logo /></td>
+                           <td th:text="#{sucursales.cdmx.telefono}"></td>
+                       </tr>
+                       <tr>
+                           <td><img th:src="#{sucursales.imagen.correo}" width="30" alt=logo /></td>
+                           <td th:text="#{sucursales.cdmx.correo}"></td>
+                       </tr>
+                   </tbody>
+               </table>
+           </div>
+       </div>
+         </div>
+	</div>
+</div>
 
-
-
-<!-- 						<div class="container-fluid">  -->
-<!-- 		  				 <div class="row"> -->
-<!-- 		                    <div class="col-12"> -->
-<!-- 		                        <div class="card"> -->
-<!-- 		                            <div class="card-body"> -->
-<!-- 		                                <h4 class="card-title">Nuestra Oficina Central</h4> -->
-<!-- 		                                <div id="overlayermap" class="gmaps"></div> -->
-<!-- 		                            </div> -->
-<!-- 		                        </div> -->
-<!-- 		                    </div> -->
-<!-- 		                </div> -->
-<!-- 		                </div> -->
 
 
 	</div>

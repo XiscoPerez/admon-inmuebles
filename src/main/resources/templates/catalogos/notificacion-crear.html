@@ -5,15 +5,15 @@
 	layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{notificacion.crear.title}"></title>
+<title th:text="#{notificaciones.titulo.principal}"></title>
 <script th:inline="javascript">
 /*<![CDATA[*/
 $(document).ready(function() {
-  addControlState(document.getElementById('divTitulo'),/*[[#{mensaje.titulo.requerido}]]*/);
-  addControlState(document.getElementById('divDescripcion'),/*[[#{mensaje.dscripcion.requerido}]]*/);
-  addControlState(document.getElementById('divFechaExposicionInicial'),/*[[#{mensaje.fechaexposicioninicial.requerido}]]*/);
-  addControlState(document.getElementById('divFechaExposicionFinal'),/*[[#{mensaje.fechaexposicionfinal.requerido}]]*/);
-  addControlState(document.getElementById('divInmueble'),/*[[#{mensaje.inmueble.requerido}]]*/);
+  addControlState(document.getElementById('divTitulo'),/*[[#{campo.requerido}]]*/);
+  addControlState(document.getElementById('divDescripcion'),/*[[#{campo.requerido}]]*/);
+  addControlState(document.getElementById('divFechaExposicionInicial'),/*[[#{campo.requerido}]]*/);
+  addControlState(document.getElementById('divFechaExposicionFinal'),/*[[#{campo.requerido}]]*/);
+  addControlState(document.getElementById('divInmueble'),/*[[#{campo.requerido}]]*/);
 });
 /*]]>*/
 </script>
@@ -23,10 +23,10 @@ $(document).ready(function() {
 	<div class="container-fluid">
 		 <div class="row page-titles">
                      <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0" th:text="#{notificaciones.titulo}"></h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{notificaciones.titulo.principal}"></h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{notificaciones.catalogos}"></a></li>
-                            <li class="breadcrumb-item active" th:text="#{notificaciones.titulo}"></li>
+                            <li class="breadcrumb-item"><a class="text-gesco-secundario" th:href="@{/catalogos/notificaciones}" th:text="#{notificaciones.titulo.principal}"></a></li>
+                            <li class="breadcrumb-item active" th:text="#{notificaciones.crear.titulo}"></li>
                         </ol>
                     </div>
                 </div>
@@ -37,8 +37,8 @@ $(document).ready(function() {
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title" th:text="#{notificaciones.titulo}"></h4>
-                                <h6 class="card-subtitle" th:text="#{notificaciones.subtitulo}">Catálogo de Notificaciones</h6>
+                                <h4 class="card-title" th:text="#{notificaciones.crear.titulo}"></h4>
+                                <h6 class="card-subtitle" th:text="#{notificaciones.crear.subtitulo}"></h6>
 								
                                  <form name="crearAvisoOportunoForm" action="#" th:action="@{/catalogos/notificacion-crear}" th:object="${notificacionDto}" method="post">
                                         <div th:if="${#fields.hasGlobalErrors()}" class="col-md-12 m-b-20">
@@ -49,8 +49,8 @@ $(document).ready(function() {
                                          <div class="form-group">
                                          	 <div id="divTitulo" th:class="${#fields.hasErrors('titulo')}? 'form-group has-danger':'form-group'">
 	                                             <div class="col-md-12 m-b-20">
-	                                             	 <label for="titulo" class="form-control-label" th:text="#{etiqueta.titulo}"></label>
-	                                                 <input name="titulo" id="titulo" type="text" class="form-control"  th:field="*{titulo}" required="required"/> 
+	                                             	 <label for="titulo" class="form-control-label" th:text="#{notificaciones.titulo}"></label>
+	                                                 <input name="titulo" id="titulo" type="text" class="form-control"  th:field="*{titulo}" required="required" maxlength="100"/> 
 	                                             	 <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('titulo')}" th:errors="titulo"></span>
 										              </span>
@@ -58,8 +58,8 @@ $(document).ready(function() {
                                               </div>
                                               <div id="divDescripcion" th:class="${#fields.hasErrors('descripcion')}? 'form-group has-danger':'form-group'">
 	                                             <div class="col-md-12 m-b-20">
-	                                             	 <label for="descripcion" class="form-control-label" th:text="#{etiqueta.descripcion}"></label>
-	                                                 <input name="descripcion" id="descripcion" type="text" class="form-control" placeholder="Descripción"   th:field="*{descripcion}" required="required"/> 
+	                                             	 <label for="descripcion" class="form-control-label" th:text="#{notificaciones.descripcion}"></label>
+	                                                 <input name="descripcion" id="descripcion" type="text" class="form-control" placeholder="Descripción"   th:field="*{descripcion}" required="required" maxlength="1000"/> 
 	                                            	 <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('descripcion')}" th:errors="descripcion"></span>
 										              </span>
@@ -67,7 +67,7 @@ $(document).ready(function() {
 	                                          </div>
 	                                          <div id="divFechaExposicionInicial" th:class="${#fields.hasErrors('fechaExposicionInicial')}? 'form-group has-danger':'form-group'">
 		                                             <div class="col-md-12 m-b-20">
-		                                             	 <label for="fechaExposicionInicial" class="form-control-label" th:text="#{etiqueta.fechaexposicioninicial}"></label>
+		                                             	 <label for="fechaExposicionInicial" class="form-control-label" th:text="#{notificaciones.fechainicial}"></label>
 		                                                 <input name="fechaExposicionInicial" id="fechaExposicionInicial" type="date" class="form-control" th:field="*{fechaExposicionInicial}" required="required"/> 
 		                                            	 <span class="form-control-feedback">
 											                <span th:if="${#fields.hasErrors('fechaExposicionInicial')}" th:errors="fechaExposicionInicial"></span>
@@ -76,7 +76,7 @@ $(document).ready(function() {
 		                                       </div>
 		                                       <div id="divFechaExposicionFinal" th:class="${#fields.hasErrors('fechaExposicionFinal')}? 'form-group has-danger':'form-group'">
 		                                             <div class="col-md-12 m-b-20">
-		                                             	 <label for="fechaExposicionFinal" class="form-control-label" th:text="#{etiqueta.fechaexposicionfinal}"></label>
+		                                             	 <label for="fechaExposicionFinal" class="form-control-label" th:text="#{notificaciones.fechafinal}"></label>
 		                                                 <input name="fechaExposicionFinal" id="fechaExposicionFinal" type="date" min="(new Date).getTime();" class="form-control" th:field="*{fechaExposicionFinal}" required="required"/> 
 		                                             	 <span class="form-control-feedback">
 											                <span th:if="${#fields.hasErrors('fechaExposicionFinal')}" th:errors="fechaExposicionFinal"></span>
@@ -85,7 +85,7 @@ $(document).ready(function() {
 		                                        </div>
 		                                         <div id="divInmueble" th:class="${#fields.hasErrors('inmuebleId')}? 'form-group has-danger':'form-group'">
 		                                             <div class="col-md-12 m-b-20">
-				 		                                   <label class="form-control-label" for="inmueble" th:text="#{etiqueta.socio.inmueble}"></label>
+				 		                                   <label class="form-control-label" for="inmueble" th:text="#{notificaciones.inmueble}"></label>
 					                                        <select name="inmueble" id="inmueble" class="form-control" th:field="*{inmuebleId}" required >	
 					                                         	<option selected="selected" th:value="${null}" th:text="#{etiqueta.seleccione}"></option>
 																<option th:each="inmueble : ${session.inmueblesDto}" th:value="${{inmueble.id}}" th:text="${inmueble.nombre}"></option>
@@ -97,7 +97,7 @@ $(document).ready(function() {
 				                                  </div>
                                          </div>
                                       <button type="submit" class="btn btn-info waves-effect" th:text="#{boton.guardar}"></button>
-                                      <a th:href="@{/notificaciones}" class="btn btn-secondary waves-effect" th:text="#{etiqueta.cancelar}"></a>
+                                      <a th:href="@{/catalogos/notificaciones}" class="btn btn-secondary waves-effect" th:text="#{boton.cancelar}"></a>
                                  </form>
 								
                             </div>

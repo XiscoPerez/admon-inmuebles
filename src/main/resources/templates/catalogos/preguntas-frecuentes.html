@@ -5,7 +5,7 @@
 	layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{home.title}"></title>
+<title th:text="#{preguntafrecuentes.titulo}"></title>
 <script th:inline="javascript">
   /*<![CDATA[*/
   $(document).ready(function() {
@@ -15,10 +15,10 @@
       var nombre = $(this).data('pregunta')
 
       var modal = $("#modalEliminar")
-      var mensaje = /*[[#{mensaje.eliminar.preguntafrecuente}]]*/
-      modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+      var mensaje = /*[[#{preguntafrecuentes.modal.mensaje.eliminar}]]*/
+      modal.find('.modal-title').text(/*[[#{modal.eliminar.encabezado}]]*/)
       modal.find('.modal-body p').text(mensaje.format(nombre))
-      modal.find('.modal-footer a').attr('href', '/catalogos/preguntas-frecuentes-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.find('.modal-footer a').attr('href', '/catalogos/preguntas-frecuentes-eliminar/' + id).text(/*[[#{boton.eliminar}]]*/)
       modal.modal("show");
     });
   });
@@ -31,10 +31,6 @@
 		 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
                         <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{preguntafrecuentes.titulo}"></h3>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-                            <li class="breadcrumb-item active" th:text="#{preguntafrecuentes.titulo}"></li>
-                        </ol>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -45,15 +41,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title" th:text="#{preguntafrecuentes.titulo}"></h4>
-                                <h6 class="card-subtitle" th:text="#{preguntafrecuentes.titulo.catalogo}"></h6>
+                                <h6 class="card-subtitle" th:text="#{preguntafrecuentes.subtitulo}"></h6>
                                 <div class="table-responsive">
                                     <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
-                                                <th th:text="#{preguntafrecuentes.tabla.pregunta}"></th>
-                                                <th th:text="#{preguntafrecuentes.tabla.respuesta}"></th>
-                                                <th th:text="#{preguntafrecuentes.tabla.accion}"></th>
+                                                <th th:text="#{tabla.id}"></th>
+                                                <th th:text="#{preguntafrecuentes.pregunta}"></th>
+                                                <th th:text="#{preguntafrecuentes.respuesta}"></th>
+                                                <th th:text="#{tabla.accion}"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -64,9 +60,7 @@
 	                                                <td th:text="${preguntaFrecuente.respuesta}"></td>
 	             
 	                                                <td>
-<!-- 	                                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="modal" data-target=".bs-example-modal-sm" data-original-title="Eliminar"><i class="fa fa-close text-danger" aria-hidden="true"></i></button> -->
 	                                                	<a th:href="${'/catalogos/preguntas-frecuentes-editar/'  + preguntaFrecuente.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10" aria-hidden="true"></i></a>
-<!-- 	                                                	<a th:href="${'/catalogos/preguntas-frecuentes-eliminar/'  + preguntaFrecuente.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-close text-danger" aria-hidden="true"></i></a> -->
 	                                               		<a th:attr="data-id=${preguntaFrecuente.id}" th:attrappend="data-nombre=${preguntaFrecuente.pregunta}" class="btn btn-sm btn-icon btn-pure btn-outline modal-show"> <i class="fa fa-close text-danger" aria-hidden="true"></i></a>
 	                                                </td>
 	                                            </tr>
@@ -76,55 +70,9 @@
                                         <tfoot>
                                             <tr>
                                                 <td colspan="2">
-                                                    <a th:href="@{/catalogos/preguntas-frecuentes-crear}" class="btn btn-info-gesco waves-effect" th:text="#{etiqueta.nuevo}"></a>
+                                                    <a th:href="@{/catalogos/preguntas-frecuentes-crear}" class="btn btn-info-gesco waves-effect" th:text="#{boton.crear}"></a>
                                                 </td>
                                                 
-                                                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
-				                                    <div class="modal-dialog modal-sm">
-				                                        <div class="modal-content">
-				                                            <div class="modal-header">
-				                                                <h4 class="modal-title" id="mySmallModalLabel">¿Eliminar Zona?</h4>
-				                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				                                            </div>
-				                                            <div class="modal-footer">
-				                                                <button type="button" class="btn btn-danger waves-effect waves-light">Si</button>
-				                                            </div>
-				                                        </div>
-				                                        <!-- /.modal-content -->
-				                                    </div>
-				                                    <!-- /.modal-dialog -->
-				                                </div>
-                                                
-<!--                                                 <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
-<!--                                                     <div class="modal-dialog"> -->
-<!--                                                         <div class="modal-content"> -->
-<!--                                                             <div class="modal-header"> -->
-<!--                                                                 <h4 class="modal-title" id="myModalLabel">Crear nueva Zona</h4> -->
-<!--                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
-<!--                                                             </div> -->
-<!--                                                             <form name="crearPreguntaFrecuenteForm" action="#" th:action="@{/catalogos/preguntas-frecuentes}" th:object="${preguntaFrecuenteDto}" method="post"> -->
-<!-- 	                                                            <div class="modal-body"> -->
-<!-- 	                                                                <from class="form-horizontal form-material"> -->
-<!-- 	                                                                    <div class="form-group"> -->
-<!-- 	                                                                        <div class="col-md-12 m-b-20"> -->
-<!-- 	                                                                            <input name="pregunta" type="text" class="form-control" placeholder="Pregunta"   th:field="*{pregunta}" required="required"/>  -->
-<!-- 	                                                                        </div> -->
-<!-- 	                                                                        <div class="col-md-12 m-b-20"> -->
-<!-- 	                                                                            <input name="respuesta" type="text" class="form-control" placeholder="Respuesta"   th:field="*{respuesta}" required="required"/>  -->
-<!-- 	                                                                        </div> -->
-<!-- 	                                                                    </div> -->
-<!-- 	                                                                </from> -->
-<!-- 	                                                            </div> -->
-<!-- 	                                                            <div class="modal-footer"> -->
-<!-- 	                                                                <button type="submit" class="btn btn-info waves-effect" >Guardar</button> -->
-<!-- 	                                                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button> -->
-<!-- 	                                                            </div> -->
-<!--                                                             </form> -->
-<!--                                                         </div> -->
-<!--                                                         /.modal-content -->
-<!--                                                     </div> -->
-<!--                                                     /.modal-dialog -->
-<!--                                                 </div> -->
                                                 <td colspan="6">
                                                     <div class="text-right">
                                                         <ul class="pagination"> </ul>
@@ -148,7 +96,7 @@
 						                            <p></p>
 						                          </div>
 						                          <div class="modal-footer">
-						                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+						                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="#{boton.cerrar}"></button>
 						                            <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
 						                          </div>
 						                        </div>

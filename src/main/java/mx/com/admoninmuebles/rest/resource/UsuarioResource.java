@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.com.admoninmuebles.dto.CambioContraseniaDto;
 import mx.com.admoninmuebles.dto.ReactivaUsuarioDto;
+import mx.com.admoninmuebles.dto.RecuperacionContraseniaCorreoDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.listener.event.OnRecuperacionContraseniaEvent;
@@ -43,12 +44,32 @@ public class UsuarioResource {
     
     @Autowired
     private MessageSource messages;
-
-	@GetMapping("/usuarios/{login}/recuperar-contrasenia")
-	public ResponseEntity<String> recuperarContrasenia(final Locale locale, final HttpServletRequest request,  @PathVariable String login) {
-		System.out.println("Iniciando validacion usuario");
+//
+//	@GetMapping("/usuarios/{login}/recuperar-contrasenia")
+//	public ResponseEntity<String> recuperarContrasenia(final Locale locale, final HttpServletRequest request,  @PathVariable String login) {
+//		System.out.println("Iniciando validacion usuario" + login);
+//		try {
+//			if(login == null || login.trim().isEmpty()) {
+//				System.out.println("login nulo o vacio" + login);
+//				return new ResponseEntity<String>(Boolean.FALSE.toString(), HttpStatus.BAD_REQUEST);
+//			}
+//			UsuarioDto usuarioDto = userService.findByUsernameOrCorreo(login);
+//			eventPublisher.publishEvent(new OnRecuperacionContraseniaEvent(usuarioDto, request.getLocale(), getAppUrl(request)));
+//		} catch(UsernameNotFoundException e) {
+//			return new ResponseEntity<String>(Boolean.FALSE.toString(), HttpStatus.OK);
+//		}
+//		
+//		return new ResponseEntity<String>(Boolean.TRUE.toString(), HttpStatus.OK);
+//	}
+	
+	@PostMapping("/usuarios/recuperar-contrasenia")
+	public ResponseEntity<String> recuperarContrasenia(final Locale locale, final HttpServletRequest request,  @Valid final RecuperacionContraseniaCorreoDto recuperacionContraseniaCorreoDto, final BindingResult bindingResult) {
+		System.out.println("Iniciando validacion usuario" + recuperacionContraseniaCorreoDto.getLogin());
 		try {
-			UsuarioDto usuarioDto = userService.findByUsernameOrCorreo(login);
+			if(bindingResult.hasFieldErrors()) {
+				return new ResponseEntity<String>(Boolean.FALSE.toString(), HttpStatus.BAD_REQUEST);
+			}
+			UsuarioDto usuarioDto = userService.findByUsernameOrCorreo(recuperacionContraseniaCorreoDto.getLogin());
 			eventPublisher.publishEvent(new OnRecuperacionContraseniaEvent(usuarioDto, request.getLocale(), getAppUrl(request)));
 		} catch(UsernameNotFoundException e) {
 			return new ResponseEntity<String>(Boolean.FALSE.toString(), HttpStatus.OK);

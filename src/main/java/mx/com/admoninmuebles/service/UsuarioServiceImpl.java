@@ -227,11 +227,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuarioLogin = usuarioOptional.get();
 
         if (!passwordEncoder.matches(cambioContraseniaDto.getContraseniaAnterior(), usuarioLogin.getContrasenia())) {
-            throw new BusinessException("usuario.error.contraseniaanterior.novalida");
+            throw new BusinessException("usuario.actualiza.contrasenia.anterior.novalida");
         }
 
         if (!cambioContraseniaDto.getContraseniaNueva().equals(cambioContraseniaDto.getContraseniaConfirmacion())) {
-            throw new BusinessException("usuario.error.contrasenias.noiguales");
+            throw new BusinessException("usuario.actualiza.contrasenias.noiguales");
         }
 
         usuarioLogin.setContrasenia(passwordEncoder.encode(cambioContraseniaDto.getContraseniaNueva()));

@@ -25,4 +25,6 @@ public interface InmuebleService {
     void deleteById(Long id);
 
     boolean exist(Long id);
+    
+    Collection<InmuebleDto> findBySociosId(final Long id);
 }

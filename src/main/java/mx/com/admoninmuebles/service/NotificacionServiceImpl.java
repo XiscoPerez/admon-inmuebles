@@ -1,5 +1,6 @@
 package mx.com.admoninmuebles.service;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -59,7 +60,7 @@ public class NotificacionServiceImpl implements NotificacionService {
 	@Override
 	public Collection<NotificacionDto> findByInmuebleIdNotExpired(Long id) {
 		
-		Date hoy = new Date();
+		LocalDate hoy = LocalDate.now();
 		
 //		GregorianCalendar cal = new GregorianCalendar();
 //		cal.setTime(hoy);

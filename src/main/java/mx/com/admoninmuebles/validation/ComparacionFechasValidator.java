@@ -1,5 +1,6 @@
 package mx.com.admoninmuebles.validation;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.validation.ConstraintValidator;
@@ -12,10 +13,10 @@ public class ComparacionFechasValidator  implements ConstraintValidator<Comparac
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		final NotificacionDto notificacionDto = (NotificacionDto) value;
-			Date hoy = new Date();
-			if(notificacionDto.getFechaExposicionInicial().before(hoy) || notificacionDto.getFechaExposicionFinal().before(hoy)){
+			LocalDate hoy = LocalDate.now();
+			if(notificacionDto.getFechaExposicionInicial().isBefore(hoy) || notificacionDto.getFechaExposicionFinal().isBefore(hoy)){
 				return false;
-			}else if(notificacionDto.getFechaExposicionFinal().before( notificacionDto.getFechaExposicionInicial())){
+			}else if(notificacionDto.getFechaExposicionFinal().isBefore( notificacionDto.getFechaExposicionInicial())){
 				return false;
 			} else {
 				return true;

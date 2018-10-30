@@ -22,10 +22,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">proveedor.ver</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{proveedores.titulo}"></h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">proveedor.proveedor</a></li>
-                            <li class="breadcrumb-item active">proveedor.detalle</li>
+                            <li class="breadcrumb-item"><a class="text-gesco-secundario" th:href="@{/proveedores}" th:text="#{proveedores.titulo}"></a></li>
+                            <li class="breadcrumb-item active" th:text="#{proveedores.vista.titulo}"></li>
                         </ol>
                     </div>
                 </div>
@@ -44,7 +44,9 @@
                             <div class="card-img-overlay card-inverse  social-profile d-flex justify-content-center">
                                 <div class="align-self-center "> 
                                 	<div th:switch="${proveedorDto.fotoUrl != null}"> 
-                                		<span  th:case="${false}" class="round round-success" width="100">P</span>
+<!--                                 		<span  th:case="${false}" class="round round-success" width="100">P</span> -->
+<!--                                 		<img th:case="${true}" th:src="${proveedorDto.fotoUrl}" class="img-circle" width="100"> -->
+                                		<img th:case="${false}"  th:src="@{/images/header/default-user.png}" class="img-circle" width="100">
                                 		<img th:case="${true}" th:src="${proveedorDto.fotoUrl}" class="img-circle" width="100">
 									</div>
                                 	
@@ -54,14 +56,15 @@
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-body"> <small class="text-muted" th:text="#{label.usuario.correo}"></small>
-                                <h6 th:text="${proveedorDto.correo}"></h6> 
-                               <small class="text-muted p-t-30 db" th:text="#{label.usuario.telefonomovil}"></small>
-                                <h6 th:text="${proveedorDto.telefonoMovil}"></h6> 
-                                <small class="text-muted p-t-30 db" th:text="#{label.usuario.googleMapsDir}"></small>
+                            <div class="card-body"> 
+<!--                             	<small class="text-muted" th:text="#{usuario.correo}"></small> -->
+<!--                                 <h6 th:text="${proveedorDto.correo}"></h6>  -->
+<!--                                <small class="text-muted p-t-30 db" th:text="#{usuario.telefono.movil}"></small> -->
+<!--                                 <h6 th:text="${proveedorDto.telefonoMovil}"></h6>  -->
+                                <small class="text-muted p-t-30 db" th:text="#{usuario.googlemaps}"></small>
                                 <div class="map-box">
                                 		<iframe th:src="${proveedorDto.googleMapsDir}" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                </div> <small class="text-muted p-t-30 db" th:text="#{label.usuario.redessociales}"></small>
+                                </div> <small class="text-muted p-t-30 db" th:text="#{usuario.redessociales}"></small>
                                 <br/>
                                 <a target="_blank" rel="noopener noreferrer" th:if="${proveedorDto.facebook != null && proveedorDto.facebook != ''}" th:href="${proveedorDto.facebook}" class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></a>
                                 <a target="_blank" rel="noopener noreferrer" th:if="${proveedorDto.twiter != null && proveedorDto.twiter!= ''}" th:href="${proveedorDto.twiter}" class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></a>
@@ -75,90 +78,90 @@
                         <div class="card">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#detalle" role="tab" th:text="#{proveedor.detalle}"></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#direccion" role="tab" th:text="#{proveedor.direccion}"></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#comentarios" role="tab" th:text="#{proveedor.comentarios}"></a> </li>
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#detalle" role="tab" th:text="#{proveedores.vista.informacion}"></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#direccion" role="tab" th:text="#{usuario.direccion}"></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#comentarios" role="tab" th:text="#{proveedores.comentarios}"></a> </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
                             	  <div class="tab-pane active" id="detalle" role="tabpanel">
                                      <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.username}" ></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.usuario}" ></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.username}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.nombre}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.nombre}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.nombre} + ' ' + ${proveedorDto.apellidoPaterno}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.correo}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.correo}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.correo}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.activo}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.activo}"></strong>
                                                 <br>
                                                  <div th:switch="${proveedorDto.activo}"> 
-                                                  <p th:case="${true}" class="text-success" th:text="#{usuario.activo}"></p>
-                                                  <p th:case="${false}" class="text-muted" th:text="#{usuario.inactivo}"></p>
+                                                  <p th:case="${true}" class="text-success" th:text="#{usuario.estatus.activo}"></p>
+                                                  <p th:case="${false}" class="text-muted" th:text="#{usuario.estatus.inactivo}"></p>
 												 </div>
                                             </div>
 
                                         </div>
                                         <div class="row m-t-20">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.roles}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.rol}"></strong>
                                                 <br>
                                                 <th:block th:each="rol : ${proveedorDto.roles}">
                                                 	 <p class="text-muted" th:text="${rol.nombre}"></p>
                                                 </th:block>
                                             </div>
-                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.youtube}"></strong>
+                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.youtube}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.youtube}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.facebook}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.facebook}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.facebook}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.twiter}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.twiter}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.twiter}"></p>
                                             </div>
                                         </div>
                                         <div class="row m-t-20">
                                         
-                                        	 <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefonomovil}"></strong>
+                                        	 <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.telefono.movil}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.telefonoMovil}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefonofijo}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.telefono.fijo}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.telefonoFijo}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefonoaficina}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.telefono.oficina}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.telefonoOficina}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{label.usuario.telefonoalternativo}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.telefono.alternativo}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.telefonoAlternativo}"></p>
                                             </div>
                                         </div>
                                          <div class="row m-t-20">
                                         
-                                        	 <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.rfc}"></strong>
+                                        	 <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.rfc}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.datosAdicionalesRfc}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.nombrerepresentante}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{proveedores.nombrerepresentante}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.datosAdicionalesNombreRepresentante}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.razonsocial}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{proveedores.razonsocial}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.datosAdicionalesRazonSocial}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.areasservicio}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{proveedores.areasservicio}"></strong>
                                                 <br>
                                                 <th:block th:each="areaServicio : ${proveedorDto.areasServicio}">
                                                 	 <p class="text-muted" th:text="${areaServicio.nombre}"></p>
@@ -172,44 +175,44 @@
                                 <div class="tab-pane" id="direccion" role="tabpanel">
                                     <div class="card-body">
                                     	 <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.estado}" ></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.estado}" ></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionAsentamientoMunicipioEstadoNombre}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.municipio}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.municipio}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionAsentamientoMunicipioNombre}"></p>
                                             </div>
-                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.colonia}" ></strong>
+                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.colonia}" ></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionAsentamientoNombre}"></p>
                                             </div>
-                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.codigopostal}" ></strong>
+                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.codigopostal}" ></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionAsentamientoCodigoPostal}"></p>
                                             </div>
 
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.calle}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.calle}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionCalle}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.numeroexterior}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.numero.exterior}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionNumeroExterior}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.numerointerior}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.numero.interior}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionNumeroInterior}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.entrecalles}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.entrecalles}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionEntreCalles}"></p>
                                             </div>
                                         </div>
                                         <div class="row m-t-20">
-                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{etiqueta.referencias}"></strong>
+                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.direccion.referencias}"></strong>
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.direccionReferencias}"></p>
                                             </div>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{usuario.titulo}"></title>
+<title th:text="#{contacto.titulo}"></title>
 <script th:inline="javascript">
   /*<![CDATA[*/
   $(document).ready(function() {
@@ -12,10 +12,10 @@
       var nombre = $(this).data('nombre')
 
       var modal = $("#modalEliminar")
-      var mensaje = /*[[#{mensaje.eliminar.proveedor}]]*/
-      modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+      var mensaje = /*[[#{contacto.modal.mensaje.eliminar}]]*/
+      modal.find('.modal-title').text(/*[[#{modal.eliminar.encabezado}]]*/)
       modal.find('.modal-body p').text(mensaje.format(nombre))
-      modal.find('.modal-footer a').attr('href', '/contacto/mensaje-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.find('.modal-footer a').attr('href', '/contacto/mensaje-eliminar/' + id).text(/*[[#{boton.eliminar}]]*/)
       modal.modal("show");
     });
   });
@@ -28,10 +28,6 @@
 			<div class="row page-titles">
 				<div class="col-md-6 col-8 align-self-center">
 					<h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{contacto.titulo}"></h3>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{contacto.usuario}"></a></li>
-						<li class="breadcrumb-item active" th:text="#{contacto.subtitulo}"></li>
-					</ol>
 				</div>
 			</div>
 			<!-- ============================================================== -->
@@ -41,21 +37,21 @@
 				<div class="col-12">
 					<div class="card">
 						<div class="card-body">
-							<h4 class="card-title" th:text="#{usuario.titulo}"></h4>
-							<h6 class="card-subtitle" th:text="#{usuario.subtitulo}"></h6>
+							<h4 class="card-title" th:text="#{contacto.titulo}"></h4>
+							<h6 class="card-subtitle" th:text="#{contacto.subtitulo}"></h6>
                                     <div class="table-responsive">
                                         <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th th:text="#{tabla.contacto.nombre}"></th>
-                                                    <th th:text="#{tabla.contacto.correo}"></th>
-                                                    <th th:text="#{tabla.contacto.telefono}"></th>
-                                                    <th th:text="#{tabla.contacto.sector}"></th>
-                                                    <th th:text="#{tabla.contacto.zona}"></th>
-                                                    <th th:text="#{tabla.contacto.estado}"></th>
-                                                    <th th:text="#{tabla.contacto.estatus}"></th>
-                                                    <th th:text="#{tabla.contacto.accion}"></th>
+                                                    <th th:text="#{tabla.id}"></th>
+                                                    <th th:text="#{contacto.nombre}"></th>
+                                                    <th th:text="#{contacto.correo}"></th>
+                                                    <th th:text="#{contacto.telefono}"></th>
+                                                    <th th:text="#{contacto.sector}"></th>
+                                                    <th th:text="#{contacto.zona}"></th>
+                                                    <th th:text="#{contacto.estado}"></th>
+                                                    <th th:text="#{contacto.estatus}"></th>
+                                                    <th th:text="#{tabla.accion}"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -116,7 +112,7 @@
 						                            <p></p>
 						                          </div>
 						                          <div class="modal-footer">
-						                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+						                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="#{boton.cerrar}"></button>
 						                            <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
 						                          </div>
 						                        </div>

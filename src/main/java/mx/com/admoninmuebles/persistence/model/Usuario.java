@@ -46,8 +46,7 @@ public class Usuario extends EntidadBase {
     @Column(length = 100)
     private String nombre;
 
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(length = 100)
     private String apellidoPaterno;
 
