@@ -73,7 +73,7 @@ public class Inmueble extends EntidadBase {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inmueble")
     private Collection<Notificacion> notificaciones;
 
-    @OneToMany
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Collection<Usuario> socios = new HashSet<>();
 
     public void addSocio(final Usuario socio) {

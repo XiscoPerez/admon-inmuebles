@@ -27,4 +27,6 @@ public interface InmuebleService {
     boolean exist(Long id);
     
     Collection<InmuebleDto> findBySociosId(final Long id);
+    
+    void addSocio2Inmueble(final UsuarioDto usuarioDto, final Long inmuebleId);
 }
