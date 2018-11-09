@@ -45,14 +45,48 @@ public class InmuebleController {
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/inmuebles")
-    public String init(final Model model) {
-        model.addAttribute("inmuebles", inmuebleService.findAll());
+    public String init(final InmuebleDto inmuebleDto, final Model model, final HttpServletRequest request) {
+        Optional<Long> optUsuarioId = SecurityUtils.getCurrentUserId();
+        Collection<ZonaDto> zonas = Collections.emptyList();
+        if (optUsuarioId.isPresent()) {
+            if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP)) {
+                zonas = zonaService.findAll();
+            } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
+                zonas = zonaService.findByAdminZonaId(optUsuarioId.get());
+            } else if (request.isUserInRole(RolConst.ROLE_ADMIN_BI)) {
+                zonas = zonaService.findByAdministradoresBiId(optUsuarioId.get());
+            }
+        }
+        model.addAttribute("zonas", zonas);
+
+        if (null != inmuebleDto.getZonaCodigo()) {
+            Collection<ColoniaDto> colonias = coloniaService.findByZonaCodigo(inmuebleDto.getZonaCodigo());
+            model.addAttribute("colonias", colonias);
+            if (null != inmuebleDto.getDireccionAsentamientoId()) {
+                model.addAttribute("inmuebles", inmuebleService.findByDireccionAsentamientoId(inmuebleDto.getDireccionAsentamientoId()));
+                return "inmuebles/inmuebles";
+            }
+        }
+
+        if (1 == zonas.size()) {
+            String zonaCodigo = zonas.iterator().next().getCodigo();
+            inmuebleDto.setZonaCodigo(zonaCodigo);
+            Collection<ColoniaDto> colonias = coloniaService.findByZonaCodigo(zonaCodigo);
+            model.addAttribute("colonias", colonias);
+            if (1 == colonias.size()) {
+                inmuebleDto.setDireccionAsentamientoId(colonias.iterator().next().getId());
+                model.addAttribute("inmuebles", inmuebleService.findByDireccionAsentamientoId(inmuebleDto.getDireccionAsentamientoId()));
+            }
+
+        }
+
         return "inmuebles/inmuebles";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
     @GetMapping(value = "/inmueble-crear")
     public String crearInmueble(final InmuebleDto inmuebleDto, final Model model, final HttpServletRequest request) {
+
         Optional<Long> optUsuarioId = SecurityUtils.getCurrentUserId();
         Collection<ZonaDto> zonas = Collections.emptyList();
         if (optUsuarioId.isPresent()) {
