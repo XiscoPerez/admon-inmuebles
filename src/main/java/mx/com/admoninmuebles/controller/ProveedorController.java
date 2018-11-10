@@ -21,13 +21,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.ProveedorDto;
 import mx.com.admoninmuebles.dto.UsuarioDto;
+import mx.com.admoninmuebles.dto.ZonaDto;
 import mx.com.admoninmuebles.error.BusinessException;
 import mx.com.admoninmuebles.listener.event.OnRegistroCompletoEvent;
 import mx.com.admoninmuebles.security.SecurityUtils;
 import mx.com.admoninmuebles.service.AreaServicioService;
 import mx.com.admoninmuebles.service.ProveedorService;
+import mx.com.admoninmuebles.service.ZonaService;
 
 @Controller
 public class ProveedorController {
@@ -42,6 +45,9 @@ public class ProveedorController {
 	
 	@Autowired
 	private AreaServicioService areaServicioService;
+	
+	@Autowired
+	private ZonaService zonaService;
 	
     @Autowired
     private ApplicationEventPublisher eventPublisher;
@@ -62,8 +68,17 @@ public class ProveedorController {
 
 	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
 	@GetMapping(value = "/proveedores")
-	public String init(final Model model) {
+	public String init(final Model model, final HttpServletRequest request) {
 		model.addAttribute("proveedores", proveedorService.getProveedores());
+		 if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP)) {
+				model.addAttribute("proveedores", proveedorService.getProveedores());
+             
+         } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
+	     		Long adminZonaLogueadoId = SecurityUtils.getCurrentUserId().get();
+	        	ZonaDto zona = zonaService.findByAdminZonaId(adminZonaLogueadoId).stream().findFirst().get();
+        		model.addAttribute("proveedores", proveedorService.buscarProveedorPorZona(zona.getCodigo()));
+         
+         } 
 		return "proveedores/proveedores";
 	}
 	

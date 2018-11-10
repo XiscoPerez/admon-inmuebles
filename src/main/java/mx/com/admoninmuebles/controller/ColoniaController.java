@@ -1,5 +1,8 @@
 package mx.com.admoninmuebles.controller;
 
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.ColoniaDto;
+import mx.com.admoninmuebles.dto.ZonaDto;
+import mx.com.admoninmuebles.security.SecurityUtils;
 import mx.com.admoninmuebles.service.ColoniaService;
 import mx.com.admoninmuebles.service.ZonaService;
 
@@ -25,21 +31,37 @@ public class ColoniaController {
     @Autowired
     private ZonaService zonaService;
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @GetMapping(value = "/catalogos/colonias")
-    public String init(final ColoniaDto coloniaDto, final Model model) {
-        model.addAttribute("colonias", coloniaService.findByZonaIsNotNull());
+    public String init(final ColoniaDto coloniaDto, final Model model, final HttpServletRequest request) {
+
+		 if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP)) {
+			 model.addAttribute("colonias", coloniaService.findByZonaIsNotNull());
+            
+        } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
+	     		Long adminZonaLogueadoId = SecurityUtils.getCurrentUserId().get();
+	        	ZonaDto zona = zonaService.findByAdminZonaId(adminZonaLogueadoId).stream().findFirst().get();
+        	 model.addAttribute("colonias", coloniaService.findByZonaCodigo(zona.getCodigo()));
+        } 
         return "catalogos/colonias";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @GetMapping(value = "/catalogos/colonia-agregar")
-    public String agregarColonia(final ColoniaDto coloniaDto, final HttpSession session) {
-        session.setAttribute("zonas", zonaService.findAll());
+    public String agregarColonia(final ColoniaDto coloniaDto, final HttpSession session, final HttpServletRequest request) {
+    	Optional<Long> optId = SecurityUtils.getCurrentUserId();
+    	
+        if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP)) {
+            session.setAttribute("zonas", zonaService.findAll());
+            
+        } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
+        	session.setAttribute("zonas", zonaService.findByAdminZonaId(optId.get()));
+        
+        }
         return "catalogos/colonia-agregar";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @PostMapping(value = "/catalogos/colonia-agregar", params = { "buscar" })
     public String buscarColonias(@Valid final ColoniaDto coloniaDto, final HttpSession session, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -49,7 +71,7 @@ public class ColoniaController {
         return "catalogos/colonia-agregar";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')")
     @PostMapping(value = "/catalogos/colonia-agregar")
     public String guardar(@Valid final ColoniaDto coloniaDto, final HttpSession session, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

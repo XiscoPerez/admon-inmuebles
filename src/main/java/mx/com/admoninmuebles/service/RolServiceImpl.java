@@ -1,6 +1,7 @@
 package mx.com.admoninmuebles.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -34,6 +35,17 @@ public class RolServiceImpl implements RolService {
     @Override
     public Collection<RolDto> findAll() {
         return StreamSupport.stream(rolRepository.findAll().spliterator(), false).map(rol -> modelMapper.map(rol, RolDto.class)).collect(Collectors.toList());
+    }
+    
+    @Override
+    public Collection<RolDto> findByNombres(List<String> nombres) {
+//    	Optional<Rol> rolOpt = rolRepository.findByNombre(name);
+//    	if(rolOpt.isPresent()) {
+//    		return modelMapper.map(rolOpt.get(), RolDto.class);
+//    	}
+//    	return null;
+    	
+    	return StreamSupport.stream(rolRepository.findByNombres(nombres).spliterator(), false).map(rol -> modelMapper.map(rol, RolDto.class)).collect(Collectors.toList());
     }
     
 	@Override

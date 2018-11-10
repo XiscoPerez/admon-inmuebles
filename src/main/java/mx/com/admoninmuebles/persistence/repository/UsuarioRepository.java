@@ -16,6 +16,8 @@ import mx.com.admoninmuebles.persistence.model.Usuario;
 public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 
     Optional<Usuario> findByUsername(String username);
+    
+    Collection<Usuario> findByDireccionAsentamientoZonaCodigo(String codigoZona);
 
     Optional<Usuario> findByCorreo(String correo);
 

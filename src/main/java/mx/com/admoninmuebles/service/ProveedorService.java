@@ -12,5 +12,6 @@ public interface ProveedorService {
 	ProveedorDto editar(ProveedorDto proveedorDto);
 	void eliminar(Long idProveedor);
 	boolean exist(final Long id);
+	Collection<ProveedorDto>  buscarProveedorPorZona(String codigoZona);
 
 }

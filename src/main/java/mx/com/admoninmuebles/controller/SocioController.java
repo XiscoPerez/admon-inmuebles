@@ -108,8 +108,19 @@ public class SocioController {
 
 	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
 	@GetMapping(value = "/socios")
-	public String init(final Model model) {
+	public String init(final Model model, final HttpServletRequest request) {
 		model.addAttribute("socios", socioService.getSocios());
+		
+		 if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP)) {
+			 model.addAttribute("socios", socioService.getSocios());
+             
+         } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
+        	 model.addAttribute("socios", socioService.getSocios());
+         
+         } else if (request.isUserInRole(RolConst.ROLE_ADMIN_BI)) {
+        	 model.addAttribute("socios", socioService.getSocios());
+         }
+		 
 		return "socios/socios";
 	}
 	

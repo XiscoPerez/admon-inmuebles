@@ -46,6 +46,7 @@ public class SocioServiceImpl implements SocioService{
 				 .map(socio -> modelMapper.map(socio, SocioDto.class))
 				 .collect(Collectors.toList());
 	}
+	
 
 	@Override
 	public SocioDto buscarSocioPorId(Long idSocio) {
