@@ -63,6 +63,14 @@ public class ProveedorServiceImpl implements ProveedorService {
 				 .map(proveedor -> modelMapper.map(proveedor, ProveedorDto.class))
 				 .collect(Collectors.toList());
 	}
+	
+	@Override
+	public Collection<ProveedorDto>  buscarProveedorPorZona(String codigoZona) {
+		Collection<Usuario> proveedores = usuarioRepository.findByDireccionAsentamientoZonaCodigo(codigoZona);
+		 return StreamSupport.stream(proveedores.spliterator(), false)
+				 .map(proveedor -> modelMapper.map(proveedor, ProveedorDto.class))
+				 .collect(Collectors.toList());
+	}
 
 	@Override
 	public ProveedorDto buscarProveedorPorId(Long idProveedor) {
