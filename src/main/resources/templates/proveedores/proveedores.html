@@ -86,7 +86,7 @@
                                                         <a th:href="@{/proveedor-crear}" class="btn btn-info-gesco" th:text="#{boton.nuevo}"></a>
                                                     </td>
 
-                                                    <td colspan="7">
+                                                    <td th:if="${#lists.size(proveedores) > 10}" colspan="7">
                                                         <div class="text-right">
                                                             <ul class="pagination"> </ul>
                                                         </div>

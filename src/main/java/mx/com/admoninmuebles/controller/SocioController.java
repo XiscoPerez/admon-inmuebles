@@ -165,7 +165,7 @@ public class SocioController {
    	 	}
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI', 'REP_BI')")
     @GetMapping(value = "/socio-detalle/{id}")
     public String buscarsocioPorId(final @PathVariable long id, final Model model) {
     	InmuebleDto inmuebleDto = inmuebleService.findBySociosId(id).stream().findFirst().get();
