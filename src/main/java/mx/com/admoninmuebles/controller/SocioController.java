@@ -115,10 +115,13 @@ public class SocioController {
 			 model.addAttribute("socios", socioService.getSocios());
              
          } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
-        	 model.addAttribute("socios", socioService.getSocios());
+        	 Long adminZonaLogueadoId = SecurityUtils.getCurrentUserId().get();
+         	 ZonaDto zona = zonaService.findByAdminZonaId(adminZonaLogueadoId).stream().findFirst().get();
+        	 model.addAttribute("socios", socioService.findSociosByZonaCodigo(zona.getCodigo()));
          
          } else if (request.isUserInRole(RolConst.ROLE_ADMIN_BI)) {
-        	 model.addAttribute("socios", socioService.getSocios());
+        	 Long adminBiId = SecurityUtils.getCurrentUserId().get();
+        	 model.addAttribute("socios", socioService.findSociosByAdminBiId( adminBiId ));
          }
 		 
 		return "socios/socios";

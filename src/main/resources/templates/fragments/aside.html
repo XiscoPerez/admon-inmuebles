@@ -53,7 +53,7 @@
                   th:text="#{menu.catalogos}"></span></a>
               <ul aria-expanded="false" class="collapse">
                 <li sec:authorize="hasRole('ADMIN_CORP')"><a href="/catalogos/zonas" th:text="#{menu.zonas}"></a></li>
-                <li><a href="/catalogos/colonias" th:text="#{menu.colonias}"></a></li>
+                <li sec:authorize="hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA')"><a href="/catalogos/colonias" th:text="#{menu.colonias}"></a></li>
 <!--                 <li><a href="/catalogos/servicios" th:text="#{menu.servicios}"></a></li> -->
                 <li><a href="/catalogos/areas-servicio" th:text="#{menu.areasservicio}"></a></li>
                  <li><a href="/areas-comunes" th:text="#{menu.areasComunes}"></a></li>

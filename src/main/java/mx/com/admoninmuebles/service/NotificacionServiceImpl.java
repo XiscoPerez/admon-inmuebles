@@ -72,4 +72,18 @@ public class NotificacionServiceImpl implements NotificacionService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public Collection<NotificacionDto> findByZonaId(String id) {
+		return StreamSupport.stream(notificacionRepository.findByZonaId(id).spliterator(), false)
+				.map(notificacion -> modelMapper.map(notificacion, NotificacionDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Collection<NotificacionDto> findByInmuebleAdminBiId(Long id) {
+		return StreamSupport.stream(notificacionRepository.findByInmuebleAdminBiId(id).spliterator(), false)
+				.map(notificacion -> modelMapper.map(notificacion, NotificacionDto.class))
+				.collect(Collectors.toList());
+	}
+
 }
