@@ -41,14 +41,13 @@
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card"> 
-                        	<img class="card-img" src="../../assets/images/background/socialbg.jpg" alt="Card image">
+                        	<img th:if="${usuarioDto.roles[0].nombre == 'ROLE_SOCIO_BI'}" class="card-img" th:src="@{/images/usuarios/FONDO_SOCIO.jpg}">
+                        	<img th:if="${usuarioDto.roles[0].nombre == 'ROLE_REP_BI' || usuarioDto.roles[0].nombre == 'ROLE_PROVEEDOR'}" class="card-img" th:src="@{/images/usuarios/FONDO_REPRESENTANTE.jpg}">
+                        	<img th:if="${usuarioDto.roles[0].nombre == 'ROLE_ADMIN_ZONA' || usuarioDto.roles[0].nombre == 'ROLE_ADMIN_BI'}" class="card-img" th:src="@{/images/usuarios/FONDO_ADMINISTRADOR_ZONA_BI.jpg}">
+                        	<img th:if="${usuarioDto.roles[0].nombre == 'ROLE_ADMIN_CORP'}" class="card-img" th:src="@{/images/usuarios/FONDO_ADMINITRADOR_CORPORATIVO.jpg}">
                             <div class="card-img-overlay card-inverse  social-profile d-flex justify-content-center">
                                 <div class="align-self-center "> 
                                 	<div th:switch="${usuarioDto.fotoUrl != null}"> 
-<!--                                 	  	<span th:case="${false}" class="round" style="width:100px; height: 100px"></span> -->
-<!--                                 	  	<img th:case="${false}" src="../../assets/images/users/1.jpg" class="img-circle" width="100"> -->
-<!--                                 		<img th:case="${true}" src="../../assets/images/users/1.jpg" class="img-circle" width="100"> -->
-<!--                                 		<span  th:case="${false}" class="round round-success" width="100">U</span> -->
                                 		<img th:case="${false}"  th:src="@{/images/header/default-user.png}" class="img-circle" width="100">
                                 		<img th:case="${true}" th:src="${usuarioDto.fotoUrl}" class="img-circle" width="100">
 									</div>

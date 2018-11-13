@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import mx.com.admoninmuebles.constant.RolConst;
 import mx.com.admoninmuebles.dto.SocioDto;
+import mx.com.admoninmuebles.dto.UsuarioDto;
 import mx.com.admoninmuebles.persistence.model.Rol;
 import mx.com.admoninmuebles.persistence.model.Usuario;
 import mx.com.admoninmuebles.persistence.repository.RolRepository;
@@ -46,6 +47,7 @@ public class SocioServiceImpl implements SocioService{
 				 .map(socio -> modelMapper.map(socio, SocioDto.class))
 				 .collect(Collectors.toList());
 	}
+	
 
 	@Override
 	public SocioDto buscarSocioPorId(Long idSocio) {
@@ -74,6 +76,17 @@ public class SocioServiceImpl implements SocioService{
 	@Override
 	public boolean exist(Long id) {
 		return usuarioRepository.existsById(id);
+	}
+	
+	@Override
+	public Collection<UsuarioDto> findSociosByZonaCodigo(String zonaCodigo) {
+		return StreamSupport.stream(usuarioRepository.findSociosByZonaCodigo(zonaCodigo).spliterator(), false).map(usuario -> modelMapper.map(usuario, UsuarioDto.class)).collect(Collectors.toList());
+	}
+
+
+	@Override
+	public Collection<UsuarioDto> findSociosByAdminBiId(Long id) {
+		return StreamSupport.stream(usuarioRepository.findSociosByAdminBiId(id).spliterator(), false).map(usuario -> modelMapper.map(usuario, UsuarioDto.class)).collect(Collectors.toList());
 	}
 	
 

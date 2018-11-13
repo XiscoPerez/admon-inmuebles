@@ -108,8 +108,22 @@ public class SocioController {
 
 	@PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
 	@GetMapping(value = "/socios")
-	public String init(final Model model) {
+	public String init(final Model model, final HttpServletRequest request) {
 		model.addAttribute("socios", socioService.getSocios());
+		
+		 if (request.isUserInRole(RolConst.ROLE_ADMIN_CORP)) {
+			 model.addAttribute("socios", socioService.getSocios());
+             
+         } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
+        	 Long adminZonaLogueadoId = SecurityUtils.getCurrentUserId().get();
+         	 ZonaDto zona = zonaService.findByAdminZonaId(adminZonaLogueadoId).stream().findFirst().get();
+        	 model.addAttribute("socios", socioService.findSociosByZonaCodigo(zona.getCodigo()));
+         
+         } else if (request.isUserInRole(RolConst.ROLE_ADMIN_BI)) {
+        	 Long adminBiId = SecurityUtils.getCurrentUserId().get();
+        	 model.addAttribute("socios", socioService.findSociosByAdminBiId( adminBiId ));
+         }
+		 
 		return "socios/socios";
 	}
 	
@@ -151,7 +165,7 @@ public class SocioController {
    	 	}
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI')")
+    @PreAuthorize("hasAnyRole('ADMIN_CORP', 'ADMIN_ZONA', 'ADMIN_BI', 'REP_BI')")
     @GetMapping(value = "/socio-detalle/{id}")
     public String buscarsocioPorId(final @PathVariable long id, final Model model) {
     	InmuebleDto inmuebleDto = inmuebleService.findBySociosId(id).stream().findFirst().get();

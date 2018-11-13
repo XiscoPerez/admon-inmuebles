@@ -89,7 +89,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="9">
+                                                    <td th:if="${#lists.size(mensajesContactoDto) > 10}" colspan="9">
                                                         <div class="text-right">
                                                             <ul class="pagination"> </ul>
                                                         </div>

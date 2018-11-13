@@ -5,7 +5,7 @@
 	layout:decorate="~{layout/layout.html}"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title th:text="#{home.title}"></title>
+<title th:text="#{adminbi.page.titulo}"></title>
 <script th:inline="javascript">
 /*<![CDATA[*/
 /*]]>*/
@@ -22,11 +22,11 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{adminbi.ver}"></h3>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{adminbi.socio}"></a></li>
-                            <li class="breadcrumb-item active" th:text="#{adminbi.detalle}"></li>
-                        </ol>
+                        <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{adminbi.titulo}"></h3>
+<!--                         <ol class="breadcrumb"> -->
+<!--                             <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{adminbi.socio}"></a></li> -->
+<!--                             <li class="breadcrumb-item active" th:text="#{adminbi.detalle}"></li> -->
+<!--                         </ol> -->
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -41,18 +41,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex no-block">
-                                    <h4 class="card-title" th:text="#{adminbi.inicio.inmuebles}"></h4>
+                                    <h4 class="card-title" th:text="#{etiqueta.inmueble.titulo}"></h4>
                                 </div>
-                                <h6 class="card-subtitle" th:text="#{adminbi.inicio.inmuebles.subtitulo}" ></h6>
+                                <h6 class="card-subtitle" th:text="#{etiqueta.inmueble.subtitulo}" ></h6>
                                 <div class="table-responsive">
                                     <table class="table stylish-table">
                                         <thead>
                                             <tr>
-                                                <th style="width:90px;" th:text="#{adminbi.inicio.inmueble}"></th>
-                                                <th th:text="#{adminbi.inicio.inmueble.nombre}"></th>
-                                                <th th:text="#{adminbi.inicio.inmueble.direccion}"></th>
-                                                <th th:text="#{adminbi.inicio.inmueble.saldogeneral}"></th>
-                                                <th th:text="#{adminbi.inicio.inmueble.totalsocios}"></th>
+                                                <th style="width:90px;" ></th>
+                                                <th th:text="#{etiqueta.inmueble.nombre}"></th>
+                                                <th th:text="#{etiqueta.inmueble.direccion}"></th>
+                                                <th th:text="#{etiqueta.inmueble.totalsocios}"></th>
+                                                <th th:text="#{etiqueta.inmueble.saldogeneral}"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -67,10 +67,10 @@
                                                     <h5 th:text="${inmueble.direccionCalle} + ' #' + ${inmueble.direccionNumeroExterior}"></h5>
                                                 </td>
                                                 <td>
-                                                    <h5 >357</h5>
+                                                    <h5 th:text="${inmueble.totalSocios}"></h5>
                                                 </td>
                                                 <td>
-                                                    <h5 th:text="${inmueble.totalSocios}"></h5>
+                                                    <h5 >357</h5>
                                                 </td>
                                             </tr>
                                         </tbody>

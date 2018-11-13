@@ -290,4 +290,5 @@ public class UsuarioServiceImpl implements UsuarioService {
         return administradoresBi;
     }
 
+
 }

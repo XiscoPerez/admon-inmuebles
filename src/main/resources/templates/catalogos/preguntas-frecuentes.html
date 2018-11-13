@@ -73,7 +73,7 @@
                                                     <a th:href="@{/catalogos/preguntas-frecuentes-crear}" class="btn btn-info-gesco waves-effect" th:text="#{boton.crear}"></a>
                                                 </td>
                                                 
-                                                <td colspan="6">
+                                                <td th:if="${#lists.size(preguntasFrecuentes) > 10}" colspan="6">
                                                     <div class="text-right">
                                                         <ul class="pagination"> </ul>
                                                     </div>

@@ -92,7 +92,7 @@
                                                         <a th:href="@{/usuarios/nuevo}" class="btn btn-info-gesco waves-effect" th:text="#{boton.nuevo}"></a>
                                                     </td>
 
-                                                    <td colspan="7">
+                                                    <td th:if="${#lists.size(usuarios) > 10}" colspan="7">
                                                         <div class="text-right">
                                                             <ul class="pagination"> </ul>
                                                         </div>
