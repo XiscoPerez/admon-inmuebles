@@ -64,7 +64,6 @@ public class MensajeContactoController {
     		session.setAttribute("sectoresDto", sectorService.findByIdioma(locale.getLanguage()));
         	session.setAttribute("zonasDto", zonaService.findAll());
         	session.setAttribute("estadosDto", estadoRepository.findAll());
-        	System.out.println("OCURRIO UN ERROR");
         	redirectAttributes.addFlashAttribute("message", messages.getMessage("contacto.guarda.error", null, locale));
             return "/contacto/contacto";
         }

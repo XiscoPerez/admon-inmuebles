@@ -7,7 +7,10 @@ import java.util.stream.StreamSupport;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
 
+import mx.com.admoninmuebles.constant.PlantillaCorreoConst;
+import mx.com.admoninmuebles.dto.CorreoDto;
 import mx.com.admoninmuebles.dto.MensajeContactoDto;
 import mx.com.admoninmuebles.persistence.model.MensajeContacto;
 import mx.com.admoninmuebles.persistence.repository.MensajeContactoEstatusRepository;
@@ -28,11 +31,28 @@ public class MensajeContactoServiceImpl implements MensajeContactoService {
 
     @Autowired
     private ModelMapper modelMapper;
+    
+    @Autowired
+    private CorreoService correoService;
 
     @Override
     public MensajeContactoDto save(final MensajeContactoDto mensajeContactoDto) {
     	
     	MensajeContacto MensajeContactoCreado =  mensajeContactoRepository.save(modelMapper.map(mensajeContactoDto, MensajeContacto.class));
+    	
+    	Context datosPlantilla = new Context();
+    	datosPlantilla.setVariable("nombre", mensajeContactoDto.getNombre());
+    	datosPlantilla.setVariable("telefono", mensajeContactoDto.getTelefono());
+    	datosPlantilla.setVariable("estado", mensajeContactoDto.getEstadoId());
+    	datosPlantilla.setVariable("mensaje", mensajeContactoDto.getMensaje());
+		
+    	CorreoDto correoDto = new CorreoDto();
+    	correoDto.setAsunto("Información de Gesco");
+    	correoDto.setPara(mensajeContactoDto.getCorreo());
+    	correoDto.setPlantilla(PlantillaCorreoConst.CONTACTANOS);
+    	correoDto.setDe("bi.prueba.infinita@gmail.com");
+    	correoDto.setDatosPlantilla(datosPlantilla);
+    	correoService.enviarCorreo(correoDto);
     	
     	return modelMapper.map(MensajeContactoCreado, MensajeContactoDto.class);
     }
