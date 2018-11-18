@@ -17,10 +17,10 @@
             var nombre = $(this).data('nombre')
 
             var modal = $("#modalEliminar")
-            var mensaje = /*[[#{mensaje.eliminar.inmueble}]]*/
-            modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+            var mensaje = /*[[#{etiqueta.inmueble.modal.mensaje.eliminar}]]*/
+            modal.find('.modal-title').text(/*[[#{modal.eliminar.encabezado}]]*/)
             modal.find('.modal-body p').text(mensaje.format(nombre))
-            modal.find('.modal-footer a').attr('href', '/inmueble-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+            modal.find('.modal-footer a').attr('href', '/inmueble-eliminar/' + id).text(/*[[#{boton.eliminar}]]*/)
             modal.modal("show");
         });
 
@@ -44,11 +44,7 @@
     <div class="container-fluid">
       <div class="row page-titles">
         <div class="col-md-6 col-8 align-self-center">
-          <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{inmueble.titulo}"></h3>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-            <li class="breadcrumb-item active" th:text="#{etiqueta.inmueble.titulo}"></li>
-          </ol>
+          <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{etiqueta.inmueble.titulo}"></h3>
         </div>
       </div>
       <div class="row">
@@ -79,7 +75,7 @@
                     </div>
                     <div class="col-md-4 form-group">
                       <label class="col-md-12 form-control-label">&nbsp;</label>
-                      <button type="submit" class="btn btn-success btn-rounded" th:text="#{etiqueta.buscar}"></button>
+                      <button type="submit" class="btn btn-success btn-rounded" th:text="#{boton.buscar}"></button>
                     </div>
                   </div>
                 </div>
@@ -107,7 +103,7 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="2"><a th:href="@{/inmueble-crear}" class="btn btn-info-gesco waves-effect" th:text="#{inmueble.nuevo}"></a></td>
+                      <td colspan="2"><a th:href="@{/inmueble-crear}" class="btn btn-info-gesco waves-effect" th:text="#{boton.nuevo}"></a></td>
                       <td colspan="6">
                         <div class="text-right">
                           <ul class="pagination">
@@ -132,7 +128,7 @@
                             <p></p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="#{boton.cerrar}"></button>
                             <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
                           </div>
                         </div>
