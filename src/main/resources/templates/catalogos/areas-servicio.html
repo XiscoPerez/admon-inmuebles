@@ -17,6 +17,14 @@
       modal.find('.modal-footer a').attr('href', '/catalogos/area-servicio-eliminar/' + id).text(/*[[#{boton.eliminar}]]*/)
       modal.modal("show");
     });
+    
+    $("#filtroInputId").on("keyup", function() {
+	    var inputValue = $(this).val().toLowerCase();
+	    $("#areasServicioTableId tbody tr ").filter(function() {
+	    	$(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+	    });
+	});
+    
   });
   /*]]>*/
 </script>
@@ -35,9 +43,15 @@
             <div class="card-body">
               <h4 class="card-title" th:text="#{areaservicio.titulo}"></h4>
               <h6 class="card-subtitle" th:text="#{areaservicio.subtitulo}"></h6>
-<!--               <a th:href="@{/catalogos/area-servicio-crear}" class="btn btn-info btn-rounded waves-effect" th:text="#{areaServicio.nueva}"></a> -->
+              
+			<div class="row">
+        		<div class="col-4">
+			  		<input class="form-control" id="filtroInputId" type="text" placeholder="Busqueda.." />
+			  	</div>
+			 </div>
+
               <div class="table-responsive">
-                <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                <table id="areasServicioTableId" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                   <thead>
                     <tr>
                       <th th:text="#{areaservicio.nombre}"></th>

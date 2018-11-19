@@ -8,6 +8,25 @@
 <title th:text="#{adminzona.page.titulo}"></title>
 <script th:inline="javascript">
 /*<![CDATA[*/
+	
+	$(document).ready(function() {
+    
+	    $("#coloniasFiltroInputId").on("keyup", function() {
+		    var inputValue = $(this).val().toLowerCase();
+		    $("#coloniasTableId tbody tr ").filter(function() {
+		    	$(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+		    });
+		});
+	    
+	    $("#inmueblesFiltroInputId").on("keyup", function() {
+		    var inputValue = $(this).val().toLowerCase();
+		    $("#inmueblesTableId tbody tr ").filter(function() {
+		    	$(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+		    });
+		});
+    
+	});
+	
 /*]]>*/
 </script>
 </head>
@@ -42,11 +61,18 @@
             <div class="card-body">
               <h4 class="card-title" th:text="#{colonia.titulo}"></h4>
               <h6 class="card-subtitle" th:text="#{colonia.subtitulo}"></h6>
+              
+             <div class="row">
+        		<div class="col-4">
+			  		<input class="form-control" id="coloniasFiltroInputId" type="text" placeholder="Busqueda.." />
+			  	</div>
+			  </div>
+              
               <div class="table-responsive">
-                <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                <table id="coloniasTableId" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                   <thead>
                     <tr>
-                      <th th:text="#{colonia.id}"></th>
+                      <th th:text="#{tabla.id}"></th>
                       <th th:text="#{colonia.nombre}"></th>
                       <th th:text="#{zona.nombre}"></th>
                     </tr>
@@ -86,8 +112,15 @@
                                     <h4 class="card-title" th:text="#{etiqueta.inmueble.titulo}"></h4>
                                 </div>
                                 <h6 class="card-subtitle" th:text="#{etiqueta.inmueble.subtitulo}" ></h6>
+                                
+                                 <div class="row">
+					        		<div class="col-4">
+								  		<input class="form-control" id="inmueblesFiltroInputId" type="text" placeholder="Busqueda.." />
+								  	</div>
+								  </div>
+                                
                                 <div class="table-responsive">
-                                    <table class="table stylish-table">
+                                    <table id="inmueblesTableId" class="table stylish-table">
                                         <thead>
                                             <tr>
                                                 <th style="width:90px;" ></th>
