@@ -1,5 +1,6 @@
 package mx.com.admoninmuebles.persistence.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +37,13 @@ public class MensajeContacto extends EntidadBase {
     @Column(length = 50, nullable = false)
     private String correo;
 
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(length = 50, nullable = false)
+    @Size(min = 0, max = 50)
+    @Column(length = 50)
     private String telefono;
+    
+    @Size(min = 0, max = 50)
+    @Column(length = 50)
+    private String telefonoAlternativo;
 
     @NotNull
     @Size(min = 1, max = 4000)
@@ -50,17 +54,17 @@ public class MensajeContacto extends EntidadBase {
     @JoinColumn(name = "id_mensajes_contacto_estatus_fk", nullable = true)
     private MensajeContactoEstatus mensajeContactoEstatus;
     
-    @OneToOne
-    @JoinColumn(name = "id_sector_fk", nullable = true)
+    @OneToOne(optional=true)
+    @JoinColumn(name = "id_sector_fk", nullable = true )
     private Sector sector;
     
-    @OneToOne
-    @JoinColumn(name = "id_zona_fk", nullable = true)
-    private Zona zona;
+//    @OneToOne
+//    @JoinColumn(name = "id_zona_fk", nullable = true)
+//    private Zona zona;
     
     @OneToOne
-    @JoinColumn(name = "id_estado_fk", nullable = true)
-    private Estado estado;
+    @JoinColumn(name = "id_estado_correo_fk", nullable = true)
+    private EstadoCorreo estadoCorreo;
     
 //    @NotNull
 //    private boolean atendido;

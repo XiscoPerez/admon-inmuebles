@@ -3,8 +3,11 @@ package mx.com.admoninmuebles.dto;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import mx.com.admoninmuebles.validation.ContactoTelefonos;
+import mx.com.admoninmuebles.validation.ContraseniaConfirmacion;
 
 @Data
+@ContactoTelefonos
 public class MensajeContactoDto {
 	
     private Long id;
@@ -15,8 +18,9 @@ public class MensajeContactoDto {
     @NotNull
     private String correo;
 
-    @NotNull
     private String telefono;
+    
+    private String telefonoAlternativo;
 
     @NotNull
     private String mensaje;
@@ -33,9 +37,9 @@ public class MensajeContactoDto {
     
     private String zonaNombre;
     
-    private Long estadoId;
+    private Long estadoCorreoId;
     
-    private String estadoNombre;
+    private String estadoCorreoNombre;
     
 //    private boolean atendido;
 

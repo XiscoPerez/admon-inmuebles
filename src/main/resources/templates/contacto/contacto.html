@@ -14,7 +14,8 @@ $(document).ready(function() {
   $('.dropify').dropify();
   addControlState(document.getElementById('divNombre'),/*[[#{campo.requerido}]]*/);
   addControlState(document.getElementById('divCorreo'),/*[[#{campo.requerido}]]*/);
-  addControlState(document.getElementById('divTelefono'),/*[[#{campo.requerido}]]*/);
+  addControlState(document.getElementById('divTelefono'));
+  addControlState(document.getElementById('divTelefonoAlternativo'));
   addControlState(document.getElementById('divMensaje'),/*[[#{campo.requerido}]]*/);
 });
 
@@ -46,6 +47,11 @@ $(document).ready(function() {
 									<div th:if="${message}"  class="alert alert-info "> <i class="ti-user"></i>  <span th:text="${message}"></span>
 			                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
 			                        </div>
+			                        <div th:if="${#fields.hasGlobalErrors()}">
+					                    <div class="alert alert-danger" th:each="err : ${#fields.globalErrors()}"> <i class="ti-na"></i>  <span th:text="${err}"></span>
+				                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+				                        </div>
+					                </div>
 									<div class="row">
 										<div class="col-lg-12">
 											<div id="divNombre" class="form-group m-t-10" th:classappend="${#fields.hasErrors('nombre')}? 'form-group has-danger':'form-group'">
@@ -84,7 +90,7 @@ $(document).ready(function() {
 <!-- 		                                  </div> -->
 		                                  <div class="col-md-12 m-b-20">
 	 		                                   <label class="form-control-label" for="estado" th:text="#{contacto.estado}"></label>
-		                                        <select name="estado" id=sector class="form-control" th:field="*{estadoId}" >	
+		                                        <select name="estado" id=sector class="form-control" th:field="*{estadoCorreoId}" >	
 			                                        <option selected="selected" th:value="${null}" th:text="#{combo.seleccionar}"></option>
 													<option th:each="estado : ${session.estadosDto}" 
 															th:value="${{estado.id}}" 
@@ -94,9 +100,17 @@ $(document).ready(function() {
 
 										<div class="col-lg-12">
 											<div id="divTelefono" class="form-group m-t-10" th:classappend="${#fields.hasErrors('telefono')}? 'form-group has-danger':'form-group'">
-												 <input type="text" class="form-control" id="telefono" required th:field="*{telefono}"  th:placeholder="#{contacto.telefono}" pattern="^[0-9]{1,15}$" maxlength="15" th:title="#{contacto.telefono.validacion.solonumeros}">
+												 <input type="text" class="form-control" id="telefono" th:field="*{telefono}"  th:placeholder="#{contacto.telefono}" pattern="^[0-9]{1,15}$" maxlength="15" th:title="#{contacto.telefono.validacion.solonumeros}">
 												 <span class="form-control-feedback">
 								                	<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
+								              	</span>
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div id="divTelefonoAlternativo" class="form-group m-t-10" th:classappend="${#fields.hasErrors('telefonoAlternativo')}? 'form-group has-danger':'form-group'">
+												 <input type="text" class="form-control" id="telefonoAlternativo" th:field="*{telefonoAlternativo}"  th:placeholder="#{contacto.telefono.alternativo}" pattern="^[0-9]{1,15}$" maxlength="15" th:title="#{contacto.telefono.validacion.solonumeros}">
+												 <span class="form-control-feedback">
+								                	<span th:if="${#fields.hasErrors('telefonoAlternativo')}" th:errors="*{telefonoAlternativo}"></span>
 								              	</span>
 											</div>
 										</div>

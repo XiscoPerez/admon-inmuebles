@@ -62,8 +62,9 @@
                                                     <th th:text="#{contacto.nombre}"></th>
                                                     <th th:text="#{contacto.correo}"></th>
                                                     <th th:text="#{contacto.telefono}"></th>
+                                                    <th th:text="#{contacto.telefono.alternativo}"></th>
                                                     <th th:text="#{contacto.sector}"></th>
-                                                    <th th:text="#{contacto.zona}"></th>
+<!--                                                     <th th:text="#{contacto.zona}"></th> -->
                                                     <th th:text="#{contacto.estado}"></th>
                                                     <th th:text="#{contacto.estatus}"></th>
                                                     <th th:text="#{tabla.accion}"></th>
@@ -76,9 +77,10 @@
 	                                                    <td th:text="${mensajeContactoDto.nombre}"></td>
 	                                                    <td th:text="${mensajeContactoDto.correo}"></td>
 	                                                    <td th:text="${mensajeContactoDto.telefono}"></td>
+	                                                    <td th:text="${mensajeContactoDto.telefonoAlternativo}"></td>
 	                                                    <td th:text="${mensajeContactoDto.sectorNombre}"></td>
-	                                                    <td th:text="${mensajeContactoDto.zonaNombre}"></td>
-	                                                    <td th:text="${mensajeContactoDto.estadoNombre}"></td>
+<!-- 	                                                    <td th:text="${mensajeContactoDto.zonaNombre}"></td> -->
+	                                                    <td th:text="${mensajeContactoDto.estadoCorreoNombre}"></td>
 	                                                    <td>
 <!-- 		                                                    <div th:switch="${mensajeContactoDto.atendido}">  -->
 <!-- 															  <span th:case="${true}" class="text-success" th:text="#{contacto.estatus.atendido}"></span> -->

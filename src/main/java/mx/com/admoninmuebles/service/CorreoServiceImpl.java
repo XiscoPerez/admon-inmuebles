@@ -33,6 +33,9 @@ public class CorreoServiceImpl implements CorreoService{
 	        helper.setTo(correoDto.getPara());
 	        helper.setSubject(correoDto.getAsunto());
 	        helper.setText(plantilla, true);
+	        if(correoDto.getConCopiaPara() != null && !correoDto.getConCopiaPara().isEmpty()) {
+	        	helper.setCc(correoDto.getConCopiaPara());
+	        }
 	        sender.send(message);
 	    } catch (MessagingException e) {
 	        throw new BusinessException(e.getMessage(), e);
