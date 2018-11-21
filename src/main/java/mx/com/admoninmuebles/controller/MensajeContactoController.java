@@ -18,7 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mx.com.admoninmuebles.constant.LocaleConst;
 import mx.com.admoninmuebles.dto.MensajeContactoDto;
+import mx.com.admoninmuebles.persistence.repository.EstadoCorreoRepository;
 import mx.com.admoninmuebles.persistence.repository.EstadoRepository;
+import mx.com.admoninmuebles.service.EstadoCorreoService;
 import mx.com.admoninmuebles.service.MensajeContactoEstatusService;
 import mx.com.admoninmuebles.service.MensajeContactoService;
 import mx.com.admoninmuebles.service.SectorService;
@@ -46,14 +48,14 @@ public class MensajeContactoController {
     private ZonaService zonaService;
     
     @Autowired
-    private EstadoRepository estadoRepository;
+    private EstadoCorreoService estadoCorreoService;
 
     
     @RequestMapping("/contacto")
     public String contacto(final Locale locale, final MensajeContactoDto mensajeContactoDto, final HttpSession session) {
     	session.setAttribute("sectoresDto", sectorService.findByIdioma(locale.getLanguage()));
     	session.setAttribute("zonasDto", zonaService.findAll());
-    	session.setAttribute("estadosDto", estadoRepository.findAll());
+    	session.setAttribute("estadosDto", estadoCorreoService.findAll());
         return "/contacto/contacto";
     }
 
@@ -63,8 +65,7 @@ public class MensajeContactoController {
     	if (bindingResult.hasErrors()) {
     		session.setAttribute("sectoresDto", sectorService.findByIdioma(locale.getLanguage()));
         	session.setAttribute("zonasDto", zonaService.findAll());
-        	session.setAttribute("estadosDto", estadoRepository.findAll());
-        	System.out.println("OCURRIO UN ERROR");
+        	session.setAttribute("estadosDto", estadoCorreoService.findAll());
         	redirectAttributes.addFlashAttribute("message", messages.getMessage("contacto.guarda.error", null, locale));
             return "/contacto/contacto";
         }
@@ -74,7 +75,7 @@ public class MensajeContactoController {
         if(LocaleConst.LOCALE_EN.equalsIgnoreCase(locale.getLanguage())) {
         	mensajeContactoDto.setMensajeContactoEstatusId(MENSAJE_CONTACTO_ESTATUS_NO_ATENDIDO_EN);
         }
-        mensajeContactoService.save(mensajeContactoDto);
+        mensajeContactoService.save(mensajeContactoDto, locale);
         return "redirect:/contacto";
     }
     
@@ -109,7 +110,7 @@ public class MensajeContactoController {
             return "/contacto/contacto-mensaje-atender";
         }
 //        redirectAttributes.addFlashAttribute("message", messages.getMessage("contacto.atendido.ok", null, locale));
-        mensajeContactoService.save(mensajeContactoDto);
+        mensajeContactoService.update(mensajeContactoDto);
         return "redirect:/contacto/mensajes";
     }
     

@@ -11,6 +11,7 @@ public class CorreoDto {
 	private String para;
 	private String asunto;
 	private String plantilla;
+	private String conCopiaPara;
 	private Context datosPlantilla;
 
 }

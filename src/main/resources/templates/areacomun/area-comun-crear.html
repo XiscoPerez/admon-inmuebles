@@ -6,8 +6,8 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		$(document).ready(function() {
-      		addControlState(document.getElementById('divInmueble'), /*[[#{mensaje.nombre.requerido}]]*/);
-			addControlState(document.getElementById('divNombre'),/*[[#{mensaje.nombre.requerido}]]*/);
+      		addControlState(document.getElementById('divInmueble'), /*[[#{campo.requerido}]]*/);
+			addControlState(document.getElementById('divNombre'),/*[[#{campo.requerido}]]*/);
 		});
   /*]]>*/
 </script>
@@ -15,23 +15,23 @@
 <body>
   <div layout:fragment="content">
     <div class="container-fluid">
-      <div class="row page-titles">
-        <div class="col-md-6 col-8 align-self-center">
-          <h3 class="text-themecolor m-b-0 m-t-0" th:text="#{areaComun.titulo}"></h3>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-            <li class="breadcrumb-item active" th:text="#{areaComun.titulo}"></li>
-          </ol>
-        </div>
-      </div>
-      <div class="card w-50">
+			<div class="row page-titles">
+				<div class="col-md-6 col-8 align-self-center">
+					<h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{areacomun.titulo}"></h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item "><a class="text-gesco-secundario" th:href="@{/areas-comunes}" th:text="#{areacomun.titulo}"></a></li>
+						<li class="breadcrumb-item active" th:text="#{areacomun.crear.titulo}"></li>
+					</ol>
+				</div>
+			</div>
+      <div class="card">
         <div class="card-body">
-          <h3 class="card-title" th:text="#{areaComun.titulo}"></h3>
-          <h6 class="card-subtitle" th:text="#{areaComun.subtitulo}"></h6>
+          <h3 class="card-title" th:text="#{areacomun.subtitulo}"></h3>
+          <h6 class="card-subtitle" th:text="#{areacomun.crear.titulo}"></h6>
           <form name="crearAreaComunForm" action="#" th:action="@{/areaComun}" th:object="${areaComunDto}" method="post">
             <input type="hidden" class="form-control" th:field="*{id}" />
             <div id="divInmueble" class="form-group" th:classappend="${#fields.hasErrors('inmuebleId')}? 'has-danger'">
-              <label class="form-control-label" th:text="#{etiqueta.inmueble}"></label>
+              <label class="form-control-label" th:text="#{areacomun.inmueble}"></label>
               <select name="inmuebleId" class="form-control" th:field="*{inmuebleId}" required>
                 <option selected="selected" value="" th:text="#{etiqueta.seleccione}"></option>
                 <option th:each="inmueble : ${session.inmuebles}" th:value="${inmueble.id}" th:text="|${inmueble.nombre}|"></option>
@@ -40,20 +40,20 @@
               </span>
             </div>
             <div id="divNombre"  class="form-group"  th:classappend="${#fields.hasErrors('nombre')}? 'has-danger'">
-              <label class="form-control-label" th:text="#{etiqueta.nombre}"></label>
-              <input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\s\S]{1,100}$" th:title="#{mensaje.nombre.validacion}" />
+              <label class="form-control-label" th:text="#{areacomun.nombre}"></label>
+              <input name="nombre" class="form-control" th:field="*{nombre}" required pattern="^[\s\S]{1,100}$" maxlength="100" th:title="#{mensaje.nombre.validacion}" />
               <span class="form-control-feedback"> <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
               </span>
             </div>
             <div id="divDescripcion"  class="form-group"  th:classappend="${#fields.hasErrors('descripcion')}? 'has-danger'">
-              <label class="form-control-label" th:text="#{etiqueta.descripcion}"></label>
-              <input name="descripcion" class="form-control" th:field="*{descripcion}" required pattern="^[\s\S]{1,100}$" th:title="#{mensaje.descripcion.validacion}" />
+              <label class="form-control-label" th:text="#{areacomun.descripcion}"></label>
+              <input name="descripcion" class="form-control" th:field="*{descripcion}" required pattern="^[\s\S]{1,100}$"  maxlength="100" th:title="#{mensaje.descripcion.validacion}" />
               <span class="form-control-feedback"> <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
               </span>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-success btn-rounded" th:text="#{etiqueta.guardar}"></button>
-              <a th:href="@{/areas-comunes}" class="btn btn-danger btn-rounded" th:text="#{etiqueta.cancelar}"></a>
+              <button type="submit" class="btn btn-info-gesco" th:text="#{boton.guardar}"></button>
+              <a th:href="@{/areas-comunes}" class="btn btn-danger" th:text="#{boton.cancelar}"></a>
             </div>
           </form>
         </div>

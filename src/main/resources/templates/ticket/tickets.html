@@ -12,12 +12,20 @@
       var titulo = $(this).data('titulo')
 
       var modal = $("#modalEliminar")
-      var mensaje = /*[[#{mensaje.eliminar.ticket}]]*/
-      modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+      var mensaje = /*[[#{ticket.modal.mensaje.eliminar}]]*/
+      modal.find('.modal-title').text(/*[[#{modal.eliminar.encabezado}]]*/)
       modal.find('.modal-body p').text(mensaje.format(titulo))
-      modal.find('.modal-footer a').attr('href', '/ticket-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.find('.modal-footer a').attr('href', '/ticket-eliminar/' + id).text(/*[[#{boton.eliminar}]]*/)
       modal.modal("show");
     });
+    
+    $("#filtroInputId").on("keyup", function() {
+	    var inputValue = $(this).val().toLowerCase();
+	    $("#ticketsTableId tbody tr ").filter(function() {
+	    	$(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+	    });
+	});
+    
   });
   /*]]>*/
 </script>
@@ -27,28 +35,30 @@
     <div class="container-fluid">
       <div class="row page-titles">
         <div class="col-md-6 col-8 align-self-center">
-          <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{ticket.titulo}"></h3>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-            <li class="breadcrumb-item active" th:text="#{ticket.titulo}"></li>
-          </ol>
+          <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{ticket.titulo.principal}"></h3>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title" th:text="#{ticket.titulo}"></h4>
-              <h6 class="card-subtitle" th:text="#{ticket.subtitulo}"></h6>
-<!--               <a  sec:authorize="hasAuthority('ABRIR_TICKET')" th:href="@{/ticket-crear}" class="btn btn-info-gesco waves-effect" th:text="#{ticket.nuevo}"></a> -->
+              <h4 class="card-title" th:text="#{ticket.subtitulo}"></h4>
+              <h6 class="card-subtitle" th:text="#{ticket.titulo}"></h6>
+              
+               <div class="row">
+        		<div class="col-4">
+			  		<input class="form-control" id="filtroInputId" type="text" placeholder="Busqueda.." />
+			  	</div>
+			 </div>
+								 
               <div class="table-responsive">
-                <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                <table id="ticketsTableId" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                   <thead>
                     <tr>
-                      <th th:text="#{etiqueta.ticket.titulo}"></th>
-                      <th th:text="#{etiqueta.ticket.areaServicio}"></th>
-                      <th th:text="#{etiqueta.ticket.estatusTicket}"></th>
-                      <th th:text="#{etiqueta.accion}"></th>
+                      <th th:text="#{ticket.nombre}"></th>
+                      <th th:text="#{ticket.areaservicio}"></th>
+                      <th th:text="#{ticket.estatus}"></th>
+                      <th th:text="#{tabla.accion}"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -66,7 +76,7 @@
                   <tfoot>
                     <tr>
                     <td colspan="2">
-                    	<a  sec:authorize="hasAuthority('ABRIR_TICKET')" th:href="@{/ticket-crear}" class="btn btn-info-gesco waves-effect" th:text="#{ticket.nuevo}"></a>
+                    	<a  sec:authorize="hasAuthority('ABRIR_TICKET')" th:href="@{/ticket-crear}" class="btn btn-info-gesco waves-effect" th:text="#{boton.nuevo}"></a>
                     </td>
                       <td colspan="6">
                         <div class="text-right">
@@ -92,7 +102,7 @@
                             <p></p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="#{boton.cerrar}"></button>
                             <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
                           </div>
                         </div>

@@ -89,17 +89,17 @@
                                                 <br>
                                                 <p class="text-muted" th:text="${proveedorDto.correo}"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.activo}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.estatus}"></strong>
                                                 <br>
                                                  <div th:switch="${proveedorDto.activo}"> 
-                                                  <p th:case="${true}" class="text-success" th:text="#{usuario.activo}"></p>
-                                                  <p th:case="${false}" class="text-muted" th:text="#{usuario.inactivo}"></p>
+                                                  <p th:case="${true}" class="text-success"  th:text="#{usuario.estatus.activo}"></p>
+                                                  <p th:case="${false}" class="text-muted" th:text="#{usuario.estatus.inactivo}"></p>
 												 </div>
                                             </div>
 
                                         </div>
                                         <div class="row m-t-20">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.roles}"></strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.rol}"></strong>
                                                 <br>
                                                 <th:block th:each="rol : ${proveedorDto.roles}">
                                                 	 <p class="text-muted" th:text="${rol.nombre}"></p>

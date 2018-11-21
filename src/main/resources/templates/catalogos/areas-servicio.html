@@ -11,12 +11,20 @@
       var nombre = $(this).data('nombre')
 
       var modal = $("#modalEliminar")
-      var mensaje = /*[[#{mensaje.eliminar.areaServicio}]]*/
-      modal.find('.modal-title').text(/*[[#{encabezado.modal.eliminar}]]*/)
+      var mensaje = /*[[#{areaservicio.modal.mensaje.eliminar}]]*/
+      modal.find('.modal-title').text(/*[[#{modal.eliminar.encabezado}]]*/)
       modal.find('.modal-body p').text(mensaje.format(nombre))
-      modal.find('.modal-footer a').attr('href', '/catalogos/area-servicio-eliminar/' + id).text(/*[[#{etiqueta.modal.eliminar}]]*/)
+      modal.find('.modal-footer a').attr('href', '/catalogos/area-servicio-eliminar/' + id).text(/*[[#{boton.eliminar}]]*/)
       modal.modal("show");
     });
+    
+    $("#filtroInputId").on("keyup", function() {
+	    var inputValue = $(this).val().toLowerCase();
+	    $("#areasServicioTableId tbody tr ").filter(function() {
+	    	$(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+	    });
+	});
+    
   });
   /*]]>*/
 </script>
@@ -26,45 +34,47 @@
     <div class="container-fluid">
       <div class="row page-titles">
         <div class="col-md-6 col-8 align-self-center">
-          <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{areaServicio.titulo}"></h3>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="text-gesco-secundario" href="javascript:void(0)" th:text="#{catalogos.titulo}"></a></li>
-            <li class="breadcrumb-item active" th:text="#{areaServicio.titulo}"></li>
-          </ol>
+          <h3 class="text-themecolor m-b-0 m-t-0 text-gesco-secundario" th:text="#{areaservicio.titulo}"></h3>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title" th:text="#{areaServicio.titulo}"></h4>
-              <h6 class="card-subtitle" th:text="#{areaServicio.subtitulo}"></h6>
-<!--               <a th:href="@{/catalogos/area-servicio-crear}" class="btn btn-info btn-rounded waves-effect" th:text="#{areaServicio.nueva}"></a> -->
+              <h4 class="card-title" th:text="#{areaservicio.titulo}"></h4>
+              <h6 class="card-subtitle" th:text="#{areaservicio.subtitulo}"></h6>
+              
+			<div class="row">
+        		<div class="col-4">
+			  		<input class="form-control" id="filtroInputId" type="text" placeholder="Busqueda.." />
+			  	</div>
+			 </div>
+
               <div class="table-responsive">
-                <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                <table id="areasServicioTableId" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
                   <thead>
                     <tr>
-                      <th th:text="#{areaServicio.nombre}"></th>
-                      <th th:text="#{areaServicio.accion}"></th>
+                      <th th:text="#{areaservicio.nombre}"></th>
+                      <th th:text="#{tabla.accion}" class="text-right"></th>
                     </tr>
                   </thead>
                   <tbody>
                     <th:block th:each="areaServicio : ${areasServicio}">
                       <tr>
                         <td th:text="${areaServicio.nombre}"></td>
-                        <td>
-                        <a th:href="${'/catalogos/area-servicio-editar/'  + areaServicio.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10"aria-hidden="true"></i></a>
-                        <a th:attr="data-id=${areaServicio.id}" th:attrappend="data-nombre=${areaServicio.nombre}" class="btn btn-sm btn-icon btn-pure btn-outline modal-show"><i class="fa fa-close text-danger" aria-hidden="true"></i></a></td>
+                        <td class="text-right">
+	                        <a th:href="${'/catalogos/area-servicio-editar/'  + areaServicio.id}" class="btn btn-sm btn-icon btn-pure btn-outline"><i class="fa fa-pencil text-inverse m-r-10"aria-hidden="true"></i></a>
+	                        <a th:attr="data-id=${areaServicio.id}" th:attrappend="data-nombre=${areaServicio.nombre}" class="btn btn-sm btn-icon btn-pure btn-outline modal-show"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
+                        </td>
                       </tr>
                     </th:block>
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="2">
-                          <a th:href="@{/catalogos/area-servicio-crear}" class="btn btn-info-gesco waves-effect" th:text="#{areaServicio.nueva}"></a>
+                      <td colspan="1">
+                          <a th:href="@{/catalogos/area-servicio-crear}" class="btn btn-info-gesco waves-effect" th:text="#{boton.crear}"></a>
                       </td>
-                      
-                      <td colspan="6">
+                      <td colspan="2">
                         <div class="text-right">
                           <ul class="pagination">
                           </ul>
@@ -88,7 +98,7 @@
                             <p></p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
+                            <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="#{boton.cerrar}"></button>
                             <a href="/#" class="btn btn-rounded btn-danger waves-effect"></a>
                           </div>
                         </div>

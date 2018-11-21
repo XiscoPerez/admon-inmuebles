@@ -7,5 +7,6 @@ public final class PlantillaCorreoConst {
 	}
 	
 	public static final String RECUPERA_CONTRASENIA = "correo/correoRecuperaContrasenia";
+	public static final String CONTACTANOS = "correo/plantilla-correo-contacto";
 
 }

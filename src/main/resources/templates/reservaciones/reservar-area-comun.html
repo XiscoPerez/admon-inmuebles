@@ -36,13 +36,13 @@
     $.onSelect = function(start, end) {
       var mensaje;
       if (end.diff(start, 'days') == 1) {
-        mensaje =/*[[#{mensaje.reservarUnDia.areaComun}]]*/;
+        mensaje =/*[[#{reserva.areacomun.mensaje.reservarUnDia.areaComun}]]*/;
       } else {
-        mensaje =/*[[#{mensaje.reservarPerido.areaComun}]]*/;
+        mensaje =/*[[#{reserva.areacomun.mensaje.reservarPerido.areaComun}]]*/;
       }
       
       var modal = $('#modalEliminar');
-      modal.find('.modal-title').text(/*[[#{encabezado.modal.reservar}]]*/)
+      modal.find('.modal-title').text(/*[[#{reserva.areacomun.encabezado.modal.reservar}]]*/)
       modal.find('.modal-body p').text(mensaje.format(start.format('DD-MM-YYYY'), end.format('DD-MM-YYYY')))
       $('input[name="start"]').val(start.format('YYYY-MM-DD'));
       $('input[name="end"]').val(end.format('YYYY-MM-DD'));
@@ -65,9 +65,9 @@
       <form th:action="@{/buscarReservaciones}" th:object="${reservacionDto}" method="post">
         <div class="row">
           <div id="divAreaComun" class="col-md-4 form-group" th:classappend="${#fields.hasErrors('areaComunId')}? 'has-danger'">
-            <label class="form-control-label" th:text="#{etiqueta.areaComun}"></label>
+            <label class="form-control-label" th:text="#{reserva.areacomun.nombre}"></label>
             <select class="form-control" th:field="*{areaComunId}" required onchange="this.form.submit()">
-              <option selected="selected" value="" th:text="#{etiqueta.misReservaciones}"></option>
+              <option selected="selected" value="" th:text="#{combo.seleccionar}"></option>
               <option th:each="areaComun : ${session.areasComunes}" th:value="${areaComun.id}" th:text="${areaComun.nombre}"></option>
             </select>
             <span class="form-control-feedback">
@@ -76,7 +76,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-md-10">
             <div class="card">
               <div class="card-body">
                 <div id="calendar"></div>
@@ -99,14 +99,14 @@
                 <input type="hidden" name="start">
                 <input type="hidden" name="end">
                 <div class="form-group">
-                  <label for="title" class="control-label" th:text="#{evento.nombre}"></label>
+                  <label for="title" class="control-label" th:text="#{reserva.areacomun.evento.nombre}"></label>
                   <input name="title" type="text" class="form-control">
                 </div>
                 <p></p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="mensaje.modal.cerrar"></button>
-                <button type="submit" class="btn btn-rounded btn-success waves-effect waves-light">Create event</button>
+                <button type="button" class="btn btn-rounded btn-info waves-effect" data-dismiss="modal" th:text="#{boton.cerrar}"></button>
+                <button type="submit" class="btn btn-rounded btn-success waves-effect waves-light" th:text="#{boton.crear.evento}"></button>
               </div>
             </form>
           </div>

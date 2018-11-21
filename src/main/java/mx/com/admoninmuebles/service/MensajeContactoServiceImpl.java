@@ -1,13 +1,19 @@
 package mx.com.admoninmuebles.service;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
 
+import mx.com.admoninmuebles.constant.PlantillaCorreoConst;
+import mx.com.admoninmuebles.dto.CorreoDto;
+import mx.com.admoninmuebles.dto.EstadoCorreoDto;
 import mx.com.admoninmuebles.dto.MensajeContactoDto;
 import mx.com.admoninmuebles.persistence.model.MensajeContacto;
 import mx.com.admoninmuebles.persistence.repository.MensajeContactoEstatusRepository;
@@ -28,23 +34,57 @@ public class MensajeContactoServiceImpl implements MensajeContactoService {
 
     @Autowired
     private ModelMapper modelMapper;
+    
+    @Autowired
+    private CorreoService correoService;
+    
+    @Autowired
+    private EstadoCorreoService estadoCorreoService;
+    
+    @Autowired
+    private MessageSource messages;
 
     @Override
-    public MensajeContactoDto save(final MensajeContactoDto mensajeContactoDto) {
+    public MensajeContactoDto save(final MensajeContactoDto mensajeContactoDto, final Locale locale) {
     	
     	MensajeContacto MensajeContactoCreado =  mensajeContactoRepository.save(modelMapper.map(mensajeContactoDto, MensajeContacto.class));
+    	
+    	EstadoCorreoDto estadoCorreoDto = estadoCorreoService.findById(mensajeContactoDto.getEstadoCorreoId());
+    	
+    	Context datosPlantilla = new Context();
+    	datosPlantilla.setVariable("nombre", mensajeContactoDto.getNombre());
+    	datosPlantilla.setVariable("telefono", mensajeContactoDto.getTelefono());
+    	datosPlantilla.setVariable("estado", estadoCorreoDto.getNombre());
+    	datosPlantilla.setVariable("correo", mensajeContactoDto.getCorreo());
+    	datosPlantilla.setVariable("mensaje", mensajeContactoDto.getMensaje());
+		
+    	CorreoDto correoDto = new CorreoDto();
+    	correoDto.setAsunto(messages.getMessage("contacto.correo.asunto", null, locale));
+    	correoDto.setPara(estadoCorreoDto.getCorreoPrincipal());
+    	correoDto.setConCopiaPara(estadoCorreoDto.getCorreoSecundario());
+    	correoDto.setPlantilla(PlantillaCorreoConst.CONTACTANOS);
+    	correoDto.setDe(messages.getMessage("contacto.correo.gesco", null, locale));
+//    	correoDto.setDe("bi.prueba.infinita@gmail.com");
+    	correoDto.setDatosPlantilla(datosPlantilla);
+    	correoService.enviarCorreo(correoDto);
     	
     	return modelMapper.map(MensajeContactoCreado, MensajeContactoDto.class);
     }
     
     @Override
     public MensajeContactoDto update(final MensajeContactoDto mensajeContactoDto) {
+    	MensajeContacto mensajeContactoCreado = modelMapper.map(mensajeContactoDto, MensajeContacto.class);
     	
-    	MensajeContacto MensajeContactoCreado =  mensajeContactoRepository.save(modelMapper.map(mensajeContactoDto, MensajeContacto.class));
-    	MensajeContactoCreado.setSector(sectorRepository.findById(mensajeContactoDto.getSectorId()).get());
-    	MensajeContactoCreado.setMensajeContactoEstatus(mensajeContactoEstatusRepository.findById(mensajeContactoDto.getMensajeContactoEstatusId()).get());
+    	if(mensajeContactoDto.getSectorId() != null) {
+    		mensajeContactoCreado.setSector(sectorRepository.findById(mensajeContactoDto.getSectorId()).get());
+    	}else {
+    		mensajeContactoCreado.setSector(null);
+    	}
+    	mensajeContactoCreado.setMensajeContactoEstatus(mensajeContactoEstatusRepository.findById(mensajeContactoDto.getMensajeContactoEstatusId()).get());
     	
-    	return modelMapper.map(MensajeContactoCreado, MensajeContactoDto.class);
+    	mensajeContactoCreado =  mensajeContactoRepository.save(mensajeContactoCreado);
+    	
+    	return modelMapper.map(mensajeContactoCreado, MensajeContactoDto.class);
     }
 
 	@Override
