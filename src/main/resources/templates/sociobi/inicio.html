@@ -82,7 +82,7 @@
                                             </div>
                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.nombre}"></strong>
                                                 <br>
-                                                <p class="text-muted" th:text="${socioDto.nombre} + ' ' + ${socioDto.apellidoPaterno}"></p>
+                                                <p class="text-muted" th:text="${socioDto.nombre} + ' ' + ${socioDto.apellidoPaterno} + ' ' + ${socioDto.apellidoMaterno}"></p>
                                             </div>
                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.correo}"></strong>
                                                 <br>
@@ -101,7 +101,7 @@
                                             <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.rol}"></strong>
                                                 <br>
                                                 <th:block th:each="rol : ${socioDto.roles}">
-                                                	 <p class="text-muted" th:text="${rol.nombre}"></p>
+                                                	 <p class="text-muted" th:text="${rol.descripcion}"></p>
                                                 </th:block>
                                             </div>
                                         	 <div class="col-md-3 col-xs-6 b-r"> <strong th:text="#{usuario.telefono.movil}"></strong>

@@ -32,6 +32,7 @@
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<!-- <script type="text/javascript" th:src="@{/assets/plugins/jquery/jquery.min.js}"></script> -->
 <script th:inline="javascript">
   /*<![CDATA[*/
   $(document).ready(function() {
@@ -95,7 +96,7 @@
   	</script>
   	    <!--stickey kit -->
     <script  src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-    <script src="../assets/plugins/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" th:src="@{/assets/plugins/sparkline/jquery.sparkline.min.js}"></script>
   	<script>
     // This is for the sticky sidebar    
     $(".stickyside").stick_in_parent({

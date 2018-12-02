@@ -50,7 +50,7 @@
 							
 									<div class="row">
 						        		<div class="col-4">
-									  		<input class="form-control" id="filtroInputId" type="text" placeholder="Busqueda.." />
+									  		<input class="form-control" id="filtroInputId" type="text" th:placeholder="#{etiqueta.busqueda}" />
 									  	</div>
 									</div>
 							
@@ -82,7 +82,7 @@
 	                                                    <td th:text="${usuario.nombre}"></td>
 	                                                    <td>
 	                                                    	<th:block th:each="rol : ${usuario.roles}">
-	                                                    		<div><span th:text="${rol.nombre}" class="label label-light-info"></span> </div>
+	                                                    		<div><span th:text="${rol.descripcion}" class="label label-light-info"></span> </div>
 	                                                    	</th:block>
 	                                                    </td>
 	                                                    <td>

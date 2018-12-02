@@ -126,7 +126,7 @@ $(document).ready(function() {
 													<option th:each="rol : ${rolesDto}" 
 															th:selected="${usuarioDto.rolSeleccionado}"
 															th:value="${{rol.id}}" 
-															th:text="${rol.nombre}">
+															th:text="${rol.descripcion}">
 													</option>
 		                                        </select>
 		                                        <span class="form-control-feedback">

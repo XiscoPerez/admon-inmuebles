@@ -139,7 +139,7 @@ function cargarInmueblesPorColonia() {
                                           	<div id="divRol" class="col-md-12 form-group" th:classappend="${#fields.hasErrors('rolSeleccionado')}? 'form-group has-danger':'form-group'">
 													 <label class="form-control-label" for="rolId" th:text="#{usuario.rol}"></label>
 			                                        <select  name="rolId" class="form-control" th:field="*{rolSeleccionado}" required >	
-														<option th:each="rol : ${session.rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option>
+														<option th:each="rol : ${session.rolesDto}" th:value="${{rol.id}}" th:text="${rol.descripcion}"></option>
 			                                        </select>
 			                                        <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('rolSeleccionado')}" th:errors="*{rolSeleccionado}"></span>

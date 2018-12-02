@@ -13,5 +13,7 @@ public class RolDto {
     @NotNull
     @Size(min = 6, max = 100)
     private String nombre;
+    
+    private String descripcion;
 
 }

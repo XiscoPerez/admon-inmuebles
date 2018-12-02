@@ -210,7 +210,15 @@ public class UsuarioController {
     @PreAuthorize("hasRole('ADMIN_CORP')")
     @GetMapping(value = "/usuarios/eliminar/{idUsuario}")
     public String eliminar(final @PathVariable Long idUsuario, final Model model) {
-    	userService.deleteById(idUsuario);
+    	Long adminCorpLogueadoId = SecurityUtils.getCurrentUserId().get();
+    	
+    	if(idUsuario != null && adminCorpLogueadoId != idUsuario ) {
+    		try {
+    			userService.deleteById(idUsuario);
+    		} catch (BusinessException be) {
+    			 return "redirect:/usuarios";
+    		}
+    	}
         return "redirect:/usuarios";
     }
     
@@ -282,10 +290,7 @@ public class UsuarioController {
     
     @PostMapping(value = "/usuarios/correo-recuperar-contrasenia")
     public String enviarCorreoRecuperacionContrasenia(final HttpServletRequest request, final Locale locale, final Model model, @Valid final RecuperacionContraseniaCorreoDto recuperacionContraseniaCorreo, final BindingResult bindingResult) {
-    	System.out.println("Enviando correo de recuperación de contraseña");
-    	System.out.println("LOGIN: " + recuperacionContraseniaCorreo.getLogin());
     	UsuarioDto usuarioDto = userService.findByUsernameOrCorreo(recuperacionContraseniaCorreo.getLogin());
-    	System.out.println("Usuario: " + usuarioDto.getUsername());
     	eventPublisher.publishEvent(new OnRecuperacionContraseniaEvent(usuarioDto, request.getLocale(), getAppUrl(request)));
         return "redirect:/login";
     }
