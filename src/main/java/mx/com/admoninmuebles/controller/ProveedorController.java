@@ -74,9 +74,11 @@ public class ProveedorController {
 				model.addAttribute("proveedores", proveedorService.getProveedores());
              
          } else if (request.isUserInRole(RolConst.ROLE_ADMIN_ZONA)) {
-	     		Long adminZonaLogueadoId = SecurityUtils.getCurrentUserId().get();
-	        	ZonaDto zona = zonaService.findByAdminZonaId(adminZonaLogueadoId).stream().findFirst().get();
-        		model.addAttribute("proveedores", proveedorService.buscarProveedorPorZona(zona.getCodigo()));
+//	     		Long adminZonaLogueadoId = SecurityUtils.getCurrentUserId().get();
+//	        	ZonaDto zona = zonaService.findByAdminZonaId(adminZonaLogueadoId).stream().findFirst().get();
+//        		model.addAttribute("proveedores", proveedorService.buscarProveedorPorZona(zona.getCodigo()));
+        		
+        		model.addAttribute("proveedores", proveedorService.getProveedores());
          
          } 
 		return "proveedores/proveedores";

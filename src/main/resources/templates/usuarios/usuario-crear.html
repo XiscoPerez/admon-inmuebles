@@ -95,7 +95,7 @@ $(document).ready(function() {
 		 		                                    <label class="form-control-label" for="rolId" th:text="#{usuario.rol}"></label>
 			                                        <select  name="rolId" id="rolId" class="form-control" th:field="*{rolSeleccionado}" required >	
 			                                        	<option selected="selected" value="" th:text="#{combo.seleccionar}"></option>
-														<option th:each="rol : ${session.rolesDto}" th:value="${{rol.id}}" th:text="${rol.nombre}"></option>
+														<option th:each="rol : ${session.rolesDto}" th:value="${{rol.id}}" th:text="${rol.descripcion}"></option>
 			                                        </select>
 			                                        <span class="form-control-feedback">
 										                <span th:if="${#fields.hasErrors('rolSeleccionado')}" th:errors="*{rolSeleccionado}"></span>

@@ -132,7 +132,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosProveedor.add(verTicket);
         privilegiosProveedor.add(atenderTicket);
         privilegiosProveedor.add(rechazarTicket);
-        Rol proveedor = createRolIfNotFound(RolConst.ROLE_PROVEEDOR, privilegiosProveedor);
+        Rol proveedor = createRolIfNotFound(RolConst.ROLE_PROVEEDOR, "Proveedor", privilegiosProveedor);
 
         List<Privilegio> privilegiosSocioBi = new ArrayList<>();
         privilegiosSocioBi.add(tablero);
@@ -141,7 +141,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosSocioBi.add(verTicket);
         privilegiosSocioBi.add(abrirTicket);
         privilegiosSocioBi.add(cancelarTicket);
-        Rol socioBi = createRolIfNotFound(RolConst.ROLE_SOCIO_BI, privilegiosSocioBi);
+        Rol socioBi = createRolIfNotFound(RolConst.ROLE_SOCIO_BI, "Socio", privilegiosSocioBi);
 
         List<Privilegio> privilegiosRepBi = new ArrayList<>();
         privilegiosRepBi.add(historialPagoInmuble);
@@ -149,7 +149,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosRepBi.add(listaSocios);
         privilegiosRepBi.add(reporteMorosos);
         privilegiosSocioBi.addAll(privilegiosRepBi);
-        Rol repBi = createRolIfNotFound(RolConst.ROLE_REP_BI, privilegiosSocioBi);
+        Rol repBi = createRolIfNotFound(RolConst.ROLE_REP_BI, "Representante de bien inmueble",  privilegiosSocioBi);
 
         List<Privilegio> privilegiosAdminBi = new ArrayList<>();
         privilegiosAdminBi.addAll(privilegiosRepBi);
@@ -169,12 +169,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosAdminBi.add(gestionarAdminBi);
         privilegiosAdminBi.add(gestionarProveedor);
         privilegiosAdminBi.add(estadoFinancieroColonia);
-        Rol adminBi = createRolIfNotFound(RolConst.ROLE_ADMIN_BI, privilegiosAdminBi);
+        Rol adminBi = createRolIfNotFound(RolConst.ROLE_ADMIN_BI, "Administrador de bien inmueble", privilegiosAdminBi);
 
         List<Privilegio> privilegiosAdminZona = new ArrayList<>();
         privilegiosAdminZona.addAll(privilegiosAdminBi);
         privilegiosAdminZona.add(estadoFinancieroZona);
-        Rol adminZona = createRolIfNotFound(RolConst.ROLE_ADMIN_ZONA, privilegiosAdminZona);
+        Rol adminZona = createRolIfNotFound(RolConst.ROLE_ADMIN_ZONA, "Administrador de zona", privilegiosAdminZona);
 
         List<Privilegio> privilegiosAdminCorp = new ArrayList<>();
         privilegiosAdminCorp.addAll(privilegiosAdminZona);
@@ -182,7 +182,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         privilegiosAdminCorp.add(gestionarAdminZona);
         privilegiosAdminCorp.add(gestionarAdminCorp);
         privilegiosAdminCorp.add(reportes);
-        Rol adminCorp = createRolIfNotFound(RolConst.ROLE_ADMIN_CORP, privilegiosAdminCorp);
+        Rol adminCorp = createRolIfNotFound(RolConst.ROLE_ADMIN_CORP, "Administrador corporativo", privilegiosAdminCorp);
 
         Usuario usuarioProveedorJardineria = createUsuarioIfNotFound("proveedor_jardineria", "Proveedor", "Jardineria", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)), "correo@gmail.com");
         Usuario usuarioProveedorLimpieza = createUsuarioIfNotFound("proveedor_limpieza", "Proveedor", "Limpieza", "", "proveedor", new ArrayList<>(Arrays.asList(proveedor)), "correo@gmail.com");
@@ -228,12 +228,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
-    public final Rol createRolIfNotFound(final String nombre, final Collection<Privilegio> privilegios) {
+    public final Rol createRolIfNotFound(final String nombre, final String descripcion, final Collection<Privilegio> privilegios) {
         Optional<Rol> optRol = rolRepository.findByNombre(nombre);
         Rol rol = optRol.orElse(new Rol());
         if (!optRol.isPresent()) {
             rol.setNombre(nombre);
             rol.setPrivilegios(privilegios);
+            rol.setDescripcion(descripcion);
             rol = rolRepository.save(rol);
         }
 
